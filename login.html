@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - login Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height:100vh;
+      background:linear-gradient(135deg,#0f2a16,#1cbe60,#0f2a16);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px;
+    }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="crm-login-container">
+
+        <!-- LEFT PANEL -->
+        <div class="crm-login-left">
+
+            <div class="brand">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="Student CRM Logo" class="crm-logo">
+                <h1>Student CRM System</h1>
+                <p>
+                    Manage student enquiries, follow-ups, admissions,
+                    counsellors and notifications from one platform.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+
+        <div class="login-right">
+
+            <div class="login-card">
+
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Sign in to continue to your Student CRM dashboard.</p>
+
+                <form id="loginForm">
+
+                    <!-- Email -->
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" id="email" placeholder="Enter your email" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="input-box">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" placeholder="Enter your password">
+                            <i class="fa-solid fa-eye" id="togglePassword"></i>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>    
