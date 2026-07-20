@@ -13,22 +13,11 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
 /*--- Left Side ---*/
-
 .crm-login-left {
   width:50%;
-  background:linear-gradient(160deg,#0f172a,#1e40af);
-  color:#fff;
+  background:linear-gradient(160deg,#ecedf0,#e1e7fa);
+  color:#1b8f34;
   padding:60px;
   display:flex;
   justify-content:center;
@@ -36,106 +25,50 @@
   text-align:center;
 }
 
-
-
-
-
-
-
-
 .crm-logo {
   width:180px;
   margin-bottom:10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.brand h1{
-    font-size:38px;
-    font-weight:700;
-    margin-bottom:20px;
+.crm-brand h1 {
+  font-size:38px;
+  font-weight:700;
+  margin-bottom:20px;
 }
 
-.brand p{
-    line-height:1.8;
-    font-size:16px;
-    color:#dbeafe;
-    margin-bottom:50px;
+.crm-brand p { 
+  line-height:1.8;
+  font-size:17px;
+  color:#205caa;
+  margin-bottom:50px;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ===========================
-   Right Side
-=========================== */
-
-.login-right{
-
-    width:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#f8fafc;
-
-    padding:50px;
-
+/*--- Right Side ---*/
+.crm-login-right {
+  width:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#618bc2;
+  padding:50px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ===========================
    Login Card
