@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    </style>
+
+</head>
+<body>
+
+
+    <!-- CRM dashboard Header -->
+    <header class="crm-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="crm-header-left">
+
+            <div class="crm-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="crm-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="crm-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="crm-header-right">
+
+            <!-- Notification -->
+            <div class="crm-notification">
+                <i class="fa-solid fa-bell"></i>
+                <span class="crm-notification-count">5</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="crm-profile-dropdown">
+
+            <div class="crm-profile-btn" onclick="toggleDropdown()">
+
+                <div class="crm-avatar">
+                    <i class="fa fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <i class="fa-solid fa-angle-down"></i>
+
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="crm-dropdown-menu" id="dropdownMenu">
+
+                <a href="#"><i class="fa fa-user"></i>My Profile</a>
+
+                <a href="#"><i class="fa fa-cog"></i>Settings</a>
+
+                <a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+  
+
+
+    <!-- CRM Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="#" class="active"><i class="fa fa-home"></i>Dashboard</a>
+
+                <!-- Course Management -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-book"></i>Course Management
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#" class="active"><i class="fa fa-plus"></i>Add Course</a>
+                        <a href="#" class="active"><i class="fa fa-list"></i>Manage Courses</a>
+                    </div>
+
+                </div>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="#"><i class="fa fa-users"></i>Manage Enquiries</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
+                        <a href="#"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="#"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                    </div>
+
+                </div>
+
+                <!-- Reports -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-chart-bar"></i>Reports
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
+                        <a href="#"><i class="fa fa-chart-line"></i>Admission Reports</a>
+                    </div>
+
+                </div>
+
+                <!-- Users -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-shield"></i>Users
+                        <i class="fa fa-angle-down"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-user-plus"></i>Add User</a>
+                        <a href="#"><i class="fa fa-users-cog"></i>Manage Users</a>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="dashboard-container"> -->
+
+    
+    <!-- Main -->
+
+    <!-- <main class="main-content"> -->
+
+        <!-- Header -->
+
+        <!-- <header class="topbar">
+
+            <h1>Dashboard Overview</h1>
+
+            <div class="topbar-right">
+
+                <div class="notification">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span>5</span>
+
+                </div>
+
+                <div class="profile">
+
+                    <img src="image/admin.png" alt="Admin">
+
+                    <span>Admin</span>
+
+                    <i class="fa-solid fa-angle-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+ -->
+        <!-- Cards -->
+
+        <!-- <section class="cards">
+
+            <div class="card">
+                <h3>Total Enquiries</h3>
+                <h2>248</h2>
+            </div>
+
+            <div class="card">
+                <h3>Today's Follow-ups</h3>
+                <h2>18</h2>
+            </div>
+
+            <div class="card">
+                <h3>Admissions</h3>
+                <h2>72</h2>
+            </div>
+
+            <div class="card">
+                <h3>Users</h3>
+                <h2>12</h2>
+            </div>
+
+        </section> -->
+
+        <!-- Recent Enquiries -->
+
+        <!-- <section class="table-section">
+
+            <h2>Recent Student Enquiries</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Course</th>
+
+                        <th>Mobile</th>
+
+                        <th>Status</th>
+
+                        <th>Counsellor</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Rahul</td>
+
+                        <td>Full Stack</td>
+
+                        <td>9876543210</td>
+
+                        <td>Interested</td>
+
+                        <td>Priya</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Arun</td>
+
+                        <td>Java</td>
+
+                        <td>9876501234</td>
+
+                        <td>Follow-up</td>
+
+                        <td>Meena</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section> -->
+
+        <!-- Bottom -->
+
+        <!-- <section class="bottom-grid">
+
+            <div class="followups">
+
+                <h2>Today's Follow-ups</h2>
+
+                <ul>
+
+                    <li>Rahul - 10:00 AM</li>
+
+                    <li>Priya - 12:30 PM</li>
+
+                    <li>Arun - 03:00 PM</li>
+
+                </ul>
+
+            </div>
+
+            <div class="notifications">
+
+                <h2>Notifications</h2>
+
+                <ul>
+
+                    <li>New enquiry received.</li>
+
+                    <li>3 follow-ups pending.</li>
+
+                    <li>Admission completed.</li>
+
+                </ul>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+ -->
+
+
+
+
+
+<!-- Profile dropdown JS - Script -->
+<script>
+    function toggleDropdown(){
+
+    document.getElementById("dropdownMenu").classList.toggle("show");
+
+}
+
+window.onclick = function(e){
+
+    if(!e.target.closest(".crm-profile-dropdown")){
+
+        document.getElementById("dropdownMenu").classList.remove("show");
+
+    }
+
+}
+</script> 
+
+
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+</body>
+</html>    

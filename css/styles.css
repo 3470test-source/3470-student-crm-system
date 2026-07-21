@@ -55,6 +55,357 @@
 }
 
 
+/*--- Login Card ---*/
+.crm-login-card {
+  width:100%;
+  max-width:450px;
+  background:#fff;
+  padding:45px;
+  border-radius:18px;
+  box-shadow:0 15px 40px rgb(7, 131, 55);
+}
+
+.crm-login-card h2 {
+  font-size:34px;
+  color:#0f172a;
+  margin-bottom:10px;
+}
+
+.crm-subtitle {
+  color:#114388;
+  margin-bottom:35px;
+  line-height:1.6;
+}
+
+.crm-login-input-group {
+  margin-bottom:25px;
+}
+
+.crm-login-input-group label {
+  display:block;
+  margin-bottom:10px;
+  color:#334155;
+  font-weight:600;
+}
+
+.crm-login-input-box {
+  position:relative;
+}
+
+.crm-login-input-box input {
+  width:100%;
+  height:50px;
+  border:1px solid #dbe2ea;
+  border-radius:12px;
+  outline:none;
+  padding-left:50px;
+  padding-right:50px;
+  font-size:14px;
+  transition:.3s;
+}
+
+.crm-login-input-box input:focus {
+  border-color:#1ab45f;
+  box-shadow:0 0 0 4px rgba(21, 150, 74, 0.12);
+}
+
+.crm-login-input-box i:first-child{
+  position:absolute;
+  left:18px;
+  top:18px;
+  color:#64748b;
+}
+
+.crm-togglePassword {
+  position:absolute;
+  right:18px;
+  top:20px;
+  cursor:pointer;
+  color:#64748b;
+}
+
+.crm-togglePassword:hover {
+  color: #107e42;
+}
+
+/*--- Login Button ---*/
+.crm-loginBtn {
+  width:100%;
+  height:40px;
+  border:none;
+  border-radius:12px;
+  background:#2563eb;
+  color:#fff;
+  font-size:17px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+  margin-top:5px;
+}
+
+.crm-loginBtn:hover {
+  background:#107e42;
+  transform:translateY(-2px);
+  box-shadow:0 15px 30px rgba(37,99,235,.30);
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+                        /* ===================================
+                                  CRM DASHBOARD HEADER
+                        =================================== */
+
+.crm-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: white;
+  color: #037c40;
+  height: 90px;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.05);  
+}
+
+
+/*--- LEFT ---*/
+.crm-header-left {
+  display:flex;
+  align-items:center;  
+  gap: 55px;
+}
+
+.crm-header-logo img {
+  width:130px;  
+  object-fit:contain;
+}
+
+.crm-header-menu-btn {
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+  margin-left: 50px;
+  background:#f1f5f9;
+}
+
+.crm-header-menu-btn:hover {
+  background:#0b8653;     
+}
+
+.crm-header-menu-btn i {
+  font-size:20px;
+  color:#1e3a8a;
+}
+
+.crm-header-menu-btn:hover i {
+  color:#ffffff;
+}
+
+
+/*--- CENTER TITLE ---*/
+.crm-header-center {
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:1px;    
+}
+
+
+/*--- RIGHT ---*/
+.crm-header-right {
+  display:flex;
+  align-items:center;
+  gap:100px;
+}
+
+
+/*--- NOTIFICATION ---*/
+.crm-notification {
+  position:relative;
+  width:42px;
+  height:42px;
+  background:#f1f5f9;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-notification i {
+  font-size:20px;
+  color:#1e3a8a;
+}
+
+.crm-notification:hover {
+  background:#0b8653;
+}
+
+.crm-notification:hover i {
+  color:#ffffff;
+}
+
+.crm-notification-count {
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  width:20px;
+  height:20px;
+  background:#ef4444;
+  color:#ffffff;
+  border-radius:50%;
+  font-size:11px;
+  font-weight:600;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+/*--- PROFILE ---*/
+.crm-profile-dropdown {
+  position:relative;
+}
+
+.crm-profile-btn {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:#f8fafc;
+  padding:8px 15px;
+  border-radius:50px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-profile-btn:hover {
+  background:#0b8653;
+}
+
+.crm-avatar {
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#2563eb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.crm-avatar i {
+  color:#ffffff;
+  font-size:18px;
+}
+
+.crm-profile-btn span {
+  font-weight:600;
+  color:#334155;
+}
+
+.crm-profile-btn:hover span {
+  color:white;
+}
+
+.crm-profile-btn:hover i {
+  color:white;
+}
+
+
+/*--- Profile - DROPDOWN ---*/
+.crm-dropdown-menu {
+  position:absolute;
+  right:0;
+  top:60px;
+  width:200px;
+  background:#ffffff;
+  border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,.15);
+  display:none;
+  overflow:hidden;
+  border : 1px solid rgb(9, 117, 36);
+  z-index: 999;
+}
+
+.crm-dropdown-menu a {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  text-decoration:none;
+  color:#334155;
+  transition:.3s;
+}
+
+.crm-dropdown-menu.show{
+  display:block;
+}
+
+.crm-dropdown-menu a:hover{
+  background:#09813f;
+  color:#ffffff;
+}
+
+.crm-dropdown-menu i {
+  width:18px;
+  color: rgb(6, 131, 48)
+}
+
+.crm-dropdown-menu:hover i {
+  color: rgb(248, 252, 249)
+}
+
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+
+                        /* =========================================
+                                    CRM Dashboard - SIDEBAR
+                        ========================================= */
+
+.crm-sidebar-container {
+  display: flex;
+  min-height: calc(100vh - 60px);
+}
+
+.crm-sidebar {
+  width: 260px;
+  background:linear-gradient(135deg,#01351f,#078b54);
+  color: #fff;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.crm-sidebar a {
+  text-decoration: none;
+  color: white;
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: 0.3s;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.crm-sidebar a:hover {
+  background:#2563eb;
+  color:#fff;
+}
+
+.crm-sidebar a i {
+  width:20px;
+  text-align:center;
+  color: rgb(224, 93, 6);
+}
+
+.crm-sidebar a:hover i {
+  color: rgb(238, 245, 240);
+}
 
 
 
@@ -70,198 +421,152 @@
 
 
 
-/* ===========================
-   Login Card
-=========================== */
 
-.login-card{
 
-    width:100%;
 
-    max-width:450px;
 
-    background:#fff;
 
-    padding:45px;
 
-    border-radius:18px;
 
-    box-shadow:
-    0 15px 40px rgba(0,0,0,.08);
+
+
+
+
+/*=========================================
+   Dropdown
+=========================================*/
+
+.crm-dropdown{
+
+    border-top:1px solid rgba(255,255,255,.08);
 
 }
 
-.login-card h2{
-
-    font-size:34px;
-
-    color:#0f172a;
-
-    margin-bottom:10px;
-
-}
-
-.subtitle{
-
-    color:#64748b;
-
-    margin-bottom:35px;
-
-    line-height:1.6;
-
-}
-
-/* ===========================
-   Form
-=========================== */
-
-.input-group{
-
-    margin-bottom:25px;
-
-}
-
-.input-group label{
-
-    display:block;
-
-    margin-bottom:10px;
-
-    color:#334155;
-
-    font-weight:600;
-
-}
-
-.input-box{
-
-    position:relative;
-
-}
-
-.input-box input{
-
-    width:100%;
-
-    height:55px;
-
-    border:1px solid #dbe2ea;
-
-    border-radius:12px;
-
-    outline:none;
-
-    padding-left:50px;
-
-    padding-right:50px;
-
-    font-size:15px;
-
-    transition:.3s;
-
-}
-
-.input-box input:focus{
-
-    border-color:#2563eb;
-
-    box-shadow:0 0 0 4px rgba(37,99,235,.12);
-
-}
-
-.input-box i:first-child{
-
-    position:absolute;
-
-    left:18px;
-
-    top:18px;
-
-    color:#64748b;
-
-}
-
-#togglePassword{
-
-    position:absolute;
-
-    right:18px;
-
-    top:18px;
-
-    cursor:pointer;
-
-    color:#64748b;
-
-}
-
-/* ===========================
-   Login Button
-=========================== */
-
-.login-btn{
-
-    width:100%;
-
-    height:55px;
-
-    border:none;
-
-    border-radius:12px;
-
-    background:#2563eb;
-
-    color:#fff;
-
-    font-size:17px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    margin-top:10px;
-
-}
-
-.login-btn:hover{
-
-    background:#1d4ed8;
-
-    transform:translateY(-2px);
-
-    box-shadow:0 15px 30px rgba(37,99,235,.30);
-
-}
-
-/* ===========================
-   Forgot Password
-=========================== */
-
-.forgot{
+.crm-dropdown-btn{
 
     display:flex;
 
-    justify-content:flex-end;
+    justify-content:space-between;
 
-    margin:15px 0;
+    align-items:center;
+
+    padding:16px 22px;
+
+    color:#ffffff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-size:15px;
+
+    font-weight:500;
 
 }
 
-.forgot a{
+.crm-dropdown-btn:hover{
 
-    color:#2563eb;
+    background:#2563eb;
+
+}
+
+.crm-dropdown-btn i:first-child{
+
+    width:22px;
+
+    margin-right:10px;
+
+}
+
+.crm-dropdown-btn .fa-angle-down{
+
+    margin-left:auto;
+
+    transition:.3s;
+
+}
+
+/*=========================================
+   Dropdown Content
+=========================================*/
+
+.crm-dropdown-content{
+
+    display:none;
+
+    background:#17306f;
+
+}
+
+.crm-dropdown-content a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:13px 55px;
 
     text-decoration:none;
 
+    color:#dbeafe;
+
     font-size:14px;
 
-}
-
-.forgot a:hover{
-
-    text-decoration:underline;
+    transition:.3s;
 
 }
+
+.crm-dropdown-content a:hover{
+
+    background:#2563eb;
+
+    color:#ffffff;
+
+}
+
+.crm-dropdown.active .crm-dropdown-content{
+
+    display:block;
+
+}
+
+.crm-dropdown.active .fa-angle-down{
+
+    transform:rotate(180deg);
+
+}
+
+/*=========================================
+   Overlay
+=========================================*/
+
+#crmSidebarOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    z-index:998;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
