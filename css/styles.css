@@ -656,26 +656,324 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 
+                    /* =========================================
+                                CRM - ADD COURSE PAGE
+                    ========================================= */
+
+.crm-addCourse-header {
+  margin-bottom:25px;
+}
+
+.crm-addCourse-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-addCourse-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
 
 
+/*--- FORM CONTAINER -Add course ---*/
+.crm-form-AddCourse {
+  background:#ffffff;
+  border-radius:12px;
+  padding:30px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
 
 
+/*--- Add Course - FORM GRID ---*/
+.crm-form-grid-AddCourse {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+  margin-bottom:20px;
+}
 
 
+/*--- Add Course - FORM GROUP ---*/
+.crm-form-group-AddCourse {
+  display:flex;
+  flex-direction:column;
+}
+
+.crm-form-group-AddCourse label {
+  font-size:15px;
+  font-weight:600;
+  color:#295696;
+  margin-bottom:8px;
+}
+
+.crm-form-group-AddCourse label span {
+  color:#ef4444;
+}
+
+/*--- Add Course - INPUTS ---*/
+.crm-form-group-AddCourse input,
+.crm-form-group-AddCourse select,
+.crm-form-group-AddCourse textarea {
+  width:100%;
+  padding:12px 15px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+  transition:.3s;
+  font-family:inherit;
+  background:#ffffff;
+}
+
+.crm-form-group-AddCourse textarea {
+  resize:vertical;
+  min-height:100px;
+}
 
 
+/*--- AddCourse INPUT FOCUS ---*/
+.crm-form-group-AddCourse input:focus,
+.crm-form-group-AddCourse select:focus,
+.crm-form-group-AddCourse textarea:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
 
 
+/*--- BUTTONS ---*/
+.crm-form-AddCourse-buttons {
+  display:flex;
+  gap:15px;
+  margin-top:25px;
+}
+
+.crm-btn-save {
+  background:#2563eb;
+  color:#ffffff;
+  border:none;
+  padding:14px 28px;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-btn-save:hover {
+  background:#088131;
+}
+
+.crm-btn-reset {
+  background:#e0ebf7;
+  color:#334155;
+  border:none;
+  padding:14px 28px;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-btn-reset:hover {
+  background:#d12525;
+  color:white;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
+                        /* =========================================
+                                  CRM - MANAGE COURSES PAGE
+                        ========================================= */
+
+.crm-manageCourses-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+.crm-manageCourses-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-manageCourses-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
 
 
+/*--- Add Course Button ---*/
+.crm-add-btn {
+  background:#2563eb;
+  color:#ffffff;
+  text-decoration:none;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-add-btn i {
+  margin-right:8px;
+}
+
+.crm-add-btn:hover {
+  background:#1d4ed8;
+}
 
 
+/*--- SEARCH & FILTER ---*/
+.crm-filter-manageCourse {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.crm-ManageCourse-search-box {
+  position:relative;
+  width:350px;
+}
+
+.crm-ManageCourse-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-ManageCourse-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-ManageCourse-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+.crm-ManageCourse-filter-box select {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+  cursor:pointer;
+}
 
 
+/*--- Manage Courses - TABLE ---*/
+.crm-table-manageCourse {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.crm-table-MC {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-MC thead {
+  background:#2563eb;
+}
+
+.crm-table-MC th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
+  font-size:15px;
+}
+
+.crm-table-MC td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
+}
+
+.crm-table-MC tbody tr:hover{  
+  background:#d0ecdf;
+}
 
 
+/*--- STATUS ---*/
+.crm-status {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.crm-status.active {
+  background:#dcfce7;
+  color:#15803d;
+}
+
+.crm-status.inactive {
+  background:#fee2e2;
+  color:#dc2626;
+}
 
 
+/*--- ACTION BUTTONS ---*/
+.crm-edit-btn,
+.crm-delete-btn {
+  width:35px;
+  height:35px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+  margin-right:8px;
+}
+
+.crm-edit-btn {
+  background:#2563eb;
+  color:#ffffff;
+}
+
+.crm-edit-btn:hover {
+  background:#1d4ed8;
+}
+
+.crm-delete-btn {
+  background:#ef4444;
+  color:#ffffff;
+}
+
+.crm-delete-btn:hover {
+  background:#dc2626;
+}
 
 
+/*--- Manage Course - TABLE FOOTER ---*/
+.crm-table-footer {
+  margin-top:18px;
+  color:#64748b;
+  font-size:16px;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------------- */
 

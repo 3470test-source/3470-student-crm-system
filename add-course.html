@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+    <title>3470 Healthcare & Student CRM System - Add Course Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -88,7 +88,7 @@
     </div>
 
 </header>
-  
+
 
     <!-- CRM Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
@@ -191,182 +191,102 @@
 
             </aside>
 
-        
-            <!-- MAIN CRM - DASHBOARD CONTAINER -->
+
+            <!-- ADD COURSE -->
             <main class="crm-dashboard-main">
 
-                <!-- Dashboard Title -->
-                <div class="crm-dashboard-title">
-                    <h2>Dashboard Overview</h2>
-                    <p>Welcome back, Admin! Here's an overview of today's CRM performance.</p>         
-                </div>
-
-                <!-- Dashboard Cards -->
-                <div class="crm-dashboard-cards">
-
-                    <!-- Enquiry -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon enquiry">
-                            <i class="fa-solid fa-user-graduate"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Total Enquiries</h3>
-                            <h2>250</h2>
-                        </div>
-                    </div>
-
-                    <!-- Follow-Up -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon followup">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Today's Follow-ups</h3>
-                            <h2>18</h2>
-                        </div>
-                    </div>
-
-                    <!-- Admission -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon admission">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Admissions</h3>
-                            <h2>72</h2>
-                        </div>
-                    </div>
-
-                    <!-- Users -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon users">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Users</h3>
-                            <h2>5</h2>
-                        </div>
-                    </div>
-
+                <div class="crm-addCourse-header">
+                    <h2>Add Course</h2>
+                    <p>Create a new course for student enquiries and admissions.</p>
                 </div>
 
 
-                <!-- Today's Follow-ups -->
-                <div class="crm-dashboard-box">
+                <!-- Add Course -->
+                <div class="crm-form-AddCourse">
 
-                    <div class="crm-box-header">
-                        <h3>Today's Follow-ups</h3>
-                    </div>
+                    <form id="addCourseForm" class="addCourse-From">
 
-                    <table class="crm-table">
+                        <div class="crm-form-grid-AddCourse">
 
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Course</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
+                            <!-- Course Name -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Course Name <span>*</span></label>
+                                <input type="text" name="courseName" placeholder="Enter course name" required>
+                            </div>
 
-                        <tbody>
-                            <tr>
-                                <td>Rahul</td>
-                                <td>Full Stack</td>
-                                <td>10:00 AM</td>
-                                <td>Pending</td>
-                            </tr>
+                            <!-- Course Category -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Course Category</label>
+                                <select name="category">
+                                    <option value="">-- Select Category --</option>
+                                    <option value="BMCT">BMCT - Basic Medical Coding Training</option>
+                                    <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
+                                    <option value="CPC">CPC - Certified Professional Coder</option>
+                                    <option value="E&M">E&M - Evaluation & Management</option>
+                                    <option value="IPDRG">IPDRG - Inpatient Diagnosis-Related Group</option>
+                                    <option value="ED">ED - Emergency Department</option>
+                                    <option value="CCS">CCS - Certified Coding Specialist</option>
+                                    <option value="CPMA">CPMA - Certified Professional Medical Auditor</option>
+                                    <option value="CRC">CRC - Certified Risk Adjustment Coder</option>
+                                    <option value="IVR">IVR - Interventional Radiology</option>
+                                    <option value="Surgery">Surgery</option>
+                                </select>
+                            </div>
 
-                            <tr>
-                                <td>Priya</td>
-                                <td>Java</td>
-                                <td>12:30 PM</td>
-                                <td>Completed</td>
-                            </tr>
-                        </tbody>
+                            <!-- Course Duration -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Course Duration</label>
+                                <input type="text" name="duration" placeholder="Example: 3 Months">
+                            </div>
 
-                    </table>
+                            <!-- Course Fee -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Course Fee</label>
+                                <input type="number" name="courseFee" placeholder="Enter fee">
+                            </div>
 
-                </div>
+                            <!-- Trainer Name -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Trainer Name</label>
+                                <input type="text" name="trainer" placeholder="Enter trainer name">
+                            </div>
 
+                            <!-- Course Mode -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Course Mode</label>
+                                <select name="mode">
+                                    <option value="">-- Course Mode --</option>
+                                    <option value="Online">Online</option>
+                                    <option value="Offline">Offline</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                </select>
+                            </div>
 
-                <!-- Recent Student Enquiries -->
-                <div class="crm-dashboard-box">
+                            <!-- Status -->
+                            <div class="crm-form-group-AddCourse">
+                                <label>Status</label>
+                                <select name="status">
+                                    <option value="">-- Status --</option>
+                                    <option value="active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
 
-                    <div class="crm-box-header">
-                        <h3>Recent Student Enquiries</h3>
-                    </div>
-
-                    <table class="crm-table">
-
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Course</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Arun</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>Interested</td>
-                            </tr>
-
-                            <tr>
-                                <td>Kavin</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>Follow-up</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-                <!-- Notifications -->
-                <div class="crm-bottom-grid">
-
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Notifications</h3>
                         </div>
 
-                        <ul class="crm-notification-list">
-                            <li>📞 Rahul follow-up at 10:00 AM</li>
-                            <li>🎓 New admission completed</li>
-                            <li>🆕 New enquiry received</li>
-                            <li>⚠️ Two follow-ups pending</li>
-                        </ul>
-
-                    </div>
-
-
-                    <!-- Quick Actions -->
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Quick Actions</h3>
+                        <!-- Description -->
+                        <div class="crm-form-group-AddCourse">
+                            <label>Course Description</label>
+                            <textarea rows="5" placeholder="Enter course description"></textarea>
                         </div>
 
-                        <div class="crm-actions">
-                            <button>Add Enquiry</button>
-                            <button>Add Follow-up</button>
-                            <button>New Admission</button>
-                            <button>Generate Report</button>
+                        <!-- Buttons -->
+                        <div class="crm-form-AddCourse-buttons">
+                            <button type="submit" class="crm-btn-save">Save Course</button>
+                            <button type="reset" class="crm-btn-reset">Reset</button>
                         </div>
 
-                    </div>
+                    </form>
 
                 </div>
 
@@ -374,7 +294,7 @@
 
         </div>
 
-
+    
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){
@@ -415,3 +335,4 @@ dropdowns.forEach(dropdown => {
 
 </body>
 </html>    
+

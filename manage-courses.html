@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+    <title>3470 Healthcare & Student CRM System - Manage Courses Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -88,7 +88,7 @@
     </div>
 
 </header>
-  
+
 
     <!-- CRM Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
@@ -191,190 +191,120 @@
 
             </aside>
 
-        
-            <!-- MAIN CRM - DASHBOARD CONTAINER -->
+
+            <!-- CRM - MANAGE COURSES -->
             <main class="crm-dashboard-main">
 
-                <!-- Dashboard Title -->
-                <div class="crm-dashboard-title">
-                    <h2>Dashboard Overview</h2>
-                    <p>Welcome back, Admin! Here's an overview of today's CRM performance.</p>         
+                <!-- Manage Courses Page Header -->
+                <div class="crm-manageCourses-header">
+
+                    <div>
+                        <h2>Manage Courses</h2>
+                        <p>View, search, edit and manage all available courses.</p>
+                    </div>
+
+                        <a href="add-course.html" class="crm-add-btn"><i class="fa fa-plus"></i>Add Course</a>
+
                 </div>
 
-                <!-- Dashboard Cards -->
-                <div class="crm-dashboard-cards">
+                <!-- Search & Filter -->
+                <div class="crm-filter-manageCourse">
 
-                    <!-- Enquiry -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon enquiry">
-                            <i class="fa-solid fa-user-graduate"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Total Enquiries</h3>
-                            <h2>250</h2>
-                        </div>
+                    <div class="crm-ManageCourse-search-box">
+                        <i class="fa fa-search"></i>
+                         <input type="text" id="searchCourse" placeholder="Search course...">
                     </div>
 
-                    <!-- Follow-Up -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon followup">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Today's Follow-ups</h3>
-                            <h2>18</h2>
-                        </div>
-                    </div>
-
-                    <!-- Admission -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon admission">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Admissions</h3>
-                            <h2>72</h2>
-                        </div>
-                    </div>
-
-                    <!-- Users -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon users">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Users</h3>
-                            <h2>5</h2>
-                        </div>
+                    <div class="crm-ManageCourse-filter-box">
+                        <select id="courseStatus">
+                            <option value="">-- All Status --</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
                     </div>
 
                 </div>
 
 
-                <!-- Today's Follow-ups -->
-                <div class="crm-dashboard-box">
+                <!-- Course Table -->
+                <div class="crm-table-manageCourse">
 
-                    <div class="crm-box-header">
-                        <h3>Today's Follow-ups</h3>
-                    </div>
-
-                    <table class="crm-table">
+                    <table class="crm-table-MC">
 
                         <thead>
                             <tr>
-                                <th>Student Name</th>
-                                <th>Course</th>
-                                <th>Time</th>
+                                <th>#</th>
+                                <th>Course Name</th>
+                                <th>Category</th>
+                                <th>Duration</th>
+                                <th>Fee</th>
                                 <th>Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
-                                <td>Rahul</td>
-                                <td>Full Stack</td>
-                                <td>10:00 AM</td>
-                                <td>Pending</td>
+                                <td>1</td>
+                                <td>Basic Medical Coding Training</td>
+                                <td>Programming</td>
+                                <td>6 Months</td>
+                                <td>₹25,000</td>
+                                <td>
+                                    <span class="crm-status active">Active</span>
+                                </td>
+                                <td>
+                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                </td>
                             </tr>
 
                             <tr>
-                                <td>Priya</td>
-                                <td>Java</td>
-                                <td>12:30 PM</td>
-                                <td>Completed</td>
+                                <td>2</td>
+                                <td>Certified Professional Coder</td>
+                                <td>Programming</td>
+                                <td>3 Months</td>
+                                <td>₹15,000</td>
+                                <td>
+                                    <span class="crm-status active">Active</span>
+                                </td>
+                                <td>
+                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                </td>
                             </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td>Java Development</td>
+                                <td>Programming</td>
+                                <td>4 Months</td>
+                                <td>₹18,000</td>
+                                <td>
+                                    <span class="crm-status inactive">Inactive</span>
+                                </td>
+                                <td>
+                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+
                         </tbody>
 
                     </table>
 
                 </div>
 
+            <!-- Footer -->
+            <div class="crm-table-footer">
+                <p>Showing 1 to 3 of 3 Courses</p>
+            </div>
 
-                <!-- Recent Student Enquiries -->
-                <div class="crm-dashboard-box">
+        </main>
 
-                    <div class="crm-box-header">
-                        <h3>Recent Student Enquiries</h3>
-                    </div>
+    </div>
 
-                    <table class="crm-table">
-
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Course</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Arun</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>Interested</td>
-                            </tr>
-
-                            <tr>
-                                <td>Kavin</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>Follow-up</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-                <!-- Notifications -->
-                <div class="crm-bottom-grid">
-
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Notifications</h3>
-                        </div>
-
-                        <ul class="crm-notification-list">
-                            <li>📞 Rahul follow-up at 10:00 AM</li>
-                            <li>🎓 New admission completed</li>
-                            <li>🆕 New enquiry received</li>
-                            <li>⚠️ Two follow-ups pending</li>
-                        </ul>
-
-                    </div>
-
-
-                    <!-- Quick Actions -->
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Quick Actions</h3>
-                        </div>
-
-                        <div class="crm-actions">
-                            <button>Add Enquiry</button>
-                            <button>Add Follow-up</button>
-                            <button>New Admission</button>
-                            <button>Generate Report</button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </main>
-
-        </div>
-
-
+    
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){
@@ -415,3 +345,4 @@ dropdowns.forEach(dropdown => {
 
 </body>
 </html>    
+
