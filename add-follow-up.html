@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+    <title>3470 Healthcare & Student CRM System - Manage Courses Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -88,7 +88,7 @@
     </div>
 
 </header>
-  
+
 
     <!-- CRM Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
@@ -192,190 +192,130 @@
 
             </aside>
 
-        
-            <!-- MAIN CRM - DASHBOARD CONTAINER -->
+
+            <!-- ADD FOLLOW-UP PAGE -->
             <main class="crm-dashboard-main">
 
-                <!-- Dashboard Title -->
-                <div class="crm-dashboard-title">
-                    <h2>Dashboard Overview</h2>
-                    <p>Welcome back, Admin! Here's an overview of today's CRM performance.</p>         
+                <div class="crm-page-header">
+                    <div>
+                        <h2>Add Follow-up</h2>
+                        <p>Record a follow-up for an existing student enquiry.</p>
+                    </div>
                 </div>
 
-                <!-- Dashboard Cards -->
-                <div class="crm-dashboard-cards">
+                <!-- Follow-up Form -->
+                <div class="crm-form-container">
 
-                    <!-- Enquiry -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon enquiry">
-                            <i class="fa-solid fa-user-graduate"></i>
+                    <form action="#">
+
+                        <div class="crm-form-grid">
+
+                            <!-- Student Name -->
+                            <div class="crm-form-group">
+                                <label>Student Name</label>
+                                <input type="text" placeholder="Enter student name">
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="crm-form-group">
+                                <label>Mobile Number</label>
+                                <input type="text" placeholder="Enter mobile number">
+                            </div>
+
+                            <!-- Course -->
+                            <div class="crm-form-group">
+                                <label>Course</label>
+                                <select>
+                                    <option>Select Course</option>
+                                    <option>Python</option>
+                                    <option>Java</option>
+                                    <option>Full Stack Development</option>
+                                    <option>React JS</option>
+                                </select>
+                            </div>
+
+                            <!-- Counsellor -->
+                            <div class="crm-form-group">
+                                <label>Counsellor</label>
+                                <select>
+                                    <option>Select Counsellor</option>
+                                    <option>Priya</option>
+                                    <option>Meena</option>
+                                    <option>Karthik</option>
+                                </select>
+                            </div>
+
+                            <!-- Follow-up Date -->
+                            <div class="crm-form-group">
+                                <label>Follow-up Date</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Follow-up Time -->
+                            <div class="crm-form-group">
+                                <label>Follow-up Time</label>
+                                <input type="time">
+                            </div>
+
+                            <!-- Follow-up Type -->
+                            <div class="crm-form-group">
+                                <label>Follow-up Type</label>
+                                <select>
+                                    <option>Select Type</option>
+                                    <option>Phone Call</option>
+                                    <option>WhatsApp</option>
+                                    <option>Email</option>
+                                    <option>Walk-in</option>
+                                </select>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="crm-form-group">
+                                <label>Status</label>
+                                <select>
+                                    <option>Select Status</option>
+                                    <option>Interested</option>
+                                    <option>Not Interested</option>
+                                    <option>Call Back</option>
+                                    <option>Admission Confirmed</option>
+                                </select>
+                            </div>
+
+                            <!-- Next Follow-up Date -->
+                            <div class="crm-form-group">
+                                <label>Next Follow-up Date</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Next Follow-up Time -->
+                            <div class="crm-form-group">
+                                <label>Next Follow-up Time</label>
+                                <input type="time">
+                            </div>
+
                         </div>
 
-                        <div class="crm-card-content">
-                            <h3>Total Enquiries</h3>
-                            <h2>250</h2>
-                        </div>
-                    </div>
+                            <!-- Comments -->
+                            <div class="crm-form-group">
+                                <label>Comments</label>
+                                <textarea rows="6" placeholder="Enter follow-up remarks"></textarea>
+                            </div>
 
-                    <!-- Follow-Up -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon followup">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
+                            <!-- Buttons -->
+                            <div class="crm-form-buttons">
+                                <button type="reset" class="crm-reset-btn">Reset</button>
+                                <button type="submit" class="crm-save-btn">Save Follow-up</button>
+                            </div>
 
-                        <div class="crm-card-content">
-                            <h3>Today's Follow-ups</h3>
-                            <h2>18</h2>
-                        </div>
-                    </div>
-
-                    <!-- Admission -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon admission">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Admissions</h3>
-                            <h2>72</h2>
-                        </div>
-                    </div>
-
-                    <!-- Users -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon users">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Users</h3>
-                            <h2>5</h2>
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <!-- Today's Follow-ups -->
-                <div class="crm-dashboard-box">
-
-                    <div class="crm-box-header">
-                        <h3>Today's Follow-ups</h3>
-                    </div>
-
-                    <table class="crm-table">
-
-                        <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Course</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Rahul</td>
-                                <td>Full Stack</td>
-                                <td>10:00 AM</td>
-                                <td>Pending</td>
-                            </tr>
-
-                            <tr>
-                                <td>Priya</td>
-                                <td>Java</td>
-                                <td>12:30 PM</td>
-                                <td>Completed</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-                <!-- Recent Student Enquiries -->
-                <div class="crm-dashboard-box">
-
-                    <div class="crm-box-header">
-                        <h3>Recent Student Enquiries</h3>
-                    </div>
-
-                    <table class="crm-table">
-
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Mobile</th>
-                                <th>Course</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Arun</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>Interested</td>
-                            </tr>
-
-                            <tr>
-                                <td>Kavin</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>Follow-up</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-                <!-- Notifications -->
-                <div class="crm-bottom-grid">
-
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Notifications</h3>
-                        </div>
-
-                        <ul class="crm-notification-list">
-                            <li>📞 Rahul follow-up at 10:00 AM</li>
-                            <li>🎓 New admission completed</li>
-                            <li>🆕 New enquiry received</li>
-                            <li>⚠️ Two follow-ups pending</li>
-                        </ul>
-
-                    </div>
-
-
-                    <!-- Quick Actions -->
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Quick Actions</h3>
-                        </div>
-
-                        <div class="crm-actions">
-                            <button>Add Enquiry</button>
-                            <button>Add Follow-up</button>
-                            <button>New Admission</button>
-                            <button>Generate Report</button>
-                        </div>
-
-                    </div>
+                    </form>
 
                 </div>
 
             </main>
 
-        </div>
+    </div>
 
-
+    
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){

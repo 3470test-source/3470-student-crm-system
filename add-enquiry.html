@@ -193,98 +193,150 @@
             </aside>
 
 
-            <!-- ADD COURSE -->
+            <!--- ADD STUDENT ENQUIRY --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-addCourse-header">
-                    <h2>Add Course</h2>
-                    <p>Create a new course for student enquiries and admissions.</p>
+                <div class="crm-addEnquiry-header">
+                    <h2>Add Student Enquiry</h2>
+                    <p>Create a new student enquiry and schedule follow-up.</p>
                 </div>
 
+                <!-- AddEnquiry Form -->
+                <div class="crm-form-AddEnquiry">
 
-                <!-- Add Course -->
-                <div class="crm-form-AddCourse">
+                    <form id="studentEnquiryForm" class="addEnquiry">
 
-                    <form id="addCourseForm" class="addCourse-From">
+                        <div class="crm-form-grid-addEnquiry">
 
-                        <div class="crm-form-grid-AddCourse">
-
-                            <!-- Course Name -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Course Name <span>*</span></label>
-                                <input type="text" name="courseName" placeholder="Enter course name" required>
+                            <!-- Student Name -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Student Name <span>*</span></label>
+                                <input type="text" placeholder="Enter student name" required>
                             </div>
 
-                            <!-- Course Category -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Course Category</label>
-                                <select name="category">
-                                    <option value="">-- Select Category --</option>
-                                    <option value="BMCT">BMCT - Basic Medical Coding Training</option>
-                                    <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
-                                    <option value="CPC">CPC - Certified Professional Coder</option>
-                                    <option value="E&M">E&M - Evaluation & Management</option>
-                                    <option value="IPDRG">IPDRG - Inpatient Diagnosis-Related Group</option>
-                                    <option value="ED">ED - Emergency Department</option>
-                                    <option value="CCS">CCS - Certified Coding Specialist</option>
-                                    <option value="CPMA">CPMA - Certified Professional Medical Auditor</option>
-                                    <option value="CRC">CRC - Certified Risk Adjustment Coder</option>
-                                    <option value="IVR">IVR - Interventional Radiology</option>
+                            <!-- Mobile -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Mobile Number <span>*</span></label>
+                                <input type="tel" placeholder="Enter mobile number" required>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Email Address</label>
+                                <input type="email" placeholder="Enter email address">
+                            </div>
+
+                            <!-- Gender -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Gender</label>
+                                <select name="Gender">
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <!-- Date of Birth -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Date of Birth</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Course -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Course Interested <span>*</span></label>
+                                <select name="course-interested" required>
+                                    <option value="">-- Select Course --</option>
+                                    <option value="BMCT">Basic Medical Coding Training</option>
+                                    <option value="AMCT">Advanced Medical Coding Training</option>
+                                    <option value="CPC">Certified Professional Coder</option>
+                                    <option value="E&M">Evaluation & Management</option>
+                                    <option value="IPDRG">Inpatient Diagnosis-Related Group</option>
+                                    <option value="ED">Emergency Department</option>
+                                    <option value="CCS">Certified Coding Specialist</option>
+                                    <option value="CPMA">Certified Professional Medical Auditor</option>
+                                    <option value="CRC">Certified Risk Adjustment Coder</option>
+                                    <option value="IVR">Interventional Radiology</option>
                                     <option value="Surgery">Surgery</option>
                                 </select>
                             </div>
 
-                            <!-- Course Duration -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Course Duration</label>
-                                <input type="text" name="duration" placeholder="Example: 3 Months">
-                            </div>
-
-                            <!-- Course Fee -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Course Fee</label>
-                                <input type="number" name="courseFee" placeholder="Enter fee">
-                            </div>
-
-                            <!-- Trainer Name -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Trainer Name</label>
-                                <input type="text" name="trainer" placeholder="Enter trainer name">
-                            </div>
-
-                            <!-- Course Mode -->
-                            <div class="crm-form-group-AddCourse">
-                                <label>Course Mode</label>
-                                <select name="mode">
-                                    <option value="">-- Course Mode --</option>
-                                    <option value="Online">Online</option>
-                                    <option value="Offline">Offline</option>
-                                    <option value="Hybrid">Hybrid</option>
+                            <!-- Source -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Enquiry Source</label>
+                                <select name="enquiry-source">
+                                    <option value="">-- Select Source --</option>   
+                                    <option value="phone call">Phone Call</option>
+                                    <option value="Walk-in">Walk-in</option>
+                                    <option value="Website">Website</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="Facebook">Facebook</option>
+                                    <option value="Instagram">Instagram</option>
+                                    <option value="Referral">Referral</option>
                                 </select>
+                            </div>
+
+                            <!-- Counsellor -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Counsellor</label>
+                                <select name="Counsellor">
+                                    <option>-- Select Counsellor --</option>
+                                    <option>Ramesh</option>
+                                    <option>Renuka</option>
+                                    <option>Kaviya</option>
+                                    <option>Perumal</option>
+                                </select>
+                            </div>
+
+                            <!-- Enquiry Date -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Enquiry Date</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Follow-up Date -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Next Follow-up Date</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Follow-up Time -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Follow-up Time</label>
+                                <input type="time">
                             </div>
 
                             <!-- Status -->
-                            <div class="crm-form-group-AddCourse">
+                            <div class="crm-form-group-addEnquiry">
                                 <label>Status</label>
                                 <select name="status">
                                     <option value="">-- Status --</option>
-                                    <option value="active">Active</option>
-                                    <option value="Inactive">Inactive</option>
+                                    <option>New</option>
+                                    <option>Interested</option>
+                                    <option>Follow-up</option>
+                                    <option>Not Interested</option>
+                                    <option>Admission Confirmed</option>
                                 </select>
                             </div>
 
-                        </div>
+                            <!-- Address -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Address</label>
+                                <textarea rows="3" placeholder="Enter address"></textarea>
+                            </div>
 
-                        <!-- Description -->
-                        <div class="crm-form-group-AddCourse">
-                            <label>Course Description</label>
-                            <textarea rows="5" placeholder="Enter course description"></textarea>
-                        </div>
+                            <!-- Comments -->
+                            <div class="crm-form-group-addEnquiry">
+                                <label>Comments</label>
+                                <textarea rows="3" placeholder="Enter enquiry comments"></textarea>
+                            </div>
 
-                        <!-- Buttons -->
-                        <div class="crm-form-AddCourse-buttons">
-                            <button type="submit" class="crm-btn-save">Save Course</button>
-                            <button type="reset" class="crm-btn-reset">Reset</button>
+                            <!-- Buttons -->
+                            <div class="crm-form-AddEnquiry-buttons">
+                                <button type="submit" class="crm-btn-AddEnq-save">Save Enquiry</button>
+                                <button type="reset" class="crm-btn-AddEnq-reset">Reset</button>
+                            </div>
+
                         </div>
 
                     </form>
@@ -336,4 +388,3 @@ dropdowns.forEach(dropdown => {
 
 </body>
 </html>    
-
