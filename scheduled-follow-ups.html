@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+    <title>3470 Healthcare & Student CRM System - Scheduled Follow Ups Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -23,7 +23,7 @@
     }
     
     </style>
-
+ 
 </head>
 <body>
 
@@ -88,7 +88,7 @@
     </div>
 
 </header>
-  
+
 
     <!-- CRM Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
@@ -192,186 +192,248 @@
 
             </aside>
 
-        
-            <!-- MAIN CRM - DASHBOARD CONTAINER -->
+
+            <!--- SCHEDULED FOLLOW-UPS PAGE --->
             <main class="crm-dashboard-main">
 
-                <!-- Dashboard Title -->
-                <div class="crm-dashboard-title">
-                    <h2>Dashboard Overview</h2>
-                    <p>Welcome back, Admin! Here's an overview of today's CRM performance.</p>         
-                </div>
+                <div class="crm-page-header">
 
-                <!-- Dashboard Cards -->
-                <div class="crm-dashboard-cards">
-
-                    <!-- Enquiry -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon enquiry">
-                            <i class="fa-solid fa-user-graduate"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Total Enquiries</h3>
-                            <h2>250</h2>
-                        </div>
+                    <div>
+                        <h2>Scheduled Follow-ups</h2>
+                        <p>Manage all upcoming scheduled follow-up activities.</p>
                     </div>
 
-                    <!-- Follow-Up -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon followup">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Today's Follow-ups</h3>
-                            <h2>18</h2>
-                        </div>
-                    </div>
-
-                    <!-- Admission -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon admission">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Admissions</h3>
-                            <h2>72</h2>
-                        </div>
-                    </div>
-
-                    <!-- Users -->
-                    <div class="crm-card">
-                        <div class="crm-card-icon users">
-                            <i class="fa-solid fa-users"></i>
-                        </div>
-
-                        <div class="crm-card-content">
-                            <h3>Users</h3>
-                            <h2>5</h2>
-                        </div>
+                    <div>
+                        <a href="add-followup.html" class="crm-add-btn"><i class="fa fa-plus"></i>Add Follow-up</a>
                     </div>
 
                 </div>
 
 
-                <!-- Today's Follow-ups -->
-                <div class="crm-dashboard-box">
+                <!--- FILTER SECTION --->
+                <div class="crm-followup-filter-container">
 
-                    <div class="crm-box-header">
-                        <h3>Today's Follow-ups</h3>
+                    <!-- Search -->
+                    <div class="crm-followup-search-box">
+                        <i class="fa fa-search"></i>
+                        <input type="text" placeholder="Search student name or mobile">
                     </div>
+
+                    <!-- Date -->
+                    <div class="crm-followup-filter-box">
+                        <input type="date">
+                    </div>
+
+                    <!-- Counsellor -->
+                    <div class="crm-followup-filter-box">
+                        <select>
+                            <option>All Counsellors</option>
+                            <option>Priya</option>
+                            <option>Meena</option>
+                            <option>Karthik</option>
+                        </select>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="crm-followup-filter-box">
+                        <select>
+                            <option>All Status</option>
+                            <option>Pending</option>
+                            <option>Call Back</option>
+                            <option>Interested</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <!--- TABLE --->
+                <div class="crm-table-container">
 
                     <table class="crm-table">
 
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Student Name</th>
-                                <th>Course</th>
-                                <th>Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>Rahul</td>
-                                <td>Full Stack</td>
-                                <td>10:00 AM</td>
-                                <td>Pending</td>
-                            </tr>
-
-                            <tr>
-                                <td>Priya</td>
-                                <td>Java</td>
-                                <td>12:30 PM</td>
-                                <td>Completed</td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
-                <!-- Recent Student Enquiries -->
-                <div class="crm-dashboard-box">
-
-                    <div class="crm-box-header">
-                        <h3>Recent Student Enquiries</h3>
-                    </div>
-
-                    <table class="crm-table">
-
-                        <thead>
-                            <tr>
-                                <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Course</th>
+                                <th>Follow-up Date</th>
+                                <th>Time</th>
+                                <th>Type</th>
                                 <th>Status</th>
+                                <th>Counsellor</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
-                                <td>Arun</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>Interested</td>
-                            </tr>
+                                <td>1</td>
 
-                            <tr>
-                                <td>Kavin</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>Follow-up</td>
-                            </tr>
-                        </tbody>
+                    <td>Rahul Kumar</td>
 
-                    </table>
+                    <td>9876543210</td>
 
-                </div>
+                    <td>Python</td>
+
+                    <td>31-Jul-2026</td>
+
+                    <td>10:00 AM</td>
+
+                    <td>Phone Call</td>
+
+                    <td>
+                        <span class="crm-status pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>Priya</td>
+
+                    <td>
+
+                        <button class="crm-view-btn">
+                            <i class="fa fa-eye"></i>
+                        </button>
+
+                        <button class="crm-edit-btn">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <button class="crm-complete-btn">
+                            <i class="fa fa-check"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>2</td>
+
+                    <td>Arun Kumar</td>
+
+                    <td>9876501234</td>
+
+                    <td>Java</td>
+
+                    <td>01-Aug-2026</td>
+
+                    <td>11:30 AM</td>
+
+                    <td>WhatsApp</td>
+
+                    <td>
+                        <span class="crm-status callback">
+                            Call Back
+                        </span>
+                    </td>
+
+                    <td>Meena</td>
+
+                    <td>
+
+                        <button class="crm-view-btn">
+                            <i class="fa fa-eye"></i>
+                        </button>
+
+                        <button class="crm-edit-btn">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <button class="crm-complete-btn">
+                            <i class="fa fa-check"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>3</td>
+
+                    <td>Kavin</td>
+
+                    <td>9876512345</td>
+
+                    <td>Full Stack</td>
+
+                    <td>02-Aug-2026</td>
+
+                    <td>02:00 PM</td>
+
+                    <td>Email</td>
+
+                    <td>
+                        <span class="crm-status pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>Priya</td>
+
+                    <td>
+
+                        <button class="crm-view-btn">
+                            <i class="fa fa-eye"></i>
+                        </button>
+
+                        <button class="crm-edit-btn">
+                            <i class="fa fa-edit"></i>
+                        </button>
+
+                        <button class="crm-complete-btn">
+                            <i class="fa fa-check"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="crm-table-footer">
+
+        <p>
+
+            Showing 3 scheduled follow-ups.
+
+        </p>
+
+    </div>
+
+</main>
 
 
-                <!-- Notifications -->
-                <div class="crm-bottom-grid">
-
-                    <div class="crm-dashboard-box">
-
-                        <div class="crm-box-header">
-                            <h3>Notifications</h3>
-                        </div>
-
-                        <ul class="crm-notification-list">
-                            <li>📞 Rahul follow-up at 10:00 AM</li>
-                            <li>🎓 New admission completed</li>
-                            <li>🆕 New enquiry received</li>
-                            <li>⚠️ Two follow-ups pending</li>
-                        </ul>
-
-                    </div>
 
 
-                    <!-- Quick Actions -->
-                    <div class="crm-dashboard-box">
 
-                        <div class="crm-box-header">
-                            <h3>Quick Actions</h3>
-                        </div>
 
-                        <div class="crm-actions">
-                            <button>Add Enquiry</button>
-                            <button>Add Follow-up</button>
-                            <button>New Admission</button>
-                            <button>Generate Report</button>
-                        </div>
 
-                    </div>
 
-                </div>
 
-            </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 

@@ -1430,6 +1430,499 @@
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
+                      /* ======================================
+                                TODAY'S FOLLOW-UPS PAGE
+                      ====================================== */
+
+.crm-TodayFollowUps-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-TodayFollowUps-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-TodayFollowUps-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- FILTER SECTION ---*/
+.crm-Tdyfollowup-filter-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+
+/*--- Search ---*/
+.crm-Tdyfollowup-search-box {
+  position:relative;
+  flex:2;
+  min-width:300px;
+}
+
+.crm-Tdyfollowup-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-Tdyfollowup-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-Tdyfollowup-search-box input:focus,
+.crm-Tdyfollowup-filter-box select:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- Filters ---*/
+.crm-Tdyfollowup-filter-box {
+  flex:1;
+}
+
+.crm-Tdyfollowup-filter-box select {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+  cursor:pointer;
+  width:100%;
+}
+
+
+/*--- TABLE ---*/
+.crm-table-addFollow-Ups {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.crm-table-AFU {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-AFU thead {
+  background:#2563eb;
+}
+
+.crm-table-AFU th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
+  font-size:15px;
+}
+
+.crm-table-AFU td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
+}
+
+.crm-table-AFU tbody tr:hover {
+  background:#d0ecdf;
+}
+
+
+/*--- STATUS ---*/
+.crm-status-AFU {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.crm-status-AFU.pending {
+  background:#FEF3C7;
+  color:#B45309;
+}
+
+.crm-status-AFU.success {
+  background:#DCFCE7;
+  color:#15803D;
+}
+
+.crm-status-AFU.callback {
+  background:#DBEAFE;
+  color:#1D4ED8;
+}
+
+
+/*--- ACTION BUTTONS ---*/
+.crm-view-AFU-btn,
+.crm-edit-AFU-btn,
+.crm-complete-AFU-btn {
+  width:35px;
+  height:35px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+  margin-right:8px;
+  color:#ffffff;
+}
+
+
+/*--- View ---*/
+.crm-view-AFU-btn {
+  background:#0ea5e9;
+}
+
+.crm-view-AFU-btn:hover {
+  background:#0284c7;
+}
+
+
+/*--- Edit ---*/
+.crm-edit-AFU-btn {
+  background:#2563eb;
+}
+
+.crm-edit-AFU-btn:hover {
+  background:#1d4ed8;
+}
+
+
+/*--- Complete ---*/
+.crm-complete-AFU-btn {
+  background:#22c55e;
+}
+
+.crm-complete-AFU-btn:hover {
+  background:#16a34a;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+/*=========================================================
+   SCHEDULED FOLLOW-UPS PAGE
+=========================================================*/
+
+/* Page Header */
+
+.crm-page-header{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
+
+}
+
+.crm-page-header h2{
+
+    font-size:28px;
+    color:#1e3a8a;
+    margin-bottom:6px;
+
+}
+
+.crm-page-header p{
+
+    font-size:15px;
+    color:#64748b;
+
+}
+
+/* Add Button */
+
+.crm-add-btn{
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#2563eb;
+    color:#ffffff;
+    padding:12px 20px;
+    border-radius:8px;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+
+}
+
+.crm-add-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+/*=========================================================
+   FILTER SECTION
+=========================================================*/
+
+.crm-followup-filter-container{
+
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-bottom:25px;
+
+}
+
+/* Search */
+
+.crm-followup-search-box{
+
+    position:relative;
+    flex:2;
+    min-width:300px;
+
+}
+
+.crm-followup-search-box i{
+
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#64748b;
+
+}
+
+.crm-followup-search-box input{
+
+    width:100%;
+    height:48px;
+    border:1px solid #dbe2ea;
+    border-radius:8px;
+    padding-left:45px;
+    padding-right:15px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+
+}
+
+.crm-followup-search-box input:focus{
+
+    border-color:#2563eb;
+    box-shadow:0 0 8px rgba(37,99,235,.2);
+
+}
+
+/* Filter Box */
+
+.crm-followup-filter-box{
+
+    flex:1;
+    min-width:180px;
+
+}
+
+.crm-followup-filter-box input,
+.crm-followup-filter-box select{
+
+    width:100%;
+    height:48px;
+    padding:0 15px;
+    border:1px solid #dbe2ea;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+    transition:.3s;
+    background:#ffffff;
+
+}
+
+.crm-followup-filter-box input:focus,
+.crm-followup-filter-box select:focus{
+
+    border-color:#2563eb;
+    box-shadow:0 0 8px rgba(37,99,235,.2);
+
+}
+
+/*=========================================================
+   TABLE
+=========================================================*/
+
+.crm-table-container{
+
+    background:#ffffff;
+    border-radius:12px;
+    overflow-x:auto;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.crm-table{
+
+    width:100%;
+    min-width:1200px;
+    border-collapse:collapse;
+
+}
+
+.crm-table thead{
+
+    background:#2563eb;
+
+}
+
+.crm-table th{
+
+    color:#ffffff;
+    padding:15px;
+    text-align:left;
+    font-size:15px;
+
+}
+
+.crm-table td{
+
+    padding:15px;
+    border-bottom:1px solid #edf2f7;
+    font-size:15px;
+
+}
+
+.crm-table tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+/*=========================================================
+   STATUS
+=========================================================*/
+
+.crm-status{
+
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+
+}
+
+.crm-status.pending{
+
+    background:#FEF3C7;
+    color:#B45309;
+
+}
+
+.crm-status.callback{
+
+    background:#DBEAFE;
+    color:#1D4ED8;
+
+}
+
+.crm-status.success{
+
+    background:#DCFCE7;
+    color:#15803D;
+
+}
+
+/*=========================================================
+   ACTION BUTTONS
+=========================================================*/
+
+.crm-view-btn,
+.crm-edit-btn,
+.crm-complete-btn{
+
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:8px;
+    color:#ffffff;
+    cursor:pointer;
+    margin-right:5px;
+    transition:.3s;
+
+}
+
+.crm-view-btn{
+
+    background:#0ea5e9;
+
+}
+
+.crm-view-btn:hover{
+
+    background:#0284c7;
+
+}
+
+.crm-edit-btn{
+
+    background:#2563eb;
+
+}
+
+.crm-edit-btn:hover{
+
+    background:#1d4ed8;
+
+}
+
+.crm-complete-btn{
+
+    background:#22c55e;
+
+}
+
+.crm-complete-btn:hover{
+
+    background:#16a34a;
+
+}
+
+/*=========================================================
+   FOOTER
+=========================================================*/
+
+.crm-table-footer{
+
+    margin-top:20px;
+    color:#64748b;
+    font-size:15px;
+
+}
+
 
 
 
