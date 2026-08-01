@@ -1620,218 +1620,404 @@
   background:#16a34a;
 }
 
-/* -------------------------------------------------------------------------------------------------------------------------------- */
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
+                      /* =======================================
+                                SCHEDULED FOLLOW-UPS PAGE
+                      ======================================= */
+
+.crm-scheduled-followUps-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-scheduled-followUps-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-scheduled-followUps-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
 
 
+/*--- Add Button ---*/
+.crm-add-btn-sfu {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#2563eb;
+  color:#ffffff;
+  padding:12px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-add-btn-sfu:hover {
+  background:#1d4ed8;
+}
 
 
+/*--- FILTER SECTION ---*/
+.crm-filter-scheduledFollowUps {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
 
 
+/*--- Search ---*/
+.crm-ScheduledFollowup-search-box {
+  position:relative;
+  width:350px;
+  flex:2;
+}
 
+.crm-ScheduledFollowup-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
 
-/*=========================================================
-   SCHEDULED FOLLOW-UPS PAGE
-=========================================================*/
-
-/* Page Header */
-
-.crm-page-header{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:25px;
-    flex-wrap:wrap;
-    gap:15px;
+.crm-ScheduledFollowup-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
 
 }
 
-.crm-page-header h2{
-
-    font-size:28px;
-    color:#1e3a8a;
-    margin-bottom:6px;
-
+.crm-ScheduledFollowup-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
 }
 
-.crm-page-header p{
 
-    font-size:15px;
-    color:#64748b;
-
+/*--- Filter Box ---*/
+.crm-ScheduledFollowup-filter-box {
+  flex:1;
 }
 
-/* Add Button */
-
-.crm-add-btn{
-
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    background:#2563eb;
-    color:#ffffff;
-    padding:12px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:15px;
-    font-weight:600;
-    transition:.3s;
-
+.crm-ScheduledFollowup-filter-box input,
+.crm-ScheduledFollowup-filter-box select {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+  cursor:pointer;
+  width:100%;
 }
 
-.crm-add-btn:hover{
-
-    background:#1d4ed8;
-
+.crm-ScheduledFollowup-filter-box input:focus,
+.crm-ScheduledFollowup-filter-box select:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
 }
 
-/*=========================================================
-   FILTER SECTION
-=========================================================*/
 
-.crm-followup-filter-container{
-
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    margin-bottom:25px;
-
+/*--- TABLE ---*/
+.crm-table-ScheduledFollowup {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-/* Search */
-
-.crm-followup-search-box{
-
-    position:relative;
-    flex:2;
-    min-width:300px;
-
+.crm-table-SFU {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.crm-followup-search-box i{
-
-    position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#64748b;
-
+.crm-table-SFU thead {
+  background:#2563eb;
 }
 
-.crm-followup-search-box input{
-
-    width:100%;
-    height:48px;
-    border:1px solid #dbe2ea;
-    border-radius:8px;
-    padding-left:45px;
-    padding-right:15px;
-    outline:none;
-    font-size:15px;
-    transition:.3s;
-
+.crm-table-SFU th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
+  font-size:15px;
 }
 
-.crm-followup-search-box input:focus{
-
-    border-color:#2563eb;
-    box-shadow:0 0 8px rgba(37,99,235,.2);
-
+.crm-table-SFU td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
 }
 
-/* Filter Box */
-
-.crm-followup-filter-box{
-
-    flex:1;
-    min-width:180px;
-
+.crm-table-SFU tbody tr:hover {
+  background:#d0ecdf;
 }
 
-.crm-followup-filter-box input,
-.crm-followup-filter-box select{
 
-    width:100%;
-    height:48px;
-    padding:0 15px;
-    border:1px solid #dbe2ea;
-    border-radius:8px;
-    outline:none;
-    font-size:15px;
-    transition:.3s;
-    background:#ffffff;
-
+/*--- STATUS ---*/
+.crm-status-SFU {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
 }
 
-.crm-followup-filter-box input:focus,
-.crm-followup-filter-box select:focus{
-
-    border-color:#2563eb;
-    box-shadow:0 0 8px rgba(37,99,235,.2);
-
+.crm-status-SFU.pending {
+  background:#FEF3C7;
+  color:#B45309;
 }
 
-/*=========================================================
-   TABLE
-=========================================================*/
-
-.crm-table-container{
-
-    background:#ffffff;
-    border-radius:12px;
-    overflow-x:auto;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
+.crm-status-SFU.callback {
+  background:#DBEAFE;
+  color:#1D4ED8;
 }
 
-.crm-table{
-
-    width:100%;
-    min-width:1200px;
-    border-collapse:collapse;
-
+.crm-status-SFU.success {
+  background:#DCFCE7;
+  color:#15803D;
 }
 
-.crm-table thead{
 
-    background:#2563eb;
-
+/*--- ACTION BUTTONS ---*/
+.crm-view-btn-SFU,
+.crm-edit-btn-SFU,
+.crm-complete-btn-SFU {
+  width:35px;
+  height:35px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+  margin-right:8px;
+  color:#ffffff;
 }
 
-.crm-table th{
-
-    color:#ffffff;
-    padding:15px;
-    text-align:left;
-    font-size:15px;
-
+.crm-view-btn-SFU {
+  background:#0ea5e9;
 }
 
-.crm-table td{
-
-    padding:15px;
-    border-bottom:1px solid #edf2f7;
-    font-size:15px;
-
+.crm-view-btn-SFU:hover {
+  background:#0284c7;
 }
 
-.crm-table tbody tr:hover{
-
-    background:#f8fafc;
-
+.crm-edit-btn-SFU {
+  background:#2563eb;
 }
 
-/*=========================================================
-   STATUS
-=========================================================*/
+.crm-edit-btn-SFU:hover {
+  background:#1d4ed8;
+}
 
-.crm-status{
+.crm-complete-btn-SFU {
+  background:#22c55e;
+}
 
-    display:inline-block;
-    padding:6px 14px;
-    border-radius:20px;
-    font-size:13px;
-    font-weight:600;
+.crm-complete-btn-SFU:hover {
+  background:#16a34a;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+                      /* ======================================
+                                FOLLOW-UP HISTORY PAGE
+                      ====================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+.crm-page-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.crm-page-header h2 {
+  font-size:28px;
+  color:#1e3a8a;
+  margin-bottom:5px;
+}
+
+.crm-page-header p {
+  color:#64748b;
+  font-size:15px;
+}
+
+
+/*--- PAGE ACTION BUTTONS ---*/
+.crm-page-actions {
+  display:flex;
+  gap:12px;
+}
+
+.crm-export-btn,
+.crm-print-btn {
+  border:none;
+  padding:12px 22px;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  font-size:15px;
+  transition:.3s;
+}
+
+.crm-export-btn {
+  background:#16a34a;
+}
+
+.crm-export-btn:hover {
+  background:#15803d;
+}
+
+.crm-print-btn {
+  background:#2563eb;
+}
+
+.crm-print-btn:hover {
+  background:#1d4ed8;
+}
+
+/*--- FILTER SECTION ---*/
+.crm-history-filter-container {
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+/*--- Search ---*/
+.crm-history-search {
+  position:relative;
+  flex:2;
+  min-width:280px;
+}
+
+.crm-history-search i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#64748b;
+}
+
+.crm-history-search input {
+  width:100%;
+  height:48px;
+  padding:0 15px 0 45px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+  transition:.3s;
+}
+
+.crm-history-search input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37,99,235,.2);
+}
+
+/*--- Filters ---*/
+.crm-history-filter {
+  flex:1;
+  min-width:180px;
+}
+
+.crm-history-filter input,
+.crm-history-filter select {
+  width:100%;
+  height:48px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  padding:0 15px;
+  outline:none;
+  font-size:15px;
+  transition:.3s;
+  background:#fff;
+}
+
+.crm-history-filter input:focus,
+.crm-history-filter select:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37,99,235,.2);
+}
+
+
+/*--- TABLE ---*/
+.crm-table-container {
+  background:#fff;
+  border-radius:12px;
+  overflow-x:auto;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.crm-table {
+  width:100%;
+  min-width:1200px;
+  border-collapse:collapse;
+}
+
+.crm-table thead {
+  background:#2563eb;
+}
+
+.crm-table th {
+  color:#fff;
+  padding:15px;
+  text-align:left;
+  font-size:15px;
+}
+
+.crm-table td {
+  padding:15px;
+  border-bottom:1px solid #edf2f7;
+  font-size:15px;
+}
+
+.crm-table tbody tr:hover {
+  background:#f8fafc;
+}
+
+/*--- STATUS BADGES ---*/
+.crm-status {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.crm-status.success{
+
+    background:#DCFCE7;
+    color:#15803D;
 
 }
 
@@ -1849,70 +2035,38 @@
 
 }
 
-.crm-status.success{
+.crm-status.rejected{
 
-    background:#DCFCE7;
-    color:#15803D;
+    background:#FEE2E2;
+    color:#DC2626;
 
 }
 
 /*=========================================================
-   ACTION BUTTONS
+   VIEW BUTTON
 =========================================================*/
 
-.crm-view-btn,
-.crm-edit-btn,
-.crm-complete-btn{
+.crm-view-btn{
 
     width:38px;
     height:38px;
     border:none;
+    background:#2563eb;
+    color:#fff;
     border-radius:8px;
-    color:#ffffff;
     cursor:pointer;
-    margin-right:5px;
     transition:.3s;
-
-}
-
-.crm-view-btn{
-
-    background:#0ea5e9;
 
 }
 
 .crm-view-btn:hover{
 
-    background:#0284c7;
-
-}
-
-.crm-edit-btn{
-
-    background:#2563eb;
-
-}
-
-.crm-edit-btn:hover{
-
     background:#1d4ed8;
 
 }
 
-.crm-complete-btn{
-
-    background:#22c55e;
-
-}
-
-.crm-complete-btn:hover{
-
-    background:#16a34a;
-
-}
-
 /*=========================================================
-   FOOTER
+   TABLE FOOTER
 =========================================================*/
 
 .crm-table-footer{
@@ -1922,6 +2076,13 @@
     font-size:15px;
 
 }
+
+
+
+
+
+
+
 
 
 

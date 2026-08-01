@@ -141,6 +141,8 @@
                     <div class="crm-dropdown-content">
                         <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
                         <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
+                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
+                        <a href="#"><i class="fa fa-calendar-alt"></i>Calendar View</a>
                     </div>
 
                 </div>
@@ -196,7 +198,7 @@
             <!--- SCHEDULED FOLLOW-UPS PAGE --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-page-header">
+                <div class="crm-scheduled-followUps-header">
 
                     <div>
                         <h2>Scheduled Follow-ups</h2>
@@ -204,30 +206,30 @@
                     </div>
 
                     <div>
-                        <a href="add-followup.html" class="crm-add-btn"><i class="fa fa-plus"></i>Add Follow-up</a>
+                        <a href="add-follow-up.html" class="crm-add-btn-sfu"><i class="fa fa-plus"></i>Add Follow-up</a>
                     </div>
 
                 </div>
 
 
                 <!--- FILTER SECTION --->
-                <div class="crm-followup-filter-container">
+                <div class="crm-filter-scheduledFollowUps">
 
                     <!-- Search -->
-                    <div class="crm-followup-search-box">
+                    <div class="crm-ScheduledFollowup-search-box">
                         <i class="fa fa-search"></i>
                         <input type="text" placeholder="Search student name or mobile">
                     </div>
 
                     <!-- Date -->
-                    <div class="crm-followup-filter-box">
+                    <div class="crm-ScheduledFollowup-filter-box">
                         <input type="date">
                     </div>
 
                     <!-- Counsellor -->
-                    <div class="crm-followup-filter-box">
+                    <div class="crm-ScheduledFollowup-filter-box">
                         <select>
-                            <option>All Counsellors</option>
+                            <option>-- All Counsellors --</option>
                             <option>Priya</option>
                             <option>Meena</option>
                             <option>Karthik</option>
@@ -235,9 +237,9 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="crm-followup-filter-box">
+                    <div class="crm-ScheduledFollowup-filter-box">
                         <select>
-                            <option>All Status</option>
+                            <option>-- All Status --</option>
                             <option>Pending</option>
                             <option>Call Back</option>
                             <option>Interested</option>
@@ -248,9 +250,9 @@
 
 
                 <!--- TABLE --->
-                <div class="crm-table-container">
+                <div class="crm-table-ScheduledFollowup">
 
-                    <table class="crm-table">
+                    <table class="crm-table-SFU">
 
                         <thead>
                             <tr>
@@ -270,170 +272,73 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-
-                    <td>Rahul Kumar</td>
-
-                    <td>9876543210</td>
-
-                    <td>Python</td>
-
-                    <td>31-Jul-2026</td>
-
-                    <td>10:00 AM</td>
-
-                    <td>Phone Call</td>
-
-                    <td>
-                        <span class="crm-status pending">
-                            Pending
-                        </span>
-                    </td>
-
-                    <td>Priya</td>
-
-                    <td>
-
-                        <button class="crm-view-btn">
-                            <i class="fa fa-eye"></i>
-                        </button>
-
-                        <button class="crm-edit-btn">
-                            <i class="fa fa-edit"></i>
-                        </button>
-
-                        <button class="crm-complete-btn">
-                            <i class="fa fa-check"></i>
-                        </button>
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td>2</td>
-
-                    <td>Arun Kumar</td>
-
-                    <td>9876501234</td>
-
-                    <td>Java</td>
-
-                    <td>01-Aug-2026</td>
-
-                    <td>11:30 AM</td>
-
-                    <td>WhatsApp</td>
-
-                    <td>
-                        <span class="crm-status callback">
-                            Call Back
-                        </span>
-                    </td>
-
-                    <td>Meena</td>
-
-                    <td>
-
-                        <button class="crm-view-btn">
-                            <i class="fa fa-eye"></i>
-                        </button>
-
-                        <button class="crm-edit-btn">
-                            <i class="fa fa-edit"></i>
-                        </button>
-
-                        <button class="crm-complete-btn">
-                            <i class="fa fa-check"></i>
-                        </button>
-
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <td>3</td>
-
-                    <td>Kavin</td>
-
-                    <td>9876512345</td>
-
-                    <td>Full Stack</td>
-
-                    <td>02-Aug-2026</td>
-
-                    <td>02:00 PM</td>
-
-                    <td>Email</td>
-
-                    <td>
-                        <span class="crm-status pending">
-                            Pending
-                        </span>
-                    </td>
-
-                    <td>Priya</td>
-
-                    <td>
-
-                        <button class="crm-view-btn">
-                            <i class="fa fa-eye"></i>
-                        </button>
-
-                        <button class="crm-edit-btn">
-                            <i class="fa fa-edit"></i>
-                        </button>
-
-                        <button class="crm-complete-btn">
-                            <i class="fa fa-check"></i>
-                        </button>
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-    <!-- Footer -->
-
-    <div class="crm-table-footer">
-
-        <p>
-
-            Showing 3 scheduled follow-ups.
-
-        </p>
-
-    </div>
-
-</main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                <td>Rahul Kumar</td>
+                                <td>9876543210</td>
+                                <td>Python</td>
+                                <td>31-Jul-2026</td>
+                                <td>10:00 AM</td>
+                                <td>Phone Call</td>
+                                <td>
+                                    <span class="crm-status-SFU pending">Pending</span>
+                                </td>
+                                <td>Priya</td>
+                                <td>
+                                    <button class="crm-view-btn-SFU"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-SFU"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-complete-btn-SFU"><i class="fa fa-check"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>2</td>
+                                <td>Arun Kumar</td>
+                                <td>9876501234</td>
+                                <td>Java</td>
+                                <td>01-Aug-2026</td>
+                                <td>11:30 AM</td>
+                                <td>WhatsApp</td>
+                                <td>
+                                    <span class="crm-status-SFU callback">Call Back</span>
+                                </td>
+                                <td>Meena</td>
+                                <td>
+                                    <button class="crm-view-btn-SFU"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-SFU"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-complete-btn-SFU"><i class="fa fa-check"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td>Kavin</td>
+                                <td>9876512345</td>
+                                <td>Full Stack</td>
+                                <td>02-Aug-2026</td>
+                                <td>02:00 PM</td>
+                                <td>Email</td>
+                                <td>
+                                    <span class="crm-status-SFU pending">Pending</span>
+                                </td>
+                                <td>Priya</td>
+                                <td>
+                                    <button class="crm-view-btn-SFU"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-SFU"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-complete-btn-SFU"><i class="fa fa-check"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                    <!-- Footer -->
+                    <div class="crm-table-footer">
+                        <p>Showing 3 scheduled follow-ups</p>
+                    </div>
+
+            </main>
 
         </div>
 
