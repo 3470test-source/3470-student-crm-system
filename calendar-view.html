@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Manage Courses Page</title>
+    <title>3470 Healthcare & Student CRM System - Calendar View Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -23,7 +23,7 @@
     }
     
     </style>
-
+ 
 </head>
 <body>
 
@@ -195,142 +195,139 @@
             </aside>
 
 
-            <!-- CRM - MANAGE STUDENT ENQUIRIES -->
+            <!-- CALENDAR VIEW PAGE -->
             <main class="crm-dashboard-main">
 
-                <!-- Manage Enquiry Page Header -->
-                <div class="crm-manageEnquiry-header">
+                <div class="crm-calendar-view-header">
 
                     <div>
-                        <h2>Manage Enquiries</h2>
-                        <p>View, search, update and manage all student enquiries.</p>
+                        <h2>Calendar View</h2>
+                        <p>View and manage follow-up schedules by calendar.</p>
                     </div>
 
-                        <a href="add-enquiry.html" class="crm-add-btn"><i class="fa fa-plus"></i>Add Enquiry</a>
-                
-                </div>
-
-                <!-- Search & Filter -->
-                <div class="crm-filter-manageEnquiries">
-
-                    <div class="crm-manageEnquiries-search-box">
-                        <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search by student name or mobile">
-                    </div>
-
-                    <!-- Status -->
-                    <div class="crm-manageEnquiries-filter-box">
-                        <select name="enquiries-status">
-                            <option>-- All Status --</option>
-                            <option>New</option>
-                            <option>Interested</option>
-                            <option>Follow-up</option>
-                            <option>Not Interested</option>
-                            <option>Admission Confirmed</option>
-                        </select>
-                    </div>
-
-                    <!-- Course -->
-                    <div class="crm-manageEnquiries-filter-box">
-                        <select name="course-status">
-                            <option>-- All Courses --</option>
-                            <option>Basic Medical Coding Training</option>
-                            <option>Advanced Medical Coding Training</option>
-                            <option>Certified Professional Coder</option>
-                            <option>Evaluation & Management</option>
-                            <option>Inpatient Diagnosis-Related Group</option>
-                            <option>Emergency Department</option>
-                            <option>Certified Coding Specialist</option>
-                            <option>Certified Professional Medical Auditor</option>
-                            <option>Certified Risk Adjustment Coder</option>
-                            <option>Interventional Radiology</option>
-                            <option>Surgery</option>
-                        </select>
-                    </div>
-
-                    <!-- Counsellor -->
-                    <div class="crm-manageEnquiries-filter-box">
-                        <select name="Counsellor">
-                            <option>-- All Counsellors --</option>
-                            <option>Priya</option>
-                            <option>Meena</option>
-                            <option>Arun</option>
-                            <option>Karthik</option>
-                        </select>
+                    <div class="crm-calendar-navigation">
+                        <button class="crm-calendar-btn"><i class="fa fa-angle-left"></i></button>
+                            <h3>August 2026</h3>
+                        <button class="crm-calendar-btn"><i class="fa fa-angle-right"></i></button>
                     </div>
 
                 </div>
 
+                <!-- Calendar -->
+                <div class="crm-calendar-view-container">
 
-                <!-- Enquiries Table -->
-                <div class="crm-table-manageEnquiries">
-
-                    <table class="crm-table-ME">
+                    <table class="crm-calendar-view-table">
 
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Student Name</th>
-                                <th>Mobile</th>
-                                <th>Course</th>
-                                <th>Enquiry Date</th>
-                                <th>Follow-up</th>
-                                <th>Status</th>
-                                <th>Counsellor</th>
-                                <th>Actions</th>
+                                <th>Sunday</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
                             </tr>
                         </thead>
 
                         <tbody>
+
+                            <!-- Week 1 -->
                             <tr>
-                                <td>1</td>
-                                <td>Rahul Kumar</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>24-Jul-2026</td>
-                                <td>26-Jul-2026</td>
-                                <td><span class="crm-status active">New</span></td>
-                                <td>Priya</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
-                                    <button class="crm-view-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-followup-btn"><i class="fa fa-phone"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                    <div class="crm-cal-date">1</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">2</div>
                                 </td>
                             </tr>
 
+                            <!-- Week 2 -->
                             <tr>
-                                <td>2</td>
-                                <td>Arun Kumar</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>23-Jul-2026</td>
-                                <td>25-Jul-2026</td>
-                                <td><span class="crm-status pending">Follow-up</span></td>
-                                <td>Meena</td>
                                 <td>
-                                    <button class="crm-view-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-followup-btn"><i class="fa fa-phone"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                    <div class="crm-cal-date">3</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">4</div>
+                                    <span class="crm-event">Rahul - 10 AM</span>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">5</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">6</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">7</div>
+                                    <span class="crm-event">Priya - 11 AM</span>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">8</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">9</div>
                                 </td>
                             </tr>
 
+                            <!-- Week 3 -->
                             <tr>
-                                <td>3</td>
-                                <td>Kavin</td>
-                                <td>9876512345</td>
-                                <td>Full Stack</td>
-                                <td>22-Jul-2026</td>
-                                <td>-</td>
-                                <td><span class="crm-status success">Admission</span></td>
-                                <td>Priya</td>
                                 <td>
-                                    <button class="crm-view-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-followup-btn"><i class="fa fa-phone"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                    <div class="crm-cal-date">10</div>
                                 </td>
+                                <td>
+                                    <div class="crm-cal-date">11</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">12</div>
+                                    <span class="crm-event">Arun - 2 PM</span>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">13</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">14</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">15</div>
+                                </td>
+                                <td>
+                                    <div class="crm-cal-date">16</div>
+                                </td>
+                            </tr>
+
+                            <!-- Week 4 -->
+                            <tr>
+                                <td><div class="crm-cal-date">17</div></td>
+                                <td><div class="crm-cal-date">18</div></td>
+                                <td><div class="crm-cal-date">19</div></td>
+                                <td><div class="crm-cal-date">20</div></td>
+                                <td><div class="crm-cal-date">21</div></td>
+                                <td><div class="crm-cal-date">22</div></td>
+                                <td><div class="crm-cal-date">23</div></td>
+                            </tr>
+
+                            <!-- Week 5 -->
+                            <tr>
+                                <td><div class="crm-cal-date">24</div></td>
+                                <td><div class="crm-cal-date">25</div></td>
+                                <td><div class="crm-cal-date">26</div></td>
+                                <td><div class="crm-cal-date">27</div></td>
+                                <td><div class="crm-cal-date">28</div></td>
+                                <td><div class="crm-cal-date">29</div></td>
+                                <td><div class="crm-cal-date">30</div></td>
+                            </tr>
+
+                            <!-- Week 6 -->
+                            <tr>
+                                <td>
+                                    <div class="crm-cal-date">31</div>
+                                </td>
+                                <td colspan="6"></td>
                             </tr>
 
                         </tbody>
@@ -339,16 +336,58 @@
 
                 </div>
 
-                    <!-- Footer -->
-                    <div class="crm-table-footer">
-                        <p>Showing 1 to 3 of 3 student enquiries.</p>
+                <!-- Today's Events -->
+                <div class="crm-dashboard-calendar">
+
+                    <div class="crm-box-calendar">
+                        <h3>Today's Follow-up Events</h3>
+                    </div>
+
+                        <table class="crm-table-Cal-view">
+
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Course</th>
+                                    <th>Time</th>
+                                    <th>Follow-up Type</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>Rahul</td>
+                                    <td>Python</td>
+                                    <td>10:00 AM</td>
+                                    <td>Phone Call</td>
+                                    <td>Pending</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Priya</td>
+                                    <td>Java</td>
+                                    <td>11:30 AM</td>
+                                    <td>WhatsApp</td>
+                                    <td>Completed</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Arun</td>
+                                    <td>React JS</td>
+                                    <td>02:00 PM</td>
+                                    <td>Email</td>
+                                    <td>Pending</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
                     </div>
 
             </main>
 
-    </div>
 
-    
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){

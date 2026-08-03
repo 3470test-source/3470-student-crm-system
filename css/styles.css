@@ -1700,7 +1700,6 @@
   border-radius:8px;
   outline:none;
   font-size:15px;
-
 }
 
 .crm-ScheduledFollowup-search-box input:focus {
@@ -1839,261 +1838,425 @@
                                 FOLLOW-UP HISTORY PAGE
                       ====================================== */
 
-
-
-
-
-
-
-
-
-
-
-
-
-.crm-page-header {
+.crm-FollowUp-History-header {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  flex-wrap:wrap;
-  gap:20px;
-  margin-bottom:25px;
+  margin-bottom:25px;  
 }
 
-.crm-page-header h2 {
-  font-size:28px;
+.crm-FollowUp-History-header h2 {
+  font-size:30px;
   color:#1e3a8a;
-  margin-bottom:5px;
+  margin-bottom:10px;
+  font-weight:700;
 }
 
-.crm-page-header p {
-  color:#64748b;
-  font-size:15px;
+.crm-FollowUp-History-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
 }
 
 
 /*--- PAGE ACTION BUTTONS ---*/
-.crm-page-actions {
+.crm-FollowUp-History-actions {
   display:flex;
   gap:12px;
 }
 
-.crm-export-btn,
-.crm-print-btn {
-  border:none;
-  padding:12px 22px;
+.crm-export-FUH-btn,
+.crm-print-FUH-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#ffffff;
+  padding:12px 20px;
   border-radius:8px;
-  color:#fff;
-  cursor:pointer;
+  text-decoration:none;
   font-size:15px;
+  font-weight:600;
   transition:.3s;
+  border: none;
+  letter-spacing: 0.5px;
 }
 
-.crm-export-btn {
+.crm-export-FUH-btn {
   background:#16a34a;
 }
 
-.crm-export-btn:hover {
+.crm-export-FUH-btn:hover {
   background:#15803d;
 }
 
-.crm-print-btn {
+.crm-print-FUH-btn {
   background:#2563eb;
 }
 
-.crm-print-btn:hover {
+.crm-print-FUH-btn:hover {
   background:#1d4ed8;
 }
 
+
 /*--- FILTER SECTION ---*/
-.crm-history-filter-container {
+.crm-filter-FollowUp-History {
   display:flex;
+  justify-content:space-between;
+  align-items:center;
   gap:20px;
-  flex-wrap:wrap;
   margin-bottom:25px;
 }
 
+
 /*--- Search ---*/
-.crm-history-search {
+.crm-FollowUp-History-search {
   position:relative;
+  width:350px;
   flex:2;
-  min-width:280px;
 }
 
-.crm-history-search i {
+.crm-FollowUp-History-search i {
   position:absolute;
   left:15px;
   top:50%;
   transform:translateY(-50%);
-  color:#64748b;
+  color:#0465ec;
 }
 
-.crm-history-search input {
+.crm-FollowUp-History-search input {
   width:100%;
-  height:48px;
-  padding:0 15px 0 45px;
+  padding:13px 15px 13px 42px;
   border:1px solid #dbe2ea;
   border-radius:8px;
   outline:none;
   font-size:15px;
-  transition:.3s;
 }
 
-.crm-history-search input:focus {
+.crm-FollowUp-History-search input:focus {
   border-color:#2563eb;
-  box-shadow:0 0 8px rgba(37,99,235,.2);
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
 }
+
 
 /*--- Filters ---*/
-.crm-history-filter {
+.crm-FollowUp-History-filter {
   flex:1;
-  min-width:180px;
 }
 
-.crm-history-filter input,
-.crm-history-filter select {
-  width:100%;
-  height:48px;
+.crm-FollowUp-History-filter input,
+.crm-FollowUp-History-filter select {
+  padding:13px 18px;
   border:1px solid #dbe2ea;
   border-radius:8px;
-  padding:0 15px;
   outline:none;
   font-size:15px;
-  transition:.3s;
-  background:#fff;
+  cursor:pointer;
+  width:100%;
 }
 
-.crm-history-filter input:focus,
-.crm-history-filter select:focus {
+.crm-FollowUp-History-filter input:focus,
+.crm-FollowUp-History-filter select:focus {
   border-color:#2563eb;
-  box-shadow:0 0 8px rgba(37,99,235,.2);
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
 }
 
 
 /*--- TABLE ---*/
-.crm-table-container {
-  background:#fff;
+.crm-table-FollowUp-History {
+  background:#ffffff;
   border-radius:12px;
-  overflow-x:auto;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-.crm-table {
+.crm-table-FUH {
   width:100%;
-  min-width:1200px;
   border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.crm-table thead {
+.crm-table-FUH thead {
   background:#2563eb;
 }
 
-.crm-table th {
-  color:#fff;
-  padding:15px;
-  text-align:left;
+.crm-table-FUH th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
   font-size:15px;
 }
 
-.crm-table td {
-  padding:15px;
-  border-bottom:1px solid #edf2f7;
+.crm-table-FUH td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
+}
+
+.crm-table-FUH tbody tr:hover {
+  background:#d0ecdf;
+}
+
+
+/*--- STATUS BADGES ---*/
+.crm-status-FUH {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.crm-status-FUH.success {
+  background:#DCFCE7;
+  color:#15803D;
+}
+
+.crm-status-FUH.pending {
+  background:#FEF3C7;
+  color:#B45309;
+}
+
+.crm-status-FUH.callback {
+  background:#DBEAFE;
+  color:#1D4ED8;
+}
+
+.crm-status-FUH.rejected {
+  background:#FEE2E2;
+  color:#DC2626;
+}
+
+
+/*--- VIEW BUTTON ---*/
+.crm-view-FUH-btn {
+  width:35px;
+  height:35px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:.3s;
+  margin-right:8px;
+  color:#ffffff;
+  background:#2563eb;
+}
+
+.crm-view-FUH-btn:hover {  
+  background:#1746c9;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
+                          /* ==============================
+                                  CALENDAR VIEW PAGE
+                          ============================== */
+
+.crm-calendar-view-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-calendar-view-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-calendar-view-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- CALENDAR NAVIGATION ---*/
+.crm-calendar-navigation {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.crm-calendar-navigation h3 {
+  font-size:24px;
+  color:#1e3a8a;
+  font-weight:600; 
+}
+
+.crm-calendar-btn {
+  width:30px;
+  height:30px;
+  border:none;
+  border-radius:8px;
+  background:#037c44;
+  color:#ffffff;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-calendar-btn:hover {
+  background:#1d4ed8;
+}
+
+
+/*--- CALENDAR CONTAINER ---*/
+.crm-calendar-view-container {
+  background:#ffffff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  margin-bottom:30px;
+  overflow-x:auto;
+}
+
+
+/*--- CALENDAR TABLE ---*/
+.crm-calendar-view-table {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-calendar-view-table thead {
+  background:#2563eb;
+}
+
+.crm-calendar-view-table th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
   font-size:15px;
 }
 
-.crm-table tbody tr:hover {
-  background:#f8fafc;
+.crm-calendar-view-table td {
+  width:14.28%;
+  height:120px;
+  border:1px solid #e5e7eb;
+  vertical-align:top;
+  padding:8px;
+  background:#ffffff;
+  transition:.3s;
 }
+
+.crm-calendar-view-table td:hover {
+  background:#eff6ff;
+}
+
+
+/*--- DATE ---*/
+.crm-cal-date {
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:#2563eb;
+  color:#ffffff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:14px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+
+/*--- EVENT ---*/
+.crm-event {
+  display:block;
+  background:#037c44;
+  color:white;
+  padding:6px 8px;
+  border-radius:6px;
+  font-size:14px;
+  margin-bottom:6px;
+  word-break:break-word;
+}
+
+
+/*--- DASHBOARD BOX ---*/
+.crm-dashboard-calendar {
+  background:#ffffff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  margin-bottom:30px;
+}
+
+.crm-box-calendar {
+  margin-bottom:20px;
+}
+
+.crm-box-calendar h3 {
+  color:#1e3a8a;
+  font-size:24px;
+}
+
+
+/*--- TABLE ---*/
+.crm-table-Cal-view {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-Cal-view thead {
+  background:#2563eb;
+}
+
+.crm-table-Cal-view th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
+  font-size:15px;
+}
+
+.crm-table-Cal-view td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
+}
+
+.crm-table-Cal-view tbody tr:hover {
+  background:#d0ecdf;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*--- STATUS BADGES ---*/
 .crm-status {
   display:inline-block;
-  padding:6px 14px;
+  padding:6px 12px;
   border-radius:20px;
   font-size:13px;
   font-weight:600;
 }
 
-.crm-status.success{
-
-    background:#DCFCE7;
-    color:#15803D;
-
+.crm-status.pending {
+  background:#FEF3C7;
+  color:#B45309;
 }
 
-.crm-status.pending{
-
-    background:#FEF3C7;
-    color:#B45309;
-
+.crm-status.completed {
+  background:#DCFCE7;
+  color:#15803D;
 }
-
-.crm-status.callback{
-
-    background:#DBEAFE;
-    color:#1D4ED8;
-
-}
-
-.crm-status.rejected{
-
-    background:#FEE2E2;
-    color:#DC2626;
-
-}
-
-/*=========================================================
-   VIEW BUTTON
-=========================================================*/
-
-.crm-view-btn{
-
-    width:38px;
-    height:38px;
-    border:none;
-    background:#2563eb;
-    color:#fff;
-    border-radius:8px;
-    cursor:pointer;
-    transition:.3s;
-
-}
-
-.crm-view-btn:hover{
-
-    background:#1d4ed8;
-
-}
-
-/*=========================================================
-   TABLE FOOTER
-=========================================================*/
-
-.crm-table-footer{
-
-    margin-top:20px;
-    color:#64748b;
-    font-size:15px;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
