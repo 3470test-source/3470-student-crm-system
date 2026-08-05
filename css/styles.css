@@ -2145,7 +2145,8 @@
 }
 
 .crm-calendar-view-table td:hover {
-  background:#eff6ff;
+  /* background:#eff6ff; */
+  background:#dde9f8;
 }
 
 
@@ -2228,35 +2229,23 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--- STATUS BADGES ---*/
-.crm-status {
+.crm-status-CV {
   display:inline-block;
-  padding:6px 12px;
-  border-radius:20px;
-  font-size:13px;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
   font-weight:600;
 }
 
-.crm-status.pending {
+.crm-status-CV.pending {
   background:#FEF3C7;
   color:#B45309;
 }
 
-.crm-status.completed {
+.crm-status-CV.completed {
   background:#DCFCE7;
   color:#15803D;
 }
 
+/* -------------------------------------------------------------------------------------------------------------------------------- */
