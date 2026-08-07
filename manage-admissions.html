@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Manage Courses Page</title>
+    <title>3470 Healthcare & Student CRM System - New Admission Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -23,7 +23,7 @@
     }
     
     </style>
-
+ 
 </head>
 <body>
 
@@ -195,100 +195,143 @@
             </aside>
 
 
-            <!-- CRM - MANAGE COURSES -->
+            <!--- MANAGE ADMISSIONS PAGE --->
             <main class="crm-dashboard-main">
 
-                <!-- Manage Courses Page Header -->
-                <div class="crm-manageCourses-header">
+                <div class="crm-manageAdmissions-header">
 
                     <div>
-                        <h2>Manage Courses</h2>
-                        <p>View, search, edit and manage all available courses.</p>
+                        <h2>Manage Admissions</h2>
+                        <p>View, search and manage all admitted students.</p>
                     </div>
 
-                        <a href="add-course.html" class="crm-add-btn"><i class="fa fa-plus"></i>Add Course</a>
-
+                        <a href="new-admission.html" class="crm-add-btn-MD"><i class="fa fa-plus"></i>Add Admission</a>
                 </div>
 
-                <!-- Search & Filter -->
-                <div class="crm-filter-manageCourse">
 
-                    <div class="crm-ManageCourse-search-box">
+                <!-- Search & Filters -->
+                <div class="crm-manageAdmission-filter">
+
+                    <div class="crm-manageAdmission-search-box">
                         <i class="fa fa-search"></i>
-                         <input type="text" id="searchCourse" placeholder="Search course...">
+                        <input type="text" placeholder="Search Student Name / Mobile Number">
                     </div>
 
-                    <div class="crm-ManageCourse-filter-box">
-                        <select id="courseStatus">
-                            <option value="">-- All Status --</option>
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                    <div class="crm-manageAdmission-filter-box">
+                        <select>
+                            <option>-- All Courses --</option>
+                            <option>CPC</option>
+                            <option>CRC</option>
+                            <option>CCS</option>
+                            <option>Medical Coding</option>
+                        </select>
+                    </div>
+
+                    <div class="crm-manageAdmission-filter-box">
+                        <select>
+                            <option>-- All Batches --</option>
+                            <option>Morning</option>
+                            <option>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Weekend</option>
+                        </select>
+                    </div>
+
+                    <div class="crm-manageAdmission-filter-box">
+                        <select>
+                            <option>-- All Status --</option>
+                            <option>Active</option>
+                            <option>Completed</option>
+                            <option>Cancelled</option>
                         </select>
                     </div>
 
                 </div>
 
 
-                <!-- Course Table -->
-                <div class="crm-table-manageCourse">
+                <!-- Table -->
+                <div class="crm-table-manageAdmissions">
 
-                    <table class="crm-table-MC">
+                    <table class="crm-table-MD">
 
                         <thead>
                             <tr>
-                                <th>#</th>
-                                <th>Course Name</th>
-                                <th>Category</th>
-                                <th>Duration</th>
-                                <th>Fee</th>
+                                <th>ID</th>
+                                <th>Student Name</th>
+                                <th>Mobile</th>
+                                <th>Course</th>
+                                <th>Batch</th>
+                                <th>Joining Date</th>
+                                <th>Course Fee</th>
+                                <th>Paid</th>
+                                <th>Balance</th>
                                 <th>Status</th>
+                                <th>Counsellor</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>Basic Medical Coding Training</td>
-                                <td>Programming</td>
-                                <td>6 Months</td>
+                                <td>ADM001</td>
+                                <td>Rahul Kumar</td>
+                                <td>9876543210</td>
+                                <td>CPC</td>
+                                <td>Morning</td>
+                                <td>05-Aug-2026</td>
                                 <td>₹25,000</td>
-                                <td>
-                                    <span class="crm-status active">Active</span>
-                                </td>
-                                <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Certified Professional Coder</td>
-                                <td>Programming</td>
-                                <td>3 Months</td>
+                                <td>₹10,000</td>
                                 <td>₹15,000</td>
                                 <td>
-                                    <span class="crm-status active">Active</span>
+                                    <span class="crm-status-MD active">Active</span>
                                 </td>
+                                <td>Priya</td>
                                 <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
 
                             <tr>
-                                <td>3</td>
-                                <td>Java Development</td>
-                                <td>Programming</td>
-                                <td>4 Months</td>
-                                <td>₹18,000</td>
+                                <td>ADM002</td>
+                                <td>Anitha</td>
+                                <td>9876501234</td>
+                                <td>CRC</td>
+                                <td>Evening</td>
+                                <td>07-Aug-2026</td>
+                                <td>₹30,000</td>
+                                <td>₹30,000</td>
+                                <td>₹0</td>
                                 <td>
-                                    <span class="crm-status inactive">Inactive</span>
+                                    <span class="crm-status-MD completed">Completed</span>
                                 </td>
+                                <td>Meena</td>
                                 <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
+                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>ADM003</td>
+                                <td>Arun</td>
+                                <td>9876512345</td>
+                                <td>CCS</td>
+                                <td>Weekend</td>
+                                <td>10-Aug-2026</td>
+                                <td>₹28,000</td>
+                                <td>₹15,000</td>
+                                <td>₹13,000</td>
+                                <td>
+                                    <span class="crm-status-MD pending">Pending</span>
+                                </td>
+                                <td>Karthik</td>
+                                <td>
+                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
+                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
+                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
 
@@ -298,16 +341,16 @@
 
                 </div>
 
-            <!-- Footer -->
-            <div class="crm-table-footer">
-                <p>Showing 1 to 3 of 3 Courses</p>
-            </div>
+                    <!-- Footer -->
+                    <div class="crm-table-footer">
+                        <p>Showing 1 to 3 of 3 Records.p</p>
+                    </div>
 
-        </main>
+            </main>
 
-    </div>
+        </div>
 
-    
+
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){
@@ -347,5 +390,4 @@ dropdowns.forEach(dropdown => {
 
 
 </body>
-</html>    
-
+</html>               

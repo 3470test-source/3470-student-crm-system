@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Add Course Page</title>
+    <title>3470 Healthcare & Student CRM System - New Admission Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -23,7 +23,7 @@
     }
     
     </style>
-
+ 
 </head>
 <body>
 
@@ -195,148 +195,172 @@
             </aside>
 
 
-            <!--- ADD STUDENT ENQUIRY --->
+            <!-- NEW ADMISSION PAGE -->
             <main class="crm-dashboard-main">
 
-                <div class="crm-addEnquiry-header">
-                    <h2>Add Student Enquiry</h2>
-                    <p>Create a new student enquiry and schedule follow-up.</p>
+                <div class="crm-new-Admission-header">
+
+                    <div>
+                        <h2>New Admission</h2>
+                        <p>Convert an enquiry into an admitted student.</p>
+                    </div>
+
                 </div>
 
-                <!-- AddEnquiry Form -->
-                <div class="crm-form-AddEnquiry">
+                <!-- Admission Form -->
+                <div class="crm-form-NewAdmission">
 
-                    <form id="studentEnquiryForm" class="addEnquiry">
+                    <form id="newAdmissionForm">
 
-                        <div class="crm-form-grid-addEnquiry">
+                        <div class="crm-form-grid-NewAdmission">
 
                             <!-- Student Name -->
-                            <div class="crm-form-group-addEnquiry">
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Student Name <span>*</span></label>
-                                <input type="text" placeholder="Enter student name" required>
+                                <input type="text" placeholder="Enter Student Name" required>
                             </div>
 
-                            <!-- Mobile -->
-                            <div class="crm-form-group-addEnquiry">
+                            <!-- Mobile Number -->
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Mobile Number <span>*</span></label>
-                                <input type="tel" placeholder="Enter mobile number" required>
+                                <input type="tel" placeholder="Enter Mobile Number" required>
                             </div>
 
                             <!-- Email -->
-                            <div class="crm-form-group-addEnquiry">
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Email Address</label>
-                                <input type="email" placeholder="Enter email address">
+                                <input type="email" placeholder="Enter Email Address">
                             </div>
 
                             <!-- Gender -->
-                            <div class="crm-form-group-addEnquiry">
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Gender</label>
-                                <select name="Gender">
-                                    <option value="">-- Select Gender --</option>
-                                    <option value="male">Male</option>
-                                    <option value="Female">Female</option>
+                                <select>
+                                    <option>-- Select Gender --</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
                                 </select>
                             </div>
 
                             <!-- Date of Birth -->
-                            <div class="crm-form-group-addEnquiry">
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Date of Birth</label>
                                 <input type="date">
                             </div>
 
                             <!-- Course -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Course Interested <span>*</span></label>
-                                <select name="course-interested" required>
-                                    <option value="">-- Select Course --</option>
-                                    <option value="BMCT">Basic Medical Coding Training</option>
-                                    <option value="AMCT">Advanced Medical Coding Training</option>
-                                    <option value="CPC">Certified Professional Coder</option>
-                                    <option value="E&M">Evaluation & Management</option>
-                                    <option value="IPDRG">Inpatient Diagnosis-Related Group</option>
-                                    <option value="ED">Emergency Department</option>
-                                    <option value="CCS">Certified Coding Specialist</option>
-                                    <option value="CPMA">Certified Professional Medical Auditor</option>
-                                    <option value="CRC">Certified Risk Adjustment Coder</option>
-                                    <option value="IVR">Interventional Radiology</option>
-                                    <option value="Surgery">Surgery</option>
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Course <span>*</span></label>
+                                <select>
+                                    <option>-- Select Course --</option>
+                                    <option>Medical Coding</option>
+                                    <option>CPC</option>
+                                    <option>CRC</option>
+                                    <option>CCS</option>
+                                    <option>Python</option>
                                 </select>
                             </div>
 
-                            <!-- Source -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Enquiry Source</label>
-                                <select name="enquiry-source">
-                                    <option value="">-- Select Source --</option>   
-                                    <option value="phone call">Phone Call</option>
-                                    <option value="Walk-in">Walk-in</option>
-                                    <option value="Website">Website</option>
-                                    <option value="WhatsApp">WhatsApp</option>
-                                    <option value="Facebook">Facebook</option>
-                                    <option value="Instagram">Instagram</option>
-                                    <option value="Referral">Referral</option>
+                            <!-- Batch -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Batch</label>
+                                <select>
+                                    <option>-- Select Batch --</option>
+                                    <option>Morning</option>
+                                    <option>Afternoon</option>
+                                    <option>Evening</option>
+                                    <option>Weekend</option>
+                                </select>
+                            </div>
+
+                            <!-- Joining Date -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Joining Date</label>
+                                <input type="date">
+                            </div>
+
+                            <!-- Course Fee -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Course Fee</label>
+                                <input type="number" placeholder="Enter Course Fee">
+                            </div>
+
+                            <!-- Discount -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Discount</label>
+                                <input type="number" placeholder="Enter Discount">
+                            </div>
+
+                            <!-- Final Fee -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Final Fee</label>
+                                <input type="number" placeholder="Final Fee">
+                            </div>
+
+                            <!-- Registration Amount -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Registration Amount</label>
+                                <input type="number" placeholder="Paid Amount">
+                            </div>
+
+                            <!-- Balance Amount -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Balance Amount</label>
+                                <input type="number" placeholder="Balance Amount">
+                            </div>
+
+                            <!-- Payment Mode -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Payment Mode</label>
+                                <select>
+                                    <option>-- Select Payment Mode --</option>
+                                    <option>Cash</option>
+                                    <option>UPI</option>
+                                    <option>Credit Card</option>
+                                    <option>Debit Card</option>
+                                    <option>Bank Transfer</option>
                                 </select>
                             </div>
 
                             <!-- Counsellor -->
-                            <div class="crm-form-group-addEnquiry">
+                            <div class="crm-input-group-NewAdmission">
                                 <label>Counsellor</label>
-                                <select name="Counsellor">
+                                <select>
                                     <option>-- Select Counsellor --</option>
-                                    <option>Ramesh</option>
-                                    <option>Renuka</option>
-                                    <option>Kaviya</option>
-                                    <option>Perumal</option>
+                                    <option>Priya</option>
+                                    <option>Meena</option>
+                                    <option>Arun</option>
                                 </select>
                             </div>
 
-                            <!-- Enquiry Date -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Enquiry Date</label>
-                                <input type="date">
-                            </div>
-
-                            <!-- Follow-up Date -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Next Follow-up Date</label>
-                                <input type="date">
-                            </div>
-
-                            <!-- Follow-up Time -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Follow-up Time</label>
-                                <input type="time">
-                            </div>
-
-                            <!-- Status -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Status</label>
-                                <select name="status">
-                                    <option value="">-- Status --</option>
-                                    <option>New</option>
-                                    <option>Interested</option>
-                                    <option>Follow-up</option>
-                                    <option>Not Interested</option>
-                                    <option>Admission Confirmed</option>
+                            <!-- Admission Status -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Admission Status</label>
+                                <select>
+                                    <option>-- Admission Status --</option>
+                                    <option>Confirmed</option>
+                                    <option>Pending</option>
+                                    <option>Cancelled</option>
                                 </select>
                             </div>
 
-                            <!-- Address -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Address</label>
-                                <textarea rows="3" placeholder="Enter address"></textarea>
+                            <!-- Upload Documents -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Upload Documents</label>
+                                <input type="file" multiple>
                             </div>
 
-                            <!-- Comments -->
-                            <div class="crm-form-group-addEnquiry">
-                                <label>Comments</label>
-                                <textarea rows="3" placeholder="Enter enquiry comments"></textarea>
+                            <!-- Remarks -->
+                            <div class="crm-input-group-NewAdmission">
+                                <label>Remarks</label>
+                                <textarea rows="3" placeholder="Enter Remarks"></textarea>
                             </div>
 
                             <!-- Buttons -->
-                            <div class="crm-form-AddEnquiry-buttons">
-                                <button type="submit" class="crm-btn-AddEnq-save">Save Enquiry</button>
-                                <button type="reset" class="crm-btn-AddEnq-reset">Reset</button>
+                            <div class="crm-form-NewAdmission-buttons">
+                                <button type="submit" class="crm-save-NA-btn"><i class="fa fa-save"></i>Save Admission</button>
+                                <button type="reset" class="crm-reset-NA-btn"><i class="fa fa-rotate-left"></i>Reset</button>
+                                <button type="button" class="crm-cancel-NA-btn"><i class="fa fa-times"></i>Cancel</button>
                             </div>
 
                         </div>
@@ -349,7 +373,7 @@
 
         </div>
 
-    
+
 <!-- Profile dropdown JS - Script -->
 <script>
     function toggleDropdown(){
@@ -390,3 +414,5 @@ dropdowns.forEach(dropdown => {
 
 </body>
 </html>    
+
+

@@ -2248,4 +2248,411 @@
   color:#15803D;
 }
 
-/* -------------------------------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+                /* ==============================
+                        NEW ADMISSION PAGE
+                ============================== */
+
+.crm-new-Admission-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-new-Admission-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-new-Admission-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- FORM CONTAINER ---*/
+.crm-form-NewAdmission {
+  background:#ffffff;
+  padding:30px;
+  border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+
+/*--- FORM GRID ---*/
+.crm-form-grid-NewAdmission {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+
+
+/*--- INPUT GROUP ---*/
+.crm-input-group-NewAdmission {
+  display:flex;
+  flex-direction:column;
+}
+
+.crm-input-group-NewAdmission label {
+  font-size:15px;
+  font-weight:600;
+  color:#295696;
+  margin-bottom:8px;
+}
+
+.crm-input-group-NewAdmission label span {
+  color:#ef4444;
+}
+
+
+/*--- INPUTS ---*/
+.crm-input-group-NewAdmission input,
+.crm-input-group-NewAdmission select,
+.crm-input-group-NewAdmission textarea {
+  width:100%;
+  padding:12px 15px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+  font-family:inherit;
+  transition:.3s;
+  background:#ffffff;
+}
+
+.crm-input-group-NewAdmission input:focus,
+.crm-input-group-NewAdmission select:focus,
+.crm-input-group-NewAdmission textarea:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- FILE INPUT ---*/
+.crm-input-group-NewAdmission input[type="file"] {
+  padding:10px;
+  cursor:pointer;
+}
+
+
+/*--- TEXTAREA ---*/
+.crm-input-group-NewAdmission textarea {
+  resize:vertical;
+  min-height:100px;
+}
+
+
+/*--- BUTTON SECTION ---*/
+.crm-form-NewAdmission-buttons {
+  display:flex;
+  gap:15px;
+  margin-top:25px;
+}
+
+
+/*--- Icons ---*/
+.crm-form-NewAdmission-buttons button i {
+  margin-right:8px;
+}
+
+
+/*--- Save Button ---*/
+.crm-save-NA-btn {
+  background:#2563eb;
+  color:#ffffff;
+  border:none;
+  padding:14px 28px;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.crm-save-NA-btn:hover {
+  background:#15803d;
+}
+
+
+/*--- Reset Button ---*/
+.crm-reset-NA-btn {
+  background:#f59e0b;
+  color:#ffffff;
+  border:none;
+  padding:14px 28px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-reset-NA-btn:hover {
+  background:#d97706;
+}
+
+
+/*--- Cancel Button ---*/
+.crm-cancel-NA-btn {
+  background:#ef4444;
+  color:#ffffff;
+  border:none;
+  padding:14px 28px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-cancel-NA-btn:hover {
+  background:#dc2626;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+                  /* =====================================
+                            MANAGE ADMISSIONS PAGE
+                  ===================================== */
+
+.crm-manageAdmissions-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-manageAdmissions-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-manageAdmissions-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- ADD ADMISSION BUTTON ---*/
+.crm-add-btn-MD {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:#2563eb;
+  color:#fff;
+  padding:12px 20px;
+  border-radius:8px;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-add-btn-MD:hover {
+  background:#1d4ed8;
+}
+
+
+/*--- SEARCH & FILTER ---*/
+.crm-manageAdmission-filter {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+
+/*--- Search Box ---*/
+.crm-manageAdmission-search-box {
+  position:relative;
+  width:350px;
+  flex:2;
+}
+
+.crm-manageAdmission-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-manageAdmission-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-manageAdmission-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- Filter Box ---*/
+.crm-manageAdmission-filter-box {
+  flex:1;
+}
+
+.crm-manageAdmission-filter-box select {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+  cursor:pointer;
+  width:100%;
+}
+
+.crm-manageAdmission-filter-box select:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- TABLE ---*/
+.crm-table-manageAdmissions {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.crm-table-MD {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-MD thead {
+  background:#2563eb;
+}
+
+.crm-table-MD th {
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+.crm-table-MD td {
+  padding:15px;
+  border-bottom:1px solid #dce3ec;
+  font-size:14px;
+  white-space:nowrap;
+  text-align:center;
+}
+
+.crm-table-MD tbody tr:hover {
+  background:#d0ecdf;
+}
+
+
+/*--- STATUS BADGES ---*/
+.crm-status-MD {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.crm-status-MD.active {
+  background:#DCFCE7;
+  color:#15803D;
+}
+
+.crm-status-MD.completed {
+  background:#DBEAFE;
+  color:#1D4ED8;
+}
+
+.crm-status-MD.pending {
+  background:#FEF3C7;
+  color:#B45309;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- ACTION BUTTONS ---*/
+.crm-view-btn,
+.crm-edit-btn,
+.crm-delete-btn {
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  margin-right:5px;
+  transition:.3s;
+}
+
+.crm-view-btn {
+  background:#0ea5e9;
+}
+
+.crm-view-btn:hover {
+  background:#0284c7;
+}
+
+.crm-edit-btn {
+  background:#2563eb;
+}
+
+.crm-edit-btn:hover {
+  background:#1d4ed8;
+}
+
+.crm-delete-btn {
+  background:#ef4444;
+}
+
+.crm-delete-btn:hover {
+  background:#dc2626;
+}
+
+
+
+
+
+
+
+
+
+
