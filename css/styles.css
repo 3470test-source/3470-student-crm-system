@@ -2589,32 +2589,12 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--- ACTION BUTTONS ---*/
-.crm-view-btn,
-.crm-edit-btn,
-.crm-delete-btn {
-  width:38px;
-  height:38px;
+.crm-view-btn-MD,
+.crm-edit-btn-MD,
+.crm-delete-btn-MD {
+  width:25px;
+  height:25px;
   border:none;
   border-radius:8px;
   color:#fff;
@@ -2623,36 +2603,653 @@
   transition:.3s;
 }
 
-.crm-view-btn {
+.crm-view-btn-MD {
   background:#0ea5e9;
 }
 
-.crm-view-btn:hover {
+.crm-view-btn-MD:hover {
   background:#0284c7;
 }
 
-.crm-edit-btn {
+.crm-edit-btn-MD {
   background:#2563eb;
 }
 
-.crm-edit-btn:hover {
+.crm-edit-btn-MD:hover {
   background:#1d4ed8;
 }
 
-.crm-delete-btn {
+.crm-delete-btn-MD {
   background:#ef4444;
 }
 
-.crm-delete-btn:hover {
+.crm-delete-btn-MD:hover {
   background:#dc2626;
 }
 
+/* ------------------------------------------------------------------------------------------------------------------------------------- */
+
+                    /* ====================================
+                              TODAY'S NOTIFICATIONS
+                    ==================================== */
+
+.crm-tdy-notification-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-tdy-notification-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-tdy-notification-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
 
 
+/*--- NOTIFICATION SUMMARY ---*/
+.crm-notification-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.crm-notification-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.crm-notification-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+}
 
 
+/*--- Summary Icon ---*/
+.crm-notification-summary-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #e5eefa;
+  color: #2563eb;
+  font-size: 20px;
+}
 
 
+/*--- Summary Text ---*/
+.crm-notification-summary-card span {
+  display: block;
+  font-size: 16px;
+  color: #60738d;
+  margin-bottom: 5px;
+}
 
+.crm-notification-summary-card h3 {
+  font-size: 25px;
+  color: #1e293b;
+}
+
+
+/*--- MAIN NOTIFICATION BOX ---*/
+.crm-dashboard-tdy-notification {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);  
+}
+
+
+/*--- BOX HEADER ---*/
+.crm-box-tdy-notification {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #96bfeb;
+  padding-bottom: 15px;
+}
+
+.crm-box-tdy-notification h3 {
+  font-size: 22px;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.crm-box-tdy-notification p {
+  font-size: 16px;
+  color:#a05d05;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- NOTIFICATION LIST ---*/
+.crm-notification-list {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/*--- NOTIFICATION ITEM ---*/
+.crm-notification-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 5px;
+  border-bottom: 1px solid #edf2f7;
+  transition: 0.3s;
+}
+
+.crm-notification-item:last-child {
+  border-bottom: none;
+}
+
+.crm-notification-item:hover {
+  background: #f8fafc;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+/*--- NOTIFICATION ICON ---*/
+.crm-notification-icon {
+  min-width: 45px;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 17px;
+}
+
+
+/*--- Enquiry ---*/
+.crm-notification-icon.enquiry {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/*--- Follow-up ---*/
+.crm-notification-icon.followup {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/*--- Admission ---*/
+.crm-notification-icon.admission {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/*--- Alert ---*/
+.crm-notification-icon.alert {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/*--- NOTIFICATION CONTENT ---*/
+.crm-Tdynotification-content {
+  flex: 1;
+}
+
+.crm-Tdynotification-content h4 {
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+
+.crm-Tdynotification-content p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+
+/*--- Time ---*/
+.crm-tdynotification-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.crm-tdynotification-time i {
+  font-size: 11px;
+}
+
+
+/*--- NOTIFICATION BADGES ---*/
+.crm-notification-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 85px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/*--- New ---*/
+.crm-notification-badge.new {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/*--- Pending ---*/
+.crm-notification-badge.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/*--- Completed ---*/
+.crm-notification-badge.completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/*--- Upcoming ---*/
+.crm-notification-badge.upcoming {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/*--- Attention ---*/
+.crm-notification-badge.warning {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/*--- TODAY'S ACTIVITY SUMMARY ---*/
+.crm-notification-summary-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/*--- Summary Item ---*/
+.crm-notification-summary-text p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 5px;
+  margin: 0;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 14px;
+  color: #475569;
+  transition: 0.3s;
+}
+
+/*--- Remove border from last item ---*/
+.crm-notification-summary-text p:last-child {
+  border-bottom: none;
+}
+
+/*--- Hover ---*/
+.crm-notification-summary-text p:hover {
+  background: #f8fafc;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/*--- Icons ---*/
+.crm-notification-summary-text p i {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+/*--- Success ---*/
+.crm-notification-summary-text p:nth-child(1) i {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/*--- Follow-up ---*/
+.crm-notification-summary-text p:nth-child(2) i {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/*--- Admission ---*/
+.crm-notification-summary-text p:nth-child(3) i {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/*--- Pending ---*/
+.crm-notification-summary-text p:nth-child(4) i {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------------- */
+
+              /* ==================================
+                      UPCOMING FOLLOW-UPS
+              ================================== */
+
+.crm-upcomingFollow-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;  
+}
+
+.crm-upcomingFollow-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-upcomingFollow-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.crm-upcomingFUPS-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.crm-upcomingFUPS-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+}
+
+/*--- Summary Icon ---*/
+.crm-upcomingFUPS-summary-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #e5eefa;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+/*--- Summary Text ---*/
+.crm-upcomingFUPS-summary-card span {
+  display: block;
+  font-size: 16px;
+  color: #60738d;
+  margin-bottom: 5px;
+}
+
+.crm-upcomingFUPS-summary-card h3 {
+  font-size: 25px;
+  color: #1e293b;
+}
+
+/*--- FILTER SECTION ---*/
+.crm-upcoming-filter-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+
+/*--- Search ---*/
+.crm-upcoming-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.crm-upcoming-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-upcoming-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-upcoming-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+/*--- Filter Box ---*/
+.crm-upcoming-filter-box {
+  width: 100%;
+}
+
+.crm-upcoming-filter-box select,
+.crm-upcoming-filter-box input {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+  cursor:pointer;
+  width:100%;
+}
+
+.crm-upcoming-filter-box select:focus,
+.crm-upcoming-filter-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- BOX HEADER ---*/
+.crm-box-upcoming-UP {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #96bfeb;
+  padding-bottom: 15px;
+}
+
+.crm-box-upcoming-UP h3 {
+  font-size:22px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-box-upcoming-UP p {
+  font-size: 16px;
+  color:#a05d05;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- TABLE CONTAINER ---*/
+.crm-table-upcoming-ups {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/*--- TABLE ---*/
+.crm-table-NUPF {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-NUPF thead {
+  background:#2563eb;
+}
+
+.crm-table-NUPF th {
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+.crm-table-NUPF td {
+  padding:15px;
+  border-bottom:1px solid #dce3ec;
+  font-size:14px;
+  white-space:nowrap;
+  text-align:center;
+}
+
+.crm-table-NUPF tbody tr:hover {
+  background:#d0ecdf;
+}
+
+
+/*--- FOLLOW-UP TYPE ---*/
+.crm-followup-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/*--- Phone ---*/
+.crm-followup-type.phone {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/*--- WhatsApp ---*/
+.crm-followup-type.whatsapp {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/*--- Email ---*/
+.crm-followup-type.email {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/*--- Walk-in ---*/
+.crm-followup-type.walkin {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/*--- STATUS ---*/
+.crm-status-NUPF {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:600;
+  white-space: nowrap;
+}
+
+.crm-status-NUPF.upcoming {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/*--- ACTION BUTTONS ---*/
+.crm-view-btn-NUPF,
+.crm-edit-btn-NUPF {
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  margin-right:5px;
+  transition:.3s;
+}
+
+/*--- View ---*/
+.crm-view-btn-NUPF {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.crm-view-btn-NUPF:hover {
+  background: #dbeafe;
+}
+
+/*--- Edit ---*/
+.crm-edit-btn-NUPF {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.crm-edit-btn-NUPF:hover {
+  background: #fde68a;
+}
+
+/*--- EMPTY MESSAGE ---*/
+.crm-upcoming-empty {
+  background: #ffffff;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.crm-upcoming-empty i {
+  font-size: 45px;
+  color: #94a3b8;
+  margin-bottom: 15px;
+}
+
+.crm-upcoming-empty h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #334155;
+}
+
+.crm-upcoming-empty p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
 
 

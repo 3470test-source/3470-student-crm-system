@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Upcoming Follow Ups Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    </style>
+ 
+</head>
+<body>
+
+
+    <!-- CRM dashboard Header -->
+    <header class="crm-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="crm-header-left">
+
+            <div class="crm-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="crm-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="crm-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="crm-header-right">
+
+            <!-- Notification -->
+            <div class="crm-notification">
+                <i class="fa-solid fa-bell"></i>
+                <span class="crm-notification-count">5</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="crm-profile-dropdown">
+
+            <div class="crm-profile-btn" onclick="toggleDropdown()">
+
+                <div class="crm-avatar">
+                    <i class="fa fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <i class="fa-solid fa-angle-down"></i>
+
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="crm-dropdown-menu" id="dropdownMenu">
+
+                <a href="#"><i class="fa fa-user"></i>My Profile</a>
+
+                <a href="#"><i class="fa fa-cog"></i>Settings</a>
+
+                <a href="#" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- CRM Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="dashboard-crm.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
+
+                <!-- Course Management -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-book"></i>Course Management
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-course.html" class="active"><i class="fa fa-plus"></i>Add Course</a>
+                        <a href="manage-courses.html" class="active"><i class="fa fa-list"></i>Manage Courses</a>
+                    </div>
+
+                </div>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="manage-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
+                        <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
+                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
+                        <a href="calendar-view.html"><i class="fa fa-calendar-alt"></i>Calendar View</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="manage-admissions.html"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                    </div>
+
+                </div>
+
+                <!-- Notifications -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-bullhorn"></i>Notifications
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-notifications.html"><i class="fa fa-bell"></i>Today's Notifications</a>
+                        <a href="upcoming-follow-ups.html"><i class="fa fa-calendar-check"></i>Upcoming Follow-ups</a>
+                        <a href="#"><i class="fa fa-calendar-xmark"></i>Missed Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Reports -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-chart-bar"></i>Reports
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
+                        <a href="#"><i class="fa fa-chart-line"></i>Admission Reports</a>
+                    </div>
+
+                </div>
+
+                <!-- Users -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-shield"></i>Users
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="#"><i class="fa fa-user-plus"></i>Add User</a>
+                        <a href="#"><i class="fa fa-users-cog"></i>Manage Users</a>
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!--- UPCOMING FOLLOW-UPS --->
+            <main class="crm-dashboard-main">
+
+                <div class="crm-upcomingFollow-header">
+
+                    <div>
+                        <h2>Upcoming Follow-ups</h2>
+                        <p>View and manage all scheduled future student follow-ups.</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Summary Cards -->
+                <div class="crm-notification-summary">
+
+                    <!-- Total Upcoming -->
+                    <div class="crm-upcomingFUPS-summary-card">
+
+                        <div class="crm-upcomingFUPS-summary-icon">
+                            <i class="fa fa-calendar-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Total Upcoming</span>
+                            <h3>18</h3>
+                        </div>
+
+                    </div>
+
+                    <!-- Tomorrow -->
+                    <div class="crm-upcomingFUPS-summary-card">
+
+                        <div class="crm-upcomingFUPS-summary-icon">
+                            <i class="fa fa-calendar-day"></i>
+                        </div>
+
+                        <div>
+                            <span>Tomorrow</span>
+                            <h3>7</h3>
+                        </div>
+
+                    </div>
+
+                    <!-- This Week -->
+                    <div class="crm-upcomingFUPS-summary-card">
+
+                        <div class="crm-upcomingFUPS-summary-icon">
+                            <i class="fa fa-calendar-week"></i>
+                        </div>
+
+                        <div>
+                            <span>This Week</span>
+                            <h3>11</h3>
+                        </div>
+
+                    </div>
+
+                    <!-- Counsellors -->
+                    <div class="crm-upcomingFUPS-summary-card">
+
+                        <div class="crm-upcomingFUPS-summary-icon">
+                            <i class="fa fa-users"></i>
+                        </div>
+
+                        <div>
+                            <span>Counsellors</span>
+                            <h3>4</h3>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Search & Filters -->
+                <div class="crm-dashboard-box">
+
+                    <div class="crm-upcoming-filter-container">
+
+                        <!-- Search -->
+                        <div class="crm-upcoming-search-box">
+                            <i class="fa fa-search"></i>
+                            <input type="text" id="upcomingSearch" placeholder="Search Student Name / Mobile Number">
+                        </div>
+
+                        <!-- Course -->
+                        <div class="crm-upcoming-filter-box">
+                            <select id="courseFilter">
+                                <option value="">-- All Courses --</option>
+                                <option value="CPC">CPC</option>
+                                <option value="CRC">CRC</option>
+                                <option value="CCS">CCS</option>
+                                <option value="Java">Java</option>
+                                <option value="Python">Python</option>
+                            </select>
+                        </div>
+
+                        <!-- Counsellor -->
+                        <div class="crm-upcoming-filter-box">
+                            <select id="counsellorFilter">
+                                <option value="">-- All Counsellors --</option>
+                                <option value="Priya">Priya</option>
+                                <option value="Meena">Meena</option>
+                                <option value="Karthik">Karthik</option>
+                                <option value="Arun">Arun</option>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="crm-upcoming-filter-box">
+                            <input type="date" id="dateFilter">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Upcoming Follow-ups Table -->
+                <div class="crm-dashboard-box">
+
+                    <div class="crm-box-upcoming-UP">
+                        <h3>Scheduled Follow-ups</h3>
+                        <p>Upcoming student follow-up activities.</p>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="crm-table-upcoming-ups">
+
+                        <table class="crm-table-NUPF" id="upcomingFollowupTable">
+
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Mobile</th>
+                                    <th>Course</th>
+                                    <th>Counsellor</th>
+                                    <th>Follow-up Date</th>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- Row 1 -->
+                                <tr>
+                                    <td>Rahul Kumar</td>
+                                    <td>9876543210</td>
+                                    <td>CPC</td>
+                                    <td>Priya</td>
+                                    <td>09-Aug-2026</td>
+                                    <td>10:00 AM</td>
+                                    <td>
+                                        <span class="crm-followup-type phone"><i class="fa fa-phone"></i>Phone Call</span>
+                                    </td>
+                                    <td>
+                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                    </td>
+                                    <td>
+                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 2 -->
+                                <tr>
+                                    <td>Priya Sharma</td>
+                                    <td>9876501234</td>
+                                    <td>Java</td>
+                                    <td>Meena</td>
+                                    <td>10-Aug-2026</td>
+                                    <td>11:30 AM</td>
+                                    <td>
+                                        <span class="crm-followup-type whatsapp"><i class="fa fa-whatsapp"></i>WhatsApp</span>
+                                    </td>
+                                    <td>
+                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                    </td>
+                                    <td>
+                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 3 -->
+                                <tr>
+                                    <td>Arun Kumar</td>
+                                    <td>9876512345</td>
+                                    <td>CRC</td>
+                                    <td>Karthik</td>
+                                    <td>12-Aug-2026</td>
+                                    <td>02:00 PM</td>
+                                    <td>
+                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Emai</span>
+                                    </td>
+                                    <td>
+                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                    </td>
+                                    <td>
+                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+
+                                <!-- Row 4 -->
+                                <tr>
+                                    <td>Kavin Raj</td>
+                                    <td>9876523456</td>
+                                    <td>Python</td>
+                                    <td>Arun</td>
+                                    <td>14-Aug-2026</td>
+                                    <td>03:30 PM</td>
+                                    <td>
+                                        <span class="crm-followup-type walkin"><i class="fa fa-person-walking"></i>Walk-in</span>
+                                    </td>
+                                    <td>
+                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                    </td>
+                                    <td>
+                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Empty Message -->
+                <div class="crm-upcoming-empty" id="upcomingEmptyMessage" style="display:none;">
+                    <i class="fa fa-calendar-xmark"></i>
+                    <h3>No Upcoming Follow-ups</h3>
+                    <p>There are no scheduled follow-ups matching your search.</p>
+                </div>
+
+            </main>
+
+    </div>
+
+
+<!-- Profile dropdown JS - Script -->
+<script>
+    function toggleDropdown(){
+
+    document.getElementById("dropdownMenu").classList.toggle("show");
+
+}
+
+window.onclick = function(e){
+
+    if(!e.target.closest(".crm-profile-dropdown")){
+
+        document.getElementById("dropdownMenu").classList.remove("show");
+
+    }
+
+}
+</script> 
+
+
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+</body>
+</html>            
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - New Admission Page</title>
+    <title>3470 Healthcare & Student CRM System - Today's Notifications Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -211,181 +211,219 @@
             </aside>
 
 
-            <!-- NEW ADMISSION PAGE -->
+            <!--- TODAY'S NOTIFICATIONS --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-new-Admission-header">
-
+                <div class="crm-tdy-notification-header">
+                    
                     <div>
-                        <h2>New Admission</h2>
-                        <p>Convert an enquiry into an admitted student.</p>
+                        <h2>Today's Notifications</h2>
+                        <p>View today's important CRM activities and alerts.</p>
                     </div>
 
                 </div>
 
-                <!-- Admission Form -->
-                <div class="crm-form-NewAdmission">
 
-                    <form id="newAdmissionForm">
+                <!-- Notification Summary -->
+                <div class="crm-notification-summary">
 
-                        <div class="crm-form-grid-NewAdmission">
+                    <div class="crm-notification-summary-card">
 
-                            <!-- Student Name -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Student Name <span>*</span></label>
-                                <input type="text" placeholder="Enter Student Name" required>
-                            </div>
-
-                            <!-- Mobile Number -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Mobile Number <span>*</span></label>
-                                <input type="tel" placeholder="Enter Mobile Number" required>
-                            </div>
-
-                            <!-- Email -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Email Address</label>
-                                <input type="email" placeholder="Enter Email Address">
-                            </div>
-
-                            <!-- Gender -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Gender</label>
-                                <select>
-                                    <option>-- Select Gender --</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
-                                </select>
-                            </div>
-
-                            <!-- Date of Birth -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Date of Birth</label>
-                                <input type="date">
-                            </div>
-
-                            <!-- Course -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Course <span>*</span></label>
-                                <select>
-                                    <option>-- Select Course --</option>
-                                    <option>Medical Coding</option>
-                                    <option>CPC</option>
-                                    <option>CRC</option>
-                                    <option>CCS</option>
-                                    <option>Python</option>
-                                </select>
-                            </div>
-
-                            <!-- Batch -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Batch</label>
-                                <select>
-                                    <option>-- Select Batch --</option>
-                                    <option>Morning</option>
-                                    <option>Afternoon</option>
-                                    <option>Evening</option>
-                                    <option>Weekend</option>
-                                </select>
-                            </div>
-
-                            <!-- Joining Date -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Joining Date</label>
-                                <input type="date">
-                            </div>
-
-                            <!-- Course Fee -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Course Fee</label>
-                                <input type="number" placeholder="Enter Course Fee">
-                            </div>
-
-                            <!-- Discount -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Discount</label>
-                                <input type="number" placeholder="Enter Discount">
-                            </div>
-
-                            <!-- Final Fee -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Final Fee</label>
-                                <input type="number" placeholder="Final Fee">
-                            </div>
-
-                            <!-- Registration Amount -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Registration Amount</label>
-                                <input type="number" placeholder="Paid Amount">
-                            </div>
-
-                            <!-- Balance Amount -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Balance Amount</label>
-                                <input type="number" placeholder="Balance Amount">
-                            </div>
-
-                            <!-- Payment Mode -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Payment Mode</label>
-                                <select>
-                                    <option>-- Select Payment Mode --</option>
-                                    <option>Cash</option>
-                                    <option>UPI</option>
-                                    <option>Credit Card</option>
-                                    <option>Debit Card</option>
-                                    <option>Bank Transfer</option>
-                                </select>
-                            </div>
-
-                            <!-- Counsellor -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Counsellor</label>
-                                <select>
-                                    <option>-- Select Counsellor --</option>
-                                    <option>Priya</option>
-                                    <option>Meena</option>
-                                    <option>Arun</option>
-                                </select>
-                            </div>
-
-                            <!-- Admission Status -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Admission Status</label>
-                                <select>
-                                    <option>-- Admission Status --</option>
-                                    <option>Confirmed</option>
-                                    <option>Pending</option>
-                                    <option>Cancelled</option>
-                                </select>
-                            </div>
-
-                            <!-- Upload Documents -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Upload Documents</label>
-                                <input type="file" multiple>
-                            </div>
-
-                            <!-- Remarks -->
-                            <div class="crm-input-group-NewAdmission">
-                                <label>Remarks</label>
-                                <textarea rows="3" placeholder="Enter Remarks"></textarea>
-                            </div>
-
-                            <!-- Buttons -->
-                            <div class="crm-form-NewAdmission-buttons">
-                                <button type="submit" class="crm-save-NA-btn"><i class="fa fa-save"></i>Save Admission</button>
-                                <button type="reset" class="crm-reset-NA-btn"><i class="fa fa-rotate-left"></i>Reset</button>
-                                <button type="button" class="crm-cancel-NA-btn"><i class="fa fa-times"></i>Cancel</button>
-                            </div>
-
+                        <div class="crm-notification-summary-icon">
+                            <i class="fa fa-bell"></i>
                         </div>
 
-                    </form>
+                        <div>
+                            <span>Total Notifications</span>
+                            <h3>12</h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crm-notification-summary-card">
+
+                        <div class="crm-notification-summary-icon">
+                            <i class="fa fa-calendar-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Follow-ups Today</span>
+                            <h3>5</h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crm-notification-summary-card">
+
+                        <div class="crm-notification-summary-icon">
+                            <i class="fa fa-user-plus"></i>
+                        </div>
+
+                        <div>
+                            <span>New Enquiries</span>
+                            <h3>4</h3>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crm-notification-summary-card">
+
+                        <div class="crm-notification-summary-icon">
+                            <i class="fa fa-user-check"></i>
+                        </div>
+
+                        <div>
+                            <span>Admissions</span>
+                            <h3>3</h3>
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </main>
+
+                <!--- Today's Notification List --->
+                <div class="crm-dashboard-tdy-notification">
+
+                    <div class="crm-box-tdy-notification">
+
+                        <div>
+                            <h3>Today's Notifications</h3>
+                            <p>Recent activities and important alerts.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crm-notification-list">
+
+                        <!-- Notification 1 -->
+                        <div class="crm-notification-item">
+
+                            <div class="crm-notification-icon enquiry">
+                                <i class="fa fa-user-plus"></i>
+                            </div>
+
+                            <div class="crm-Tdynotification-content">
+                                <h4>New Student Enquiry</h4>
+                                <p>A new enquiry has been received from Rahul Kumar for the CPC course.</p>
+
+                                <span class="crm-tdynotification-time"><i class="fa fa-clock"></i>09:15 AM</span>
+
+                            </div>
+
+                            <span class="crm-notification-badge new">New</span>
+
+                        </div>
+
+
+                        <!-- Notification 2 -->
+                        <div class="crm-notification-item">
+
+                            <div class="crm-notification-icon followup">
+                                <i class="fa fa-phone"></i>
+                            </div>
+
+                            <div class="crm-Tdynotification-content">
+                                <h4>Follow-up Reminder</h4>
+                                <p>Follow-up with Priya regarding the Java course is scheduled for 11:30 AM.</p>
+
+                                <span class="crm-tdynotification-time"><i class="fa fa-clock"></i>10:00 AM</span>
+
+                            </div>
+
+                            <span class="crm-notification-badge pending">Pending</span>
+
+                        </div>
+
+
+                        <!-- Notification 3 -->
+                        <div class="crm-notification-item">
+
+                            <div class="crm-notification-icon admission">
+                                <i class="fa fa-user-check"></i>
+                            </div>
+
+                            <div class="crm-Tdynotification-content">
+                                <h4>New Admission Completed</h4>
+                                <p>Arun Kumar has completed admission for the CRC course.</p>
+
+                                <span class="crm-tdynotification-time"><i class="fa fa-clock"></i>11:45 AM</span>
+
+                            </div>
+
+                            <span class="crm-notification-badge completed">Completed</span>
+
+                        </div>
+
+
+                        <!-- Notification 4 -->
+                        <div class="crm-notification-item">
+
+                            <div class="crm-notification-icon followup">
+                                <i class="fa fa-calendar-check"></i>
+                            </div>
+
+                            <div class="crm-Tdynotification-content">
+                                <h4>Upcoming Follow-up</h4>
+                                <p>Meena has a scheduled follow-up with Kavin at 02:00 PM.</p>
+
+                                <span class="crm-tdynotification-time"><i class="fa fa-clock"></i>12:30 PM</span>
+
+                            </div>
+
+                            <span class="crm-notification-badge upcoming">Upcoming</span>
+
+                        </div>
+
+
+                        <!-- Notification 5 -->
+                        <div class="crm-notification-item">
+
+                            <div class="crm-notification-icon alert">
+                                <i class="fa fa-circle-exclamation"></i>
+                            </div>
+
+                            <div class="crm-Tdynotification-content">
+                                <h4>Pending Follow-up</h4>
+                                <p>Two student follow-ups are still pending for today.</p>
+
+                                <span class="crm-tdynotification-time"><i class="fa fa-clock"></i>03:15 PM</span>
+
+                            </div>
+
+                            <span class="crm-notification-badge warning">Attention</span>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- Quick Notification Information -->
+                <div class="crm-dashboard-box">
+
+                    <div class="crm-box-header">
+                        <h3>Today's Activity Summary</h3>
+                    </div>
+
+                    <div class="crm-notification-summary-text">
+
+                        <p><i class="fa fa-check-circle"></i>4 new student enquiries received today.</p>
+                        <p><i class="fa fa-calendar-check"></i>5 follow-ups are scheduled for today.</p>
+                        <p><i class="fa fa-user-check"></i>3 admissions have been completed today.</p>
+                        <p><i class="fa fa-circle-exclamation"></i>2 follow-ups are still pending.</p>
+
+                    </div>
+
+                </div>
+
+            </main> 
 
         </div>
 
@@ -429,6 +467,5 @@ dropdowns.forEach(dropdown => {
 
 
 </body>
-</html>    
-
+</html>            
 
