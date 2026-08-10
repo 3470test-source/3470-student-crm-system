@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Upcoming Follow Ups Page</title>
+    <title>3470 Healthcare & Student CRM System - Missed FollowUps Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -211,14 +211,14 @@
             </aside>
 
 
-            <!--- UPCOMING FOLLOW-UPS --->
+            <!-- MISSED FOLLOW-UPS --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-upcomingFollow-header">
+                <div class="crm-missed-follow-header">
 
                     <div>
-                        <h2>Upcoming Follow-ups</h2>
-                        <p>View and manage all scheduled future student follow-ups.</p>
+                        <h2>Missed Follow-ups</h2>
+                        <p>View and manage student follow-ups that were missed or not completed.</p>
                     </div>
 
                 </div>
@@ -227,52 +227,55 @@
                 <!-- Summary Cards -->
                 <div class="crm-notification-summary">
 
-                    <!-- Total Upcoming -->
-                    <div class="crm-upcomingFUPS-summary-card">
+                    <!-- Total Missed -->
+                    <div class="crm-missedFollow-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
-                            <i class="fa fa-calendar-check"></i>
+                        <div class="crm-missedFollow-summary-icon">
+                            <i class="fa fa-calendar-xmark"></i>
                         </div>
 
                         <div>
-                            <span>Total Upcoming</span>
-                            <h3>18</h3>
+                            <span>Total Missed</span>
+                            <h3>12</h3>
                         </div>
 
                     </div>
 
-                    <!-- Tomorrow -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
+                    <!-- Today's Missed -->
+                    <div class="crm-missedFollow-summary-card">
+
+                        <div class="crm-missedFollow-summary-icon">
                             <i class="fa fa-calendar-day"></i>
                         </div>
 
                         <div>
-                            <span>Tomorrow</span>
-                            <h3>7</h3>
+                            <span>Today's Missed</span>
+                            <h3>4</h3>
                         </div>
 
                     </div>
 
-                    <!-- This Week -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
+                    <!-- This Week -->
+                    <div class="crm-missedFollow-summary-card">
+
+                        <div class="crm-missedFollow-summary-icon">
                             <i class="fa fa-calendar-week"></i>
                         </div>
 
                         <div>
                             <span>This Week</span>
-                            <h3>11</h3>
+                            <h3>8</h3>
                         </div>
 
                     </div>
 
-                    <!-- Counsellors -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
+                    <!-- Counsellors -->
+                    <div class="crm-missedFollow-summary-card">
+
+                        <div class="crm-missedFollow-summary-icon">
                             <i class="fa fa-users"></i>
                         </div>
 
@@ -289,17 +292,17 @@
                 <!-- Search & Filters -->
                 <div class="crm-dashboard-box">
 
-                    <div class="crm-upcoming-filter-container">
+                    <div class="crm-missedfollow-filter-container">
 
                         <!-- Search -->
-                        <div class="crm-upcoming-search-box">
+                        <div class="crm-missedfollow-search-box">
                             <i class="fa fa-search"></i>
-                            <input type="text" id="upcomingSearch" placeholder="Search Student Name / Mobile Number">
+                            <input type="text" id="missedSearch" placeholder="Search Student Name / Mobile Number">
                         </div>
 
-                        <!-- Course -->
-                        <div class="crm-upcoming-filter-box">
-                            <select id="courseFilter">
+                        <!-- Course Filter -->
+                        <div class="crm-missedfollow-filter-box">
+                            <select id="missedCourseFilter">
                                 <option value="">-- All Courses --</option>
                                 <option value="CPC">CPC</option>
                                 <option value="CRC">CRC</option>
@@ -309,9 +312,9 @@
                             </select>
                         </div>
 
-                        <!-- Counsellor -->
-                        <div class="crm-upcoming-filter-box">
-                            <select id="counsellorFilter">
+                        <!-- Counsellor Filter -->
+                        <div class="crm-missedfollow-filter-box">
+                            <select id="missedCounsellorFilter">
                                 <option value="">-- All Counsellors --</option>
                                 <option value="Priya">Priya</option>
                                 <option value="Meena">Meena</option>
@@ -320,9 +323,9 @@
                             </select>
                         </div>
 
-                        <!-- Date -->
-                        <div class="crm-upcoming-filter-box">
-                            <input type="date" id="dateFilter">
+                        <!-- Date Filter -->
+                        <div class="crm-missedfollow-filter-box">
+                            <input type="date" id="missedDateFilter">
                         </div>
 
                     </div>
@@ -330,18 +333,23 @@
                 </div>
 
 
-                <!-- Upcoming Follow-ups Table -->
+                <!-- Missed Follow-ups Table -->
                 <div class="crm-dashboard-box">
 
-                    <div class="crm-box-upcoming-UP">
-                        <h3>Scheduled Follow-ups</h3>
-                        <p>Upcoming student follow-up activities.</p>
+                    <div class="crm-box-missedfollow">
+
+                        <div>
+                            <h3>Missed Follow-ups</h3>
+                            <p>Follow-ups that were not completed as scheduled.</p>
+                        </div>
+
                     </div>
 
-                    <!-- Table -->
-                    <div class="crm-table-upcoming-ups">
 
-                        <table class="crm-table-NUPF" id="upcomingFollowupTable">
+                    <!-- Table -->
+                    <div class="crm-table-missedFollow">
+
+                        <table class="crm-table-missed" id="missedFollowupTable">
 
                             <thead>
                                 <tr>
@@ -364,17 +372,17 @@
                                     <td>9876543210</td>
                                     <td>CPC</td>
                                     <td>Priya</td>
-                                    <td>09-Aug-2026</td>
+                                    <td>07-Aug-2026</td>
                                     <td>10:00 AM</td>
                                     <td>
                                         <span class="crm-followup-type phone"><i class="fa fa-phone"></i>Phone Call</span>
                                     </td>
                                     <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                        <span class="crm-status-MFUPS missed">Missed</span>
                                     </td>
                                     <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
                                     </td>
                                 </tr>
 
@@ -384,17 +392,17 @@
                                     <td>9876501234</td>
                                     <td>Java</td>
                                     <td>Meena</td>
-                                    <td>10-Aug-2026</td>
+                                    <td>08-Aug-2026</td>
                                     <td>11:30 AM</td>
                                     <td>
                                         <span class="crm-followup-type whatsapp"><i class="fa fa-whatsapp"></i>WhatsApp</span>
                                     </td>
                                     <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                        <span class="crm-status-MFUPS missed">Missed</span>
                                     </td>
                                     <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
                                     </td>
                                 </tr>
 
@@ -404,17 +412,17 @@
                                     <td>9876512345</td>
                                     <td>CRC</td>
                                     <td>Karthik</td>
-                                    <td>12-Aug-2026</td>
+                                    <td>08-Aug-2026</td>
                                     <td>02:00 PM</td>
                                     <td>
-                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Emai</span>
+                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Email</span>
                                     </td>
                                     <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
+                                        <span class="crm-status-MFUPS missed">Missed</span>
                                     </td>
                                     <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
                                     </td>
                                 </tr>
 
@@ -424,19 +432,19 @@
                                     <td>9876523456</td>
                                     <td>Python</td>
                                     <td>Arun</td>
-                                    <td>14-Aug-2026</td>
+                                    <td>09-Aug-2026</td>
                                     <td>03:30 PM</td>
                                     <td>
                                         <span class="crm-followup-type walkin"><i class="fa fa-person-walking"></i>Walk-in</span>
                                     </td>
                                     <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
+                                        <span class="crm-status-MFUPS missed">Missed</span></td>
                                     <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
+                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
                                     </td>
                                 </tr>
+
                             </tbody>
 
                         </table>
@@ -447,13 +455,14 @@
 
 
                 <!-- Empty Message -->
-                <div class="crm-upcoming-empty" id="upcomingEmptyMessage" style="display:none;">
-                    <i class="fa fa-calendar-xmark"></i>
-                    <h3>No Upcoming Follow-ups</h3>
-                    <p>There are no scheduled follow-ups matching your search.</p>
+                <div class="crm-upcoming-empty" id="missedEmptyMessage" style="display:none;">
+                    <i class="fa fa-calendar-check"></i>
+                        <h3>No Missed Follow-ups</h3>
+                        <p>There are no missed follow-ups matching your search.</p>
                 </div>
 
-            </main>
+        </main>
+
 
     </div>
 
@@ -498,4 +507,3 @@ dropdowns.forEach(dropdown => {
 
 </body>
 </html>            
-

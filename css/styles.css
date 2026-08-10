@@ -3252,4 +3252,853 @@
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
 
+                  /* ================================
+                          MISSED FOLLOW-UPS
+                  ================================ */
+
+.crm-missed-follow-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.crm-missed-follow-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-missed-follow-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- SUMMARY CARDS ---*/
+.crm-notification-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.crm-missedFollow-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.crm-missedFollow-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+}
+
+
+/*--- Summary Text ---*/
+.crm-missedFollow-summary-card span {
+  display: block;
+  font-size: 16px;
+  color: #60738d;
+  margin-bottom: 5px;
+}
+
+.crm-missedFollow-summary-card h3 {
+  font-size: 25px;
+  color: #1e293b;
+}
+
+
+/*--- Summary Icon ---*/
+.crm-missedFollow-summary-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 20px;
+}
+
+
+/*--- FILTER SECTION ---*/
+.crm-missedfollow-filter-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+
+
+/*--- SEARCH ---*/
+.crm-missedfollow-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.crm-missedfollow-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-missedfollow-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-missedfollow-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+/*--- FILTER BOX ---*/
+.crm-missedfollow-filter-box {
+  width: 100%;
+}
+
+.crm-missedfollow-filter-box select,
+.crm-missedfollow-filter-box input {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+  cursor:pointer;
+  width:100%;
+}
+
+.crm-missedfollow-filter-box select:focus,
+.crm-missedfollow-filter-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+/*--- BOX HEADER ---*/
+.crm-box-missedfollow {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #96bfeb;
+  padding-bottom: 15px;
+}
+
+.crm-box-missedfollow h3 {
+  font-size:22px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-box-missedfollow p {
+  font-size: 16px;
+  color:#a05d05;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+/*--- TABLE CONTAINER ---*/
+.crm-table-missedFollow {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+/*--- TABLE ---*/
+.crm-table-missed {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-missed thead {
+  background:#2563eb;
+}
+
+.crm-table-missed th {
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:15px;
+  white-space:nowrap;
+}
+
+.crm-table-missed td {
+  padding:15px;
+  border-bottom:1px solid #dce3ec;
+  font-size:14px;
+  white-space:nowrap;
+  text-align:center;
+}
+
+.crm-table-missed tbody tr:hover {
+  background:#d0ecdf;
+}
+
+/*--- FOLLOW-UP TYPE ---*/
+.crm-followup-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/*--- Phone Call ---*/
+.crm-followup-type.phone {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+/*--- WhatsApp ---*/
+.crm-followup-type.whatsapp {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/*--- Ema-il ---*/
+.crm-followup-type.email {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/*--- Walk-in ---*/
+.crm-followup-type.walkin {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+/*--- MISSED STATUS ---*/
+.crm-status-MFUPS {
+  white-space: nowrap;
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
+}
+
+.crm-status-MFUPS.missed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/*--- ACTION BUTTONS ---*/
+.crm-view-btn-MFUPS,
+.crm-edit-btn-MFUPS {
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  margin-right:5px;
+  transition:.3s;
+}
+
+/*--- View ---*/
+.crm-view-btn-MFUPS {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.crm-view-btn-MFUPS:hover {
+  background: #dbeafe;
+}
+
+/*--- Reschedule ---*/
+.crm-edit-btn-MFUPS {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.crm-edit-btn-MFUPS :hover {
+  background: #fde68a;
+}
+
+/*--- EMPTY MESSAGE ---*/
+.crm-upcoming-empty {
+  background: #ffffff;
+  padding: 50px 20px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.crm-upcoming-empty i {
+  font-size: 45px;
+  color: #22c55e;
+  margin-bottom: 15px;
+}
+
+.crm-upcoming-empty h3 {
+  margin: 0 0 8px 0;
+  font-size: 20px;
+  color: #334155;
+}
+
+.crm-upcoming-empty p {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------- */
+
+                    /* ==========================
+                            ENQUIRY REPORTS
+                    ========================== */
+
+.crm-enquiryReports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.crm-enquiryReports-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-enquiryReports-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- SUMMARY CARDS ---*/
+.crm-notification-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.crm-notification-summary-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.crm-notification-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+}
+
+
+/*--- Summary Icon ---*/
+.crm-notification-summary-icon {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+
+/*--- Summary Text ---*/
+.crm-notification-summary-card span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.crm-notification-summary-card h3 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+
+
+/*--- DASHBOARD BOX ---*/
+.crm-dashboard-box {
+  width: 100%;
+  background: #ffffff;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/*--- BOX HEADER ---*/
+.crm-box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.crm-box-header h3 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+
+.crm-box-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+/*--- REPORT FILTER CONTAINER ---*/
+.crm-report-filter-container {
+  display: grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap: 18px;
+  align-items: end;
+}
+
+
+
+/*--- FILTER GROUP ---*/
+.crm-report-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+
+
+
+.crm-report-filter-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.crm-report-filter-group input,
+.crm-report-filter-group select {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.crm-report-filter-group input:focus,
+.crm-report-filter-group select:focus {
+  border-color: #2563eb;
+  box-shadow:0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/*--- FILTER ACTIONS ---*/
+.crm-report-filter-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+/*--- Apply Filter ---*/
+.crm-report-filter-btn {
+  height: 46px;
+  padding: 0 17px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.crm-report-filter-btn:hover {
+  background: #1d4ed8;
+}
+
+
+/*--- Reset ---*/
+.crm-report-reset-btn {
+  height: 46px;
+  padding: 0 17px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.crm-report-reset-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+
+/*=========================================================
+    EXPORT REPORT BUTTON
+=========================================================*/
+
+.crm-report-export-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 15px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #16a34a;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.crm-report-export-btn:hover {
+
+    background: #15803d;
+
+}
+
+
+/*=========================================================
+    TABLE CONTAINER
+=========================================================*/
+
+.crm-table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/*=========================================================
+    REPORT TABLE
+=========================================================*/
+
+.crm-table {
+
+    width: 100%;
+
+    min-width: 1000px;
+
+    border-collapse: collapse;
+
+    font-size: 14px;
+}
+
+.crm-table thead {
+
+    background: #f8fafc;
+}
+
+.crm-table th {
+
+    padding: 14px 12px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #475569;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    white-space: nowrap;
+}
+
+.crm-table td {
+
+    padding: 15px 12px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #edf2f7;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+.crm-table tbody tr {
+
+    transition: 0.2s;
+}
+
+.crm-table tbody tr:hover {
+
+    background: #f8fafc;
+}
+
+
+/*=========================================================
+    ENQUIRY STATUS BADGES
+=========================================================*/
+
+.crm-status {
+
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* Interested */
+
+.crm-status.interested {
+
+    background: #dcfce7;
+
+    color: #15803d;
+}
+
+
+/* Follow-up */
+
+.crm-status.followup {
+
+    background: #fef3c7;
+
+    color: #b45309;
+}
+
+
+/* Not Interested */
+
+.crm-status.not-interested {
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+}
+
+
+/* Admission Confirmed */
+
+.crm-status.admission {
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+}
+
+
+/*=========================================================
+    ENQUIRY STATUS SUMMARY
+=========================================================*/
+
+.crm-enquiry-status-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+/* Status Item */
+
+.crm-enquiry-status-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 18px;
+
+    border: 1px solid #edf2f7;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    transition: 0.3s;
+}
+
+.crm-enquiry-status-item:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* Status Icon */
+
+.crm-enquiry-status-icon {
+
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 17px;
+}
+
+
+/* Interested */
+
+.crm-enquiry-status-icon.interested {
+
+    background: #dcfce7;
+
+    color: #16a34a;
+}
+
+
+/* Follow-up */
+
+.crm-enquiry-status-icon.followup {
+
+    background: #fef3c7;
+
+    color: #d97706;
+}
+
+
+/* Not Interested */
+
+.crm-enquiry-status-icon.not-interested {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+
+/* Admission */
+
+.crm-enquiry-status-icon.admission {
+
+    background: #dbeafe;
+
+    color: #2563eb;
+}
+
+
+/* Status Text */
+
+.crm-enquiry-status-item span {
+
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+.crm-enquiry-status-item strong {
+
+    display: block;
+
+    font-size: 21px;
+
+    color: #1e293b;
+}
+
+
+
 
