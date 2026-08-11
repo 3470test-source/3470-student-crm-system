@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Upcoming Follow Ups Page</title>
+    <title>3470 Healthcare & Student CRM System - Admission Reports Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -211,74 +211,77 @@
             </aside>
 
 
-            <!--- UPCOMING FOLLOW-UPS --->
+            <!--- ADMISSION REPORTS --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-upcomingFollow-header">
+                <div class="crm-admissionReports-header">
 
                     <div>
-                        <h2>Upcoming Follow-ups</h2>
-                        <p>View and manage all scheduled future student follow-ups.</p>
+                        <h2>Admission Reports</h2>
+                        <p>View, analyze and track student admission performance.</p>
                     </div>
 
                 </div>
 
 
-                <!-- Summary Cards -->
-                <div class="crm-notification-summary">
+                <!-- SUMMARY CARDS -->
+                <div class="crm-admissionReports-summary">
 
-                    <!-- Total Upcoming -->
-                    <div class="crm-upcomingFUPS-summary-card">
+                    <!-- Total Admissions -->
+                    <div class="crm-admissionReports-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
-                            <i class="fa fa-calendar-check"></i>
+                        <div class="crm-admissionReports-summary-icon">
+                            <i class="fa fa-user-check"></i>
                         </div>
 
                         <div>
-                            <span>Total Upcoming</span>
-                            <h3>18</h3>
+                            <span>Total Admissions</span>
+                            <h3>72</h3>
                         </div>
 
                     </div>
 
-                    <!-- Tomorrow -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
+                    <!-- Today's Admissions -->
+                    <div class="crm-admissionReports-summary-card">
+
+                        <div class="crm-admissionReports-summary-icon">
                             <i class="fa fa-calendar-day"></i>
                         </div>
 
                         <div>
-                            <span>Tomorrow</span>
-                            <h3>7</h3>
+                            <span>Today's Admissions</span>
+                            <h3>5</h3>
                         </div>
 
                     </div>
 
-                    <!-- This Week -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
-                            <i class="fa fa-calendar-week"></i>
+                    <!-- This Month -->
+                    <div class="crm-admissionReports-summary-card">
+
+                        <div class="crm-admissionReports-summary-icon">
+                            <i class="fa fa-calendar"></i>
                         </div>
 
                         <div>
-                            <span>This Week</span>
-                            <h3>11</h3>
+                            <span>This Month</span>
+                            <h3>28</h3>
                         </div>
 
                     </div>
 
-                    <!-- Counsellors -->
-                    <div class="crm-upcomingFUPS-summary-card">
 
-                        <div class="crm-upcomingFUPS-summary-icon">
-                            <i class="fa fa-users"></i>
+                    <!-- Total Revenue -->
+                    <div class="crm-admissionReports-summary-card">
+
+                        <div class="crm-admissionReports-summary-icon">
+                            <i class="fa fa-indian-rupee-sign"></i>
                         </div>
 
                         <div>
-                            <span>Counsellors</span>
-                            <h3>4</h3>
+                            <span>Total Revenue</span>
+                            <h3>₹1.1L</h3>
                         </div>
 
                     </div>
@@ -286,32 +289,54 @@
                 </div>
 
 
-                <!-- Search & Filters -->
+                <!-- REPORT FILTERS -->
                 <div class="crm-dashboard-box">
 
-                    <div class="crm-upcoming-filter-container">
+                    <div class="crm-box-admissionReports">
 
-                        <!-- Search -->
-                        <div class="crm-upcoming-search-box">
-                            <i class="fa fa-search"></i>
-                            <input type="text" id="upcomingSearch" placeholder="Search Student Name / Mobile Number">
+                        <div>
+                            <h3>Report Filters</h3>
+                            <p>Select the required filters to view admission data.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="crm-report-filter-admission">
+
+                        <!-- From Date -->
+                        <div class="crm-AdmissionReport-filter-group">
+                            <label for="admissionFromDate">From Date</label>
+                            <input type="date" id="admissionFromDate">
+                        </div>
+
+                        <!-- To Date -->
+                        <div class="crm-AdmissionReport-filter-group">
+                            <label for="admissionToDate">To Date</label>
+                            <input type="date" id="admissionToDate">
                         </div>
 
                         <!-- Course -->
-                        <div class="crm-upcoming-filter-box">
-                            <select id="courseFilter">
+                        <div class="crm-AdmissionReport-filter-group">
+                            <label for="admissionCourse">Course</label>
+                            <select id="admissionCourse">
                                 <option value="">-- All Courses --</option>
+                                <option value="BMCT">BMCT</option>
                                 <option value="CPC">CPC</option>
-                                <option value="CRC">CRC</option>
+                                <option value="E&M">E&M</option>
+                                <option value="IPDRG">IPDRG</option>
+                                <option value="ED">ED</option>
                                 <option value="CCS">CCS</option>
-                                <option value="Java">Java</option>
-                                <option value="Python">Python</option>
+                                <option value="CPMA">CPMA</option>
+                                <option value="CRC">CRC</option>
+                                <option value="Surgery">Surgery</option>
                             </select>
                         </div>
 
                         <!-- Counsellor -->
-                        <div class="crm-upcoming-filter-box">
-                            <select id="counsellorFilter">
+                        <div class="crm-AdmissionReport-filter-group">
+                            <label for="admissionCounsellor">Counsellor</label>
+                            <select id="admissionCounsellor">
                                 <option value="">-- All Counsellors --</option>
                                 <option value="Priya">Priya</option>
                                 <option value="Meena">Meena</option>
@@ -320,9 +345,21 @@
                             </select>
                         </div>
 
-                        <!-- Date -->
-                        <div class="crm-upcoming-filter-box">
-                            <input type="date" id="dateFilter">
+                        <!-- Payment Status -->
+                        <div class="crm-AdmissionReport-filter-group">
+                            <label for="paymentStatus">Payment Status</label>
+                            <select id="paymentStatus">
+                                <option value="">-- All Payment Status --</option>
+                                <option value="Paid">Paid</option>
+                                <option value="Partial">Partial</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+
+                        <!-- Filter Buttons -->
+                        <div class="crm-AdmissionReport-filter-actions">
+                            <button type="button" class="crm-admreport-filter-btn"><i class="fa fa-filter"></i>Apply Filter</button>
+                            <button type="button" class="crm-admreport-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
                         </div>
 
                     </div>
@@ -330,111 +367,118 @@
                 </div>
 
 
-                <!-- Upcoming Follow-ups Table -->
+                <!--- ADMISSION REPORT TABLE --->
                 <div class="crm-dashboard-box">
 
-                    <div class="crm-box-upcoming-UP">
-                        <h3>Scheduled Follow-ups</h3>
-                        <p>Upcoming student follow-up activities.</p>
+                    <div class="crm-box-admissionReports">
+
+                        <div>
+                            <h3>Admission Report</h3>
+                            <p>Detailed student admission information.</p>
+                        </div>
+
+                        <button type="button" class="crm-report-export-btn"><i class="fa fa-download"></i>Export Report</button>
+
                     </div>
 
                     <!-- Table -->
-                    <div class="crm-table-upcoming-ups">
+                    <div class="crm-table-container">
 
-                        <table class="crm-table-NUPF" id="upcomingFollowupTable">
+                        <table class="crm-table">
 
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Student Name</th>
                                     <th>Mobile</th>
                                     <th>Course</th>
                                     <th>Counsellor</th>
-                                    <th>Follow-up Date</th>
-                                    <th>Time</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Admission Date</th>
+                                    <th>Course Fee</th>
+                                    <th>Paid Amount</th>
+                                    <th>Balance</th>
+                                    <th>Payment Status</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <!-- Row 1 -->
                                 <tr>
+                                    <td>1</td>
                                     <td>Rahul Kumar</td>
                                     <td>9876543210</td>
                                     <td>CPC</td>
                                     <td>Priya</td>
-                                    <td>09-Aug-2026</td>
-                                    <td>10:00 AM</td>
+                                    <td>02-Aug-2026</td>
+                                    <td>₹25,000</td>
+                                    <td>₹25,000</td>
+                                    <td>₹0</td>
                                     <td>
-                                        <span class="crm-followup-type phone"><i class="fa fa-phone"></i>Phone Call</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <span class="crm-status paid">Paid</span>
                                     </td>
                                 </tr>
 
                                 <!-- Row 2 -->
                                 <tr>
+                                    <td>2</td>
                                     <td>Priya Sharma</td>
                                     <td>9876501234</td>
-                                    <td>Java</td>
+                                    <td>CRC</td>
                                     <td>Meena</td>
-                                    <td>10-Aug-2026</td>
-                                    <td>11:30 AM</td>
+                                    <td>04-Aug-2026</td>
+                                    <td>₹30,000</td>
+                                    <td>₹20,000</td>
+                                    <td>₹10,000</td>
                                     <td>
-                                        <span class="crm-followup-type whatsapp"><i class="fa fa-whatsapp"></i>WhatsApp</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <span class="crm-status partial">Partial</span>
                                     </td>
                                 </tr>
 
                                 <!-- Row 3 -->
                                 <tr>
+                                    <td>3</td>
                                     <td>Arun Kumar</td>
                                     <td>9876512345</td>
-                                    <td>CRC</td>
+                                    <td>CCS</td>
                                     <td>Karthik</td>
-                                    <td>12-Aug-2026</td>
-                                    <td>02:00 PM</td>
+                                    <td>05-Aug-2026</td>
+                                    <td>₹28,000</td>
+                                    <td>₹15,000</td>
+                                    <td>₹13,000</td>
                                     <td>
-                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Emai</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <span class="crm-status pending">Pending</span>
                                     </td>
                                 </tr>
 
                                 <!-- Row 4 -->
                                 <tr>
+                                    <td>4</td>
                                     <td>Kavin Raj</td>
                                     <td>9876523456</td>
-                                    <td>Python</td>
+                                    <td>CPMA</td>
                                     <td>Arun</td>
-                                    <td>14-Aug-2026</td>
-                                    <td>03:30 PM</td>
+                                    <td>07-Aug-2026</td>
+                                    <td>₹35,000</td>
+                                    <td>₹35,000</td>
+                                    <td>₹0</td>
                                     <td>
-                                        <span class="crm-followup-type walkin"><i class="fa fa-person-walking"></i>Walk-in</span>
+                                        <span class="crm-status paid">Paid</span>
                                     </td>
+                                </tr>
+
+                                <!-- Row 5 -->
+                                <tr>
+                                    <td>5</td>
+                                    <td>Divya</td>
+                                    <td>9876534567</td>
+                                    <td>BMCT</td>
+                                    <td>Priya</td>
+                                    <td>09-Aug-2026</td>
+                                    <td>₹20,000</td>
+                                    <td>₹10,000</td>
+                                    <td>₹10,000</td>
                                     <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                        <span class="crm-status partial">Partial</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -446,14 +490,149 @@
                 </div>
 
 
-                <!-- Empty Message -->
-                <div class="crm-upcoming-empty" id="upcomingEmptyMessage" style="display:none;">
-                    <i class="fa fa-calendar-xmark"></i>
-                    <h3>No Upcoming Follow-ups</h3>
-                    <p>There are no scheduled follow-ups matching your search.</p>
+
+
+
+
+
+
+
+
+
+                
+    <!-- ==========================================
+         ADMISSION SUMMARY
+    ========================================== -->
+
+    <div class="crm-dashboard-box">
+
+        <div class="crm-box-admissionReports">
+
+            <div>
+
+                <h3>Admission Payment Summary</h3>
+
+                <p>
+                    Summary of admission fees and payment status.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="crm-enquiry-status-grid">
+
+
+            <!-- Total Fee -->
+
+            <div class="crm-enquiry-status-item">
+
+                <div class="crm-enquiry-status-icon admission">
+
+                    <i class="fa fa-indian-rupee-sign"></i>
+
                 </div>
 
-            </main>
+                <div>
+
+                    <span>Total Course Fee</span>
+
+                    <strong>₹18.5L</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Paid -->
+
+            <div class="crm-enquiry-status-item">
+
+                <div class="crm-enquiry-status-icon interested">
+
+                    <i class="fa fa-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Total Paid</span>
+
+                    <strong>₹14.2L</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Partial -->
+
+            <div class="crm-enquiry-status-item">
+
+                <div class="crm-enquiry-status-icon followup">
+
+                    <i class="fa fa-clock"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Partial Payments</span>
+
+                    <strong>₹2.1L</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pending -->
+
+            <div class="crm-enquiry-status-item">
+
+                <div class="crm-enquiry-status-icon not-interested">
+
+                    <i class="fa fa-circle-exclamation"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Pending Amount</span>
+
+                    <strong>₹2.2L</strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </div>
 
