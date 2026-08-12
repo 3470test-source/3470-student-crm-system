@@ -202,7 +202,7 @@
                     </div>
 
                     <div class="crm-dropdown-content">
-                        <a href="#"><i class="fa fa-user-plus"></i>Add User</a>
+                        <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
                         <a href="#"><i class="fa fa-users-cog"></i>Manage Users</a>
                     </div>
 
@@ -382,9 +382,9 @@
                     </div>
 
                     <!-- Table -->
-                    <div class="crm-table-container">
+                    <div class="crm-table-admissionReports">
 
-                        <table class="crm-table">
+                        <table class="crm-table-AR">
 
                             <thead>
                                 <tr>
@@ -414,7 +414,7 @@
                                     <td>₹25,000</td>
                                     <td>₹0</td>
                                     <td>
-                                        <span class="crm-status paid">Paid</span>
+                                        <span class="crm-status-AR paid">Paid</span>
                                     </td>
                                 </tr>
 
@@ -430,7 +430,7 @@
                                     <td>₹20,000</td>
                                     <td>₹10,000</td>
                                     <td>
-                                        <span class="crm-status partial">Partial</span>
+                                        <span class="crm-status-AR partial">Partial</span>
                                     </td>
                                 </tr>
 
@@ -446,7 +446,7 @@
                                     <td>₹15,000</td>
                                     <td>₹13,000</td>
                                     <td>
-                                        <span class="crm-status pending">Pending</span>
+                                        <span class="crm-status-AR pending">Pending</span>
                                     </td>
                                 </tr>
 
@@ -462,7 +462,7 @@
                                     <td>₹35,000</td>
                                     <td>₹0</td>
                                     <td>
-                                        <span class="crm-status paid">Paid</span>
+                                        <span class="crm-status-AR paid">Paid</span>
                                     </td>
                                 </tr>
 
@@ -478,7 +478,7 @@
                                     <td>₹10,000</td>
                                     <td>₹10,000</td>
                                     <td>
-                                        <span class="crm-status partial">Partial</span>
+                                        <span class="crm-status-AR partial">Partial</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -489,152 +489,88 @@
 
                 </div>
 
+        
+                <!--- ADMISSION SUMMARY --->
+                <div class="crm-dashboard-box">
+
+                    <div class="crm-box-admissionReports">
+
+                        <div>
+                            <h3>Admission Payment Summary</h3>
+                            <p>Summary of admission fees and payment status.</p>
+                        </div>
+
+                    </div>
 
 
+                    <div class="crm-admissionReports-status-grid">
+
+                        <!-- Total Fee -->
+                        <div class="crm-admissionReports-status-item">
+
+                            <div class="crm-admissionReports-status-icon admission">
+                                <i class="fa fa-indian-rupee-sign"></i>
+                            </div>
+
+                            <div>
+                                <span>Total Course Fee</span>
+                                <strong>₹1.5L</strong>
+                            </div>
+
+                        </div>
 
 
+                        <!-- Paid -->
+                        <div class="crm-admissionReports-status-item">
+
+                            <div class="crm-admissionReports-status-icon interested">
+                                <i class="fa fa-circle-check"></i>
+                            </div>
+
+                            <div>
+                                <span>Total Paid</span>
+                                <strong>₹2L</strong>
+                            </div>
+
+                        </div>
 
 
+                        <!-- Partial -->
+                        <div class="crm-admissionReports-status-item">
+
+                            <div class="crm-admissionReports-status-icon followup">
+                                <i class="fa fa-clock"></i>
+                            </div>
+
+                            <div>
+                                <span>Partial Payments</span>
+                                <strong>₹2.1L</strong>
+                            </div>
+
+                        </div>
 
 
+                        <!-- Pending -->
+                        <div class="crm-admissionReports-status-item">
 
+                            <div class="crm-admissionReports-status-icon not-interested">
+                                <i class="fa fa-circle-exclamation"></i>
+                            </div>
 
-                
-    <!-- ==========================================
-         ADMISSION SUMMARY
-    ========================================== -->
+                            <div>
+                                <span>Pending Amount</span>
+                                <strong>₹2.2L</strong>
+                            </div>
 
-    <div class="crm-dashboard-box">
+                        </div>
 
-        <div class="crm-box-admissionReports">
+                    </div>
 
-            <div>
+                </div>
 
-                <h3>Admission Payment Summary</h3>
-
-                <p>
-                    Summary of admission fees and payment status.
-                </p>
-
-            </div>
+            </main>
 
         </div>
-
-
-        <div class="crm-enquiry-status-grid">
-
-
-            <!-- Total Fee -->
-
-            <div class="crm-enquiry-status-item">
-
-                <div class="crm-enquiry-status-icon admission">
-
-                    <i class="fa fa-indian-rupee-sign"></i>
-
-                </div>
-
-                <div>
-
-                    <span>Total Course Fee</span>
-
-                    <strong>₹18.5L</strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- Paid -->
-
-            <div class="crm-enquiry-status-item">
-
-                <div class="crm-enquiry-status-icon interested">
-
-                    <i class="fa fa-circle-check"></i>
-
-                </div>
-
-                <div>
-
-                    <span>Total Paid</span>
-
-                    <strong>₹14.2L</strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- Partial -->
-
-            <div class="crm-enquiry-status-item">
-
-                <div class="crm-enquiry-status-icon followup">
-
-                    <i class="fa fa-clock"></i>
-
-                </div>
-
-                <div>
-
-                    <span>Partial Payments</span>
-
-                    <strong>₹2.1L</strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- Pending -->
-
-            <div class="crm-enquiry-status-item">
-
-                <div class="crm-enquiry-status-icon not-interested">
-
-                    <i class="fa fa-circle-exclamation"></i>
-
-                </div>
-
-                <div>
-
-                    <span>Pending Amount</span>
-
-                    <strong>₹2.2L</strong>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</main>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
 
 
 <!-- Profile dropdown JS - Script -->

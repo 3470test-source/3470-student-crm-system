@@ -4139,92 +4139,54 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--- TABLE CONTAINER ---*/
-.crm-table-container {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+.crm-table-admissionReports {
+  background:#ffffff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 
 /*--- ADMISSION REPORT TABLE ---*/
-.crm-table {
-  width: 100%;
-  min-width: 1100px;
-  border-collapse: collapse;
-  font-size: 14px;
+.crm-table-AR {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.crm-table thead {
-  background: #f8fafc;
+.crm-table-AR thead {
+  background:#2563eb;
 }
 
-.crm-table th {
-  padding: 14px 12px;
-  text-align: left;
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-  border-bottom: 1px solid #e2e8f0;
-  white-space: nowrap;
+.crm-table-AR th {
+  color:#fff;
+  padding:15px;
+  text-align:center;
+  font-size:15px;
+  white-space:nowrap;
 }
 
-.crm-table td {
-  padding: 15px 12px;
-  color: #475569;
-  border-bottom: 1px solid #edf2f7;
-  white-space: nowrap;
-  vertical-align: middle;
+.crm-table-AR td {
+  padding:15px;
+  border-bottom:1px solid #dce3ec;
+  font-size:14px;
+  white-space:nowrap;
+  text-align:center;
 }
 
-.crm-table tbody tr {
+.crm-table-AR tbody tr {
   transition: 0.2s;
 }
 
-.crm-table tbody tr:hover {
-  background: #f8fafc;
+.crm-table-AR tbody tr:hover {
+  background:#d0ecdf;
 }
 
 
 /*--- PAYMENT STATUS BADGES ---*/
-.crm-status {
+.crm-status-AR {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 20px;
@@ -4233,36 +4195,35 @@
   white-space: nowrap;
 }
 
-
 /*--- Paid ---*/
-.crm-status.paid {
+.crm-status-AR.paid {
   background: #dcfce7;
   color: #15803d;
 }
 
 /*--- Partial ---*/
-.crm-status.partial {
+.crm-status-AR.partial {
   background: #fef3c7;
   color: #b45309;
 }
 
-
 /*--- Pending ---*/
-.crm-status.pending {
+.crm-status-AR.pending {
   background: #fee2e2;
   color: #b91c1c;
 }
 
 
 /*--- PAYMENT SUMMARY ---*/
-.crm-enquiry-status-grid {
+.crm-admissionReports-status-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
 
+
 /*--- Summary Item ---*/
-.crm-enquiry-status-item {
+.crm-admissionReports-status-item {
   display: flex;
   align-items: center;
   gap: 13px;
@@ -4271,62 +4232,370 @@
   border-radius: 10px;
   background: #ffffff;
   transition: 0.3s;
+  box-shadow:0 4px 12px rgba(30, 133, 73, 0.363);
 }
 
-.crm-enquiry-status-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+.crm-admissionReports-status-item:hover {
+  transform: translateY(-5px);
 }
-
 
 /*--- SUMMARY ICONS ---*/
-.crm-enquiry-status-icon {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+.crm-admissionReports-status-icon {
+  width: 40px;
+  height: 40px;
   display: flex;
-   justify-content: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
-  font-size: 17px;
+  font-size: 18px;
 }
 
-
 /*--- Total / Admission ---*/
-.crm-enquiry-status-icon.admission {
+.crm-admissionReports-status-icon.admission {
   background: #dbeafe;
   color: #2563eb;
 }
 
 /*--- Paid ---*/
-.crm-enquiry-status-icon.interested {
+.crm-admissionReports-status-icon.interested {
   background: #dcfce7;
   color: #16a34a;
 }
 
 /*--- Partial ---*/
-.crm-enquiry-status-icon.followup {
+.crm-admissionReports-status-icon.followup {
   background: #fef3c7;
   color: #d97706;
 }
 
 /*--- Pending ---*/
-.crm-enquiry-status-icon.not-interested {
+.crm-admissionReports-status-icon.not-interested {
   background: #fee2e2;
   color: #dc2626;
 }
 
+
 /*--- SUMMARY TEXT ---*/
-.crm-enquiry-status-item span {
+.crm-admissionReports-status-item span {
   display: block;
   margin-bottom: 4px;
-  font-size: 13px;
+  font-size: 16px;
   color: #64748b;
 }
 
-.crm-enquiry-status-item strong {
+.crm-admissionReports-status-item strong {
   display: block;
-  font-size: 21px;
+  font-size: 20px;
   color: #1e293b;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+                /* ==========================
+                        ADD USER PAGE
+                ========================== */
+
+.crm-addUser-header {
+  margin-bottom:25px;
+}
+
+.crm-addUser-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-addUser-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- BOX HEADER ---*/
+.crm-box-AddUser {
+  margin-bottom:18px;
+  border-bottom:1px solid #b5d0f7;
+  padding-bottom:10px;
+}
+
+.crm-box-AddUser h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.crm-box-AddUser p {
+  color:#a05d05;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- USER FORM ---*/
+.crm-user-form {
+  width: 100%;
+}
+
+
+/*--- FORM SECTION TITLE ---*/
+.crm-form-addUser-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0 18px 0;
+  padding-bottom: 10px;
+  border-bottom:1px solid #b5d0f7;
+  color: #1e3a8a;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.crm-form-addUser-title:first-child {
+  margin-top: 0;
+}
+
+.crm-form-addUser-title i {
+  font-size: 16px;
+  color:#128d37;
+}
+
+
+/*--- FORM GRID ---*/
+.crm-AddUser-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+
+/*--- FORM GROUP ---*/
+.crm-form-group-AddUser {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+
+/*--- Full Width ---*/
+.crm-form-group-full {
+  grid-column: span 2;
+}
+
+
+/*--- LABEL ---*/
+.crm-form-group-AddUser label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.crm-form-group-AddUser label span {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- INPUT / SELECT / TEXTAREA ---*/
+.crm-form-group-AddUser input,
+.crm-form-group-AddUser select,
+.crm-form-group-AddUser textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+
+
+
+
+
+/*--- Input ---*/
+.crm-form-group-AddUser input {
+  height: 46px;
+  padding: 0 14px;
+}
+
+
+/*--- Select ---*/
+.crm-form-group-AddUser select {
+  height: 46px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+
+/*--- Textarea ---*/
+.crm-form-group-AddUser textarea {
+  min-height: 110px;
+  padding: 12px 14px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/*--- Placeholder ---*/
+.crm-form-group-AddUser input::placeholder,
+.crm-form-group-AddUser textarea::placeholder {
+  color: #94a3b8;
+}
+
+/*--- Focus ---*/
+.crm-form-group-AddUser input:focus,
+.crm-form-group-AddUser select:focus,
+.crm-form-group-AddUser textarea:focus {
+  border-color: #2563eb;
+  box-shadow:0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+
+
+
+
+
+
+
+
+/*--- PASSWORD FIELD ---*/
+.crm-password-field {
+  position: relative;
+  width: 100%;
+}
+
+.crm-password-field input {
+  padding-right: 45px;
+}
+
+
+/*--- Password Toggle ---*/
+.crm-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.crm-password-toggle:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+
+/*--- FORM ACTIONS ---*/
+.crm-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #edf2f7;
+}
+
+
+/*--- RESET BUTTON ---*/
+.crm-form-reset-btn {
+  height: 44px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.crm-form-reset-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+
+/*--- SUBMIT BUTTON ---*/
+.crm-form-submit-btn {
+  height: 44px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.crm-form-submit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+
+/*--- DISABLED INPUT ---*/
+.crm-form-group-AddUser input:disabled,
+.crm-form-group-AddUser select:disabled,
+.crm-form-group-AddUser textarea:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
+  cursor: not-allowed;
 }
 
 
