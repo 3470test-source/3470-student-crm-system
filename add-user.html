@@ -19,7 +19,7 @@
     * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      box-sizing: border-box;  
     }
     
     </style>
@@ -203,7 +203,7 @@
 
                     <div class="crm-dropdown-content">
                         <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
-                        <a href="#"><i class="fa fa-users-cog"></i>Manage Users</a>
+                        <a href="manage-user.html"><i class="fa fa-users-cog"></i>Manage Users</a>
                     </div>
 
                 </div>
@@ -286,9 +286,9 @@
                                 <div class="crm-form-group-AddUser">
                                     <label for="password">Password<span>*</span></label>
                                 
-                                    <div class="crm-password-field">
+                                    <div class="crm-password-field-addUser">
                                         <input type="password" id="password" name="password" placeholder="Enter password" required>
-                                        <button type="button" class="crm-password-toggle" onclick="togglePassword('password', this)">
+                                        <button type="button" class="crm-password-toggle-addUser" onclick="togglePassword('password', this)">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </div>
@@ -299,9 +299,9 @@
                                 <div class="crm-form-group-AddUser">
                                     <label for="confirmPassword">Confirm Password<span>*</span></label>
 
-                                    <div class="crm-password-field">
+                                    <div class="crm-password-field-addUser">
                                         <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
-                                        <button type="button" class="crm-password-toggle" onclick="togglePassword('confirmPassword', this)">
+                                        <button type="button" class="crm-password-toggle-addUser" onclick="togglePassword('confirmPassword', this)">
                                             <i class="fa fa-eye"></i>
                                         </button>
                                     </div>
@@ -343,7 +343,7 @@
                                 <!-- Department -->
                                 <div class="crm-form-group-AddUser">
                                     <label for="department">Department</label>
-                                     <select id="department" name="department">
+                                    <select id="department" name="department">
                                         <option value="">-- Select Department --</option>
                                         <option value="Counselling">Counselling</option>
                                         <option value="Admissions">Admissions</option>
@@ -367,9 +367,9 @@
                             </div>
 
                         <!--- FORM ACTIONS --->
-                        <div class="crm-form-actions">
-                            <button type="reset" class="crm-form-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
-                            <button type="submit" class="crm-form-submit-btn"><i class="fa fa-user-plus"></i>Add User</button>
+                        <div class="crm-form-actions-addUser">
+                            <button type="reset" class="crm-addUser-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
+                            <button type="submit" class="crm-addUser-submit-btn"><i class="fa fa-user-plus"></i>Add User</button>
                         </div>
 
                     </form>

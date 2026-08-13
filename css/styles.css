@@ -4401,32 +4401,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--- INPUT / SELECT / TEXTAREA ---*/
 .crm-form-group-AddUser input,
 .crm-form-group-AddUser select,
@@ -4438,25 +4412,21 @@
   outline: none;
   background: #ffffff;
   color: #334155;
-  font-size: 14px;
+  font-size: 13px;
   transition: all 0.3s ease;
 }
 
 
-
-
-
-
 /*--- Input ---*/
 .crm-form-group-AddUser input {
-  height: 46px;
+  height: 40px;
   padding: 0 14px;
 }
 
 
 /*--- Select ---*/
 .crm-form-group-AddUser select {
-  height: 46px;
+  height: 40px;
   padding: 0 14px;
   cursor: pointer;
 }
@@ -4464,11 +4434,11 @@
 
 /*--- Textarea ---*/
 .crm-form-group-AddUser textarea {
-  min-height: 110px;
   padding: 12px 14px;
   resize: vertical;
   line-height: 1.5;
 }
+
 
 /*--- Placeholder ---*/
 .crm-form-group-AddUser input::placeholder,
@@ -4476,36 +4446,29 @@
   color: #94a3b8;
 }
 
+
 /*--- Focus ---*/
 .crm-form-group-AddUser input:focus,
 .crm-form-group-AddUser select:focus,
 .crm-form-group-AddUser textarea:focus {
-  border-color: #2563eb;
-  box-shadow:0 0 0 3px rgba(37, 99, 235, 0.10);
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
 }
 
 
-
-
-
-
-
-
-
-
 /*--- PASSWORD FIELD ---*/
-.crm-password-field {
+.crm-password-field-addUser {
   position: relative;
   width: 100%;
 }
 
-.crm-password-field input {
+.crm-password-field-addUser input {
   padding-right: 45px;
 }
 
 
 /*--- Password Toggle ---*/
-.crm-password-toggle {
+.crm-password-toggle-addUser {
   position: absolute;
   top: 50%;
   right: 12px;
@@ -4523,27 +4486,27 @@
   transition: 0.2s;
 }
 
-.crm-password-toggle:hover {
+.crm-password-toggle-addUser:hover {
   background: #f1f5f9;
   color: #2563eb;
 }
 
 
 /*--- FORM ACTIONS ---*/
-.crm-form-actions {
+.crm-form-actions-addUser {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 12px;
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #edf2f7;
+  border-top:1px solid #b5d0f7;
 }
 
 
 /*--- RESET BUTTON ---*/
-.crm-form-reset-btn {
-  height: 44px;
+.crm-addUser-reset-btn {
+  height: 40px;
   padding: 0 20px;
   display: inline-flex;
   align-items: center;
@@ -4559,15 +4522,16 @@
   transition: 0.3s;
 }
 
-.crm-form-reset-btn:hover {
+.crm-addUser-reset-btn:hover {
   background: #f8fafc;
-  border-color: #cbd5e1;
+  border-color: #c50d0d;   
+  transform: translateY(-2px);
 }
 
 
 /*--- SUBMIT BUTTON ---*/
-.crm-form-submit-btn {
-  height: 44px;
+.crm-addUser-submit-btn {
+  height: 40px;
   padding: 0 22px;
   display: inline-flex;
   align-items: center;
@@ -4583,9 +4547,9 @@
   transition: 0.3s;
 }
 
-.crm-form-submit-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-1px);
+.crm-addUser-submit-btn:hover {
+  background: #0e9441;
+  transform: translateY(-2px);
 }
 
 
@@ -4597,6 +4561,447 @@
   color: #94a3b8;
   cursor: not-allowed;
 }
+
+/* ------------------------------------------------------------------------------------------------------------------------------------ */
+
+                  /* ==============================
+                          MANAGE USERS PAGE
+                  ============================== */
+
+.crm-manageUser-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.crm-manageUser-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-manageUser-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- PAGE HEADER ACTION ---*/
+.crm-manageUser-header-action {
+  display: flex;
+  align-items: center;
+}
+
+.crm-addUser-btn {
+  background:#2563eb;
+  color:#ffffff;
+  text-decoration:none;
+  padding:12px 24px;
+  border-radius:8px;
+  font-size:15px;
+  font-weight:600;
+  transition:.3s;
+}
+
+.crm-addUser-btn i {
+  margin-right:8px;
+}
+
+.crm-addUser-btn:hover {
+  background: #128d37;
+  transform: translateY(-2px);
+}
+
+
+/*--- SUMMARY CARDS ---*/
+.crm-ManageUser-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.crm-ManageUser-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.crm-ManageUser-summary-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.10);
+}
+
+
+/*--- SUMMARY TEXT ---*/
+.crm-ManageUser-summary-card span {
+  display: block;
+  font-size: 16px;
+  color: #60738d;
+  margin-bottom: 5px;
+}
+
+.crm-ManageUser-summary-card h3 {
+  font-size: 25px;
+  color: #1e293b;
+}
+
+
+/*--- SUMMARY ICON ---*/
+.crm-ManageUser-summary-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 20px;
+}
+
+
+/*--- USER FILTER CONTAINER ---*/
+.crm-ManageUser-filter-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 15px;
+  align-items: center;
+}
+
+
+/*--- SEARCH BOX ---*/
+.crm-ManageUser-search-box {
+  position: relative;
+  width: 100%;
+}
+
+.crm-ManageUser-search-box i {
+  position:absolute;
+  left:15px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#0465ec;
+}
+
+.crm-ManageUser-search-box input {
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:15px;
+}
+
+.crm-ManageUser-search-box input:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+/*--- USER FILTER BOX ---*/
+.crm-ManageUser-filter-box {
+  width: 100%;
+}
+
+.crm-ManageUser-filter-box select {
+  padding:13px 18px;
+  border:1px solid #dbe2ea;
+  border-radius:8px;
+  outline:none;
+  font-size:14px;
+  cursor:pointer;
+  width:100%;
+}
+
+.crm-ManageUser-filter-box select:focus {
+  border-color:#2563eb;
+  box-shadow:0 0 8px rgba(37, 100, 235, 0.322);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- BOX HEADER ---*/
+.crm-box-ManageUser {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.crm-box-ManageUser h3 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+.crm-box-ManageUser p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- TABLE CONTAINER ---*/
+.crm-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/*--- USERS TABLE ---*/
+.crm-table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.crm-table thead {
+  background: #f8fafc;
+}
+
+.crm-table th {
+  padding: 14px 12px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.crm-table td {
+  padding: 14px 12px;
+  color: #475569;
+  border-bottom: 1px solid #edf2f7;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.crm-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.crm-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+
+
+
+/*--- USER NAME ---*/
+.crm-user-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crm-user-name strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.crm-user-name span {
+  display: block;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+
+/*--- USER AVATAR ---*/
+.crm-user-avatar {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/*--- ROLE BADGES ---*/
+.crm-role {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+
+
+/*--- Admin ---*/
+.crm-role.admin {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+
+/*--- Counsellor ---*/
+.crm-role.counsellor {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+
+/*--- Staff ---*/
+.crm-role.staff {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+
+/*--- USER STATUS ---*/
+.crm-user-status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/*--- Active ---*/
+.crm-user-status.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+
+/*--- Inactive ---*/
+.crm-user-status.inactive {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+
+
+/*--- USER ACTIONS ---*/
+.crm-user-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+
+/*--- Common Action Button ---*/
+.crm-user-actions button {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+/*--- VIEW BUTTON ---*/
+.crm-user-view-btn {
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+}
+
+.crm-user-view-btn:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+
+
+/*--- EDIT BUTTON ---*/
+.crm-user-edit-btn {
+  border: 1px solid #fde68a;
+  color: #d97706;
+}
+
+.crm-user-edit-btn:hover {
+  background: #fffbeb;
+  border-color: #d97706;
+}
+
+
+/*--- ACTIVATE / DEACTIVATE BUTTON ---*/
+.crm-user-toggle-btn {
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+}
+
+.crm-user-toggle-btn:hover {
+  background: #f0fdf4;
+  border-color: #16a34a;
+}
+
+
+
+
+/*--- DELETE BUTTON ---*/
+.crm-user-delete-btn {
+  border: 1px solid #fecaca;
+  color: #dc2626;
+}
+
+.crm-user-delete-btn:hover {
+  background: #fef2f2;
+  border-color: #dc2626;
+}
+
+
+
 
 
 
