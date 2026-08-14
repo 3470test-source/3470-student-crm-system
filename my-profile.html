@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Add User Page</title>
+    <title>3470 Healthcare & Student CRM System - Manage User Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -209,165 +209,215 @@
             </aside>
 
 
-            <!--- ADD USER --->
+            <!--- MY PROFILE --->
             <main class="crm-dashboard-main">
 
-                <div class="crm-addUser-header">
+                <div class="crm-page-header">
 
                     <div>
-                        <h2>Add User</h2>
-                        <p>Create a new CRM user and assign the required role.</p>
+                        <h2>My Profile</h2>
+                        <p>View and manage your personal account information.</p>
                     </div>
 
                 </div>
 
 
-                <!--- ADD USER FORM --->
-                <div class="crm-dashboard-box">
+                <!--- PROFILE CONTAINER --->
+                <div class="crm-profile-container">
 
-                    <div class="crm-box-AddUser">
+                    <!--- PROFILE SUMMARY--->
+                    <div class="crm-dashboard-box crm-profile-summary">
+
+                        <div class="crm-profile-avatar-large">A</div>
+                            <h3>Admin User</h3>
+                            <p class="crm-profile-username">@admin</p>
+
+                            <span class="crm-profile-role"><i class="fa fa-user-shield"></i>Administrator</span>
+
+                            <div class="crm-profile-status">
+                                <span class="crm-profile-status-dot"></span>Active
+                            </div>
+
+                    </div>
+
+
+                    <!--- PROFILE INFORMATION --->
+                    <div class="crm-dashboard-box crm-profile-details">
+
+                        <div class="crm-box-header">
+
+                            <div>
+                                <h3>Profile Information</h3>
+                                <p>Your basic personal and account information.</p>
+                            </div>
+
+                            <button type="button" class="crm-profile-edit-btn" onclick="enableProfileEdit()">
+                                <i class="fa fa-pen"></i>Edit Profile
+                            </button>
+
+                        </div>
+
+
+                        <form id="profileForm">
+
+                            <!--- PERSONAL INFORMATION --->
+                            <div class="crm-form-section-title">
+                                <i class="fa fa-user"></i>
+                                <span>Personal Information</span>
+                            </div>
+
+                            <div class="crm-profile-grid">
+
+                                <!-- Full Name -->
+                                <div class="crm-profile-field">
+                                    <label>Full Name</label>
+                                    <input type="text" id="profileName" value="Admin User" disabled>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="crm-profile-field">
+                                    <label>Email Address</label>
+                                    <input type="email" id="profileEmail" value="admin@example.com" disabled>
+                                </div>
+
+                                <!-- Mobile -->
+                                <div class="crm-profile-field">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" id="profileMobile" value="9876543210" disabled>
+                                </div>
+
+                                <!-- Username -->
+                                <div class="crm-profile-field">
+                                    <label>Username</label>
+                                    <input type="text" id="profileUsername" value="admin" disabled>
+                                </div>
+
+                            </div>
+
+
+                            <!--- ACCOUNT INFORMATION --->
+                            <div class="crm-form-section-title">
+                                <i class="fa fa-id-card"></i>
+                                <span>Account Information</span>
+                            </div>
+
+                            <div class="crm-profile-grid">
+
+                                <!-- Role -->
+                                <div class="crm-profile-field">
+                                    <label>Role</label>
+                                    <input type="text" value="Administrator" disabled>
+                                </div>
+
+                                <!-- Department -->
+                                <div class="crm-profile-field">
+                                    <label>Department</label>
+                                    <input type="text" value="Administration" disabled>
+                                </div>
+
+                                <!-- Joining Date -->
+                                <div class="crm-profile-field">
+                                    <label>Joining Date</label>
+                                    <input type="text" value="01-Aug-2026" disabled>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="crm-profile-field">
+                                    <label>Account Status</label>
+
+                                    <div class="crm-profile-status-field">
+                                        <span class="crm-user-status active">Active</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!--- SAVE / CANCEL BUTTONS --->
+                            <div class="crm-profile-form-actions" id="profileActions" style="display:none;">
+                                <button type="button" class="crm-form-reset-btn" onclick="cancelProfileEdit()">
+                                    <i class="fa fa-xmark"></i>Cancel
+                                </button>
+
+                                <button type="submit" class="crm-form-submit-btn">
+                                    <i class="fa fa-check"></i>Save Changes
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <!--- CHANGE PASSWORD --->
+                <div class="crm-dashboard-box crm-change-password-box">
+
+                    <div class="crm-box-header">
 
                         <div>
-                            <h3>User Information</h3>
-                            <p>Enter the user's basic information and login details.</p>
+                            <h3>Change Password</h3>
+                            <p>Update your account password regularly to keep your account secure.</p>
                         </div>
 
                     </div>
 
 
-                    <form class="crm-user-form" id="addUserForm">
+                    <form id="changePasswordForm">
 
-                        <!--- PERSONAL INFORMATION --->
-                        <div class="crm-form-addUser-title">
-                            <i class="fa fa-user"></i>
-                            <span>Personal Information</span>
-                        </div>
+                        <div class="crm-profile-grid">
 
-                            <div class="crm-AddUser-grid">
+                            <!-- Current Password -->
+                            <div class="crm-profile-field">
+                                <label>Current Password</label>
 
-                                <!-- Full Name -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="fullName">Full Name<span>*</span></label>
-                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
-                                </div>
+                                <div class="crm-password-field">
+                                    <input type="password" id="currentPassword" placeholder="Enter current password">
 
-                                <!-- Email -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="email">Email Address<span>*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="Enter email address" required>
-                                </div>
-
-                                <!-- Mobile -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="mobile">Mobile Number<span>*</span></label>
-                                    <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" maxlength="10" required>
-                                </div>
-
-                                <!-- Username -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="username">Username<span>*</span></label>
-                                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                                    <button type="button" class="crm-password-toggle" onclick="togglePassword('currentPassword', this)">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                 </div>
 
                             </div>
 
+                            <!-- New Password -->
+                            <div class="crm-profile-field">
+                                <label>New Password</label>
 
-                        <!--- LOGIN INFORMATION --->
-                        <div class="crm-form-addUser-title">
-                            <i class="fa fa-lock"></i>
-                            <span>Login Information</span>
-                        </div>
-
-                            <div class="crm-AddUser-grid">
-
-                                <!-- Password -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="password">Password<span>*</span></label>
-                                
-                                    <div class="crm-password-field-addUser">
-                                        <input type="password" id="password" name="password" placeholder="Enter password" required>
-                                        <button type="button" class="crm-password-toggle-addUser" onclick="togglePassword('password', this)">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                                <!-- Confirm Password -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="confirmPassword">Confirm Password<span>*</span></label>
-
-                                    <div class="crm-password-field-addUser">
-                                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
-                                        <button type="button" class="crm-password-toggle-addUser" onclick="togglePassword('confirmPassword', this)">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-
-                                <!-- Role -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="role">Role<span>*</span></label>
-                                    <select id="role" name="role" required>
-                                        <option value="">-- Select Role --</option>
-                                        <option value="Admin">Admin</option>
-                                        <option value="Counsellor">Counsellor</option>
-                                        <option value="Staff">Staff</option>
-                                    </select>
-                                </div>
-
-                                <!-- Status -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="status">Status<span>*</span></label>
-                                    <select id="status" name="status" required>
-                                        <option value="">-- Select Status --</option>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
+                                <div class="crm-password-field">
+                                    <input type="password" id="newPassword" placeholder="Enter new password">
+                                       
+                                    <button type="button" class="crm-password-toggle" onclick="togglePassword('newPassword', this)">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                 </div>
 
                             </div>
 
+                            <!-- Confirm Password -->
+                            <div class="crm-profile-field">
+                                <label>Confirm New Password</label>
 
-                        <!--- ADDITIONAL INFORMATION --->
-                        <div class="crm-form-addUser-title">
-                            <i class="fa fa-user-gear"></i>
-                            <span>Additional Information</span>
-                        </div>
+                                <div class="crm-password-field">
+                                    <input type="password" id="confirmPassword" placeholder="Confirm new password">
 
-                            <div class="crm-AddUser-grid">
-
-                                <!-- Department -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="department">Department</label>
-                                    <select id="department" name="department">
-                                        <option value="">-- Select Department --</option>
-                                        <option value="Counselling">Counselling</option>
-                                        <option value="Admissions">Admissions</option>
-                                        <option value="Accounts">Accounts</option>
-                                        <option value="Administration">Administration</option>
-                                    </select>
-                                </div>
-
-                                <!-- Joining Date -->
-                                <div class="crm-form-group-AddUser">
-                                    <label for="joiningDate">Joining Date</label>
-                                    <input type="date" id="joiningDate" name="joiningDate">
-                                </div>
-
-                                <!-- Address -->
-                                <div class="crm-form-group-AddUser crm-form-group-full">
-                                    <label for="address">Address</label>
-                                    <textarea id="address" name="address" rows="3" placeholder="Enter address"></textarea>
+                                    <button type="button" class="crm-password-toggle" onclick="togglePassword('confirmPassword', this)">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
                                 </div>
 
                             </div>
 
-                        <!--- FORM ACTIONS --->
-                        <div class="crm-form-actions-addUser">
-                            <button type="reset" class="crm-addUser-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
-                            <button type="submit" class="crm-addUser-submit-btn"><i class="fa fa-user-plus"></i>Add User</button>
+                        </div>
+
+
+                        <div class="crm-profile-form-actions">
+                            <button type="submit" class="crm-form-submit-btn">
+                                <i class="fa fa-key"></i>Update Password
+                            </button>
                         </div>
 
                     </form>
@@ -417,14 +467,53 @@ dropdowns.forEach(dropdown => {
 </script>
 
 
-<!--- PASSWORD TOGGLE - JS --->
+<!--- PROFILE JAVASCRIPT --->
 <script>
+function enableProfileEdit() {
 
-    function togglePassword(inputId, button) {
+    const fields = [
+        "profileName",
+        "profileEmail",
+        "profileMobile",
+        "profileUsername"
+    ];
 
-        const input = document.getElementById(inputId);
+    fields.forEach(function(id) {
 
-        const icon = button.querySelector("i");
+        document.getElementById(id).disabled = false;
+
+    });
+
+    document.getElementById("profileActions").style.display = "flex";
+
+}
+
+
+function cancelProfileEdit() {
+
+    const fields = [
+        "profileName",
+        "profileEmail",
+        "profileMobile",
+        "profileUsername"
+    ];
+
+    fields.forEach(function(id) {
+
+        document.getElementById(id).disabled = true;
+
+    });
+
+    document.getElementById("profileActions").style.display = "none";
+
+}
+
+
+function togglePassword(inputId, button) {
+
+    const input = document.getElementById(inputId);
+
+    const icon = button.querySelector("i");
 
     if (input.type === "password") {
 
@@ -445,9 +534,7 @@ dropdowns.forEach(dropdown => {
     }
 
 }
-
 </script>
-
 
 </body>
 </html>            
