@@ -277,7 +277,7 @@
                                 <label>Status</label>
                                 <select name="status">
                                     <option value="">-- Status --</option>
-                                    <option value="active">Active</option>
+                                    <option value="Active">Active</option>
                                     <option value="Inactive">Inactive</option>
                                 </select>
                             </div>
@@ -287,7 +287,7 @@
                         <!-- Description -->
                         <div class="crm-form-group-AddCourse">
                             <label>Course Description</label>
-                            <textarea rows="5" placeholder="Enter course description"></textarea>
+                            <textarea name="description" rows="5" placeholder="Enter course description"></textarea>
                         </div>
 
                         <!-- Buttons -->
@@ -342,6 +342,133 @@ dropdowns.forEach(dropdown => {
 });
 </script>
 
+
+
+<!-- Add Course Api - JS script -->
+<script>
+
+const addCourseForm = document.getElementById("addCourseForm");
+
+addCourseForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        /*--- GET FORM VALUES ---*/
+        const courseName = addCourseForm.elements["courseName"].value.trim();
+
+        const category = addCourseForm.elements["category"].value;
+
+        const duration = addCourseForm.elements["duration"].value.trim();
+
+        const courseFee = addCourseForm.elements["courseFee"].value;
+
+        const trainer = addCourseForm.elements["trainer"].value.trim();
+
+        const mode = addCourseForm.elements["mode"].value;
+
+        const status = addCourseForm.elements["status"].value;
+
+        const description = addCourseForm.elements["description"].value.trim();
+
+
+        /*--- VALIDATION ---*/
+        if (!courseName) {
+
+            alert("⚠️ Please enter the course name.");
+
+            return;
+
+        }
+
+        /*--- SAVE BUTTON ---*/
+        const saveButton = addCourseForm.querySelector(".crm-btn-save");
+
+        const originalText = saveButton.innerHTML;
+
+        saveButton.disabled = true;
+
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+        try {
+
+            /*--- API CALL ---*/
+            const response = await fetch("http://localhost:3000/api/courses",
+
+                {
+
+                    method: "POST",
+                    headers: {
+
+                        "Content-Type": "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        courseName: courseName,
+                        category: category,
+                        duration: duration,
+                        courseFee: courseFee,
+                        trainer: trainer,
+                        mode: mode,
+                        status: status,
+                        description: description
+
+                    })
+
+                }
+
+            );
+
+            /*--- BACKEND RESPONSE ---*/
+            const data = await response.json();
+
+            /*--- ERROR ---*/
+            if (!response.ok) {
+
+                alert(
+                    data.message ||
+                    "❌ Unable to add course."
+                );
+
+                return;
+
+            }
+
+            
+            /*--- SUCCESS ---*/
+            alert(data.message);
+
+            /*--- Reset form ---*/
+            addCourseForm.reset();
+
+            /*--- Go to Manage Courses ---*/
+            window.location.href ="manage-courses.html";
+
+        } catch (error) {
+
+            console.error("API Error:",
+                error
+            );
+
+            alert(
+                "❌ Unable to connect to the CRM server."
+            );
+
+
+        } finally {
+
+            saveButton.disabled = false;
+
+            saveButton.innerHTML = originalText;
+
+        }
+
+    }
+
+);
+
+</script>
 
 </body>
 </html>    

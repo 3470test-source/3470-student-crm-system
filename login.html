@@ -123,7 +123,98 @@
 
 });
 </script>
-    
+
+
+<!-- Login Page - JS Script -->
+<script>
+
+const loginForm = document.getElementById("loginForm");
+
+const loginBtn = document.getElementById("loginBtn");
+
+
+loginForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+
+    const email = document.getElementById("email").value.trim();
+
+    const password = document.getElementById("password").value;
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.innerHTML ='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:3000/api/auth/login",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    email: email,
+                    password: password
+
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert(data.message);
+
+            return;
+
+        }
+
+
+        /*-- Save authentication token --*/
+        localStorage.setItem(
+            "crmToken",
+            data.token
+        );
+
+
+        /*-- Save user information --*/
+        localStorage.setItem(
+            "crmUser",
+            JSON.stringify(data.user)
+        );
+
+
+        /*-- Redirect to Admin Dashboard --*/
+        window.location.href ="dashboard-crm.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to connect to CRM server.");
+
+
+    } finally {
+
+        loginBtn.disabled = false;
+
+        loginBtn.innerHTML ='<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+
+    }
+
+});
+
+</script>
+
 
 </body>
 </html>    
