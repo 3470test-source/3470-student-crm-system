@@ -341,19 +341,104 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
-
+    
 
 
 <!-- Add Course Api - JS script -->
 <script>
 
+/*-- ADD / EDIT COURSE --*/
 const addCourseForm = document.getElementById("addCourseForm");
 
+/*-- CHECK URL FOR EDIT MODE - Example:add-course.html?edit=1 --*/
+const urlParams = new URLSearchParams(window.location.search);
+
+const editCourseId = urlParams.get("edit");
+
+
+/*-- LOAD SAVED COURSE --*/
+const savedCourse = localStorage.getItem("editCourse");
+
+
+/*-- EDIT MODE --*/
+if (editCourseId && savedCourse) {
+
+    try {
+
+        const course = JSON.parse(savedCourse);
+
+        /*--- Page Heading ---*/
+        const heading = document.querySelector(".crm-addCourse-header h2");
+
+        if (heading) {
+
+            heading.textContent = "Edit Course";
+
+        }
+
+
+        /*--- Page Description ---*/
+        const paragraph = document.querySelector(
+                ".crm-addCourse-header p"
+            );
+
+
+        if (paragraph) {
+
+            paragraph.textContent = "Update the selected course information.";
+
+        }
+
+
+        /*-- Fill Course Name --*/
+        addCourseForm.elements["courseName"].value = course.course_name || "";
+
+        /*-- Fill Category --*/
+        addCourseForm.elements["category"].value = course.course_category || "";
+
+        /*-- Fill Duration --*/
+        addCourseForm.elements["duration"].value = course.duration || "";
+
+        /*-- Fill Fee --*/
+        addCourseForm.elements["courseFee"].value = course.course_fee || "";
+
+        /*-- Fill Trainer --*/
+        addCourseForm.elements["trainer"].value = course.trainer || "";
+
+        /*-- Fill Mode --*/
+        addCourseForm.elements["mode"].value = course.course_mode || "";
+
+        /*-- Fill Status --*/
+        addCourseForm.elements["status"].value = course.status || "Active";
+
+        /*-- Fill Description --*/
+        addCourseForm.elements["description"].value = course.description || "";
+
+        /*-- Change Save Button --*/
+        const saveButton = addCourseForm.querySelector(".crm-btn-save");
+
+        if (saveButton) {
+            saveButton.innerHTML = '<i class="fa-solid fa-save"></i> Update Course';
+        }
+
+    } catch (error) {
+
+        console.error(
+            "❌ Error loading course:",
+            error
+        );
+
+    }
+
+}
+
+
+/*--- FORM SUBMIT ---*/
 addCourseForm.addEventListener("submit", async function (event) {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        /*--- GET FORM VALUES ---*/
+        /*-- GET FORM VALUES --*/
         const courseName = addCourseForm.elements["courseName"].value.trim();
 
         const category = addCourseForm.elements["category"].value;
@@ -371,7 +456,7 @@ addCourseForm.addEventListener("submit", async function (event) {
         const description = addCourseForm.elements["description"].value.trim();
 
 
-        /*--- VALIDATION ---*/
+        /*-- VALIDATION --*/
         if (!courseName) {
 
             alert("⚠️ Please enter the course name.");
@@ -380,7 +465,8 @@ addCourseForm.addEventListener("submit", async function (event) {
 
         }
 
-        /*--- SAVE BUTTON ---*/
+
+        /*-- SAVE BUTTON --*/
         const saveButton = addCourseForm.querySelector(".crm-btn-save");
 
         const originalText = saveButton.innerHTML;
@@ -389,67 +475,108 @@ addCourseForm.addEventListener("submit", async function (event) {
 
         saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
+
         try {
 
-            /*--- API CALL ---*/
-            const response = await fetch("http://localhost:3000/api/courses",
 
-                {
+            /*-- DEFAULT = ADD COURSE --*/
+            let apiUrl = "http://localhost:3000/api/courses";
 
-                    method: "POST",
-                    headers: {
+            let method = "POST";
 
-                        "Content-Type": "application/json"
 
-                    },
+            /*-- EDIT MODE = UPDATE COURSE --*/
+            if (editCourseId) {
 
-                    body: JSON.stringify({
+                apiUrl = `http://localhost:3000/api/courses/${editCourseId}`;
 
-                        courseName: courseName,
-                        category: category,
-                        duration: duration,
-                        courseFee: courseFee,
-                        trainer: trainer,
-                        mode: mode,
-                        status: status,
-                        description: description
+                method = "PUT";
 
-                    })
+            }
 
-                }
 
-            );
+            /*-- DEBUG --*/
+            console.log("--------------------------------");
 
-            /*--- BACKEND RESPONSE ---*/
+            console.log("Edit Course ID:", editCourseId);
+
+            console.log("API URL:", apiUrl);
+
+            console.log("HTTP Method:", method);
+
+            console.log("--------------------------------");
+
+
+            /*--- API REQUEST ---*/
+            const response = await fetch(
+
+                    apiUrl,
+
+                    {
+
+                        method: method,
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                courseName: courseName,
+                                category: category,
+                                duration: duration,
+                                courseFee: courseFee,
+                                trainer: trainer,
+                                mode: mode,
+                                status: status,
+                                description: description
+
+                            })
+
+                    }
+
+                );
+
+
+            /*-- BACKEND RESPONSE --*/
             const data = await response.json();
 
-            /*--- ERROR ---*/
+
+            /*-- ERROR --*/
             if (!response.ok) {
 
                 alert(
+
                     data.message ||
-                    "❌ Unable to add course."
+                    "❌ Unable to save course."
+
                 );
 
                 return;
 
             }
 
-            
-            /*--- SUCCESS ---*/
+
+            /*-- SUCCESS --*/
             alert(data.message);
 
-            /*--- Reset form ---*/
-            addCourseForm.reset();
+            /*-- Remove temporary edit data --*/
+            localStorage.removeItem("editCourse");
 
-            /*--- Go to Manage Courses ---*/
-            window.location.href ="manage-courses.html";
+            /*-- Go back to Manage Courses --*/
+            window.location.href = "manage-courses.html";
+
 
         } catch (error) {
 
-            console.error("API Error:",
+            console.error(
+                "❌ Course API Error:",
                 error
             );
+
 
             alert(
                 "❌ Unable to connect to the CRM server."
@@ -469,6 +596,7 @@ addCourseForm.addEventListener("submit", async function (event) {
 );
 
 </script>
+
 
 </body>
 </html>    

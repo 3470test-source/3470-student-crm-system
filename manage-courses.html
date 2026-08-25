@@ -21,6 +21,16 @@
       padding: 0;
       box-sizing: border-box;
     }
+
+
+
+    .course-description {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
     
     </style>
 
@@ -255,55 +265,21 @@
                                 <th>Category</th>
                                 <th>Duration</th>
                                 <th>Fee</th>
+                                <th>Trainer</th>
+                                <th>Mode</th>
                                 <th>Status</th>
+                                <th>Description</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="coursesTableBody">
                             <tr>
-                                <td>1</td>
-                                <td>Basic Medical Coding Training</td>
-                                <td>Medical Coding</td>
-                                <td>1 Months</td>
-                                <td>₹13,000</td>
-                                <td>
-                                    <span class="crm-status active">Active</span>
-                                </td>
-                                <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
 
-                            <tr>
-                                <td>2</td>
-                                <td>Certified Professional Coder</td>
-                                <td>Medical Coding</td>
-                                <td>45 Days</td>
-                                <td>₹15,000</td>
-                                <td>
-                                    <span class="crm-status active">Active</span>
+                                <td colspan="10" class="crm-loading">
+                                    Loading courses...
                                 </td>
-                                <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>Evaluation & Management</td>
-                                <td>Clinical Coding</td>
-                                <td>1 Months</td>
-                                <td>₹12,000</td>
-                                <td>
-                                    <span class="crm-status inactive">Inactive</span>
-                                </td>
-                                <td>
-                                    <button class="crm-edit-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn"><i class="fa fa-trash"></i></button>
-                                </td>
+                                
                             </tr>
 
                         </tbody>
@@ -357,6 +333,373 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!--- Manage Courses - JS --->
+<script>
+
+const coursesTableBody = document.getElementById("coursesTableBody");
+
+const searchCourse = document.getElementById("searchCourse");
+
+const courseStatus = document.getElementById("courseStatus");
+
+/*-- Store courses --*/
+let allCourses = [];
+
+/*-- LOAD COURSES --*/
+async function loadCourses() {
+
+    try {
+
+        coursesTableBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Loading courses...
+                </td>
+
+            </tr>
+
+        `;
+
+
+        const response = await fetch(
+            "http://localhost:3000/api/courses"
+        );
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load courses."
+            );
+
+        }
+
+        allCourses = data.courses || [];
+
+        displayCourses(allCourses);
+
+    } catch (error) {
+
+        console.error(
+            "❌ Load Courses Error:",
+            error
+        );
+
+        coursesTableBody.innerHTML = `
+
+            <tr>
+                <td colspan="7">
+                    ❌ Unable to load courses.
+                </td>
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/*-- DISPLAY COURSES --*/
+function displayCourses(courses) {
+
+    coursesTableBody.innerHTML = "";
+
+    if (courses.length === 0) {
+
+        coursesTableBody.innerHTML = `
+
+            <tr class="no-courses-row">
+                <td colspan="10">
+                    <i class="fa-solid fa-circle-info"></i>
+                    No courses found.
+                </td>
+            </tr>
+
+        `;
+
+        updateCourseCount(0);
+
+        return;
+
+    }
+
+
+    courses.forEach((course, index) => {
+
+        const row = document.createElement("tr");
+
+        const statusClass = course.status === "Active"
+                ? "active"
+                : "inactive";
+
+        const fee = Number(course.course_fee || 0)
+            .toLocaleString("en-IN", {
+                minimumFractionDigits: 2
+            });
+
+        row.innerHTML = `
+
+            <td>${index + 1}</td>
+            <td>
+                ${escapeHtml(course.course_name)}
+            </td>
+            <td>
+                ${escapeHtml(
+                    course.course_category || "-"
+                )}
+            </td>
+            <td>
+                ${escapeHtml(
+                    course.duration || "-"
+                )}
+            </td>
+            <td>
+                ₹${fee}
+            </td>
+            <td>
+                ${course.trainer || "-"}
+            </td>
+            <td>
+                ${course.course_mode || "-"}
+            </td>
+            <td>
+                <span class="crm-status ${statusClass}">
+                    ${escapeHtml(course.status)}
+                </span>
+            </td>
+            <td class="course-description">
+                ${course.description || "-"}
+            </td>
+
+            <td>
+                <button
+                    type="button" 
+                    class="crm-edit-btn-AMC"
+                    onclick="editCourse(${course.id})"
+                    title="Edit Course">
+
+                    <i class="fa fa-edit"></i>
+                </button>
+
+
+                <button
+                    type="button"  
+                    class="crm-delete-btn-AMC"
+                    onclick="deleteCourse(${course.id})"
+                    title="Delete Course">
+
+                    <i class="fa fa-trash"></i>
+                </button>
+
+            </td>
+
+        `;
+
+        coursesTableBody.appendChild(row);
+
+    });
+
+    updateCourseCount(courses.length);
+
+}
+
+
+ 
+/*-- SEARCH + FILTER --*/
+function filterCourses() {
+
+    const searchText = searchCourse.value.trim().toLowerCase();
+
+    const selectedStatus = courseStatus.value;
+
+    const filteredCourses = allCourses.filter(course => {
+
+            const matchesSearch =
+
+                course.course_name
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                (course.course_category || "")
+                    .toLowerCase()
+                    .includes(searchText);
+
+
+            const matchesStatus =
+
+                !selectedStatus ||
+                course.status === selectedStatus;
+
+
+            return (
+                matchesSearch &&
+                matchesStatus
+            );
+
+        });
+
+    displayCourses(filteredCourses);
+
+}
+
+
+searchCourse.addEventListener("input", filterCourses);
+
+courseStatus.addEventListener("change", filterCourses);
+
+
+/*-- COURSE COUNT --*/
+function updateCourseCount(count) {
+
+    const footer = document.querySelector(".crm-table-footer p");
+
+    if (!footer) return;
+
+    footer.textContent = `Showing ${count} of ${allCourses.length} Courses`;
+
+}
+
+
+/*-- ESCAPE HTML --*/
+function escapeHtml(value) {
+
+    const div = document.createElement("div");
+
+    div.textContent = value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+/*-- INITIAL LOAD --*/
+loadCourses();
+
+</script>
+
+
+
+<!-- EDIT COURSES - Manage Courses JS -->
+<script>
+
+function editCourse(courseId) {
+
+    const course = allCourses.find(course => course.id == courseId);
+
+    if (!course) {
+
+        alert("⚠️ Course information not found.");
+
+        return;
+
+    }
+
+    /*-- Save selected course temporarily --*/
+    localStorage.setItem(
+        "editCourse",
+        JSON.stringify(course)
+    );
+
+
+    /*-- Open Add Course page --*/
+    window.location.href = "add-course.html?edit=" + courseId;
+
+}
+
+</script>
+
+
+
+<!-- DELETE COURSE - Manage Courses JS -->
+<script>
+
+async function deleteCourse(courseId) {
+
+    const course = allCourses.find(course => course.id == courseId);
+
+
+    if (!course) {
+
+        alert("⚠️ Course information not found.");
+
+        return;
+
+    }
+
+
+    const confirmed = confirm(
+            `Are you sure you want to delete "${course.course_name}"?`
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+
+                `http://localhost:3000/api/courses/${courseId}`,
+
+                {
+                  method: "DELETE"
+                }
+
+            );
+
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            alert(
+
+                data.message ||
+                "❌ Unable to delete course."
+
+            );
+
+            return;
+
+        }
+
+        alert(data.message);
+
+        /*-- Reload courses --*/
+        await loadCourses();
+
+    } catch (error) {
+
+        console.error(
+            "❌ Delete Course Error:",
+            error
+        );
+
+
+        alert(
+            "❌ Unable to connect to the CRM server."
+        );
+
+    }
+
+}
 </script>
 
 

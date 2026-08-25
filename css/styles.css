@@ -942,32 +942,33 @@
 
 
 /*--- ACTION BUTTONS ---*/
-.crm-edit-btn,
-.crm-delete-btn {
-  width:35px;
-  height:35px;
+.crm-edit-btn-AMC,
+.crm-delete-btn-AMC {
+  width:25px;
+  height:25px;
   border:none;
   border-radius:8px;
+  color:#fff;
   cursor:pointer;
+  margin-right:5px;
   transition:.3s;
-  margin-right:8px;
 }
 
-.crm-edit-btn {
+.crm-edit-btn-AMC {
   background:#2563eb;
   color:#ffffff;
 }
 
-.crm-edit-btn:hover {
+.crm-edit-btn-AMC:hover {
   background:#1d4ed8;
 }
 
-.crm-delete-btn {
+.crm-delete-btn-AMC {
   background:#ef4444;
   color:#ffffff;
 }
 
-.crm-delete-btn:hover {
+.crm-delete-btn-AMC:hover {
   background:#dc2626;
 }
 
@@ -5646,13 +5647,26 @@
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
+          /* ============================
+                  NO COURSES FOUND
+          ============================ */
 
+.no-courses-row td {
+  text-align: center;
+  padding: 25px 15px;
+  color: #ca0505;
+  background: #f8f9fa;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid #e5e5e5;
+}
 
+.no-courses-row td i {
+  margin-right: 8px;
+  color: #ca0505;
+  font-size: 16px;
+}
 
-
-
-
-
-
+/* --------------------------------------------------------------------------------------------------------------------------------------- */
 
 

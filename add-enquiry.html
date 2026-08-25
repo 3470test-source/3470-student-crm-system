@@ -227,25 +227,25 @@
                             <!-- Student Name -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Student Name <span>*</span></label>
-                                <input type="text" placeholder="Enter student name" required>
+                                <input type="text" name="studentName" placeholder="Enter student name" required>
                             </div>
 
                             <!-- Mobile -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Mobile Number <span>*</span></label>
-                                <input type="tel" placeholder="Enter mobile number" required>
+                                <input type="tel" name="mobile" placeholder="Enter mobile number" required>
                             </div>
 
                             <!-- Email -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Email Address</label>
-                                <input type="email" placeholder="Enter email address">
+                                <input type="email" name="email" placeholder="Enter email address">
                             </div>
 
                             <!-- Gender -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Gender</label>
-                                <select name="Gender">
+                                <select name="gender">
                                     <option value="">-- Select Gender --</option>
                                     <option value="male">Male</option>
                                     <option value="Female">Female</option>
@@ -255,13 +255,13 @@
                             <!-- Date of Birth -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Date of Birth</label>
-                                <input type="date">
+                                <input type="date" name="dateOfBirth">
                             </div>
 
                             <!-- Course -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Course Interested <span>*</span></label>
-                                <select name="course-interested" required>
+                                <select name="courseInterested" required>
                                     <option value="">-- Select Course --</option>
                                     <option value="BMCT">BMCT - Basic Medical Coding Training</option>
                                     <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
@@ -280,7 +280,7 @@
                             <!-- Source -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Enquiry Source</label>
-                                <select name="enquiry-source">
+                                <select name="enquirySource">
                                     <option value="">-- Select Source --</option>   
                                     <option value="phone call">Phone Call</option>
                                     <option value="Walk-in">Walk-in</option>
@@ -295,7 +295,7 @@
                             <!-- Counsellor -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Counsellor</label>
-                                <select name="Counsellor">
+                                <select name="counsellor">
                                     <option>-- Select Counsellor --</option>
                                     <option>Ramesh</option>
                                     <option>Renuka</option>
@@ -308,19 +308,19 @@
                             <!-- Enquiry Date -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Enquiry Date</label>
-                                <input type="date">
+                                <input type="date" name="enquiryDate">
                             </div>
 
                             <!-- Follow-up Date -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Next Follow-up Date</label>
-                                <input type="date">
+                                <input type="date" name="followUpDate">
                             </div>
 
                             <!-- Follow-up Time -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Follow-up Time</label>
-                                <input type="time">
+                                <input type="time" name="followUpTime">
                             </div>
 
                             <!-- Status -->
@@ -339,13 +339,13 @@
                             <!-- Address -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Address</label>
-                                <textarea rows="3" placeholder="Enter address"></textarea>
+                                <textarea rows="3" name="address" placeholder="Enter address"></textarea>
                             </div>
 
                             <!-- Comments -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Comments</label>
-                                <textarea rows="3" placeholder="Enter enquiry comments"></textarea>
+                                <textarea rows="3" name="comments" placeholder="Enter enquiry comments"></textarea>
                             </div>
 
                             <!-- Buttons -->
@@ -400,6 +400,176 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Add Students Enquiry - JS  -->
+<script>
+
+const studentEnquiryForm = document.getElementById("studentEnquiryForm");
+
+studentEnquiryForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        /*-- GET FORM VALUES --*/
+        const studentName = studentEnquiryForm.elements["studentName"].value.trim();
+
+        const mobile = studentEnquiryForm.elements["mobile"].value.trim();
+
+        const email = studentEnquiryForm.elements["email"].value.trim();
+
+        const gender = studentEnquiryForm.elements["gender"].value;
+
+        const dateOfBirth = studentEnquiryForm.elements["dateOfBirth"].value;
+
+        const courseInterested = studentEnquiryForm.elements["courseInterested"].value;
+
+        const enquirySource = studentEnquiryForm.elements["enquirySource"].value;
+
+        const counsellor = studentEnquiryForm.elements["counsellor"].value;
+
+        const enquiryDate = studentEnquiryForm.elements["enquiryDate"].value;
+
+        const followUpDate = studentEnquiryForm.elements["followUpDate"].value;
+
+        const followUpTime = studentEnquiryForm.elements["followUpTime"].value;
+
+        const status = studentEnquiryForm.elements["status"].value;
+
+        const address = studentEnquiryForm.elements["address"].value.trim();
+
+        const comments = studentEnquiryForm.elements["comments"].value.trim();
+
+
+        /*-- BASIC VALIDATION --*/
+        if (!studentName) {
+
+            alert("Please enter the student name.");
+            return;
+
+        }
+
+        if (!mobile) {
+
+            alert("Please enter the mobile number.");
+            return;
+
+        }
+
+        if (!courseInterested) {
+
+            alert("Please select the course interested.");
+            return;
+
+        }
+
+
+        /*-- SAVE BUTTON --*/
+        const saveButton =
+            studentEnquiryForm.querySelector(
+                ".crm-btn-AddEnq-save"
+            );
+
+        const originalText = saveButton.innerHTML;
+
+        saveButton.disabled = true;
+
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+
+        try {
+
+            /*-- API REQUEST --*/
+            const response = await fetch(
+
+                "http://localhost:3000/api/enquiries",
+
+                {
+
+                    method: "POST",
+                    headers: {
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        studentName: studentName,
+                        mobile: mobile,
+                        email: email,
+                        gender: gender,
+                        dateOfBirth: dateOfBirth,
+                        courseInterested: courseInterested,
+                        enquirySource: enquirySource,
+                        counsellor: counsellor,
+                        enquiryDate: enquiryDate,
+                        followUpDate: followUpDate,
+                        followUpTime: followUpTime,
+                        status: status,
+                        address: address,
+                        comments: comments
+
+                    })
+
+                }
+
+            );
+
+
+            /*-- RESPONSE --*/
+            const data = await response.json();
+
+            if (!response.ok) {
+
+                alert(
+                    data.message ||
+                    "Unable to add enquiry."
+                );
+
+                return;
+
+            }
+
+
+            /*-- SUCCESS --*/
+            alert(data.message);
+
+            /*-- Reset form --*/
+            studentEnquiryForm.reset();
+
+            /*-- Go to Manage Enquiries --*/
+            window.location.href = "manage-enquiries.html";
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Enquiry API Error:",
+                error
+            );
+
+
+            alert(
+                "❌ Unable to connect to the CRM server."
+            );
+
+
+        } finally {
+
+            saveButton.disabled = false;
+
+            saveButton.innerHTML = originalText;
+
+        }
+
+    }
+
+);
+
 </script>
 
 
