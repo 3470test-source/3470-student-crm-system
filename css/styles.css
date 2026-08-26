@@ -926,7 +926,7 @@
   display:inline-block;
   padding:6px 14px;
   border-radius:30px;
-  font-size:14px;
+  font-size:12px;
   font-weight:600;
 }
 
@@ -1258,57 +1258,87 @@
   background:#d0ecdf;
 }
 
+.crm-status-MEB {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:600;
+}
+
 
 /*--- STATUS ---*/
-.crm-status.active-new {
+.crm-status-MEB.active {
   background:#DBEAFE;
   color:#1D4ED8;
 }
 
-.crm-status.pending {
+.crm-status-MEB.pending {
   background:#FEF3C7;
   color:#B45309;
 }
 
-.crm-status.success{
+.crm-status-MEB.success{
   background:#DCFCE7;
   color:#15803D;
 }
 
-.crm-status.cancel{
+.crm-status-MEB.cancel{
   background:#FEE2E2;
   color:#DC2626;
 }
 
-
-/*--- ACTION BUTTONS ---*/
-.crm-view-btn,
-.crm-edit-btn,
-.crm-followup-btn,
-.crm-delete-btn {
-  width:35px;
-  height:35px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  transition:.3s;
-  margin-right:8px;
-  color:#ffffff;
+.crm-status-MEB.warning{
+  background:#FEE2E2;
+  color:#dc26d3;
 }
 
-.crm-view-btn {
+
+/*--- ACTION BUTTONS ---*/
+.crm-view-btn-MEB,
+.crm-edit-btn-MEB,
+.crm-followup-btn-MEB,
+.crm-delete-btn-MEB {
+  width:25px;
+  height:25px;
+  border:none;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  margin-right:5px;
+  transition:.3s;
+}
+
+.crm-view-btn-MEB {
   background:#0ea5e9;
 }
 
-.crm-view-btn:hover {
+.crm-view-btn-MEB:hover {
   background:#0284c7;
 }
 
-.crm-followup-btn {
+.crm-edit-btn-MEB {
+  background:#2563eb;
+}
+
+.crm-edit-btn-MEB:hover {
+  background:#1d4ed8;
+}
+
+
+.crm-delete-btn-MEB {
+  background:#ef4444;
+}
+
+.crm-delete-btn-MEB:hover {
+  background:#dc2626;
+}
+
+.crm-followup-btn-MEB {
   background:#f59e0b;
 }
 
-.crm-followup-btn:hover {
+.crm-followup-btn-MEB:hover {
   background:#d97706;
 }
 

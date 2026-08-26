@@ -644,6 +644,631 @@ app.post("/api/enquiries", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*==== GET ALL ENQUIRIES - GET /api/enquiries ====*/
+app.get("/api/enquiries", async (req, res) => {
+
+    try {
+
+        const {
+            search = "", status = "", course = "", counsellor = ""
+        } = req.query;
+
+
+        let sql = `
+            SELECT
+                id, student_name, mobile, email, gender, date_of_birth, course_interested AS course,
+                enquiry_source, counsellor, enquiry_date, follow_up_date, follow_up_time, status,
+                address, comments, created_at, updated_at
+
+            FROM student_enquiries
+
+            WHERE 1 = 1
+        `;
+
+
+        const params = [];
+
+
+        /*-- SEARCH --*/
+        if (search.trim() !== "") {
+
+            sql += `
+                AND (
+                    student_name LIKE ?
+                    OR mobile LIKE ?
+                    OR email LIKE ?
+                )
+            `;
+
+            const searchValue = `%${search.trim()}%`;
+
+            params.push(
+                searchValue,
+                searchValue,
+                searchValue
+            );
+        }
+
+        
+        /*-- STATUS FILTER --*/
+        if (
+            status &&
+            status !== "-- All Status --"
+        ) {
+
+            sql += `
+                AND status = ?
+            `;
+
+            params.push(status);
+        }
+
+
+        /*-- COURSE FILTER --*/
+        if (
+            course &&
+            course !== "-- All Courses --"
+        ) {
+
+            sql += `
+                AND course_interested = ?
+            `;
+
+            params.push(course);
+        }
+
+
+        /*-- COUNSELLOR FILTER --*/
+        if (
+            counsellor &&
+            counsellor !== "-- All Counsellors --"
+        ) {
+
+            sql += `
+                AND counsellor = ?
+            `;
+
+            params.push(counsellor);
+        }
+
+
+        /*-- ORDER --*/
+        sql += `
+            ORDER BY id DESC
+        `;
+
+
+        const [rows] = await db.query(
+            sql,
+            params
+        );
+
+
+        console.log(
+            `✅ Enquiries fetched: ${rows.length}`
+        );
+
+
+        res.json(rows);
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ GET Enquiries Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Unable to fetch enquiries.",
+
+            error:
+                error.message
+
+        });
+
+    }
+
+});
+
+
+
+/*==== GET SINGLE ENQUIRY - GET /api/enquiries/:id ====*/
+app.get("/api/enquiries/:id", async (req, res) => {
+
+    try {
+
+        const id = req.params.id;
+
+
+        if (!id || isNaN(id)) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Invalid enquiry ID."
+
+            });
+
+        }
+
+
+        const [rows] = await db.query(
+
+            `
+            SELECT
+                id, student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source,
+                counsellor, enquiry_date, follow_up_date, follow_up_time, status, address, comments,created_at,
+                updated_at
+
+            FROM student_enquiries
+
+            WHERE id = ?
+            `,
+
+            [id]
+
+        );
+
+
+        if (rows.length === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Enquiry not found."
+
+            });
+
+        }
+
+
+        res.json({
+
+            success: true,
+
+            enquiry: rows[0]
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ GET Single Enquiry Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Unable to fetch enquiry.",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+
+/*==== ADD ENQUIRY - POST /api/enquiries ====*/
+app.post("/api/enquiries", async (req, res) => {
+
+    try {
+
+        const {
+
+            studentName, mobile, email, gender, dateOfBirth, courseInterested, enquirySource,
+            counsellor, enquiryDate, followUpDate, followUpTime, status, address, comments
+
+        } = req.body;
+
+
+        /*-- VALIDATION --*/ 
+        if (
+            !studentName ||
+            !studentName.trim()
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please enter the student name."
+
+            });
+
+        }
+
+
+        if (
+            !mobile ||
+            !mobile.trim()
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please enter the mobile number."
+
+            });
+
+        }
+
+
+        if (!courseInterested) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please select the course."
+
+            });
+
+        }
+
+
+        /*-- INSERT --*/
+        const [result] = await db.query(
+
+            `
+            INSERT INTO student_enquiries
+            (
+                student_name, mobile, email, gender, date_of_birth, course_interested,
+                enquiry_source, counsellor, enquiry_date, follow_up_date, follow_up_time,
+                status, address, comments
+            )
+
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,
+
+            [
+
+                studentName.trim(),
+                mobile.trim(),
+                email || null,
+                gender || null,
+                dateOfBirth || null,
+                courseInterested,
+                enquirySource || null,
+                counsellor || null,
+                enquiryDate ||
+                    new Date()
+                        .toISOString()
+                        .split("T")[0],
+                followUpDate || null,
+                followUpTime || null,
+                status || "New",
+                address || null,
+                comments || null
+
+            ]
+
+        );
+
+
+        console.log(
+            `✅ Enquiry added. ID: ${result.insertId}`
+        );
+
+
+        res.status(201).json({
+
+            success: true,
+            message: "✅ Student enquiry added successfully.",
+
+            enquiryId: result.insertId
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ ADD Enquiry Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Unable to add student enquiry.",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+/*==== UPDATE ENQUIRY - PUT /api/enquiries/:id ====*/
+app.put("/api/enquiries/:id", async (req, res) => {
+
+    try {
+
+        const id = req.params.id;
+
+
+        if (!id || isNaN(id)) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Invalid enquiry ID."
+
+            });
+
+        }
+
+
+        const {
+
+            studentName, mobile, email, gender, dateOfBirth, courseInterested, enquirySource, counsellor,
+            enquiryDate, followUpDate, followUpTime, status, address, comments
+
+        } = req.body;
+
+
+        /*-- VALIDATION --*/
+        if (
+            !studentName ||
+            !studentName.trim()
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Student name is required."
+
+            });
+
+        }
+
+
+        if (
+            !mobile ||
+            !mobile.trim()
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Mobile number is required."
+
+            });
+
+        }
+
+
+        if (!courseInterested) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Course is required."
+
+            });
+
+        }
+
+
+        /*-- UPDATE --*/ 
+        const [result] = await db.query(
+
+            `
+            UPDATE student_enquiries
+
+            SET
+
+                student_name = ?, mobile = ?, email = ?, gender = ?, date_of_birth = ?, course_interested = ?, enquiry_source = ?,
+                counsellor = ?, enquiry_date = ?, follow_up_date = ?, follow_up_time = ?, status = ?, address = ?, comments = ?
+
+            WHERE id = ?
+            `,
+
+            [
+
+                studentName.trim(),
+                mobile.trim(),
+                email || null,
+                gender || null,
+                dateOfBirth || null,
+                courseInterested,
+                enquirySource || null,
+                counsellor || null,
+                enquiryDate || null,
+                followUpDate || null,
+                followUpTime || null,
+                status || "New",
+                address || null,
+                comments || null,
+                id
+
+            ]
+
+        );
+
+
+        if (result.affectedRows === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Enquiry not found."
+
+            });
+
+        }
+
+
+        console.log(
+            `✅ Enquiry updated. ID: ${id}`
+        );
+
+
+        res.json({
+
+            success: true,
+            message: "Enquiry updated successfully."
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ UPDATE Enquiry Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Unable to update enquiry.",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+/*==== DELETE ENQUIRY - DELETE /api/enquiries/:id ====*/
+app.delete("/api/enquiries/:id", async (req, res) => {
+
+    try {
+
+        const id = req.params.id;
+
+
+        if (!id || isNaN(id)) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Invalid enquiry ID."
+
+            });
+
+        }
+
+
+        const [result] = await db.query(
+
+            `
+            DELETE FROM student_enquiries
+            WHERE id = ?
+            `,
+
+            [id]
+
+        );
+
+
+        if (result.affectedRows === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Enquiry not found."
+
+            });
+
+        }
+
+
+        console.log(
+            `✅ Enquiry deleted. ID: ${id}`
+        );
+
+
+        res.json({
+
+            success: true,
+            message: "Enquiry deleted successfully."
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ DELETE Enquiry Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Unable to delete enquiry.",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*-- Start server --*/
 app.listen(PORT, () => {
 
