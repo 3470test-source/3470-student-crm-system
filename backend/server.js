@@ -531,6 +531,7 @@ app.delete("/api/courses/:id", async (req, res) => {
 
 
 
+
 /*==== ADD STUDENT ENQUIRY - POST /api/enquiries ====*/
 app.post("/api/enquiries", async (req, res) => {
 
@@ -632,34 +633,6 @@ app.post("/api/enquiries", async (req, res) => {
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -799,6 +772,7 @@ app.get("/api/enquiries", async (req, res) => {
 
 
 
+
 /*==== GET SINGLE ENQUIRY - GET /api/enquiries/:id ====*/
 app.get("/api/enquiries/:id", async (req, res) => {
 
@@ -878,7 +852,6 @@ app.get("/api/enquiries/:id", async (req, res) => {
     }
 
 });
-
 
 
 
@@ -1020,6 +993,7 @@ app.post("/api/enquiries", async (req, res) => {
 
 
 
+
 /*==== UPDATE ENQUIRY - PUT /api/enquiries/:id ====*/
 app.put("/api/enquiries/:id", async (req, res) => {
 
@@ -1148,7 +1122,7 @@ app.put("/api/enquiries/:id", async (req, res) => {
         res.json({
 
             success: true,
-            message: "Enquiry updated successfully."
+            message: "✅ Enquiry updated successfully."
 
         });
 
@@ -1173,6 +1147,7 @@ app.put("/api/enquiries/:id", async (req, res) => {
     }
 
 });
+
 
 
 
@@ -1254,16 +1229,6 @@ app.delete("/api/enquiries/:id", async (req, res) => {
     }
 
 });
-
-
-
-
-
-
-
-
-
-
 
 
 
