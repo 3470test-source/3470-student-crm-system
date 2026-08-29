@@ -299,6 +299,7 @@ app.get("/api/courses", async (req, res) => {
 
 
 
+
 /*==== UPDATE COURSE API - PUT /api/courses/:id ====*/
 app.put("/api/courses/:id", async (req, res) => {
 
@@ -531,7 +532,6 @@ app.delete("/api/courses/:id", async (req, res) => {
 
 
 
-
 /*==== ADD STUDENT ENQUIRY - POST /api/enquiries ====*/
 app.post("/api/enquiries", async (req, res) => {
 
@@ -633,9 +633,6 @@ app.post("/api/enquiries", async (req, res) => {
     }
 
 });
-
-
-
 
 
 
@@ -856,144 +853,6 @@ app.get("/api/enquiries/:id", async (req, res) => {
 
 
 
-
-
-
-/*==== ADD ENQUIRY - POST /api/enquiries ====*/
-app.post("/api/enquiries", async (req, res) => {
-
-    try {
-
-        const {
-
-            studentName, mobile, email, gender, dateOfBirth, courseInterested, enquirySource,
-            counsellor, enquiryDate, followUpDate, followUpTime, status, address, comments
-
-        } = req.body;
-
-
-        /*-- VALIDATION --*/ 
-        if (
-            !studentName ||
-            !studentName.trim()
-        ) {
-
-            return res.status(400).json({
-
-                success: false,
-                message: "Please enter the student name."
-
-            });
-
-        }
-
-
-        if (
-            !mobile ||
-            !mobile.trim()
-        ) {
-
-            return res.status(400).json({
-
-                success: false,
-                message: "Please enter the mobile number."
-
-            });
-
-        }
-
-
-        if (!courseInterested) {
-
-            return res.status(400).json({
-
-                success: false,
-                message: "Please select the course."
-
-            });
-
-        }
-
-
-        /*-- INSERT --*/
-        const [result] = await db.query(
-
-            `
-            INSERT INTO student_enquiries
-            (
-                student_name, mobile, email, gender, date_of_birth, course_interested,
-                enquiry_source, counsellor, enquiry_date, follow_up_date, follow_up_time,
-                status, address, comments
-            )
-
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            `,
-
-            [
-
-                studentName.trim(),
-                mobile.trim(),
-                email || null,
-                gender || null,
-                dateOfBirth || null,
-                courseInterested,
-                enquirySource || null,
-                counsellor || null,
-                enquiryDate ||
-                    new Date()
-                        .toISOString()
-                        .split("T")[0],
-                followUpDate || null,
-                followUpTime || null,
-                status || "New",
-                address || null,
-                comments || null
-
-            ]
-
-        );
-
-
-        console.log(
-            `✅ Enquiry added. ID: ${result.insertId}`
-        );
-
-
-        res.status(201).json({
-
-            success: true,
-            message: "✅ Student enquiry added successfully.",
-
-            enquiryId: result.insertId
-
-        });
-
-
-    } catch (error) {
-
-        console.error(
-            "❌ ADD Enquiry Error:",
-            error
-        );
-
-
-        res.status(500).json({
-
-            success: false,
-            message: "Unable to add student enquiry.",
-
-            error: error.message
-
-        });
-
-    }
-
-});
-
-
-
-
-
 /*==== UPDATE ENQUIRY - PUT /api/enquiries/:id ====*/
 app.put("/api/enquiries/:id", async (req, res) => {
 
@@ -1151,7 +1010,6 @@ app.put("/api/enquiries/:id", async (req, res) => {
 
 
 
-
 /*==== DELETE ENQUIRY - DELETE /api/enquiries/:id ====*/
 app.delete("/api/enquiries/:id", async (req, res) => {
 
@@ -1229,6 +1087,259 @@ app.delete("/api/enquiries/:id", async (req, res) => {
     }
 
 });
+
+
+
+
+/*==== ADD FOLLOW-UP - POST /api/follow-ups ====*/
+app.post("/api/follow-ups", async (req, res) => {
+
+    try {
+
+        const {
+            enquiry_id, follow_up_date, follow_up_time, follow_up_type, status,
+            next_follow_up_date, next_follow_up_time, comments
+        } = req.body;
+
+
+        /*--- VALIDATE ENQUIRY ---*/
+        if (
+            !enquiry_id ||
+            isNaN(enquiry_id)
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please select a student enquiry."
+
+            });
+
+        }
+
+
+        /*--- GET ENQUIRY ---*/
+        const [enquiryRows] = await db.query(
+
+            `
+            SELECT
+                id,
+                student_name, mobile, course_interested, counsellor
+
+            FROM student_enquiries
+            WHERE id = ?
+            `,
+
+            [enquiry_id]
+
+        );
+
+
+        if (enquiryRows.length === 0) {
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Selected student enquiry was not found."
+
+            });
+
+        }
+
+
+        const enquiry = enquiryRows[0];
+
+        /*--- VALIDATE FOLLOW-UP DATE ---*/
+        if (!follow_up_date) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please select follow-up date."
+
+            });
+
+        }
+
+
+        /*--- VALIDATE TYPE ---*/
+        const allowedTypes = [
+
+            "Phone Call", "WhatsApp", "Email", "Walk-in"
+
+        ];
+
+
+        if (
+            !allowedTypes.includes(
+                follow_up_type
+            )
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please select a valid follow-up type."
+
+            });
+
+        }
+
+
+        /*--- VALIDATE STATUS ---*/
+        const allowedStatuses = [
+
+            "Interested", "Not Interested", "Call Back", "Admission Confirmed"
+
+        ];
+
+
+        if (
+            !allowedStatuses.includes(
+                status
+            )
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+                message: "Please select a valid status."
+
+            });
+
+        }
+
+
+        /*--- INSERT FOLLOW-UP ---*/
+        const [result] = await db.query(
+
+            `
+            INSERT INTO follow_ups
+            (
+                enquiry_id, student_name, mobile_number, course, counsellor, follow_up_date, follow_up_time,
+                follow_up_type, status, next_follow_up_date, next_follow_up_time, comments
+            )
+
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,
+
+            [
+
+                enquiry.id,
+                enquiry.student_name,
+                enquiry.mobile,
+                enquiry.course_interested,
+                enquiry.counsellor || null,
+                follow_up_date,
+                follow_up_time || null,
+                follow_up_type,
+                status,
+                next_follow_up_date || null,
+                next_follow_up_time || null,
+                comments || null
+
+            ]
+
+        );
+
+
+        /*--- UPDATE ENQUIRY ---*/
+        let enquiryStatus = status;
+
+
+        /*
+         * Your student_enquiries table
+         * uses "Follow-up", not "Call Back".
+         */
+
+        if (
+            status === "Call Back"
+        ) {
+
+            enquiryStatus = "Follow-up";
+
+        }
+
+
+        /*
+         * If another follow-up is scheduled,
+         * update enquiry's next follow-up date/time.
+         */
+
+        await db.query(
+
+            `
+            UPDATE student_enquiries
+
+            SET
+                status = ?,
+                follow_up_date = ?,
+                follow_up_time = ?
+
+            WHERE id = ?
+            `,
+
+            [
+
+                enquiryStatus,
+
+                next_follow_up_date ||
+                    follow_up_date,
+
+                next_follow_up_time ||
+                    follow_up_time ||
+                    null,
+
+                enquiry_id
+
+            ]
+
+        );
+
+
+        /*--- SUCCESS ---*/
+        console.log(
+            `✅ Follow-up added. ID: ${result.insertId}`
+        );
+
+
+        res.status(201).json({
+
+            success: true,
+            message: "✅ Follow-up saved successfully.",
+
+            followUpId: result.insertId
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Add Follow-up Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "❌ Unable to save follow-up.",
+
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
 
 
 

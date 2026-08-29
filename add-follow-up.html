@@ -224,66 +224,54 @@
 
                         <div class="crm-form-grid-AddFollowUP">
 
+                            <!-- Student Enquiry -->
+                            <div class="crm-form-group-AddFollowUP">
+                                <label for="enquiry_id">Student Enquiry <span>*</span></label>
+                                <select id="enquiry_id" name="enquiry_id" required>
+                                    <option value="">-- Select Student Enquiry --</option>
+                                </select>
+                            </div>
+
                             <!-- Student Name -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Student Name</label>
-                                <input type="text" placeholder="Enter student name">
+                                <label for="student_name">Student Name</label>
+                                <input type="text" id="student_name" name="student_name" placeholder="Enter student name" readonly>
                             </div>
 
                             <!-- Mobile Number -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Mobile Number</label>
-                                <input type="text" placeholder="Enter mobile number">
+                                <label for="mobile_number">Mobile Number</label>
+                                <input type="text" id="mobile_number" name="mobile_number" placeholder="Enter mobile number" readonly>
                             </div>
 
                             <!-- Course -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Course</label>
-                                <select>
-                                    <option>-- Select Course --</option>
-                                    <option value="BMCT">BMCT - Basic Medical Coding Training</option>
-                                    <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
-                                    <option value="CPC">CPC - Certified Professional Coder</option>
-                                    <option value="E&M">E&M - Evaluation & Management</option>
-                                    <option value="IPDRG">IPDRG - Inpatient Diagnosis-Related Group</option>
-                                    <option value="ED">ED - Emergency Department</option>
-                                    <option value="CCS">CCS - Certified Coding Specialist</option>
-                                    <option value="CPMA">CPMA - Certified Professional Medical Auditor</option>
-                                    <option value="CRC">CRC - Certified Risk Adjustment Coder</option>
-                                    <option value="IVR">IVR - Interventional Radiology</option>
-                                    <option value="Surgery">Surgery</option>
-                                </select>
+                                <label for="course">Course</label>
+                                <input type="text" id="course" name="course" placeholder="Course" readonly>
                             </div>
 
                             <!-- Counsellor -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Counsellor</label>
-                                <select>
-                                    <option>-- Select Counsellor --</option>
-                                    <option>Ramesh</option>
-                                    <option>Renuka</option>
-                                    <option>Kaviya</option>
-                                    <option>Perumal</option>
-                                    <option>Jaya Shree</option>
-                                </select>
+                                <label for="counsellor">Counsellor</label>
+                                <input type="text" id="counsellor" name="counsellor" placeholder="Counsellor"readonly>
                             </div>
 
                             <!-- Follow-up Date -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Follow-up Date</label>
-                                <input type="date">
+                                <label for="follow_up_date">Follow-up Date <span>*</span></label>
+                                <input type="date" id="follow_up_date" name="follow_up_date" required>
                             </div>
 
                             <!-- Follow-up Time -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Follow-up Time</label>
-                                <input type="time">
+                                <label for="follow_up_time">Follow-up Time <span>*</span></label>
+                                <input type="time" id="follow_up_time" name="follow_up_time" required>
                             </div>
 
                             <!-- Follow-up Type -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Follow-up Type</label>
-                                <select>
+                                <label for="follow_up_type">Follow-up Type <span>*</span></label>
+                                <select id="follow_up_type" name="follow_up_type" required>
                                     <option>-- Select Type --</option>
                                     <option>Phone Call</option>
                                     <option>WhatsApp</option>
@@ -294,8 +282,8 @@
 
                             <!-- Status -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Status</label>
-                                <select>
+                                <label for="status">Status <span>*</span></label>
+                                <select id="status" name="status" required>
                                     <option>-- Select Status --</option>
                                     <option>Interested</option>
                                     <option>Not Interested</option>
@@ -306,28 +294,28 @@
 
                             <!-- Next Follow-up Date -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Next Follow-up Date</label>
-                                <input type="date">
+                                <label for="next_follow_up_date">Next Follow-up Date</label>
+                                <input type="date" id="next_follow_up_date" name="next_follow_up_date">
                             </div>
 
                             <!-- Next Follow-up Time -->
                             <div class="crm-form-group-AddFollowUP">
-                                <label>Next Follow-up Time</label>
-                                <input type="time">
+                                <label for="next_follow_up_time">Next Follow-up Time</label>
+                                <input type="time" id="next_follow_up_time" name="next_follow_up_time">
+                            </div>
+
+                            <!-- Comments -->
+                            <div class="crm-form-group-AddFollowUP">
+                                <label for="comments">Comments</label>
+                                <textarea id="comments" name="comments" rows="3" placeholder="Enter follow-up remarks"></textarea>
                             </div>
 
                         </div>
 
-                            <!-- Comments -->
-                            <div class="crm-form-group-AddFollowUP">
-                                <label>Comments</label>
-                                <textarea rows="3" placeholder="Enter follow-up remarks"></textarea>
-                            </div>
-
                             <!-- Buttons -->
                             <div class="crm-form-buttons-AddFollowUP">
-                                <button type="reset" class="crm-reset-btn">Reset</button>
-                                <button type="submit" class="crm-save-btn">Save Follow-up</button>
+                                <button type="reset" id="resetButton" class="crm-reset-btn">Reset</button>
+                                <button type="submit" id="saveButton" class="crm-save-btn">Save Follow-up</button>
                             </div>
 
                     </form>
@@ -336,7 +324,7 @@
 
             </main>
 
-    </div>
+        </div>
 
     
 <!-- Profile dropdown JS - Script -->
@@ -374,6 +362,377 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Add Follow Ups - JS  -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*--- ELEMENTS ---*/
+    const enquirySelect = document.getElementById("enquiry_id");
+
+    const studentName = document.getElementById("student_name");
+
+    const mobileNumber = document.getElementById("mobile_number");
+
+    const course = document.getElementById("course");
+
+    const counsellor = document.getElementById("counsellor");
+
+    const form = document.getElementById("AddFollow-Up");
+
+    const saveButton = document.getElementById("saveButton");
+
+
+    /*--- SHOW MESSAGE ---*/
+    function showMessage(message) {
+        alert(message);
+    }
+
+
+    /*--- LOAD ALL ENQUIRIES - GET /api/enquiries ---*/
+    async function loadEnquiries() {
+
+        try {
+
+            enquirySelect.innerHTML = `
+                <option value="">
+                    -- Loading enquiries... --
+                </option>
+            `;
+
+
+            const response = await fetch("http://localhost:3000/api/enquiries");
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load student enquiries."
+                );
+
+            }
+
+
+            const result = await response.json();
+
+            /*
+             * Your backend currently returns
+             * the array directly.
+             */
+
+            const enquiries = Array.isArray(result)
+                ? result
+                : result.data || [];
+
+
+            enquirySelect.innerHTML = `
+                <option value="">
+                    -- Select Student Enquiry --
+                </option>
+            `;
+
+
+            if (enquiries.length === 0) {
+
+                enquirySelect.innerHTML = `
+                    <option value="">
+                        -- No enquiries available --
+                    </option>
+                `;
+
+                return;
+
+            }
+
+
+            enquiries.forEach(enquiry => {
+
+                const option = document.createElement("option");
+
+                option.value = enquiry.id;
+
+                option.textContent = `${enquiry.student_name} - ${enquiry.mobile} - ${enquiry.course}`;
+
+                enquirySelect.appendChild(option);
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Load Enquiries Error:",
+                error
+            );
+
+
+            enquirySelect.innerHTML = `
+                <option value="">
+                    -- Unable to load enquiries --
+                </option>
+            `;
+
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    /*--- LOAD SELECTED ENQUIRY - GET /api/enquiries/:id ---*/
+    async function loadSelectedEnquiry(enquiryId) {
+
+        if (!enquiryId) {
+
+            studentName.value = "";
+            mobileNumber.value = "";
+            course.value = "";
+            counsellor.value = "";
+
+            return;
+
+        }
+
+
+        try {
+
+            const response = await fetch(
+                    `http://localhost:3000/api/enquiries/${enquiryId}`
+                );
+
+
+            const result = await response.json();
+
+            if (!response.ok ||
+                !result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "Unable to load enquiry."
+                );
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             * Backend returns result.enquiry
+             */
+
+            const enquiry = result.enquiry;
+
+            studentName.value = enquiry.student_name || "";
+
+            mobileNumber.value = enquiry.mobile || "";
+
+            course.value = enquiry.course_interested || "";
+
+            counsellor.value = enquiry.counsellor || "";
+
+
+        } catch (error) {
+
+            console.error(
+                "Load Selected Enquiry Error:",
+                error
+            );
+
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    /*--- ENQUIRY CHANGE ---*/
+    enquirySelect.addEventListener("change", function () {
+
+            loadSelectedEnquiry(
+                this.value
+            );
+
+        }
+    );
+
+
+    /*--- FORM SUBMIT ---*/
+    form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            /*--- GET VALUES ---*/
+            const enquiryId = enquirySelect.value;
+
+            const followUpDate = document.getElementById("follow_up_date").value;
+
+            const followUpTime = document.getElementById("follow_up_time").value;
+
+            const followUpType = document.getElementById("follow_up_type").value;
+
+            const status = document.getElementById("status").value;
+
+            const nextFollowUpDate = document.getElementById("next_follow_up_date").value;
+
+            const nextFollowUpTime = document.getElementById("next_follow_up_time").value;
+
+            const comments = document.getElementById("comments").value.trim();
+
+            /*--- VALIDATION ---*/
+            if (!enquiryId) {
+
+                showMessage(
+                    "Please select a student enquiry.",
+                );
+
+                return;
+
+            }
+
+
+            if (!followUpDate) {
+
+                showMessage(
+                    "Please select follow-up date.",
+                );
+
+                return;
+
+            }
+
+
+            if (!followUpType) {
+
+                showMessage(
+                    "Please select follow-up type.",
+                );
+
+                return;
+
+            }
+
+
+            if (!status) {
+
+                showMessage(
+                    "Please select status.",
+                );
+
+                return;
+
+            }
+
+
+            /*--- LOADING ---*/
+            saveButton.disabled = true;
+
+            saveButton.textContent = "Saving...";
+
+
+            try {
+
+                /*--- POST FOLLOW-UP ---*/
+                const response = await fetch(
+                        "http://localhost:3000/api/follow-ups",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                enquiry_id: enquiryId,
+                                follow_up_date: followUpDate,
+                                follow_up_time: followUpTime || null,
+                                follow_up_type: followUpType,
+                                status: status,
+                                next_follow_up_date: nextFollowUpDate || null,
+                                next_follow_up_time: nextFollowUpTime || null,
+                                comments: comments || null
+
+                            })
+
+                        }
+                    );
+
+
+                const result = await response.json();
+
+                /*--- ERROR ---*/
+                if (
+                    !response.ok ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to save follow-up."
+                    );
+
+                }
+
+                /*--- SUCCESS ---*/
+                showMessage(
+                    result.message ||
+                    "Follow-up saved successfully.",
+                );
+
+
+                /*--- RESET ---*/
+                form.reset();
+
+                studentName.value = "";
+                mobileNumber.value = "";
+                course.value = "";
+                counsellor.value = "";
+
+
+                /*--- RELOAD ENQUIRIES ---*/
+                await loadEnquiries();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Save Follow-up Error:",
+                    error
+                );
+
+
+                showMessage(
+                    error.message,
+                );
+
+
+            } finally {
+
+                saveButton.disabled = false;
+                saveButton.textContent = "Save Follow-up";
+
+            }
+
+        }
+    );
+
+    /*--- INITIAL LOAD ---*/
+    loadEnquiries();
+
+});
+
 </script>
 
 

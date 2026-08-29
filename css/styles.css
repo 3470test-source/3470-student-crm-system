@@ -1394,6 +1394,9 @@
   margin-bottom:8px;
 }
 
+.crm-form-group-AddFollowUP label span {
+  color:#ef4444;
+}
 
 /*--- Add Follow up INPUT ---*/
 .crm-form-group-AddFollowUP input,
