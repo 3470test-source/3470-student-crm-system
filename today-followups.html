@@ -226,28 +226,28 @@
                     <!-- Search -->
                     <div class="crm-Tdyfollowup-search-box">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search student name or mobile">
+                        <input type="text" id="searchFollowUp" placeholder="Search student name or mobile">
                     </div>
 
                     <!-- Counsellor -->
                     <div class="crm-Tdyfollowup-filter-box">
-                        <select>
-                            <option>-- All Counsellors --</option>
-                            <option>Ramesh</option>
-                            <option>Renuka</option>
-                            <option>Kaviya</option>
-                            <option>Perumal</option>
-                            <option>Jaya Shree</option>
+                        <select id="counsellorFilter">
+                            <option value="">-- All Counsellors --</option>
+                            <option value="Ramesh">Ramesh</option>
+                            <option value="Renuka">Renuka</option>
+                            <option value="Kaviya">Kaviya</option>
+                            <option value="Perumal">Perumal</option>
+                            <option value="Jaya Shree">Jaya Shree</option>
                         </select>
                     </div>
 
                     <!-- Status -->
                     <div class="crm-Tdyfollowup-filter-box">
-                        <select>
-                            <option>-- All Status --</option>
-                            <option>Pending</option>
-                            <option>Completed</option>
-                            <option>Call Back</option>
+                        <select id="statusFilter">
+                            <option value="">-- All Status --</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Call Back">Call Back</option>
                         </select>
                     </div>
 
@@ -272,61 +272,10 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="todayFollowUpsBody">
                             <tr>
-                                <td>1</td>
-                                <td>Rahul Kumar</td>
-                                <td>9876543210</td>
-                                <td>CPC</td>
-                                <td>10:00 AM</td>
-                                <td>Phone Call</td>
-                                <td>
-                                    <span class="crm-status-AFU pending">Pending</span>
-                                </td>
-                                <td>Renuka</td>
-                                <td>
-                                    <button class="crm-view-AFU-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-AFU-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-complete-AFU-btn"><i class="fa fa-check"></i></button>
-                                </td>
+                                <td colspan="9">Loading follow-ups...</td>
                             </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Arun Kumar</td>
-                                <td>9876501234</td>
-                                <td>BMCT</td>
-                                <td>11:30 AM</td>
-                                <td>WhatsApp</td>
-                                <td>
-                                    <span class="crm-status-AFU success">Completed</span>
-                                </td>
-                                <td>Ramesh</td>
-                                <td>
-                                    <button class="crm-view-AFU-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-AFU-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-complete-AFU-btn"><i class="fa fa-check"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>Kavin</td>
-                                <td>9876512345</td>
-                                <td>CCS</td>
-                                <td>03:00 PM</td>
-                                <td>Email</td>
-                                <td>
-                                    <span class="crm-status-AFU pending">Pending</span>
-                                </td>
-                                <td>Perumal</td>
-                                <td>
-                                    <button class="crm-view-AFU-btn"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-AFU-btn"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-complete-AFU-btn"><i class="fa fa-check"></i></button>
-                                </td>
-                            </tr>
-
                         </tbody>
 
                     </table>
@@ -335,7 +284,7 @@
 
                     <!-- Footer -->
                     <div class="crm-table-footer">
-                        <p>Showing 1 to 3 of 3 follow-ups scheduled for today.</p>
+                        <p id="followUpCount">Showing 1 to 3 of 3 follow-ups scheduled for today.</p>
                     </div>
 
             </main>     
@@ -379,6 +328,1136 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        // ========================================================
+        // ELEMENTS
+        // ========================================================
+
+        const tableBody =
+            document.getElementById(
+                "todayFollowUpsBody"
+            );
+
+
+        const searchInput =
+            document.getElementById(
+                "searchFollowUp"
+            );
+
+
+        const counsellorFilter =
+            document.getElementById(
+                "counsellorFilter"
+            );
+
+
+        const statusFilter =
+            document.getElementById(
+                "statusFilter"
+            );
+
+
+        const followUpCount =
+            document.getElementById(
+                "followUpCount"
+            );
+
+
+        // ========================================================
+        // API URL
+        //
+        // IMPORTANT:
+        // Use relative URL when frontend is served by
+        // the same Express server.
+        // ========================================================
+
+        const API_URL =
+            "http://localhost:3000/api/follow-ups";
+
+
+        // ========================================================
+        // LOAD TODAY'S FOLLOW-UPS
+        // ========================================================
+
+        async function loadTodayFollowUps() {
+
+            try {
+
+
+                // ------------------------------------------------
+                // LOADING
+                // ------------------------------------------------
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            style="
+                                text-align:center;
+                                padding:20px;
+                            "
+                        >
+
+                            Loading today's follow-ups...
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                // ------------------------------------------------
+                // FILTER VALUES
+                // ------------------------------------------------
+
+                const search =
+                    searchInput.value.trim();
+
+
+                const counsellor =
+                    counsellorFilter.value.trim();
+
+
+                const status =
+                    statusFilter.value.trim();
+
+
+                // ------------------------------------------------
+                // QUERY PARAMETERS
+                // ------------------------------------------------
+
+                const params =
+                    new URLSearchParams();
+
+
+                if (search !== "") {
+
+                    params.append(
+                        "search",
+                        search
+                    );
+
+                }
+
+
+                if (counsellor !== "") {
+
+                    params.append(
+                        "counsellor",
+                        counsellor
+                    );
+
+                }
+
+
+                if (status !== "") {
+
+                    params.append(
+                        "status",
+                        status
+                    );
+
+                }
+
+
+                // ------------------------------------------------
+                // API URL
+                // ------------------------------------------------
+
+                const queryString =
+                    params.toString();
+
+
+                const url =
+                    queryString
+                        ? `${API_URL}/today?${queryString}`
+                        : `${API_URL}/today`;
+
+
+                console.log(
+                    "Loading Today's Follow-ups:",
+                    url
+                );
+
+
+                // ------------------------------------------------
+                // REQUEST
+                // ------------------------------------------------
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+                            method: "GET",
+
+                            headers: {
+                                "Accept":
+                                    "application/json"
+                            }
+                        }
+                    );
+
+
+                // ------------------------------------------------
+                // RESPONSE
+                // ------------------------------------------------
+
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    "Today's Follow-ups API Response:",
+                    result
+                );
+
+
+                // ------------------------------------------------
+                // ERROR
+                // ------------------------------------------------
+
+                if (!response.ok) {
+
+                    throw new Error(
+
+                        result.error ||
+
+                        result.message ||
+
+                        "Unable to load today's follow-ups."
+
+                    );
+
+                }
+
+
+                if (!result.success) {
+
+                    throw new Error(
+
+                        result.message ||
+
+                        "Unable to load today's follow-ups."
+
+                    );
+
+                }
+
+
+                // ------------------------------------------------
+                // RENDER
+                // ------------------------------------------------
+
+                renderFollowUps(
+                    result.followUps || []
+                );
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Today's Follow-ups Error:",
+                    error
+                );
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            style="
+                                text-align:center;
+                                color:red;
+                                padding:20px;
+                            "
+                        >
+
+                            Unable to load today's follow-ups.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                followUpCount.textContent =
+                    "Unable to load follow-ups.";
+
+            }
+
+        }
+
+
+
+        // ========================================================
+        // RENDER FOLLOW-UPS
+        // ========================================================
+
+        function renderFollowUps(
+            followUps
+        ) {
+
+
+            tableBody.innerHTML = "";
+
+
+            // ----------------------------------------------------
+            // NO DATA
+            // ----------------------------------------------------
+
+            if (
+                !Array.isArray(followUps) ||
+                followUps.length === 0
+            ) {
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            style="
+                                text-align:center;
+                                padding:20px;
+                            "
+                        >
+
+                            No follow-ups scheduled for today.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                followUpCount.textContent =
+                    "Showing 0 follow-ups scheduled for today.";
+
+
+                return;
+
+            }
+
+
+            // ----------------------------------------------------
+            // CREATE ROWS
+            // ----------------------------------------------------
+
+            followUps.forEach(
+                function (followUp) {
+
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    // ============================================
+                    // STATUS CLASS
+                    // ============================================
+
+                    let statusClass =
+                        "pending";
+
+
+                    const currentStatus =
+                        String(
+                            followUp.status || ""
+                        ).trim();
+
+
+                    if (
+                        currentStatus ===
+                        "Completed"
+                    ) {
+
+                        statusClass =
+                            "success";
+
+                    }
+
+                    else if (
+                        currentStatus ===
+                        "Call Back"
+                    ) {
+
+                        statusClass =
+                            "callback";
+
+                    }
+
+                    else if (
+                        currentStatus ===
+                        "Not Interested"
+                    ) {
+
+                        statusClass =
+                            "danger";
+
+                    }
+
+
+                    // ============================================
+                    // TIME
+                    // ============================================
+
+                    const formattedTime =
+                        formatTime(
+                            followUp.follow_up_time
+                        );
+
+
+                    // ============================================
+                    // COURSE
+                    //
+                    // Backend returns:
+                    // course_interested
+                    // ============================================
+
+                    const course =
+                        followUp.course_interested ||
+                        "-";
+
+
+                    // ============================================
+                    // ROW
+                    // ============================================
+
+                    row.innerHTML = `
+
+                        <td>
+
+                            ${escapeHtml(
+                                String(
+                                    followUp.id || ""
+                                )
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                followUp.student_name ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                followUp.mobile ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                course
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                formattedTime
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                followUp.follow_up_type ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            <span
+                                class="
+                                    crm-status-AFU
+                                    ${statusClass}
+                                "
+                            >
+
+                                ${escapeHtml(
+                                    currentStatus ||
+                                    "-"
+                                )}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHtml(
+                                followUp.counsellor ||
+                                "-"
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+
+                            <!-- VIEW -->
+
+                            <button
+                                type="button"
+                                class="crm-view-AFU-btn"
+                                title="View"
+                                data-id="${followUp.id}"
+                            >
+
+                                <i
+                                    class="fa fa-eye"
+                                ></i>
+
+                            </button>
+
+
+                            <!-- EDIT -->
+
+                            <button
+                                type="button"
+                                class="crm-edit-AFU-btn"
+                                title="Edit"
+                                data-id="${followUp.id}"
+                            >
+
+                                <i
+                                    class="fa fa-edit"
+                                ></i>
+
+                            </button>
+
+
+                            <!-- COMPLETE -->
+
+                            <button
+                                type="button"
+                                class="crm-complete-AFU-btn"
+                                title="Complete"
+                                data-id="${followUp.id}"
+
+                                ${
+                                    currentStatus ===
+                                    "Completed"
+                                        ? "disabled"
+                                        : ""
+                                }
+
+                            >
+
+                                <i
+                                    class="fa fa-check"
+                                ></i>
+
+                            </button>
+
+
+                        </td>
+
+                    `;
+
+
+                    tableBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            // ----------------------------------------------------
+            // FOOTER
+            // ----------------------------------------------------
+
+            followUpCount.textContent =
+
+                `Showing 1 to ${followUps.length} of ${followUps.length} follow-ups scheduled for today.`;
+
+        }
+
+
+
+        // ========================================================
+        // FORMAT TIME
+        // ========================================================
+
+        function formatTime(
+            time
+        ) {
+
+
+            if (!time) {
+
+                return "-";
+
+            }
+
+
+            const value =
+                String(time);
+
+
+            const parts =
+                value.split(":");
+
+
+            if (
+                parts.length < 2
+            ) {
+
+                return value;
+
+            }
+
+
+            let hour =
+                parseInt(
+                    parts[0],
+                    10
+                );
+
+
+            const minute =
+                parts[1];
+
+
+            if (
+                Number.isNaN(hour)
+            ) {
+
+                return value;
+
+            }
+
+
+            const ampm =
+                hour >= 12
+                    ? "PM"
+                    : "AM";
+
+
+            hour =
+                hour % 12 || 12;
+
+
+            return `${hour}:${minute} ${ampm}`;
+
+        }
+
+
+
+        // ========================================================
+        // ESCAPE HTML
+        // ========================================================
+
+        function escapeHtml(
+            value
+        ) {
+
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value;
+
+
+            return div.innerHTML;
+
+        }
+
+
+
+        // ========================================================
+        // SEARCH DEBOUNCE
+        // ========================================================
+
+        searchInput.addEventListener(
+            "input",
+            debounce(
+                loadTodayFollowUps,
+                300
+            )
+        );
+
+
+
+        // ========================================================
+        // COUNSELLOR FILTER
+        // ========================================================
+
+        counsellorFilter.addEventListener(
+            "change",
+            loadTodayFollowUps
+        );
+
+
+
+        // ========================================================
+        // STATUS FILTER
+        // ========================================================
+
+        statusFilter.addEventListener(
+            "change",
+            loadTodayFollowUps
+        );
+
+
+
+        // ========================================================
+        // TABLE ACTIONS
+        // ========================================================
+
+        tableBody.addEventListener(
+            "click",
+            function (event) {
+
+
+                const button =
+                    event.target.closest(
+                        "button"
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                const id =
+                    button.dataset.id;
+
+
+                if (!id) {
+
+                    return;
+
+                }
+
+
+                // ================================================
+                // VIEW
+                // ================================================
+
+                if (
+                    button.classList.contains(
+                        "crm-view-AFU-btn"
+                    )
+                ) {
+
+                    viewFollowUp(id);
+
+                }
+
+
+                // ================================================
+                // EDIT
+                // ================================================
+
+                else if (
+                    button.classList.contains(
+                        "crm-edit-AFU-btn"
+                    )
+                ) {
+
+                    editFollowUp(id);
+
+                }
+
+
+                // ================================================
+                // COMPLETE
+                // ================================================
+
+                else if (
+                    button.classList.contains(
+                        "crm-complete-AFU-btn"
+                    )
+                ) {
+
+                    completeFollowUp(id);
+
+                }
+
+            }
+        );
+
+
+
+        // ========================================================
+        // VIEW FOLLOW-UP
+        // ========================================================
+
+//         async function viewFollowUp(
+//             id
+//         ) {
+
+
+//             try {
+
+
+//                 const response =
+//                     await fetch(
+//                         `${API_URL}/${encodeURIComponent(id)}`
+//                     );
+
+
+//                 const result =
+//                     await response.json();
+
+
+//                 if (!response.ok) {
+
+//                     throw new Error(
+
+//                         result.error ||
+
+//                         result.message ||
+
+//                         "Unable to load follow-up."
+
+//                     );
+
+//                 }
+
+
+//                 if (!result.success) {
+
+//                     throw new Error(
+
+//                         result.message ||
+
+//                         "Unable to load follow-up."
+
+//                     );
+
+//                 }
+
+
+//                 const f =
+//                     result.followUp;
+
+
+//                 alert(
+
+// `Student: ${f.student_name || "-"}
+
+// Mobile: ${f.mobile || "-"}
+
+// Course: ${f.course_interested || "-"}
+
+// Counsellor: ${f.counsellor || "-"}
+
+// Follow-up Date: ${f.follow_up_date || "-"}
+
+// Follow-up Time: ${formatTime(f.follow_up_time)}
+
+// Follow-up Type: ${f.follow_up_type || "-"}
+
+// Status: ${f.status || "-"}
+
+// Next Follow-up Date: ${f.next_follow_up_date || "-"}
+
+// Next Follow-up Time: ${formatTime(f.next_follow_up_time)}
+
+// Comments: ${f.comments || "-"}`
+
+//                 );
+
+
+//             } catch (error) {
+
+
+//                 console.error(
+//                     "View Follow-up Error:",
+//                     error
+//                 );
+
+
+//                 alert(
+//                     error.message
+//                 );
+
+//             }
+
+//         }
+
+
+function viewFollowUp(id) {
+
+    if (!id) {
+        return;
+    }
+
+    window.location.href =
+        `view-follow-ups.html?id=${encodeURIComponent(id)}`;
+
+}
+
+
+        // ========================================================
+        // EDIT FOLLOW-UP
+        // ========================================================
+
+        // function editFollowUp(
+        //     id
+        // ) {
+
+
+        //     window.location.href =
+        //         `edit-follow-up.html?id=${encodeURIComponent(id)}`;
+
+        // }
+
+
+
+        function editFollowUp(id) {
+
+    if (!id) {
+        return;
+    }
+
+    window.location.href =
+        `edit-follow-ups.html?id=${encodeURIComponent(id)}`;
+
+}
+
+        // ========================================================
+        // COMPLETE FOLLOW-UP
+        // ========================================================
+
+        async function completeFollowUp(
+            id
+        ) {
+
+
+            const confirmComplete =
+                confirm(
+                    "Are you sure you want to mark this follow-up as completed?"
+                );
+
+
+            if (!confirmComplete) {
+
+                return;
+
+            }
+
+
+            try {
+
+
+                const response =
+                    await fetch(
+                        `${API_URL}/${encodeURIComponent(id)}/complete`,
+                        {
+
+                            method: "PUT",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Accept":
+                                    "application/json"
+
+                            }
+
+                        }
+                    );
+
+
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    "Complete Follow-up Response:",
+                    result
+                );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+
+                        result.error ||
+
+                        result.message ||
+
+                        "Unable to complete follow-up."
+
+                    );
+
+                }
+
+
+                if (!result.success) {
+
+                    throw new Error(
+
+                        result.message ||
+
+                        "Unable to complete follow-up."
+
+                    );
+
+                }
+
+
+                alert(
+                    result.message ||
+                    "Follow-up marked as completed."
+                );
+
+
+                // Reload table
+                await loadTodayFollowUps();
+
+
+            } catch (error) {
+
+
+                console.error(
+                    "Complete Follow-up Error:",
+                    error
+                );
+
+
+                alert(
+                    error.message
+                );
+
+            }
+
+        }
+
+
+
+        // ========================================================
+        // DEBOUNCE
+        // ========================================================
+
+        function debounce(
+            callback,
+            delay
+        ) {
+
+
+            let timer;
+
+
+            return function () {
+
+
+                clearTimeout(
+                    timer
+                );
+
+
+                timer =
+                    setTimeout(
+                        function () {
+
+                            callback();
+
+                        },
+                        delay
+                    );
+
+            };
+
+        }
+
+
+
+        // ========================================================
+        // INITIAL LOAD
+        // ========================================================
+
+        loadTodayFollowUps();
+
+
+    }
+
+);
+
+</script>
+
+
 
 
 </body>

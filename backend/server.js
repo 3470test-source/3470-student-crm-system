@@ -1345,6 +1345,802 @@ app.post("/api/follow-ups", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ============================================================
+// TODAY'S FOLLOW-UPS
+//
+// GET /api/follow-ups/today
+//
+// Optional:
+// ?search=Ramesh
+// ?counsellor=Ramesh
+// ?status=Pending
+// ============================================================
+
+app.get(
+    "/api/follow-ups/today",
+    async (req, res) => {
+
+        try {
+
+            // =================================================
+            // GET QUERY PARAMETERS
+            // =================================================
+
+            const search =
+                typeof req.query.search === "string"
+                    ? req.query.search.trim()
+                    : "";
+
+            const counsellor =
+                typeof req.query.counsellor === "string"
+                    ? req.query.counsellor.trim()
+                    : "";
+
+            const status =
+                typeof req.query.status === "string"
+                    ? req.query.status.trim()
+                    : "";
+
+
+            // =================================================
+            // SQL
+            //
+            // IMPORTANT:
+            // student_enquiries is the correct table name.
+            // =================================================
+
+            let sql = `
+
+                SELECT
+
+                    f.id,
+
+                    f.enquiry_id,
+
+                    e.student_name,
+
+                    e.mobile,
+
+                    e.course_interested,
+
+                    f.follow_up_date,
+
+                    f.follow_up_time,
+
+                    f.follow_up_type,
+
+                    f.status,
+
+                    e.counsellor,
+
+                    f.next_follow_up_date,
+
+                    f.next_follow_up_time,
+
+                    f.comments
+
+                FROM follow_ups AS f
+
+                INNER JOIN student_enquiries AS e
+                    ON f.enquiry_id = e.id
+
+                WHERE f.follow_up_date = CURDATE()
+
+            `;
+
+
+            const params = [];
+
+
+            // =================================================
+            // SEARCH
+            //
+            // Student Name OR Mobile
+            // =================================================
+
+            if (search !== "") {
+
+                sql += `
+
+                    AND (
+
+                        e.student_name LIKE ?
+
+                        OR e.mobile LIKE ?
+
+                    )
+
+                `;
+
+                const searchValue =
+                    `%${search}%`;
+
+                params.push(searchValue);
+                params.push(searchValue);
+
+            }
+
+
+            // =================================================
+            // COUNSELLOR FILTER
+            // =================================================
+
+            if (counsellor !== "") {
+
+                sql += `
+
+                    AND e.counsellor = ?
+
+                `;
+
+                params.push(counsellor);
+
+            }
+
+
+            // =================================================
+            // STATUS FILTER
+            // =================================================
+
+            if (status !== "") {
+
+                sql += `
+
+                    AND f.status = ?
+
+                `;
+
+                params.push(status);
+
+            }
+
+
+            // =================================================
+            // ORDER
+            // =================================================
+
+            sql += `
+
+                ORDER BY
+
+                    f.follow_up_time ASC,
+
+                    f.id ASC
+
+            `;
+
+
+            // =================================================
+            // DEBUG
+            // =================================================
+
+            console.log(
+                "Today's Follow-up SQL:",
+                sql
+            );
+
+            console.log(
+                "Today's Follow-up Params:",
+                params
+            );
+
+
+            // =================================================
+            // EXECUTE QUERY
+            // =================================================
+
+            const [rows] =
+                await db.execute(
+                    sql,
+                    params
+                );
+
+
+            // =================================================
+            // RESPONSE
+            // =================================================
+
+            res.status(200).json({
+
+                success: true,
+
+                count: rows.length,
+
+                followUps: rows,
+
+                // Compatibility
+                data: rows
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "===================================="
+            );
+
+            console.error(
+                "TODAY FOLLOW-UP ERROR"
+            );
+
+            console.error(
+                error
+            );
+
+            console.error(
+                "===================================="
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load today's follow-ups.",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// GET SINGLE FOLLOW-UP
+//
+// GET /api/follow-ups/:id
+//
+// IMPORTANT:
+// This route must come AFTER /today.
+// ============================================================
+
+app.get(
+    "/api/follow-ups/:id",
+    async (req, res) => {
+
+        try {
+
+            const id =
+                Number(req.params.id);
+
+
+            // =================================================
+            // VALIDATE ID
+            // =================================================
+
+            if (!Number.isInteger(id)) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid follow-up ID."
+
+                });
+
+            }
+
+
+            // =================================================
+            // GET FOLLOW-UP
+            // =================================================
+
+            const [rows] =
+                await db.execute(`
+
+                    SELECT
+
+                        f.id,
+
+                        f.enquiry_id,
+
+                        e.student_name,
+
+                        e.mobile,
+
+                        e.course_interested,
+
+                        e.counsellor,
+
+                        f.follow_up_date,
+
+                        f.follow_up_time,
+
+                        f.follow_up_type,
+
+                        f.status,
+
+                        f.next_follow_up_date,
+
+                        f.next_follow_up_time,
+
+                        f.comments
+
+                    FROM follow_ups AS f
+
+                    INNER JOIN student_enquiries AS e
+                        ON f.enquiry_id = e.id
+
+                    WHERE f.id = ?
+
+                    LIMIT 1
+
+                `, [id]);
+
+
+            // =================================================
+            // NOT FOUND
+            // =================================================
+
+            if (rows.length === 0) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Follow-up not found."
+
+                });
+
+            }
+
+
+            // =================================================
+            // SUCCESS
+            // =================================================
+
+            res.status(200).json({
+
+                success: true,
+
+                followUp: rows[0]
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Get Follow-up Error:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to load follow-up.",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// COMPLETE FOLLOW-UP
+//
+// PUT /api/follow-ups/:id/complete
+// ============================================================
+
+app.put(
+    "/api/follow-ups/:id/complete",
+    async (req, res) => {
+
+        try {
+
+            const id =
+                Number(req.params.id);
+
+
+            // =================================================
+            // VALIDATE ID
+            // =================================================
+
+            if (!Number.isInteger(id)) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid follow-up ID."
+
+                });
+
+            }
+
+
+            // =================================================
+            // CHECK FOLLOW-UP EXISTS
+            // =================================================
+
+            const [existingRows] =
+                await db.execute(`
+
+                    SELECT id, status
+
+                    FROM follow_ups
+
+                    WHERE id = ?
+
+                    LIMIT 1
+
+                `, [id]);
+
+
+            if (existingRows.length === 0) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Follow-up not found."
+
+                });
+
+            }
+
+
+            // =================================================
+            // UPDATE STATUS
+            // =================================================
+
+            await db.execute(`
+
+                UPDATE follow_ups
+
+                SET status = 'Completed'
+
+                WHERE id = ?
+
+            `, [id]);
+
+
+            // =================================================
+            // SUCCESS
+            // =================================================
+
+            res.status(200).json({
+
+                success: true,
+
+                message:
+                    "Follow-up marked as completed."
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Complete Follow-up Error:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to complete follow-up.",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+
+
+// ============================================================
+// UPDATE FOLLOW-UP
+//
+// PUT /api/follow-ups/:id
+// ============================================================
+
+app.put(
+    "/api/follow-ups/:id",
+    async (req, res) => {
+
+        try {
+
+            const id =
+                Number(req.params.id);
+
+
+            // =================================================
+            // VALIDATE ID
+            // =================================================
+
+            if (!Number.isInteger(id)) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Invalid follow-up ID."
+
+                });
+
+            }
+
+
+            // =================================================
+            // GET BODY
+            // =================================================
+
+            const {
+
+                follow_up_date,
+
+                follow_up_time,
+
+                follow_up_type,
+
+                status,
+
+                next_follow_up_date,
+
+                next_follow_up_time,
+
+                comments
+
+            } = req.body;
+
+
+            // =================================================
+            // VALIDATION
+            // =================================================
+
+            if (!follow_up_date) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Follow-up date is required."
+
+                });
+
+            }
+
+
+            if (!follow_up_type) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Follow-up type is required."
+
+                });
+
+            }
+
+
+            if (!status) {
+
+                return res.status(400).json({
+
+                    success: false,
+
+                    message:
+                        "Status is required."
+
+                });
+
+            }
+
+
+            // =================================================
+            // CHECK EXISTS
+            // =================================================
+
+            const [existingRows] =
+                await db.execute(`
+
+                    SELECT id
+
+                    FROM follow_ups
+
+                    WHERE id = ?
+
+                    LIMIT 1
+
+                `, [id]);
+
+
+            if (existingRows.length === 0) {
+
+                return res.status(404).json({
+
+                    success: false,
+
+                    message:
+                        "Follow-up not found."
+
+                });
+
+            }
+
+
+            // =================================================
+            // UPDATE
+            // =================================================
+
+            await db.execute(`
+
+                UPDATE follow_ups
+
+                SET
+
+                    follow_up_date = ?,
+
+                    follow_up_time = ?,
+
+                    follow_up_type = ?,
+
+                    status = ?,
+
+                    next_follow_up_date = ?,
+
+                    next_follow_up_time = ?,
+
+                    comments = ?
+
+                WHERE id = ?
+
+            `, [
+
+                follow_up_date,
+
+                follow_up_time || null,
+
+                follow_up_type,
+
+                status,
+
+                next_follow_up_date || null,
+
+                next_follow_up_time || null,
+
+                comments || null,
+
+                id
+
+            ]);
+
+
+            // =================================================
+            // SUCCESS
+            // =================================================
+
+            res.status(200).json({
+
+                success: true,
+
+                message:
+                    "Follow-up updated successfully."
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "Update Follow-up Error:",
+                error
+            );
+
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Unable to update follow-up.",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
 /*-- Start server --*/
 app.listen(PORT, () => {
 

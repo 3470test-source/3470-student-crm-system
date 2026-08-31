@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Edit Follow Ups Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    </style>
+
+</head>
+<body>
+
+
+    <!-- CRM dashboard Header -->
+    <header class="crm-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="crm-header-left">
+
+            <div class="crm-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="crm-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="crm-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="crm-header-right">
+
+            <!-- Notification -->
+            <div class="crm-notification">
+                <i class="fa-solid fa-bell"></i>
+                <span class="crm-notification-count">5</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="crm-profile-dropdown">
+
+            <div class="crm-profile-btn" onclick="toggleDropdown()">
+
+                <div class="crm-avatar">
+                    <i class="fa fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <i class="fa-solid fa-angle-down"></i>
+
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="crm-dropdown-menu" id="dropdownMenu">
+
+                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
+                <a href="crm-settings.html"><i class="fa fa-cog"></i>Settings</a>
+                <a href="login.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- CRM Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="dashboard-crm.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
+
+                <!-- Course Management -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-book"></i>Course Management
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-course.html" class="active"><i class="fa fa-plus"></i>Add Course</a>
+                        <a href="manage-courses.html" class="active"><i class="fa fa-list"></i>Manage Courses</a>
+                    </div>
+
+                </div>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="manage-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
+                        <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
+                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
+                        <a href="calendar-view.html"><i class="fa fa-calendar-alt"></i>Calendar View</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="manage-admissions.html"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                    </div>
+
+                </div>
+
+                <!-- Notifications -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-bullhorn"></i>Notifications
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-notifications.html"><i class="fa fa-bell"></i>Today's Notifications</a>
+                        <a href="upcoming-follow-ups.html"><i class="fa fa-calendar-check"></i>Upcoming Follow-ups</a>
+                        <a href="missed-followups.html"><i class="fa fa-calendar-xmark"></i>Missed Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Reports -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-chart-bar"></i>Reports
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="enquiry-reports.html"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
+                        <a href="admission-reports.html"><i class="fa fa-chart-line"></i>Admission Reports</a>
+                    </div>
+
+                </div>
+
+                <!-- Users -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-shield"></i>Users
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
+                        <a href="manage-user.html"><i class="fa fa-users-cog"></i>Manage Users</a>
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- Edit Follow Ups  -->
+            <main class="crm-dashboard-main">
+
+                <div class="crm-TodayFollowUps-header">
+                    <div>
+                        <h2>Edit Follow-up</h2>
+                        <p>Update the scheduled student follow-up.</p>
+                    </div>
+                </div>
+
+
+                <div class="crm-edit-followup-container">
+
+                    <div id="loadingBox" class="crm-edit-loading"><i class="fa fa-spinner fa-spin"></i>
+                        Loading follow-up...
+                    </div>
+
+                    <div id="errorBox" class="crm-edit-error" style="display:none;"></div>
+
+                        <form id="editFollowUpForm" style="display:none;">
+
+                            <div class="crm-edit-followup-title">Follow-up Information</div>
+
+                                <div class="crm-edit-followup-grid">
+
+                                    <!-- ID -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Follow-up ID</label>
+                                        <input type="text" id="followUpId" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Enquiry ID -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Enquiry ID</label>
+                                        <input type="text" id="enquiryId" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Student -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Student Name</label>
+                                        <input type="text" id="studentName" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Mobile -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Mobile</label>
+                                        <input type="text" id="mobile" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Course -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Course</label>
+                                        <input type="text" id="course" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Counsellor -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Counsellor</label>
+                                        <input type="text" id="counsellor" class="crm-readonly" readonly>
+                                    </div>
+
+                                    <!-- Date -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Follow-up Date<span style="color:red;">*</span></label>
+                                        <input type="date" id="follow_up_date" required>
+                                    </div>
+
+                                    <!-- Time -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Follow-up Time</label>
+                                        <input type="time" id="follow_up_time">
+                                    </div>
+
+                                    <!-- Type -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Follow-up Type<span style="color:red;">*</span></label>
+                                        <select id="follow_up_type" required>
+                                            <option value="">-- Select Type --</option>
+                                            <option value="Phone Call">Phone Call</option>
+                                            <option value="WhatsApp">WhatsApp</option>
+                                            <option value="Email">Email</option>
+                                            <option value="Walk-in">Walk-in</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Status -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Status<span style="color:red;">*</span></label>
+                                        <select id="status" required>
+                                            <option value="">-- Select Status --</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="Interested">Interested</option>
+                                            <option value="Not Interested">Not Interested</option>
+                                            <option value="Call Back">Call Back</option>
+                                            <option value="Admission Confirmed">Admission Confirmed</option>
+                                            <option value="Completed">Completed</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Next Date -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Next Follow-up Date</label>
+                                        <input type="date" id="next_follow_up_date">
+                                    </div>
+
+                                    <!-- Next Time -->
+                                    <div class="crm-edit-followup-group">
+                                        <label>Next Follow-up Time</label>
+                                        <input type="time" id="next_follow_up_time">
+                                    </div>
+
+                                    <!-- Comments -->
+                                    <div class="crm-edit-followup-group full-width">
+                                        <label>Comments</label>
+                                        <textarea id="comments" placeholder="Enter follow-up comments..."></textarea>
+                                    </div>
+
+                                </div>
+
+
+                            <div class="crm-edit-followup-actions">
+
+                                <button type="submit" class="crm-edit-save-btn" id="saveButton">
+                                    <i class="fa fa-save"></i>Update Follow-up
+                                </button>
+
+                                <button type="button" class="crm-edit-cancel-btn" onclick="goBack()">
+                                    <i class="fa fa-arrow-left"></i>Cancel
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </main>
+
+            </div>
+
+
+<!-- Profile dropdown JS - Script -->
+<script>
+    function toggleDropdown(){
+
+    document.getElementById("dropdownMenu").classList.toggle("show");
+
+}
+
+window.onclick = function(e){
+
+    if(!e.target.closest(".crm-profile-dropdown")){
+
+        document.getElementById("dropdownMenu").classList.remove("show");
+
+    }
+
+}
+</script> 
+
+
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+
+<!-- Edit Follow ups - JS -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+        /*--- API ---*/
+        const API_URL = "http://localhost:3000/api/follow-ups";
+
+        /*--- GET ID ---*/
+        const params = new URLSearchParams(window.location.search);
+
+        const id = params.get("id");
+
+        /*--- ELEMENTS ---*/
+        const form = document.getElementById("editFollowUpForm");
+
+        const loadingBox = document.getElementById("loadingBox");
+
+        const errorBox = document.getElementById("errorBox");
+
+        const saveButton = document.getElementById("saveButton");
+
+        /*--- VALIDATE ID ---*/
+        if (!id) {
+
+            loadingBox.style.display = "none";
+
+            errorBox.style.display = "block";
+
+            errorBox.textContent = "Follow-up ID is missing.";
+
+            return;
+
+        }
+
+
+        /*--- LOAD DATA ---*/
+        loadFollowUp();
+
+        async function loadFollowUp() {
+
+            try {
+
+                const response = await fetch(`${API_URL}/${encodeURIComponent(id)}`);
+
+                const result = await response.json();
+
+                if (
+                    !response.ok ||
+                    !result.success
+                ) {
+
+                    throw new Error(
+                        result.message ||
+                        "Unable to load follow-up."
+                    );
+
+                }
+
+                const f = result.followUp;
+
+                /*--- BASIC INFORMATION ---*/
+                document.getElementById("followUpId").value = f.id ?? "";
+
+                document.getElementById("enquiryId").value = f.enquiry_id ?? "";
+
+                document.getElementById("studentName").value = f.student_name || "";
+
+                document.getElementById("mobile").value = f.mobile || "";
+
+                document.getElementById("course").value = f.course_interested || "";
+
+                document.getElementById("counsellor").value = f.counsellor || "";
+
+
+                /*--- EDITABLE FIELDS ---*/
+                document.getElementById("follow_up_date").value = normalizeDate(f.follow_up_date);
+
+                document.getElementById("follow_up_time").value = normalizeTime(f.follow_up_time);
+
+                document.getElementById("follow_up_type").value = f.follow_up_type || "";
+
+                document.getElementById("status").value = f.status || "";
+
+                document.getElementById("next_follow_up_date").value = normalizeDate(f.next_follow_up_date);
+
+                document.getElementById("next_follow_up_time").value = normalizeTime(f.next_follow_up_time);
+
+                document.getElementById("comments").value = f.comments || "";
+
+                loadingBox.style.display = "none";
+
+                form.style.display = "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Load Edit Follow-up Error:",
+                    error
+                );
+
+
+                loadingBox.style.display = "none";
+
+                errorBox.style.display = "block";
+
+                errorBox.textContent = error.message;
+
+            }
+
+        }
+
+
+        /*--- SUBMIT ---*/
+        form.addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+                saveButton.disabled = true;
+
+                saveButton.innerHTML = `<i class="fa fa-spinner fa-spin"></i>
+                    Updating...
+                `;
+
+
+                try {
+
+
+                    const payload = {
+
+                        follow_up_date: document.getElementById("follow_up_date").value,
+
+                        follow_up_time: document.getElementById("follow_up_time").value || null,
+
+                        follow_up_type: document.getElementById("follow_up_type").value,
+
+                        status: document.getElementById("status").value,
+
+                        next_follow_up_date: document.getElementById("next_follow_up_date").value || null,
+
+                        next_follow_up_time: document.getElementById("next_follow_up_time").value || null,
+
+                        comments: document.getElementById("comments").value.trim() || null
+
+                    };
+
+
+                    /*--- API ---*/
+                    const response = await fetch(`${API_URL}/${encodeURIComponent(id)}`,
+                            {
+
+                                method: "PUT",
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        payload
+                                    )
+
+                            }
+                        );
+
+
+                    const result = await response.json();
+
+                    console.log("Update Follow-up Response:",
+                        result
+                    );
+
+
+                    if (
+                        !response.ok ||
+                        !result.success
+                    ) {
+
+                        throw new Error(
+                            result.message ||
+                            "Unable to update follow-up."
+                        );
+
+                    }
+
+
+                    alert(
+                        result.message ||
+                        "✅ Follow-up updated successfully."
+                    );
+
+
+                    /*--- GO TO VIEW PAGE ---*/
+                    window.location.href = `view-follow-ups.html?id=${encodeURIComponent(id)}`;
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Update Follow-up Error:",
+                        error
+                    );
+
+
+                    alert(
+                        error.message
+                    );
+
+
+                    saveButton.disabled = false;
+
+                    saveButton.innerHTML = `<i class="fa fa-save"></i>
+                        Update Follow-up
+                    `;
+
+                }
+
+            }
+        );
+
+
+        /*--- NORMALIZE DATE ---*/
+        function normalizeDate(value) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+                .substring(0, 10);
+
+        }
+
+        /*--- NORMALIZE TIME ---*/
+        function normalizeTime(value) {
+
+            if (!value) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+                .substring(0, 5);
+
+        }
+
+    }
+);
+
+
+/*--- CANCEL ---*/
+function goBack() {
+
+    const params = new URLSearchParams(
+            window.location.search
+        );
+
+
+    const id = params.get("id");
+
+    if (id) {
+
+        window.location.href = `view-follow-up.html?id=${encodeURIComponent(id)}`;
+
+    }
+
+    else {
+
+        window.location.href = "today-followups.html";
+
+    }
+
+}
+
+
+</script>
+
+
+</body>
+</html>
