@@ -248,6 +248,9 @@
                             <option value="Pending">Pending</option>
                             <option value="Completed">Completed</option>
                             <option value="Call Back">Call Back</option>
+                            <option value="Interested">Interested</option>
+                            <option value="Not Interested">Not Interested</option>
+                            <option value="Admission Confirmed">Admission Confirmed</option>
                         </select>
                     </div>
 
@@ -361,114 +364,54 @@ dropdowns.forEach(dropdown => {
 
 <script>
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+document.addEventListener("DOMContentLoaded", function () {
+
+        /*--- ELEMENTS ---*/
+    
+        const tableBody = document.getElementById("todayFollowUpsBody");
+
+        const searchInput = document.getElementById("searchFollowUp");
+
+        const counsellorFilter = document.getElementById("counsellorFilter");
+
+        const statusFilter = document.getElementById("statusFilter");
+
+        const followUpCount = document.getElementById("followUpCount");
 
 
-        // ========================================================
-        // ELEMENTS
-        // ========================================================
-
-        const tableBody =
-            document.getElementById(
-                "todayFollowUpsBody"
-            );
+        /*--- API URL ---*/
+        const API_URL = "http://localhost:3000/api/follow-ups";
 
 
-        const searchInput =
-            document.getElementById(
-                "searchFollowUp"
-            );
-
-
-        const counsellorFilter =
-            document.getElementById(
-                "counsellorFilter"
-            );
-
-
-        const statusFilter =
-            document.getElementById(
-                "statusFilter"
-            );
-
-
-        const followUpCount =
-            document.getElementById(
-                "followUpCount"
-            );
-
-
-        // ========================================================
-        // API URL
-        //
-        // IMPORTANT:
-        // Use relative URL when frontend is served by
-        // the same Express server.
-        // ========================================================
-
-        const API_URL =
-            "http://localhost:3000/api/follow-ups";
-
-
-        // ========================================================
-        // LOAD TODAY'S FOLLOW-UPS
-        // ========================================================
-
+        /*--- LOAD TODAY'S FOLLOW-UPS ---*/
         async function loadTodayFollowUps() {
 
             try {
 
-
-                // ------------------------------------------------
-                // LOADING
-                // ------------------------------------------------
-
+                /*--- LOADING ---*/
                 tableBody.innerHTML = `
 
                     <tr>
-
                         <td
-                            colspan="9"
-                            style="
-                                text-align:center;
-                                padding:20px;
-                            "
-                        >
-
-                            Loading today's follow-ups...
-
+                            colspan="9" style=" text-align:center; padding:20px;">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                                Loading today's follow-ups...
                         </td>
-
                     </tr>
 
                 `;
 
 
-                // ------------------------------------------------
-                // FILTER VALUES
-                // ------------------------------------------------
+                /*--- FILTER VALUES ---*/
+                const search = searchInput.value.trim();
 
-                const search =
-                    searchInput.value.trim();
+                const counsellor = counsellorFilter.value.trim();
 
-
-                const counsellor =
-                    counsellorFilter.value.trim();
+                const status = statusFilter.value.trim();
 
 
-                const status =
-                    statusFilter.value.trim();
-
-
-                // ------------------------------------------------
-                // QUERY PARAMETERS
-                // ------------------------------------------------
-
-                const params =
-                    new URLSearchParams();
-
+                /*--- QUERY PARAMETERS ---*/
+                const params = new URLSearchParams();
 
                 if (search !== "") {
 
@@ -500,19 +443,12 @@ document.addEventListener(
                 }
 
 
-                // ------------------------------------------------
-                // API URL
-                // ------------------------------------------------
+                /*--- API URL ---*/
+                const queryString = params.toString();
 
-                const queryString =
-                    params.toString();
-
-
-                const url =
-                    queryString
+                const url = queryString
                         ? `${API_URL}/today?${queryString}`
                         : `${API_URL}/today`;
-
 
                 console.log(
                     "Loading Today's Follow-ups:",
@@ -520,16 +456,11 @@ document.addEventListener(
                 );
 
 
-                // ------------------------------------------------
-                // REQUEST
-                // ------------------------------------------------
-
-                const response =
-                    await fetch(
+                /*--- REQUEST ---*/
+                const response = await fetch(
                         url,
                         {
                             method: "GET",
-
                             headers: {
                                 "Accept":
                                     "application/json"
@@ -538,13 +469,8 @@ document.addEventListener(
                     );
 
 
-                // ------------------------------------------------
-                // RESPONSE
-                // ------------------------------------------------
-
-                const result =
-                    await response.json();
-
+                /*--- RESPONSE ---*/
+                const result = await response.json();
 
                 console.log(
                     "Today's Follow-ups API Response:",
@@ -552,18 +478,13 @@ document.addEventListener(
                 );
 
 
-                // ------------------------------------------------
-                // ERROR
-                // ------------------------------------------------
-
+                /*--- ERROR ---*/
                 if (!response.ok) {
 
                     throw new Error(
 
                         result.error ||
-
                         result.message ||
-
                         "Unable to load today's follow-ups."
 
                     );
@@ -576,7 +497,6 @@ document.addEventListener(
                     throw new Error(
 
                         result.message ||
-
                         "Unable to load today's follow-ups."
 
                     );
@@ -584,17 +504,13 @@ document.addEventListener(
                 }
 
 
-                // ------------------------------------------------
-                // RENDER
-                // ------------------------------------------------
-
+                /*--- RENDER ---*/
                 renderFollowUps(
                     result.followUps || []
                 );
 
 
             } catch (error) {
-
 
                 console.error(
                     "Today's Follow-ups Error:",
@@ -605,27 +521,16 @@ document.addEventListener(
                 tableBody.innerHTML = `
 
                     <tr>
-
                         <td
-                            colspan="9"
-                            style="
-                                text-align:center;
-                                color:red;
-                                padding:20px;
-                            "
-                        >
-
-                            Unable to load today's follow-ups.
-
+                            colspan="9" style=" text-align:center; padding:20px;">
+                            ❌ Unable to load today's follow-ups.
                         </td>
-
                     </tr>
 
                 `;
 
 
-                followUpCount.textContent =
-                    "Unable to load follow-ups.";
+                followUpCount.textContent = "Unable to load follow-ups.";
 
             }
 
@@ -633,22 +538,12 @@ document.addEventListener(
 
 
 
-        // ========================================================
-        // RENDER FOLLOW-UPS
-        // ========================================================
-
-        function renderFollowUps(
-            followUps
-        ) {
-
+        /*--- RENDER FOLLOW-UPS ---*/
+        function renderFollowUps(followUps) {
 
             tableBody.innerHTML = "";
 
-
-            // ----------------------------------------------------
-            // NO DATA
-            // ----------------------------------------------------
-
+            /*--- NO DATA ---*/
             if (
                 !Array.isArray(followUps) ||
                 followUps.length === 0
@@ -658,68 +553,37 @@ document.addEventListener(
                 tableBody.innerHTML = `
 
                     <tr>
-
                         <td
-                            colspan="9"
-                            style="
-                                text-align:center;
-                                padding:20px;
-                            "
-                        >
-
-                            No follow-ups scheduled for today.
-
+                            colspan="9" style=" text-align:center; padding:20px;">
+                            ❌ No follow-ups scheduled for today.
                         </td>
-
                     </tr>
 
                 `;
 
 
-                followUpCount.textContent =
-                    "Showing 0 follow-ups scheduled for today.";
-
+                followUpCount.textContent = "Showing 0 follow-ups scheduled for today.";
 
                 return;
 
             }
 
 
-            // ----------------------------------------------------
-            // CREATE ROWS
-            // ----------------------------------------------------
+            /*--- CREATE ROWS ---*/
+            followUps.forEach(function (followUp) {
 
-            followUps.forEach(
-                function (followUp) {
+                    const row = document.createElement("tr" );
 
+                    /*--- STATUS CLASS ---*/
+                    let statusClass = "pending";
 
-                    const row =
-                        document.createElement(
-                            "tr"
-                        );
-
-
-                    // ============================================
-                    // STATUS CLASS
-                    // ============================================
-
-                    let statusClass =
-                        "pending";
-
-
-                    const currentStatus =
-                        String(
-                            followUp.status || ""
-                        ).trim();
-
+                    const currentStatus = String(followUp.status || "").trim();
 
                     if (
-                        currentStatus ===
-                        "Completed"
+                        currentStatus === "Completed"
                     ) {
 
-                        statusClass =
-                            "success";
+                        statusClass = "success";
 
                     }
 
@@ -744,165 +608,91 @@ document.addEventListener(
                     }
 
 
-                    // ============================================
-                    // TIME
-                    // ============================================
+                    /*--- TIME ---*/
+                    const formattedTime = formatTime(followUp.follow_up_time);
 
-                    const formattedTime =
-                        formatTime(
-                            followUp.follow_up_time
-                        );
-
-
-                    // ============================================
-                    // COURSE
-                    //
-                    // Backend returns:
-                    // course_interested
-                    // ============================================
-
-                    const course =
-                        followUp.course_interested ||
+                    /*--- COURSE ---*/
+                    const course = followUp.course_interested ||
                         "-";
 
-
-                    // ============================================
-                    // ROW
-                    // ============================================
-
+                    /*--- ROW ---*/
                     row.innerHTML = `
 
                         <td>
-
                             ${escapeHtml(
                                 String(
                                     followUp.id || ""
                                 )
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 followUp.student_name ||
                                 "-"
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 followUp.mobile ||
                                 "-"
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 course
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 formattedTime
                             )}
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 followUp.follow_up_type ||
                                 "-"
                             )}
-
                         </td>
 
-
                         <td>
-
                             <span
                                 class="
                                     crm-status-AFU
                                     ${statusClass}
-                                "
-                            >
+                                ">
 
                                 ${escapeHtml(
                                     currentStatus ||
                                     "-"
                                 )}
-
                             </span>
-
                         </td>
 
-
                         <td>
-
                             ${escapeHtml(
                                 followUp.counsellor ||
                                 "-"
                             )}
-
                         </td>
 
-
                         <td>
-
-
                             <!-- VIEW -->
-
-                            <button
-                                type="button"
-                                class="crm-view-AFU-btn"
-                                title="View"
-                                data-id="${followUp.id}"
-                            >
-
-                                <i
-                                    class="fa fa-eye"
-                                ></i>
-
+                            <button type="button" class="crm-view-AFU-btn" title="View" data-id="${followUp.id}">
+                                <i class="fa fa-eye"></i>
                             </button>
-
 
                             <!-- EDIT -->
-
-                            <button
-                                type="button"
-                                class="crm-edit-AFU-btn"
-                                title="Edit"
-                                data-id="${followUp.id}"
-                            >
-
-                                <i
-                                    class="fa fa-edit"
-                                ></i>
-
+                            <button type="button" class="crm-edit-AFU-btn" title="Edit" data-id="${followUp.id}">
+                                <i class="fa fa-edit"></i>
                             </button>
 
-
                             <!-- COMPLETE -->
-
-                            <button
-                                type="button"
-                                class="crm-complete-AFU-btn"
-                                title="Complete"
-                                data-id="${followUp.id}"
-
+                            <button type="button" class="crm-complete-AFU-btn" title="Complete" data-id="${followUp.id}"
                                 ${
                                     currentStatus ===
                                     "Completed"
@@ -912,13 +702,8 @@ document.addEventListener(
 
                             >
 
-                                <i
-                                    class="fa fa-check"
-                                ></i>
-
+                                <i class="fa fa-check"></i>
                             </button>
-
-
                         </td>
 
                     `;
@@ -932,41 +717,25 @@ document.addEventListener(
             );
 
 
-            // ----------------------------------------------------
-            // FOOTER
-            // ----------------------------------------------------
-
+            /*--- FOOTER ---*/
             followUpCount.textContent =
-
                 `Showing 1 to ${followUps.length} of ${followUps.length} follow-ups scheduled for today.`;
-
         }
 
 
-
-        // ========================================================
-        // FORMAT TIME
-        // ========================================================
-
+        /*--- FORMAT TIME ---*/
         function formatTime(
             time
         ) {
 
 
             if (!time) {
-
                 return "-";
-
             }
 
+            const value = String(time);
 
-            const value =
-                String(time);
-
-
-            const parts =
-                value.split(":");
-
+            const parts = value.split(":");
 
             if (
                 parts.length < 2
@@ -976,17 +745,12 @@ document.addEventListener(
 
             }
 
-
-            let hour =
-                parseInt(
+            let hour = parseInt(
                     parts[0],
                     10
                 );
 
-
-            const minute =
-                parts[1];
-
+            const minute = parts[1];
 
             if (
                 Number.isNaN(hour)
@@ -995,7 +759,6 @@ document.addEventListener(
                 return value;
 
             }
-
 
             const ampm =
                 hour >= 12
@@ -1006,44 +769,27 @@ document.addEventListener(
             hour =
                 hour % 12 || 12;
 
-
             return `${hour}:${minute} ${ampm}`;
 
         }
 
 
-
-        // ========================================================
-        // ESCAPE HTML
-        // ========================================================
-
+        /*--- ESCAPE HTML ---*/
         function escapeHtml(
             value
         ) {
 
+            const div = document.createElement("div");
 
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.textContent =
-                value;
-
+            div.textContent = value;
 
             return div.innerHTML;
 
         }
 
 
-
-        // ========================================================
-        // SEARCH DEBOUNCE
-        // ========================================================
-
-        searchInput.addEventListener(
-            "input",
+        /*--- SEARCH DEBOUNCE ---*/
+        searchInput.addEventListener("input",
             debounce(
                 loadTodayFollowUps,
                 300
@@ -1051,43 +797,18 @@ document.addEventListener(
         );
 
 
-
-        // ========================================================
-        // COUNSELLOR FILTER
-        // ========================================================
-
-        counsellorFilter.addEventListener(
-            "change",
-            loadTodayFollowUps
-        );
+        /*--- COUNSELLOR FILTER ---*/
+        counsellorFilter.addEventListener("change", loadTodayFollowUps);
 
 
-
-        // ========================================================
-        // STATUS FILTER
-        // ========================================================
-
-        statusFilter.addEventListener(
-            "change",
-            loadTodayFollowUps
-        );
+        /*--- STATUS FILTER ---*/
+        statusFilter.addEventListener("change", loadTodayFollowUps);
 
 
+        /*--- TABLE ACTIONS ---*/
+        tableBody.addEventListener("click", function (event) {
 
-        // ========================================================
-        // TABLE ACTIONS
-        // ========================================================
-
-        tableBody.addEventListener(
-            "click",
-            function (event) {
-
-
-                const button =
-                    event.target.closest(
-                        "button"
-                    );
-
+                const button = event.target.closest("button");
 
                 if (!button) {
 
@@ -1095,10 +816,7 @@ document.addEventListener(
 
                 }
 
-
-                const id =
-                    button.dataset.id;
-
+                const id = button.dataset.id;
 
                 if (!id) {
 
@@ -1107,13 +825,9 @@ document.addEventListener(
                 }
 
 
-                // ================================================
-                // VIEW
-                // ================================================
-
+                /*--- VIEW ---*/
                 if (
-                    button.classList.contains(
-                        "crm-view-AFU-btn"
+                    button.classList.contains("crm-view-AFU-btn"
                     )
                 ) {
 
@@ -1122,10 +836,7 @@ document.addEventListener(
                 }
 
 
-                // ================================================
-                // EDIT
-                // ================================================
-
+                /*--- EDIT ---*/
                 else if (
                     button.classList.contains(
                         "crm-edit-AFU-btn"
@@ -1137,10 +848,7 @@ document.addEventListener(
                 }
 
 
-                // ================================================
-                // COMPLETE
-                // ================================================
-
+                /*--- COMPLETE ---*/
                 else if (
                     button.classList.contains(
                         "crm-complete-AFU-btn"
@@ -1155,159 +863,39 @@ document.addEventListener(
         );
 
 
+        /*--- VIEW FOLLOW-UP ---*/
+        function viewFollowUp(id) {
 
-        // ========================================================
-        // VIEW FOLLOW-UP
-        // ========================================================
+            if (!id) {
+                return;
+            }
 
-//         async function viewFollowUp(
-//             id
-//         ) {
+            window.location.href = `view-follow-ups.html?id=${encodeURIComponent(id)}`;
 
-
-//             try {
-
-
-//                 const response =
-//                     await fetch(
-//                         `${API_URL}/${encodeURIComponent(id)}`
-//                     );
+        }
 
 
-//                 const result =
-//                     await response.json();
-
-
-//                 if (!response.ok) {
-
-//                     throw new Error(
-
-//                         result.error ||
-
-//                         result.message ||
-
-//                         "Unable to load follow-up."
-
-//                     );
-
-//                 }
-
-
-//                 if (!result.success) {
-
-//                     throw new Error(
-
-//                         result.message ||
-
-//                         "Unable to load follow-up."
-
-//                     );
-
-//                 }
-
-
-//                 const f =
-//                     result.followUp;
-
-
-//                 alert(
-
-// `Student: ${f.student_name || "-"}
-
-// Mobile: ${f.mobile || "-"}
-
-// Course: ${f.course_interested || "-"}
-
-// Counsellor: ${f.counsellor || "-"}
-
-// Follow-up Date: ${f.follow_up_date || "-"}
-
-// Follow-up Time: ${formatTime(f.follow_up_time)}
-
-// Follow-up Type: ${f.follow_up_type || "-"}
-
-// Status: ${f.status || "-"}
-
-// Next Follow-up Date: ${f.next_follow_up_date || "-"}
-
-// Next Follow-up Time: ${formatTime(f.next_follow_up_time)}
-
-// Comments: ${f.comments || "-"}`
-
-//                 );
-
-
-//             } catch (error) {
-
-
-//                 console.error(
-//                     "View Follow-up Error:",
-//                     error
-//                 );
-
-
-//                 alert(
-//                     error.message
-//                 );
-
-//             }
-
-//         }
-
-
-function viewFollowUp(id) {
-
-    if (!id) {
-        return;
-    }
-
-    window.location.href =
-        `view-follow-ups.html?id=${encodeURIComponent(id)}`;
-
-}
-
-
-        // ========================================================
-        // EDIT FOLLOW-UP
-        // ========================================================
-
-        // function editFollowUp(
-        //     id
-        // ) {
-
-
-        //     window.location.href =
-        //         `edit-follow-up.html?id=${encodeURIComponent(id)}`;
-
-        // }
-
-
-
+        /*--- EDIT FOLLOW-UP ---*/
         function editFollowUp(id) {
 
-    if (!id) {
-        return;
-    }
+            if (!id) {
+                return;
+            }
 
-    window.location.href =
-        `edit-follow-ups.html?id=${encodeURIComponent(id)}`;
+            window.location.href = `edit-follow-ups.html?id=${encodeURIComponent(id)}`;
 
-}
+        }
 
-        // ========================================================
-        // COMPLETE FOLLOW-UP
-        // ========================================================
 
+        /*--- COMPLETE FOLLOW-UP ---*/
         async function completeFollowUp(
             id
         ) {
-
 
             const confirmComplete =
                 confirm(
                     "Are you sure you want to mark this follow-up as completed?"
                 );
-
 
             if (!confirmComplete) {
 
@@ -1315,12 +903,9 @@ function viewFollowUp(id) {
 
             }
 
-
             try {
 
-
-                const response =
-                    await fetch(
+                const response = await fetch(
                         `${API_URL}/${encodeURIComponent(id)}/complete`,
                         {
 
@@ -1340,9 +925,7 @@ function viewFollowUp(id) {
                     );
 
 
-                const result =
-                    await response.json();
-
+                const result = await response.json();
 
                 console.log(
                     "Complete Follow-up Response:",
@@ -1380,13 +963,12 @@ function viewFollowUp(id) {
 
                 alert(
                     result.message ||
-                    "Follow-up marked as completed."
+                    "✅ Follow-up marked as completed."
                 );
 
 
-                // Reload table
+                /*--- Reload table ---*/
                 await loadTodayFollowUps();
-
 
             } catch (error) {
 
@@ -1395,7 +977,6 @@ function viewFollowUp(id) {
                     "Complete Follow-up Error:",
                     error
                 );
-
 
                 alert(
                     error.message
@@ -1406,22 +987,15 @@ function viewFollowUp(id) {
         }
 
 
-
-        // ========================================================
-        // DEBOUNCE
-        // ========================================================
-
+        /*--- DEBOUNCE ---*/
         function debounce(
             callback,
             delay
         ) {
 
-
             let timer;
 
-
             return function () {
-
 
                 clearTimeout(
                     timer
@@ -1443,21 +1017,14 @@ function viewFollowUp(id) {
         }
 
 
-
-        // ========================================================
-        // INITIAL LOAD
-        // ========================================================
-
+        /*--- INITIAL LOAD ---*/
         loadTodayFollowUps();
-
 
     }
 
 );
 
 </script>
-
-
 
 
 </body>

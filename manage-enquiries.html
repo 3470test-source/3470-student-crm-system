@@ -399,8 +399,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="9"
-                        style="text-align:center;">
+                    <td colspan="9" style="text-align:center;">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
                         Loading enquiries...
                     </td>
                 </tr>
@@ -444,11 +444,11 @@ document.addEventListener("DOMContentLoaded", function () {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="9"
-                        style="text-align:center; color:red; padding:20px;
-                        ">
+                        style="text-align:center; padding:20px;">
 
-                        Failed to load enquiries.
+                        ❌ Failed to load enquiries.
 
+                        <br>
                         <br>
 
                         ${escapeHtml(error.message)}
