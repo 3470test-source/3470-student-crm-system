@@ -1503,6 +1503,298 @@ app.get("/api/follow-ups/today", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*========================================================
+  GET SCHEDULED FOLLOW-UPS
+  GET /api/follow-ups/scheduled
+
+  Scheduled = future follow-ups
+  Today's follow-ups are handled by /today
+========================================================*/
+
+app.get("/api/follow-ups/scheduled", async (req, res) => {
+
+    try {
+
+        /*--------------------------------------------------
+          GET FILTER VALUES
+        --------------------------------------------------*/
+
+        const search =
+            typeof req.query.search === "string"
+                ? req.query.search.trim()
+                : "";
+
+        const date =
+            typeof req.query.date === "string"
+                ? req.query.date.trim()
+                : "";
+
+        const counsellor =
+            typeof req.query.counsellor === "string"
+                ? req.query.counsellor.trim()
+                : "";
+
+        const status =
+            typeof req.query.status === "string"
+                ? req.query.status.trim()
+                : "";
+
+
+        /*--------------------------------------------------
+          BASE SQL
+        --------------------------------------------------*/
+
+        let sql = `
+
+            SELECT
+
+                f.id,
+                f.enquiry_id,
+
+                e.student_name,
+                e.mobile,
+                e.course_interested,
+
+                f.follow_up_date,
+                f.follow_up_time,
+                f.follow_up_type,
+                f.status,
+
+                e.counsellor,
+
+                f.next_follow_up_date,
+                f.next_follow_up_time,
+                f.comments
+
+            FROM follow_ups AS f
+
+            INNER JOIN student_enquiries AS e
+                ON f.enquiry_id = e.id
+
+            WHERE 1 = 1
+
+        `;
+
+
+        const params = [];
+
+
+        /*--------------------------------------------------
+          DATE
+        --------------------------------------------------*/
+
+        if (date !== "") {
+
+            sql += `
+                AND f.follow_up_date = ?
+            `;
+
+            params.push(date);
+
+        } else {
+
+            /*
+             * No date selected:
+             * show future scheduled follow-ups only.
+             */
+
+            sql += `
+                AND f.follow_up_date > CURDATE()
+            `;
+
+        }
+
+
+        /*--------------------------------------------------
+          SEARCH
+        --------------------------------------------------*/
+
+        if (search !== "") {
+
+            sql += `
+
+                AND (
+
+                    e.student_name LIKE ?
+
+                    OR e.mobile LIKE ?
+
+                )
+
+            `;
+
+            const searchValue =
+                `%${search}%`;
+
+            params.push(searchValue);
+            params.push(searchValue);
+
+        }
+
+
+        /*--------------------------------------------------
+          COUNSELLOR
+        --------------------------------------------------*/
+
+        if (counsellor !== "") {
+
+            sql += `
+
+                AND e.counsellor = ?
+
+            `;
+
+            params.push(counsellor);
+
+        }
+
+
+        /*--------------------------------------------------
+          STATUS
+        --------------------------------------------------*/
+
+        if (status !== "") {
+
+            sql += `
+
+                AND f.status = ?
+
+            `;
+
+            params.push(status);
+
+        }
+
+
+        /*--------------------------------------------------
+          ORDER
+        --------------------------------------------------*/
+
+        sql += `
+
+            ORDER BY
+
+                f.follow_up_date ASC,
+                f.follow_up_time ASC,
+                f.id ASC
+
+        `;
+
+
+        /*--------------------------------------------------
+          DEBUG
+        --------------------------------------------------*/
+
+        console.log(
+            "Scheduled Follow-up SQL:",
+            sql
+        );
+
+        console.log(
+            "Scheduled Follow-up Params:",
+            params
+        );
+
+
+        /*--------------------------------------------------
+          DATABASE
+        --------------------------------------------------*/
+
+        const [rows] =
+            await db.execute(
+                sql,
+                params
+            );
+
+
+        /*--------------------------------------------------
+          SUCCESS
+        --------------------------------------------------*/
+
+        console.log(
+            `✅ Scheduled Follow-ups fetched: ${rows.length}`
+        );
+
+
+        res.status(200).json({
+
+            success: true,
+
+            count: rows.length,
+
+            followUps: rows,
+
+            data: rows
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Scheduled Follow-ups Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Unable to load scheduled follow-ups.",
+
+            error:
+                error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*==== GET SINGLE FOLLOW-UP - GET /api/follow-ups/:id ====*/
 app.get("/api/follow-ups/:id", async (req, res) => {
 
@@ -1821,6 +2113,296 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
     }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // ============================================================
+// // SCHEDULED FOLLOW-UPS
+// //
+// // GET
+// // /api/follow-ups/scheduled
+// //
+// // Optional:
+// //
+// // ?search=Ramesh
+// // ?date=2026-08-05
+// // ?counsellor=Ramesh
+// // ?status=Pending
+// //
+// // Scheduled = future follow-ups
+// // Today's follow-ups are handled by /today
+// // ============================================================
+
+// app.get(
+//     "/api/follow-ups/scheduled",
+//     async (req, res) => {
+
+//         try {
+
+//             // ------------------------------------------------
+//             // GET FILTER VALUES
+//             // ------------------------------------------------
+
+//             const search =
+//                 typeof req.query.search === "string"
+//                     ? req.query.search.trim()
+//                     : "";
+
+
+//             const date =
+//                 typeof req.query.date === "string"
+//                     ? req.query.date.trim()
+//                     : "";
+
+
+//             const counsellor =
+//                 typeof req.query.counsellor === "string"
+//                     ? req.query.counsellor.trim()
+//                     : "";
+
+
+//             const status =
+//                 typeof req.query.status === "string"
+//                     ? req.query.status.trim()
+//                     : "";
+
+
+//             // ------------------------------------------------
+//             // BASE SQL
+//             // ------------------------------------------------
+
+//             let sql = `
+
+//                 SELECT
+
+//                     f.id,
+
+//                     f.enquiry_id,
+
+//                     e.student_name,
+
+//                     e.mobile,
+
+//                     e.course_interested,
+
+//                     f.follow_up_date,
+
+//                     f.follow_up_time,
+
+//                     f.follow_up_type,
+
+//                     f.status,
+
+//                     e.counsellor,
+
+//                     f.next_follow_up_date,
+
+//                     f.next_follow_up_time,
+
+//                     f.comments
+
+//                 FROM follow_ups f
+
+//                 INNER JOIN student_enquiries e
+//                     ON f.enquiry_id = e.id
+
+//                 WHERE f.follow_up_date > CURDATE()
+
+//             `;
+
+
+//             const params = [];
+
+
+//             // ------------------------------------------------
+//             // SEARCH
+//             // ------------------------------------------------
+
+//             if (search !== "") {
+
+//                 sql += `
+
+//                     AND (
+
+//                         e.student_name LIKE ?
+
+//                         OR e.mobile LIKE ?
+
+//                     )
+
+//                 `;
+
+//                 const searchValue =
+//                     `%${search}%`;
+
+
+//                 params.push(searchValue);
+//                 params.push(searchValue);
+
+//             }
+
+
+//             // ------------------------------------------------
+//             // DATE FILTER
+//             // ------------------------------------------------
+
+//             if (date !== "") {
+
+//                 sql += `
+
+//                     AND f.follow_up_date = ?
+
+//                 `;
+
+//                 params.push(date);
+
+//             }
+
+
+//             // ------------------------------------------------
+//             // COUNSELLOR FILTER
+//             // ------------------------------------------------
+
+//             if (counsellor !== "") {
+
+//                 sql += `
+
+//                     AND e.counsellor = ?
+
+//                 `;
+
+//                 params.push(counsellor);
+
+//             }
+
+
+//             // ------------------------------------------------
+//             // STATUS FILTER
+//             // ------------------------------------------------
+
+//             if (status !== "") {
+
+//                 sql += `
+
+//                     AND f.status = ?
+
+//                 `;
+
+//                 params.push(status);
+
+//             }
+
+
+//             // ------------------------------------------------
+//             // ORDER
+//             // ------------------------------------------------
+
+//             sql += `
+
+//                 ORDER BY
+
+//                     f.follow_up_date ASC,
+
+//                     f.follow_up_time ASC,
+
+//                     f.id ASC
+
+//             `;
+
+
+//             console.log(
+//                 "Scheduled Follow-up SQL:",
+//                 sql
+//             );
+
+
+//             console.log(
+//                 "Scheduled Follow-up Params:",
+//                 params
+//             );
+
+
+//             // ------------------------------------------------
+//             // DATABASE QUERY
+//             // ------------------------------------------------
+
+//             const [rows] =
+//                 await db.execute(
+//                     sql,
+//                     params
+//                 );
+
+
+//             // ------------------------------------------------
+//             // SUCCESS RESPONSE
+//             // ------------------------------------------------
+
+//             res.status(200).json({
+
+//                 success: true,
+
+//                 count: rows.length,
+
+//                 followUps: rows,
+
+//                 // Compatibility
+//                 data: rows
+
+//             });
+
+//         }
+
+//         catch (error) {
+
+//             console.error(
+//                 "Scheduled Follow-ups Error:",
+//                 error
+//             );
+
+
+//             res.status(500).json({
+
+//                 success: false,
+
+//                 message:
+//                     "Unable to load scheduled follow-ups.",
+
+//                 error:
+//                     error.message
+
+//             });
+
+//         }
+
+//     }
+// );
+
+
+
+
+
+
+
+
+
+
+
 
 
 
