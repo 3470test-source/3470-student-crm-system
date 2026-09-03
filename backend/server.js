@@ -1529,67 +1529,39 @@ app.get("/api/follow-ups/today", async (req, res) => {
 
 
 
-/*========================================================
-  GET SCHEDULED FOLLOW-UPS
-  GET /api/follow-ups/scheduled
 
-  Scheduled = future follow-ups
-  Today's follow-ups are handled by /today
-========================================================*/
-
+ 
+/*==== GET /api/follow-ups/scheduled ====*/
 app.get("/api/follow-ups/scheduled", async (req, res) => {
 
     try {
 
-        /*--------------------------------------------------
-          GET FILTER VALUES
-        --------------------------------------------------*/
-
-        const search =
-            typeof req.query.search === "string"
+        /*--- GET FILTER VALUES ---*/
+        const search = typeof req.query.search === "string"
                 ? req.query.search.trim()
                 : "";
 
-        const date =
-            typeof req.query.date === "string"
+        const date = typeof req.query.date === "string"
                 ? req.query.date.trim()
                 : "";
 
-        const counsellor =
-            typeof req.query.counsellor === "string"
+        const counsellor = typeof req.query.counsellor === "string"
                 ? req.query.counsellor.trim()
                 : "";
 
-        const status =
-            typeof req.query.status === "string"
+        const status = typeof req.query.status === "string"
                 ? req.query.status.trim()
                 : "";
 
 
-        /*--------------------------------------------------
-          BASE SQL
-        --------------------------------------------------*/
-
+        /*--- BASE SQL ---*/
         let sql = `
 
             SELECT
 
-                f.id,
-                f.enquiry_id,
-
-                e.student_name,
-                e.mobile,
-                e.course_interested,
-
-                f.follow_up_date,
-                f.follow_up_time,
-                f.follow_up_type,
-                f.status,
-
-                e.counsellor,
-
-                f.next_follow_up_date,
-                f.next_follow_up_time,
+                f.id, f.enquiry_id, e.student_name, e.mobile, e.course_interested,
+                f.follow_up_date, f.follow_up_time, f.follow_up_type, f.status,
+                e.counsellor, f.next_follow_up_date, f.next_follow_up_time,
                 f.comments
 
             FROM follow_ups AS f
@@ -1604,16 +1576,10 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
 
         const params = [];
 
-
-        /*--------------------------------------------------
-          DATE
-        --------------------------------------------------*/
-
+        /*--- DATE ---*/
         if (date !== "") {
 
-            sql += `
-                AND f.follow_up_date = ?
-            `;
+            sql += `AND f.follow_up_date = ?`;
 
             params.push(date);
 
@@ -1624,33 +1590,24 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
              * show future scheduled follow-ups only.
              */
 
-            sql += `
-                AND f.follow_up_date > CURDATE()
-            `;
+            sql += `AND f.follow_up_date > CURDATE()`;
 
         }
 
 
-        /*--------------------------------------------------
-          SEARCH
-        --------------------------------------------------*/
-
+        /*--- SEARCH ---*/
         if (search !== "") {
 
             sql += `
 
                 AND (
-
                     e.student_name LIKE ?
-
                     OR e.mobile LIKE ?
-
                 )
 
             `;
 
-            const searchValue =
-                `%${search}%`;
+            const searchValue = `%${search}%`;
 
             params.push(searchValue);
             params.push(searchValue);
@@ -1658,44 +1615,27 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
         }
 
 
-        /*--------------------------------------------------
-          COUNSELLOR
-        --------------------------------------------------*/
-
+        /*--- COUNSELLOR ---*/
         if (counsellor !== "") {
 
-            sql += `
-
-                AND e.counsellor = ?
-
-            `;
+            sql += `AND e.counsellor = ?`;
 
             params.push(counsellor);
 
         }
 
 
-        /*--------------------------------------------------
-          STATUS
-        --------------------------------------------------*/
-
+        /*--- STATUS ---*/
         if (status !== "") {
 
-            sql += `
-
-                AND f.status = ?
-
-            `;
+            sql += `AND f.status = ?`;
 
             params.push(status);
 
         }
 
 
-        /*--------------------------------------------------
-          ORDER
-        --------------------------------------------------*/
-
+        /*--- ORDER ---*/
         sql += `
 
             ORDER BY
@@ -1707,10 +1647,7 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
         `;
 
 
-        /*--------------------------------------------------
-          DEBUG
-        --------------------------------------------------*/
-
+        /*--- DEBUG ---*/
         console.log(
             "Scheduled Follow-up SQL:",
             sql
@@ -1722,34 +1659,21 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
         );
 
 
-        /*--------------------------------------------------
-          DATABASE
-        --------------------------------------------------*/
-
-        const [rows] =
-            await db.execute(
+        /*--- DATABASE ---*/
+        const [rows] = await db.execute(
                 sql,
                 params
             );
 
 
-        /*--------------------------------------------------
-          SUCCESS
-        --------------------------------------------------*/
-
-        console.log(
-            `✅ Scheduled Follow-ups fetched: ${rows.length}`
-        );
-
+        /*--- SUCCESS ---*/
+        console.log(`✅ Scheduled Follow-ups fetched: ${rows.length}`);
 
         res.status(200).json({
 
             success: true,
-
             count: rows.length,
-
             followUps: rows,
-
             data: rows
 
         });
@@ -1767,18 +1691,205 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
         res.status(500).json({
 
             success: false,
+            message: "Unable to load scheduled follow-ups.",
 
-            message:
-                "Unable to load scheduled follow-ups.",
-
-            error:
-                error.message
+            error: error.message
 
         });
 
     }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =====================================================
+// GET FOLLOW-UP HISTORY
+// =====================================================
+app.get("/api/follow-ups/history", async (req, res) => {
+
+    try {
+
+        const search = typeof req.query.search === "string"
+            ? req.query.search.trim()
+            : "";
+
+        const fromDate = typeof req.query.fromDate === "string"
+            ? req.query.fromDate.trim()
+            : "";
+
+        const toDate = typeof req.query.toDate === "string"
+            ? req.query.toDate.trim()
+            : "";
+
+        const counsellor = typeof req.query.counsellor === "string"
+            ? req.query.counsellor.trim()
+            : "";
+
+        const status = typeof req.query.status === "string"
+            ? req.query.status.trim()
+            : "";
+
+        let sql = `
+            SELECT
+                f.id,
+                f.enquiry_id,
+                e.student_name,
+                e.mobile,
+                e.course_interested,
+                f.follow_up_date,
+                f.follow_up_time,
+                f.follow_up_type,
+                f.status,
+                e.counsellor,
+                f.comments,
+                f.next_follow_up_date,
+                f.next_follow_up_time,
+                f.created_at,
+                f.updated_at
+            FROM follow_ups f
+            INNER JOIN student_enquiries e
+                ON f.enquiry_id = e.id
+            WHERE 1 = 1
+        `;
+
+        const params = [];
+
+        // ---------------------------------------------
+        // Search student / mobile
+        // ---------------------------------------------
+        if (search !== "") {
+
+            sql += `
+                AND (
+                    e.student_name LIKE ?
+                    OR e.mobile LIKE ?
+                )
+            `;
+
+            const searchValue = `%${search}%`;
+
+            params.push(searchValue);
+            params.push(searchValue);
+        }
+
+        // ---------------------------------------------
+        // From date
+        // ---------------------------------------------
+        if (fromDate !== "") {
+
+            sql += `
+                AND f.follow_up_date >= ?
+            `;
+
+            params.push(fromDate);
+        }
+
+        // ---------------------------------------------
+        // To date
+        // ---------------------------------------------
+        if (toDate !== "") {
+
+            sql += `
+                AND f.follow_up_date <= ?
+            `;
+
+            params.push(toDate);
+        }
+
+        // ---------------------------------------------
+        // Counsellor
+        // ---------------------------------------------
+        if (counsellor !== "") {
+
+            sql += `
+                AND e.counsellor = ?
+            `;
+
+            params.push(counsellor);
+        }
+
+        // ---------------------------------------------
+        // Status / Result
+        // ---------------------------------------------
+        if (status !== "") {
+
+            sql += `
+                AND f.status = ?
+            `;
+
+            params.push(status);
+        }
+
+        // ---------------------------------------------
+        // History order
+        // ---------------------------------------------
+        sql += `
+            ORDER BY
+                f.follow_up_date DESC,
+                f.follow_up_time DESC,
+                f.id DESC
+        `;
+
+        console.log("Follow-up History SQL:", sql);
+        console.log("Follow-up History Params:", params);
+
+        const [rows] = await db.execute(sql, params);
+
+        console.log(
+            "Follow-up History Records:",
+            rows.length
+        );
+
+        res.status(200).json({
+            success: true,
+            count: rows.length,
+            followUps: rows,
+            data: rows
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Follow-up History Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to load follow-up history.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
 
 
 
@@ -1877,6 +1988,81 @@ app.get("/api/follow-ups/:id", async (req, res) => {
 
     }
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2120,308 +2306,7 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// // ============================================================
-// // SCHEDULED FOLLOW-UPS
-// //
-// // GET
-// // /api/follow-ups/scheduled
-// //
-// // Optional:
-// //
-// // ?search=Ramesh
-// // ?date=2026-08-05
-// // ?counsellor=Ramesh
-// // ?status=Pending
-// //
-// // Scheduled = future follow-ups
-// // Today's follow-ups are handled by /today
-// // ============================================================
-
-// app.get(
-//     "/api/follow-ups/scheduled",
-//     async (req, res) => {
-
-//         try {
-
-//             // ------------------------------------------------
-//             // GET FILTER VALUES
-//             // ------------------------------------------------
-
-//             const search =
-//                 typeof req.query.search === "string"
-//                     ? req.query.search.trim()
-//                     : "";
-
-
-//             const date =
-//                 typeof req.query.date === "string"
-//                     ? req.query.date.trim()
-//                     : "";
-
-
-//             const counsellor =
-//                 typeof req.query.counsellor === "string"
-//                     ? req.query.counsellor.trim()
-//                     : "";
-
-
-//             const status =
-//                 typeof req.query.status === "string"
-//                     ? req.query.status.trim()
-//                     : "";
-
-
-//             // ------------------------------------------------
-//             // BASE SQL
-//             // ------------------------------------------------
-
-//             let sql = `
-
-//                 SELECT
-
-//                     f.id,
-
-//                     f.enquiry_id,
-
-//                     e.student_name,
-
-//                     e.mobile,
-
-//                     e.course_interested,
-
-//                     f.follow_up_date,
-
-//                     f.follow_up_time,
-
-//                     f.follow_up_type,
-
-//                     f.status,
-
-//                     e.counsellor,
-
-//                     f.next_follow_up_date,
-
-//                     f.next_follow_up_time,
-
-//                     f.comments
-
-//                 FROM follow_ups f
-
-//                 INNER JOIN student_enquiries e
-//                     ON f.enquiry_id = e.id
-
-//                 WHERE f.follow_up_date > CURDATE()
-
-//             `;
-
-
-//             const params = [];
-
-
-//             // ------------------------------------------------
-//             // SEARCH
-//             // ------------------------------------------------
-
-//             if (search !== "") {
-
-//                 sql += `
-
-//                     AND (
-
-//                         e.student_name LIKE ?
-
-//                         OR e.mobile LIKE ?
-
-//                     )
-
-//                 `;
-
-//                 const searchValue =
-//                     `%${search}%`;
-
-
-//                 params.push(searchValue);
-//                 params.push(searchValue);
-
-//             }
-
-
-//             // ------------------------------------------------
-//             // DATE FILTER
-//             // ------------------------------------------------
-
-//             if (date !== "") {
-
-//                 sql += `
-
-//                     AND f.follow_up_date = ?
-
-//                 `;
-
-//                 params.push(date);
-
-//             }
-
-
-//             // ------------------------------------------------
-//             // COUNSELLOR FILTER
-//             // ------------------------------------------------
-
-//             if (counsellor !== "") {
-
-//                 sql += `
-
-//                     AND e.counsellor = ?
-
-//                 `;
-
-//                 params.push(counsellor);
-
-//             }
-
-
-//             // ------------------------------------------------
-//             // STATUS FILTER
-//             // ------------------------------------------------
-
-//             if (status !== "") {
-
-//                 sql += `
-
-//                     AND f.status = ?
-
-//                 `;
-
-//                 params.push(status);
-
-//             }
-
-
-//             // ------------------------------------------------
-//             // ORDER
-//             // ------------------------------------------------
-
-//             sql += `
-
-//                 ORDER BY
-
-//                     f.follow_up_date ASC,
-
-//                     f.follow_up_time ASC,
-
-//                     f.id ASC
-
-//             `;
-
-
-//             console.log(
-//                 "Scheduled Follow-up SQL:",
-//                 sql
-//             );
-
-
-//             console.log(
-//                 "Scheduled Follow-up Params:",
-//                 params
-//             );
-
-
-//             // ------------------------------------------------
-//             // DATABASE QUERY
-//             // ------------------------------------------------
-
-//             const [rows] =
-//                 await db.execute(
-//                     sql,
-//                     params
-//                 );
-
-
-//             // ------------------------------------------------
-//             // SUCCESS RESPONSE
-//             // ------------------------------------------------
-
-//             res.status(200).json({
-
-//                 success: true,
-
-//                 count: rows.length,
-
-//                 followUps: rows,
-
-//                 // Compatibility
-//                 data: rows
-
-//             });
-
-//         }
-
-//         catch (error) {
-
-//             console.error(
-//                 "Scheduled Follow-ups Error:",
-//                 error
-//             );
-
-
-//             res.status(500).json({
-
-//                 success: false,
-
-//                 message:
-//                     "Unable to load scheduled follow-ups.",
-
-//                 error:
-//                     error.message
-
-//             });
-
-//         }
-
-//     }
-// );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*-- Start server --*/
+/*==== Start server ====*/
 app.listen(PORT, () => {
 
     console.log(`CRM Server running on http://localhost:${PORT}`);

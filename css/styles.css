@@ -1836,14 +1836,14 @@
 .crm-view-btn-SFU,
 .crm-edit-btn-SFU,
 .crm-complete-btn-SFU {
-  width:35px;
-  height:35px;
+  width:25px;
+  height:25px;
   border:none;
   border-radius:8px;
+  color:#fff;
   cursor:pointer;
+  margin-right:5px;
   transition:.3s;
-  margin-right:8px;
-  color:#ffffff;
 }
 
 .crm-view-btn-SFU {
@@ -1918,6 +1918,7 @@
   transition:.3s;
   border: none;
   letter-spacing: 0.5px;
+  cursor: pointer;
 }
 
 .crm-export-FUH-btn {
@@ -2070,15 +2071,15 @@
 
 /*--- VIEW BUTTON ---*/
 .crm-view-FUH-btn {
-  width:35px;
-  height:35px;
+  width:25px;
+  height:25px;
   border:none;
   border-radius:8px;
-  cursor:pointer;
-  transition:.3s;
-  margin-right:8px;
-  color:#ffffff;
+  color:#fff;
   background:#2563eb;
+  cursor:pointer;
+  margin-right:5px;
+  transition:.3s;
 }
 
 .crm-view-FUH-btn:hover {  

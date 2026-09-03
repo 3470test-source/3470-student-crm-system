@@ -349,20 +349,7 @@ dropdowns.forEach(dropdown => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Scheduled Follow Ups - JS -->
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -381,7 +368,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const countText = document.getElementById("scheduledFollowUpCount");
 
         /*--- API ---*/
-        const API_URL = "http://localhost:3000/api/follow-ups/scheduled";
+        // const API_URL = "http://localhost:3000/api/follow-ups/scheduled";
+
+        const API_URL = "http://localhost:3000/api/follow-ups";
+
+        const SCHEDULED_API_URL = `${API_URL}/scheduled`;
 
         /*--- LOAD SCHEDULED FOLLOW-UPS ---*/
         async function loadScheduledFollowUps() {
@@ -441,7 +432,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 /*--- REQUEST ---*/
-                const url = `${API_URL}?${params.toString()}`;
+                // const url = `${API_URL}?${params.toString()}`;
+
+                const url = `${SCHEDULED_API_URL}?${params.toString()}`;
 
                 console.log("Scheduled Follow-ups URL:", url);
 
