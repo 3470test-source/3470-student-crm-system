@@ -284,8 +284,7 @@ app.get("/api/courses", async (req, res) => {
         res.status(500).json({
 
             success: false,
-            message:
-                "❌ Unable to fetch courses."
+            message: "❌ Unable to fetch courses."
 
         });
 
@@ -1503,34 +1502,6 @@ app.get("/api/follow-ups/today", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
 /*==== GET /api/follow-ups/scheduled ====*/
 app.get("/api/follow-ups/scheduled", async (req, res) => {
 
@@ -1705,30 +1676,7 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// =====================================================
-// GET FOLLOW-UP HISTORY
-// =====================================================
+/*==== GET FOLLOW-UP HISTORY ====*/
 app.get("/api/follow-ups/history", async (req, res) => {
 
     try {
@@ -1755,20 +1703,8 @@ app.get("/api/follow-ups/history", async (req, res) => {
 
         let sql = `
             SELECT
-                f.id,
-                f.enquiry_id,
-                e.student_name,
-                e.mobile,
-                e.course_interested,
-                f.follow_up_date,
-                f.follow_up_time,
-                f.follow_up_type,
-                f.status,
-                e.counsellor,
-                f.comments,
-                f.next_follow_up_date,
-                f.next_follow_up_time,
-                f.created_at,
+                f.id, f.enquiry_id, e.student_name, e.mobile, e.course_interested, f.follow_up_date, f.follow_up_time,
+                f.follow_up_type, f.status, e.counsellor, f.comments, f.next_follow_up_date, f.next_follow_up_time, f.created_at,
                 f.updated_at
             FROM follow_ups f
             INNER JOIN student_enquiries e
@@ -1778,9 +1714,8 @@ app.get("/api/follow-ups/history", async (req, res) => {
 
         const params = [];
 
-        // ---------------------------------------------
-        // Search student / mobile
-        // ---------------------------------------------
+        
+        /*--- Search student / mobile ---*/
         if (search !== "") {
 
             sql += `
@@ -1796,62 +1731,47 @@ app.get("/api/follow-ups/history", async (req, res) => {
             params.push(searchValue);
         }
 
-        // ---------------------------------------------
-        // From date
-        // ---------------------------------------------
+        
+        /*--- From date ---*/
         if (fromDate !== "") {
 
-            sql += `
-                AND f.follow_up_date >= ?
-            `;
+            sql += `AND f.follow_up_date >= ?`;
 
             params.push(fromDate);
         }
 
-        // ---------------------------------------------
-        // To date
-        // ---------------------------------------------
+        
+        /*--- To date ---*/
         if (toDate !== "") {
 
-            sql += `
-                AND f.follow_up_date <= ?
-            `;
+            sql += `AND f.follow_up_date <= ?`;
 
             params.push(toDate);
         }
 
-        // ---------------------------------------------
-        // Counsellor
-        // ---------------------------------------------
+        
+        /*--- Counsellor ---*/
         if (counsellor !== "") {
 
-            sql += `
-                AND e.counsellor = ?
-            `;
+            sql += `AND e.counsellor = ?`;
 
             params.push(counsellor);
         }
 
-        // ---------------------------------------------
-        // Status / Result
-        // ---------------------------------------------
+        
+        /*--- Status / Result ---*/
         if (status !== "") {
 
-            sql += `
-                AND f.status = ?
-            `;
+            sql += `AND f.status = ?`;
 
             params.push(status);
         }
 
-        // ---------------------------------------------
-        // History order
-        // ---------------------------------------------
+        
+        /*--- History order ---*/
         sql += `
             ORDER BY
-                f.follow_up_date DESC,
-                f.follow_up_time DESC,
-                f.id DESC
+                f.follow_up_date DESC, f.follow_up_time DESC, f.id DESC
         `;
 
         console.log("Follow-up History SQL:", sql);
@@ -1885,22 +1805,6 @@ app.get("/api/follow-ups/history", async (req, res) => {
         });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1988,81 +1892,6 @@ app.get("/api/follow-ups/:id", async (req, res) => {
 
     }
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2299,7 +2128,6 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
     }
 );
-
 
 
 

@@ -14,8 +14,6 @@
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    
-
     <style>
 
     * {
@@ -319,9 +317,11 @@
         </div>
 
 
+<!-- Excel Library -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
 
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
 <!-- Profile dropdown JS - Script -->
 <script>
@@ -368,38 +368,25 @@ dropdowns.forEach(dropdown => {
 
 
 
-
-
-
-
-
+<!-- Follow-up History JavaScript -->
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    /*--- ELEMENTS ---*/
-    
     const tableBody = document.getElementById("followUpHistoryBody");
-
     const searchInput = document.getElementById("historySearch");
-
     const fromDateInput = document.getElementById("historyFromDate");
-
     const toDateInput = document.getElementById("historyToDate");
-
     const counsellorFilter = document.getElementById("historyCounsellor");
-
     const statusFilter = document.getElementById("historyStatus");
-
     const countText = document.getElementById("historyCount");
 
     const exportButton = document.querySelector(".crm-export-FUH-btn");
-
     const printButton = document.querySelector(".crm-print-FUH-btn");
 
-
-    /*--- API ---*/
     const API_URL = "http://localhost:3000/api/follow-ups/history";
+
+    let currentFollowUps = [];
 
 
     /*--- LOAD HISTORY ---*/
@@ -415,76 +402,53 @@ document.addEventListener("DOMContentLoaded", function () {
                 </tr>
             `;
 
+            const params = new URLSearchParams();
 
             const search = searchInput.value.trim();
-
             const fromDate = fromDateInput.value;
-
             const toDate = toDateInput.value;
-
             const counsellor = counsellorFilter.value;
-
             const status = statusFilter.value;
 
 
-            /*--- BUILD QUERY ---*/
-            const params = new URLSearchParams();
-
             if (search !== "") {
-
                 params.append("search", search);
-
             }
-
 
             if (fromDate !== "") {
-
                 params.append("fromDate", fromDate);
-
             }
-
 
             if (toDate !== "") {
-
                 params.append("toDate", toDate);
-
             }
-
 
             if (counsellor !== "") {
-
-                params.append("counsellor",counsellor);
-
+                params.append("counsellor", counsellor);
             }
 
-
             if (status !== "") {
-
                 params.append("status", status);
-
             }
 
 
             const url = params.toString()
-                    ? `${API_URL}?${params.toString()}`
-                    : API_URL;
+                ? `${API_URL}?${params.toString()}`
+                : API_URL;
 
 
             console.log("Follow-up History URL:", url);
 
 
-            /*--- FETCH ---*/
             const response = await fetch(url, {
-                    method: "GET",
-                    headers: {
-                        "Accept":
-                            "application/json"
-                    }
-                });
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
 
 
             const result = await response.json();
-
 
             console.log("Follow-up History Response:", result);
 
@@ -492,8 +456,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
 
                 throw new Error(
-                    result.error ||
                     result.message ||
+                    result.error ||
                     "Unable to load follow-up history."
                 );
 
@@ -510,25 +474,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
-            // renderFollowUpHistory(
-            //     result.followUps || []
-            // );
-
-
-
-
             currentFollowUps = Array.isArray(result.followUps)
-    ? result.followUps
-    : [];
-
-renderFollowUpHistory(currentFollowUps);
+                ? result.followUps
+                : [];
 
 
-
-
-
-
-
+            renderFollowUpHistory(currentFollowUps);
 
 
         } catch (error) {
@@ -541,7 +492,8 @@ renderFollowUpHistory(currentFollowUps);
 
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="10" style=" text-align:center; color:red;">
+                    <td colspan="10"
+                        style="text-align:center;color:red;">
                         Unable to load follow-up history.
                     </td>
                 </tr>
@@ -555,93 +507,68 @@ renderFollowUpHistory(currentFollowUps);
     }
 
 
-    /*--- RENDER TABLE ---*/
+    /*--- RENDER ---*/
     function renderFollowUpHistory(followUps) {
 
         tableBody.innerHTML = "";
 
-
-        if (
-            !Array.isArray(followUps) ||
-            followUps.length === 0
-        ) {
+        if (!Array.isArray(followUps) || followUps.length === 0) {
 
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="10" style="text-align:center;">
-                        No follow-up history found.
+                        ❌ No follow-up history found.
                     </td>
                 </tr>
             `;
 
-
             countText.textContent = "Showing 0 records.";
 
             return;
-
         }
 
 
-        followUps.forEach(
-            function (followUp) {
+        followUps.forEach(function (followUp) {
 
-                const row = document.createElement("tr");
+            const row = document.createElement("tr");
 
-                const statusClass = getStatusClass(followUp.status);
+            const statusClass = getStatusClass(followUp.status);
 
-                row.innerHTML = `
+            row.innerHTML = `
 
-                    <td>
-                        ${escapeHtml(followUp.id)}
-                    </td>
+                <td>${escapeHtml(followUp.id)}</td>
 
-                    <td>
-                        ${escapeHtml(followUp.student_name)}
-                    </td>
+                <td>${escapeHtml(followUp.student_name)}</td>
 
-                    <td>
-                        ${escapeHtml(followUp.mobile)}
-                    </td>
+                <td>${escapeHtml(followUp.mobile)}</td>
 
-                    <td>
-                        ${escapeHtml(followUp.course_interested)}
-                    </td>
+                <td>${escapeHtml(followUp.course_interested)}</td>
 
-                    <td>
-                        ${formatDate(followUp.follow_up_date)}
-                    </td>
+                <td>${formatDate(followUp.follow_up_date)}</td>
 
-                    <td>
-                        ${formatTime(followUp.follow_up_time)}
-                    </td>
+                <td>${formatTime(followUp.follow_up_time)}</td>
 
-                    <td>
-                        ${escapeHtml(followUp.follow_up_type)}
-                    </td>
+                <td>${escapeHtml(followUp.follow_up_type)}</td>
 
-                    <td>
-                        <span
-                            class="crm-status-FUH ${statusClass}">
-                            ${escapeHtml(followUp.status)}
-                        </span>
-                    </td>
+                <td>
+                    <span class="crm-status-FUH ${statusClass}">
+                        ${escapeHtml(followUp.status)}
+                    </span>
+                </td>
 
-                    <td>
-                        ${escapeHtml(followUp.counsellor)}
-                    </td>
+                <td>${escapeHtml(followUp.counsellor)}</td>
 
-                    <td>
-                        <button type="button" class="crm-view-FUH-btn" data-id="${escapeHtml(followUp.id)}" title="View Follow-up">
-                            <i class="fa fa-eye"></i>
-                        </button>
-                    </td>
+                <td>
+                    <button type="button" class="crm-view-FUH-btn" data-id="${escapeHtml(followUp.id)}" title="View Follow-up">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </td>
 
-                `;
+            `;
 
-                tableBody.appendChild(row);
+            tableBody.appendChild(row);
 
-            }
-        );
+        });
 
 
         countText.textContent = `Showing ${followUps.length} records.`;
@@ -649,25 +576,30 @@ renderFollowUpHistory(currentFollowUps);
     }
 
 
-    /*--- STATUS CLASS ---*/
+    /*--- STATUS ---*/
     function getStatusClass(status) {
 
-        if (status === "Interested") {return "success";}
+        switch (status) {
 
-        if (status === "Admission Confirmed") {return "success";}
+            case "Interested":
+            case "Admission Confirmed":
+            case "Completed":
+                return "success";
 
-        if (status === "Call Back") {return "pending";}
+            case "Call Back":
+                return "pending";
 
-        if (status === "Not Interested") {return "danger";}
+            case "Not Interested":
+                return "danger";
 
-        if (status === "Completed") {return "success";}
-
-        return "pending";
+            default:
+                return "pending";
+        }
 
     }
 
 
-    /*--- DATE FORMAT ---*/
+    /*--- DATE ---*/
     function formatDate(date) {
 
         if (!date) {
@@ -676,54 +608,40 @@ renderFollowUpHistory(currentFollowUps);
 
         const d = new Date(date);
 
-
         if (isNaN(d.getTime())) {
             return escapeHtml(date);
         }
 
-
-        return d.toLocaleDateString(
-            "en-GB",
-            {
-                day: "2-digit",
-                month: "short",
-                year: "numeric"
-            }
-        );
+        return d.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
 
     }
 
 
-    /*--- TIME FORMAT ---*/
+    /*--- TIME ---*/
     function formatTime(time) {
 
         if (!time) {
             return "-";
         }
 
-
         const parts = String(time).split(":");
-
 
         if (parts.length < 2) {
             return escapeHtml(time);
         }
 
-
         let hour = parseInt(parts[0], 10);
-
         const minute = parts[1];
-
 
         if (isNaN(hour)) {
             return escapeHtml(time);
         }
 
-
-        const ampm = hour >= 12
-                ? "PM"
-                : "AM";
-
+        const ampm = hour >= 12 ? "PM" : "AM";
 
         hour = hour % 12 || 12;
 
@@ -735,13 +653,9 @@ renderFollowUpHistory(currentFollowUps);
     /*--- ESCAPE HTML ---*/
     function escapeHtml(value) {
 
-        if (
-            value === null ||
-            value === undefined
-        ) {
+        if (value === null || value === undefined) {
             return "";
         }
-
 
         return String(value)
             .replace(/&/g, "&amp;")
@@ -753,16 +667,11 @@ renderFollowUpHistory(currentFollowUps);
     }
 
 
-    /*--- SEARCH DEBOUNCE ---*/
-    searchInput.addEventListener("input",
-        debounce(
-            loadFollowUpHistory,
-            300
-        )
-    );
+    /*--- SEARCH ---*/
+    searchInput.addEventListener("input", debounce(loadFollowUpHistory, 300));
 
 
-    /*--- FILTER EVENTS ---*/
+    /*--- FILTERS ---*/
     fromDateInput.addEventListener("change", loadFollowUpHistory);
 
     toDateInput.addEventListener("change", loadFollowUpHistory);
@@ -772,29 +681,30 @@ renderFollowUpHistory(currentFollowUps);
     statusFilter.addEventListener("change", loadFollowUpHistory);
 
 
-    /*--- VIEW BUTTON ---*/
+    /*--- VIEW ---*/
     tableBody.addEventListener("click", function (event) {
 
-            const button = event.target.closest(".crm-view-FUH-btn");
+        const button = event.target.closest(".crm-view-FUH-btn");
 
-            if (!button) {
-                return;
-            }
-
-            const id = button.dataset.id;
-
-
-            if (!id) {
-
-                alert("Follow-up ID is missing.");
-                return;
-            }
-
-
-            window.location.href = `view-follow-ups.html?id=${encodeURIComponent(id)}`;
-
+        if (!button) {
+            return;
         }
-    );
+
+        const id = button.dataset.id;
+
+        if (!id) {
+
+            alert("Follow-up ID is missing.");
+
+            return;
+        }
+
+        window.location.href = `view-follow-ups.html?id=${encodeURIComponent(id)}`;
+
+    });
+
+
+    
 
 
 
@@ -814,409 +724,699 @@ renderFollowUpHistory(currentFollowUps);
 
 
 
-    /*=========================================================
-  EXPORT EXCEL
-=========================================================*/
 
-exportButton.addEventListener("click", function () {
 
-    if (typeof XLSX === "undefined") {
+
+
+
+
+
+
+
+
+
+
+
+/*--- PROFESSIONAL EXCEL EXPORT ---*/
+exportButton.addEventListener("click", async function () {
+
+    if (typeof ExcelJS === "undefined") {
 
         alert("Excel library is not loaded.");
-        return;
 
+        return;
     }
 
 
-    if (!Array.isArray(currentFollowUps) ||
-        currentFollowUps.length === 0) {
+    if (
+        !Array.isArray(currentFollowUps) ||
+        currentFollowUps.length === 0
+    ) {
 
         alert("There are no follow-up history records to export.");
-        return;
 
+        return;
     }
 
 
-    const excelData = currentFollowUps.map(function (followUp) {
+    try {
 
-        return {
+        /*--- CREATE WORKBOOK ---*/
 
-            "ID":
-                followUp.id || "",
+        const workbook = new ExcelJS.Workbook();
 
-            "Student Name":
-                followUp.student_name || "",
+        workbook.creator = "3470 Healthcare";
+        workbook.lastModifiedBy = "3470 Healthcare";
+        workbook.created = new Date();
+        workbook.modified = new Date();
 
-            "Mobile":
-                followUp.mobile || "",
+        workbook.properties.title = "3470 Healthcare - Follow-up History";
 
-            "Course":
-                followUp.course_interested || "",
+        workbook.properties.subject = "Follow-up History Report";
 
-            "Follow-up Date":
-                formatDate(
-                    followUp.follow_up_date
-                ),
 
-            "Time":
-                formatTime(
-                    followUp.follow_up_time
-                ),
+        /*--- CREATE SHEET ---*/
+        
+        const worksheet = workbook.addWorksheet("Follow-up History", {
 
-            "Type":
-                followUp.follow_up_type || "",
+                views: [
+                    {
+                        state: "frozen",
+                        ySplit: 6
+                    }
+                ]
 
-            "Result":
-                followUp.status || "",
+            });
 
-            "Counsellor":
-                followUp.counsellor || "",
 
-            "Comments":
-                followUp.comments || ""
+         
+        /*--- COMPANY NAME ---*/
+
+        worksheet.mergeCells("A1:J1");
+
+        const companyCell = worksheet.getCell("A1");
+
+        companyCell.value = "3470 HEALTHCARE";
+
+        companyCell.font = {
+
+            name: "Arial",
+            size: 20,
+            bold: true,
+            color: {argb: "FFFFFFFF"}
 
         };
 
-    });
+        companyCell.alignment = {
+
+            horizontal: "center",
+            vertical: "middle"
+
+        };
+
+        companyCell.fill = {
+
+            type: "pattern",
+            pattern: "solid",
+            fgColor: {argb: "FF1F4E78"}
+
+        };
+
+        companyCell.border = {
+
+            top: {
+                style: "thin",
+                color: {
+                    argb: "FF1F4E78"
+                }
+            },
+
+            bottom: {
+                style: "thin",
+                color: {
+                    argb: "FF1F4E78"
+                }
+            },
+
+            left: {
+                style: "thin",
+                color: {
+                    argb: "FF1F4E78"
+                }
+            },
+
+            right: {
+                style: "thin",
+                color: {
+                    argb: "FF1F4E78"
+                }
+            }
+
+        };
+
+        worksheet.getRow(1).height = 35;
 
 
-    /*--- CREATE WORKSHEET ---*/
+        /*--- REPORT TITLE ---*/
 
-    const worksheet =
-        XLSX.utils.json_to_sheet(excelData);
+        worksheet.mergeCells("A2:J2");
 
+        const titleCell = worksheet.getCell("A2");
 
-    /*--- COLUMN WIDTHS ---*/
+        titleCell.value = "FOLLOW-UP HISTORY REPORT";
 
-    worksheet["!cols"] = [
+        titleCell.font = {
 
-        { wch: 8 },
-        { wch: 25 },
-        { wch: 16 },
-        { wch: 18 },
-        { wch: 18 },
-        { wch: 12 },
-        { wch: 18 },
-        { wch: 22 },
-        { wch: 18 },
-        { wch: 40 }
+            name: "Arial",
+            size: 15,
+            bold: true,
+            color: {argb: "FF1F1F1F"}
 
-    ];
+        };
 
+        titleCell.alignment = {
 
-    /*--- CREATE WORKBOOK ---*/
+            horizontal: "center",
+            vertical: "middle"
 
-    const workbook =
-        XLSX.utils.book_new();
+        };
+
+        worksheet.getRow(2).height = 25;
 
 
-    XLSX.utils.book_append_sheet(
-        workbook,
-        worksheet,
-        "Follow-up History"
-    );
+        /*--- EXPORT DATE ---*/
+
+        const today = new Date();
+
+        const exportDate = today.toLocaleDateString(
+                "en-GB",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+  
+
+        worksheet.mergeCells("A3:J3");
+
+        const dateCell = worksheet.getCell("A3");
+
+        dateCell.value = `Export Date: ${exportDate}`;
+
+        dateCell.font = {
+
+            name: "Arial",
+            size: 12,
+            bold: true,
+            color: {argb: "FF555555"}
+
+        };
+
+        dateCell.alignment = {
+
+            horizontal: "center",
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(3).height = 25;
+
+        
+        /*--- TOTAL RECORDS ---*/
+
+        worksheet.mergeCells("A4:J4");
+
+        const totalCell = worksheet.getCell("A4");
+
+        totalCell.value = `Total Records: ${currentFollowUps.length}`;
+
+        totalCell.font = {
+
+            name: "Arial",
+            size: 12,
+            bold: true,
+            color: {argb: "FF333333"}
+
+        };
+
+        totalCell.alignment = {
+
+            horizontal: "center",
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(4).height = 25;
 
 
-    /*--- FILE NAME ---*/
+        /*--- EMPTY ROW ---*/
+        worksheet.getRow(5).height = 20;
 
-    const today = new Date();
+         
+        /*--- TABLE HEADER ---*/
+        const headers = [
 
-    const filename =
-        `follow-up-history-${today.getFullYear()}-${String(
-            today.getMonth() + 1
-        ).padStart(2, "0")}-${String(
-            today.getDate()
-        ).padStart(2, "0")}.xlsx`;
+            "ID",
+            "Student Name",
+            "Mobile",
+            "Course",
+            "Follow-up Date",
+            "Time",
+            "Type",
+            "Result",
+            "Counsellor",
+            "Comments"
 
-
-    /*--- DOWNLOAD ---*/
-
-    XLSX.writeFile(
-        workbook,
-        filename
-    );
-
-
-    alert(
-        "Follow-up history exported successfully."
-    );
-
-});
+        ];
 
 
-/*=========================================================
-  PRINT
-=========================================================*/
+        const headerRow = worksheet.getRow(6);
 
-printButton.addEventListener("click", function () {
+        headers.forEach(function (header, index) {
 
-    if (!Array.isArray(currentFollowUps) ||
-        currentFollowUps.length === 0) {
+            const cell = headerRow.getCell(index + 1);
 
-        alert("There are no follow-up history records to print.");
-        return;
-
-    }
+            cell.value = header;
 
 
-    const printWindow = window.open(
-        "",
-        "_blank",
-        "width=1200,height=800"
-    );
+            /*--- HEADER FONT ---*/
+            cell.font = {
+
+                name: "Arial",
+                size: 11,
+                bold: true,
+                color: {argb: "FFFFFFFF"}
+
+            };
 
 
-    if (!printWindow) {
+            /*--- HEADER BACKGROUND ---*/
+            cell.fill = {
 
-        alert(
-            "Please allow pop-ups for this website."
+                type: "pattern",
+                pattern: "solid",
+                fgColor: {argb: "FF4472C4"}
+
+            };
+
+
+            /*--- CENTER ---*/
+            cell.alignment = {
+
+                horizontal: "center",
+                vertical: "middle",
+                wrapText: true
+
+            };
+
+
+            /*--- BOX BORDER ---*/
+            cell.border = {
+
+                top: {
+                    style: "thin",
+                    color: {argb: "FF000000"}
+                },
+
+                bottom: {
+                    style: "thin",
+                    color: {argb: "FF000000"}
+                },
+
+                left: {
+                    style: "thin",
+                    color: {argb: "FF000000"}
+                },
+
+                right: {
+                    style: "thin",
+                    color: {argb: "FF000000"}
+                }
+
+            };
+
+        });
+
+
+        headerRow.height = 30;
+
+         
+        /*--- DATA ROWS ---*/
+        currentFollowUps.forEach(function (followUp, index) {
+
+                const rowNumber = 7 + index;
+
+                const row = worksheet.getRow(rowNumber);
+
+                const values = [
+
+                    followUp.id || "",
+
+                    followUp.student_name || "",
+
+                    followUp.mobile ? Number(followUp.mobile) : "",
+
+                    followUp.course_interested || "",
+
+                    formatDate(followUp.follow_up_date),
+
+                    formatTime(followUp.follow_up_time),
+
+                    followUp.follow_up_type || "",
+
+                    followUp.status || "",
+
+                    followUp.counsellor || "",
+
+                    followUp.comments || ""
+
+                ];
+
+
+                values.forEach(function (value, colIndex) {
+
+                    const cell = row.getCell(colIndex + 1);
+
+                    /*--- Mobile number as numeric value ---*/
+                    if (colIndex === 2 && followUp.mobile) {
+                        cell.value = Number(followUp.mobile);
+                        cell.numFmt = "0";
+                    } else {
+                        cell.value = value;
+                    }
+
+                    /*--- FONT ---*/
+                    cell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        color: {argb: "FF222222"}
+
+                    };
+
+
+                    /*--- ALTERNATE ROW ---*/
+
+                    if (index % 2 === 0) {
+
+                        cell.fill = {
+
+                            type: "pattern",
+                            pattern: "solid",
+                            fgColor: {argb: "FFF7F9FC"}
+
+                        };
+
+                    }
+
+
+                    /*--- ALIGNMENT ---*/
+                    cell.alignment = {
+
+                        vertical: "middle",
+                        horizontal: colIndex === 0
+                                ? "center"
+                                : "center",
+
+                        wrapText: true
+
+                    };
+
+
+                    /*--- ALL DATA BOXES ---*/
+                    cell.border = {
+
+                        top: {
+                            style: "thin",
+                            color: {argb: "FFD0D0D0"}
+                        },
+
+                        bottom: {
+                            style: "thin",
+                            color: {argb: "FFD0D0D0"}
+                        },
+
+                        left: {
+                            style: "thin",
+                            color: {argb: "FFD0D0D0"}
+                        },
+
+                        right: {
+                            style: "thin",
+                            color: {argb: "FFD0D0D0"}
+                        }
+
+                    };
+
+                });
+
+
+                /*--- RESULT / STATUS COLOR ---*/
+                const resultCell = row.getCell(8);
+
+                const status = followUp.status;
+
+                if (status === "Interested") {
+
+                    resultCell.fill = {
+
+                        type: "pattern",
+                        pattern: "solid",
+                        fgColor: {argb: "FFE2F0D9"}
+
+                    };
+
+                    resultCell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        bold: true,
+                        color: {argb: "FF006100"}
+
+                    };
+
+                }
+
+
+                else if (
+                    status === "Admission Confirmed"
+                ) {
+
+                    resultCell.fill = {
+
+                        type: "pattern",
+                        pattern: "solid",
+                        fgColor: {argb: "FFC6EFCE"}
+
+                    };
+
+                    resultCell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        bold: true,
+                        color: {argb: "FF006100"}
+
+                    };
+
+                }
+
+
+                else if (
+                    status === "Not Interested"
+                ) {
+
+                    resultCell.fill = {
+
+                        type: "pattern",
+                        pattern: "solid",
+                        fgColor: {argb: "FFFFC7CE"}
+
+                    };
+
+                    resultCell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        bold: true,
+                        color: {argb: "FF9C0006"}
+
+                    };
+
+                }
+
+
+                else if (
+                    status === "Call Back"
+                ) {
+
+                    resultCell.fill = {
+
+                        type: "pattern",
+                        pattern: "solid",
+                        fgColor: {argb: "FFFFEB9C"}
+
+                    };
+
+                    resultCell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        bold: true,
+                        color: {argb: "FF9C6500"}
+
+                    };
+
+                }
+
+
+                else if (
+                    status === "Completed"
+                ) {
+
+                    resultCell.fill = {
+
+                        type: "pattern",
+                        pattern: "solid",
+                        fgColor: {argb: "FFD9EAF7"}
+
+                    };
+
+                    resultCell.font = {
+
+                        name: "Arial",
+                        size: 10,
+                        bold: true,
+                        color: {argb: "FF1F4E78"}
+
+                    };
+
+                }
+
+            }
         );
 
-        return;
+
+        /*--- COLUMN WIDTH ---*/
+        worksheet.columns = [
+
+            {
+                key: "id",
+                width: 8
+            },
+
+            {
+                key: "student",
+                width: 25
+            },
+
+            {
+                key: "mobile",
+                width: 17
+            },
+
+            {
+                key: "course",
+                width: 25
+            },
+
+            {
+                key: "date",
+                width: 18
+            },
+
+            {
+                key: "time",
+                width: 12
+            },
+
+            {
+                key: "type",
+                width: 18
+            },
+
+            {
+                key: "result",
+                width: 22
+            },
+
+            {
+                key: "counsellor",
+                width: 20
+            },
+
+            {
+                key: "comments",
+                width: 40
+            }
+
+        ];
+
+
+        /*--- PRINT SETTINGS ---*/
+        worksheet.pageSetup = {
+
+            orientation: "landscape",
+            paperSize: 9,
+            fitToPage: true,
+            fitToWidth: 1,
+            fitToHeight: 0,
+            horizontalDpi: 300,
+            verticalDpi: 300
+
+        };
+
+
+        /*--- PAGE MARGINS ---*/
+        worksheet.pageSetup.margins = {
+
+            left: 0.25,
+            right: 0.25,
+            top: 0.5,
+            bottom: 0.5,
+            header: 0.2,
+            footer: 0.2
+
+        };
+
+
+        /*--- HEADER / FOOTER ---*/
+        worksheet.headerFooter.oddHeader = "&C&\"Arial,Bold\"3470 Healthcare";
+
+        worksheet.headerFooter.oddFooter = "&LFollow-up History&RPage &P of &N";
+
+
+        /*--- DOWNLOAD---*/
+        const buffer = await workbook.xlsx.writeBuffer();
+
+        const blob =
+            new Blob(
+                [buffer],
+                {
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+            );
+
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+
+        link.download =
+            `3470-Healthcare-Follow-up-History-${today.getFullYear()}-${String(
+                today.getMonth() + 1
+            ).padStart(2, "0")}-${String(
+                today.getDate()
+            ).padStart(2, "0")}.xlsx`;
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+
+        alert("✅ Follow-up History Excel report exported successfully.");
 
     }
 
+    catch (error) {
 
-    let rows = "";
+        console.error(
+            "Excel Export Error:",
+            error
+        );
 
+        alert("Unable to export Excel report.");
 
-    currentFollowUps.forEach(function (followUp) {
-
-        rows += `
-
-            <tr>
-
-                <td>
-                    ${escapeHtml(followUp.id)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.student_name)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.mobile)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.course_interested)}
-                </td>
-
-                <td>
-                    ${formatDate(followUp.follow_up_date)}
-                </td>
-
-                <td>
-                    ${formatTime(followUp.follow_up_time)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.follow_up_type)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.status)}
-                </td>
-
-                <td>
-                    ${escapeHtml(followUp.counsellor)}
-                </td>
-
-            </tr>
-
-        `;
-
-    });
-
-
-    printWindow.document.open();
-
-
-    printWindow.document.write(`
-
-        <!DOCTYPE html>
-
-        <html>
-
-        <head>
-
-            <meta charset="UTF-8">
-
-            <title>Follow-up History</title>
-
-            <style>
-
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 25px;
-                    color: #222;
-                }
-
-                h1 {
-                    text-align: center;
-                    margin-bottom: 5px;
-                }
-
-                h2 {
-                    text-align: center;
-                    margin-top: 0;
-                    font-weight: normal;
-                }
-
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 25px;
-                }
-
-                th {
-                    background: #eeeeee;
-                    border: 1px solid #333;
-                    padding: 8px;
-                    text-align: left;
-                }
-
-                td {
-                    border: 1px solid #555;
-                    padding: 8px;
-                }
-
-                .footer {
-                    margin-top: 20px;
-                    font-size: 13px;
-                }
-
-                @media print {
-
-                    body {
-                        margin: 10px;
-                    }
-
-                    thead {
-                        display: table-header-group;
-                    }
-
-                    tr {
-                        page-break-inside: avoid;
-                    }
-
-                }
-
-            </style>
-
-        </head>
-
-
-        <body>
-
-            <h1>
-                3470 Healthcare
-            </h1>
-
-            <h2>
-                Follow-up History
-            </h2>
-
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>ID</th>
-
-                        <th>Student Name</th>
-
-                        <th>Mobile</th>
-
-                        <th>Course</th>
-
-                        <th>Follow-up Date</th>
-
-                        <th>Time</th>
-
-                        <th>Type</th>
-
-                        <th>Result</th>
-
-                        <th>Counsellor</th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-                    ${rows}
-
-                </tbody>
-
-            </table>
-
-
-            <div class="footer">
-
-                Total Records:
-                ${currentFollowUps.length}
-
-            </div>
-
-
-        </body>
-
-        </html>
-
-    `);
-
-
-    printWindow.document.close();
-
-
-    printWindow.focus();
-
-
-    setTimeout(function () {
-
-        printWindow.print();
-
-    }, 500);
+    }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1229,7 +1429,10 @@ printButton.addEventListener("click", function () {
 
             clearTimeout(timer);
 
-            timer = setTimeout(callback, delay);
+            timer = setTimeout(
+                callback,
+                delay
+            );
 
         };
 
@@ -1242,11 +1445,6 @@ printButton.addEventListener("click", function () {
 });
 
 </script>
-
-
-
-
-
 
 
 </body>
