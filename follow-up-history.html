@@ -361,13 +361,6 @@ dropdowns.forEach(dropdown => {
 </script>
 
 
-
-
-
-
-
-
-
 <!-- Follow-up History JavaScript -->
 <script>
 
@@ -397,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tableBody.innerHTML = `
                 <tr>
                     <td colspan="10" style="text-align:center;">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
                         Loading follow-up history...
                     </td>
                 </tr>
@@ -492,9 +486,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             tableBody.innerHTML = `
                 <tr>
-                    <td colspan="10"
-                        style="text-align:center;color:red;">
-                        Unable to load follow-up history.
+                    <td colspan="10" style="text-align:center;">
+                        ❌ Unable to load follow-up history.
                     </td>
                 </tr>
             `;
@@ -705,38 +698,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--- PROFESSIONAL EXCEL EXPORT ---*/
 exportButton.addEventListener("click", async function () {
 
@@ -1097,7 +1058,6 @@ exportButton.addEventListener("click", async function () {
 
 
                     /*--- ALTERNATE ROW ---*/
-
                     if (index % 2 === 0) {
 
                         cell.fill = {

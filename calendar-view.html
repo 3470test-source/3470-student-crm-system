@@ -21,7 +21,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     </style>
  
 </head>
@@ -220,10 +220,20 @@
                     </div>
 
                     <div class="crm-calendar-navigation">
-                        <button class="crm-calendar-btn"><i class="fa fa-angle-left"></i></button>
-                            <h3>August 2026</h3>
-                        <button class="crm-calendar-btn"><i class="fa fa-angle-right"></i></button>
+                        <button type="button" class="crm-calendar-btn" id="previousMonthBtn" title="Previous Month">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+
+                            <h3 id="calendarMonthTitle">Loading...</h3>
+
+                        <button type="button" class="crm-calendar-btn" id="nextMonthBtn" title="Next Month">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
                     </div>
+
+                    <button type="button" class="crm-calendar-today-btn" id="todayBtn">
+                        <i class="fa fa-calendar-day"></i>Today
+                    </button>
 
                 </div>
 
@@ -244,104 +254,12 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="calendarBody">
 
-                            <!-- Week 1 -->
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div class="crm-cal-date">1</div>
+                                <td colspan="7" style="text-align:center;">
+                                    Loading calendar...
                                 </td>
-                                <td>
-                                    <div class="crm-cal-date">2</div>
-                                </td>
-                            </tr>
-
-                            <!-- Week 2 -->
-                            <tr>
-                                <td>
-                                    <div class="crm-cal-date">3</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">4</div>
-                                    <span class="crm-event">Rahul - 10 AM</span>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">5</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">6</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">7</div>
-                                    <span class="crm-event">Priya - 11 AM</span>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">8</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">9</div>
-                                </td>
-                            </tr>
-
-                            <!-- Week 3 -->
-                            <tr>
-                                <td>
-                                    <div class="crm-cal-date">10</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">11</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">12</div>
-                                    <span class="crm-event">Arun - 2 PM</span>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">13</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">14</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">15</div>
-                                </td>
-                                <td>
-                                    <div class="crm-cal-date">16</div>
-                                </td>
-                            </tr>
-
-                            <!-- Week 4 -->
-                            <tr>
-                                <td><div class="crm-cal-date">17</div></td>
-                                <td><div class="crm-cal-date">18</div></td>
-                                <td><div class="crm-cal-date">19</div></td>
-                                <td><div class="crm-cal-date">20</div></td>
-                                <td><div class="crm-cal-date">21</div></td>
-                                <td><div class="crm-cal-date">22</div></td>
-                                <td><div class="crm-cal-date">23</div></td>
-                            </tr>
-
-                            <!-- Week 5 -->
-                            <tr>
-                                <td><div class="crm-cal-date">24</div></td>
-                                <td><div class="crm-cal-date">25</div></td>
-                                <td><div class="crm-cal-date">26</div></td>
-                                <td><div class="crm-cal-date">27</div></td>
-                                <td><div class="crm-cal-date">28</div></td>
-                                <td><div class="crm-cal-date">29</div></td>
-                                <td><div class="crm-cal-date">30</div></td>
-                            </tr>
-
-                            <!-- Week 6 -->
-                            <tr>
-                                <td>
-                                    <div class="crm-cal-date">31</div>
-                                </td>
-                                <td colspan="6"></td>
                             </tr>
 
                         </tbody>
@@ -354,7 +272,7 @@
                 <div class="crm-dashboard-calendar">
 
                     <div class="crm-box-calendar">
-                        <h3>Today's Follow-up Events</h3>
+                        <h3><i class="fa fa-calendar-day"></i>Today's Follow-up Events</h3>
                     </div>
 
                         <table class="crm-table-Cal-view">
@@ -369,36 +287,14 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="todayEventsBody">
+
                                 <tr>
-                                    <td>Rahul</td>
-                                    <td>CPC</td>
-                                    <td>10:00 AM</td>
-                                    <td>Phone Call</td>
-                                    <td>
-                                        <span class="crm-status-CV pending">Pending</span>            
+                                    <td colspan="5" style="text-align:center;">
+                                        Loading today's events...
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>Priya</td>
-                                    <td>BMCT</td>
-                                    <td>11:30 AM</td>
-                                    <td>WhatsApp</td>
-                                    <td>
-                                        <span class="crm-status-CV completed">Completed</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>Arun</td>
-                                    <td>CRC</td>
-                                    <td>02:00 PM</td>
-                                    <td>Email</td>
-                                    <td>
-                                        <span class="crm-status-CV pending">Pending</span>
-                                    </td>
-                                </tr>
                             </tbody>
 
                         </table>
@@ -443,6 +339,912 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- CALENDAR VIEW - JS -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /*--- ELEMENTS ---*/
+    const calendarBody = document.getElementById("calendarBody");
+
+    const calendarMonthTitle = document.getElementById("calendarMonthTitle");
+
+    const previousMonthBtn = document.getElementById("previousMonthBtn");
+
+    const nextMonthBtn = document.getElementById("nextMonthBtn");
+
+    const todayBtn = document.getElementById("todayBtn");
+
+    const todayEventsBody = document.getElementById("todayEventsBody");
+
+
+    /*--- API ---*/
+    const API_URL = "http://localhost:3000/api/follow-ups/history";
+
+
+    /*--- CURRENT MONTH ---*/
+    let currentCalendarDate = new Date();
+
+
+    /*--- FOLLOW-UP DATA ---*/
+    let followUps = [];
+
+
+    /*--- LOAD FOLLOW-UPS ---*/
+    async function loadFollowUps() {
+
+        try {
+
+            calendarBody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align:center; padding:30px;">
+                        <i class="fa fa-spinner fa-spin"></i>
+                        Loading follow-ups...
+                    </td>
+                </tr>
+            `;
+
+
+            todayEventsBody.innerHTML = `
+                <tr>
+                    <td colspan="5"
+                        style="text-align:center; padding:20px;">
+                        Loading today's events...
+                    </td>
+                </tr>
+            `;
+
+
+            const response = await fetch(API_URL,
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+
+            const result = await response.json();
+
+            console.log("Calendar Follow-up Response:",
+                result
+            );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.message ||
+                    result.error ||
+                    "Unable to load follow-ups."
+                );
+
+            }
+
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    "Unable to load follow-ups."
+                );
+
+            }
+
+
+            followUps = Array.isArray(result.followUps)
+                    ? result.followUps
+                    : [];
+
+
+            console.log("Calendar Follow-ups:",
+                followUps
+            );
+
+
+            renderCalendar();
+
+            renderTodayEvents();
+
+        }
+
+        catch (error) {
+
+            console.error("Calendar Follow-up Error:",
+                error
+            );
+
+
+            calendarBody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align:center; padding:30px; color:red;">
+                        Unable to load follow-up data.
+                    </td>
+                </tr>
+            `;
+
+
+            todayEventsBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style=" text-align:center; padding:20px; color:red;">
+                        Unable to load today's events.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+    }
+
+
+    /*--- RENDER CALENDAR ---*/
+    function renderCalendar() {
+
+        const year = currentCalendarDate.getFullYear();
+
+        const month = currentCalendarDate.getMonth();
+
+
+        /*--- MONTH TITLE ---*/
+        calendarMonthTitle.textContent = currentCalendarDate.toLocaleDateString(
+                "en-US",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+
+        /*--- FIRST DAY ---*/
+        const firstDay = new Date(
+                year,
+                month,
+                1
+            ).getDay();
+
+
+        /*--- LAST DAY ---*/
+        const daysInMonth = new Date(
+                year,
+                month + 1,
+                0
+            ).getDate();
+
+
+        /*--- PREVIOUS MONTH ---*/
+        const daysInPreviousMonth = new Date(
+                year,
+                month,
+                0
+            ).getDate();
+
+
+        /*--- CLEAR CALENDAR ---*/
+        calendarBody.innerHTML = "";
+
+
+        /*--- TODAY ---*/
+        const today = new Date();
+
+        const todayYear = today.getFullYear();
+
+        const todayMonth = today.getMonth();
+
+        const todayDate = today.getDate();
+
+
+        /*--- NUMBER OF CELLS ---*/
+        let totalCells = firstDay + daysInMonth;
+
+        const totalRows = Math.ceil(totalCells / 7);
+
+        totalCells = totalRows * 7;
+
+
+        /*--- BUILD CELLS ---*/
+        let dayNumber = 1;
+
+        let nextMonthDay = 1;
+
+        for (
+            let cellIndex = 0;
+            cellIndex < totalCells;
+            cellIndex++
+        ) {
+
+
+            if (cellIndex % 7 === 0) {
+
+                var row = document.createElement("tr");
+
+            }
+
+
+            const cell = document.createElement("td");
+
+
+            /*--- PREVIOUS MONTH ---*/
+
+            if (cellIndex < firstDay) {
+
+                const previousDay = daysInPreviousMonth -
+                    firstDay +
+                    cellIndex +
+                    1;
+
+                cell.classList.add("crm-calendar-other-month");
+
+                cell.innerHTML = `<div class="crm-cal-date">${previousDay}</div>`;
+
+            }
+
+
+            /*--- CURRENT MONTH ---*/
+            else if (
+                cellIndex <
+                firstDay + daysInMonth
+            ) {
+
+
+                const currentDay = dayNumber;
+
+                dayNumber++;
+
+                /*--- TODAY CHECK ---*/
+
+                if (
+                    currentDay === todayDate &&
+                    month === todayMonth &&
+                    year === todayYear
+                ) {
+
+                    cell.classList.add("crm-calendar-today");
+
+                }
+
+
+                cell.innerHTML = `<div class="crm-cal-date">${currentDay}</div>`;
+
+
+                /*--- EVENTS ---*/
+
+                const dateKey = createDateKey(
+                        year,
+                        month,
+                        currentDay
+                    );
+
+
+                const dayFollowUps = getFollowUpsForDate(dateKey);
+
+                renderDayEvents(
+                    cell,
+                    dayFollowUps
+                );
+
+            }
+
+
+            /*--- NEXT MONTH ---*/
+            else {
+
+                cell.classList.add("crm-calendar-other-month");
+
+                cell.innerHTML = `<div class="crm-cal-date">${nextMonthDay}</div>`;
+
+                nextMonthDay++;
+
+            }
+
+            row.appendChild(cell);
+
+            if (
+                cellIndex % 7 === 6
+            ) {
+
+                calendarBody.appendChild(row);
+
+            }
+
+        }
+
+    }
+
+
+    /*--- CREATE DATE KEY ---*/
+    function createDateKey(
+        year,
+        month,
+        day
+    ) {
+
+        return (
+            year +
+            "-" +
+            String(month + 1).padStart(2, "0") +
+            "-" +
+            String(day).padStart(2, "0")
+        );
+
+    }
+
+
+    /*--- GET FOLLOW-UPS FOR DATE ---*/
+    function getFollowUpsForDate(dateKey) {
+
+        return followUps.filter(
+            function (followUp) {
+
+                return (
+                    normalizeDate(
+                        followUp.follow_up_date
+                    ) === dateKey
+                );
+
+            }
+        );
+
+    }
+
+
+    /*--- NORMALIZE DATE ---*/
+    function normalizeDate(
+        dateValue
+    ) {
+
+        if (!dateValue) {
+
+            return "";
+
+        }
+
+
+        const date = new Date(dateValue);
+
+
+        if (
+            isNaN(
+                date.getTime()
+            )
+        ) {
+
+            return String(
+                dateValue
+            ).substring(
+                0,
+                10
+            );
+
+        }
+
+
+        const year = date.getFullYear();
+
+        const month = String(
+                date.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day = String(
+                date.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return (
+            year +
+            "-" +
+            month +
+            "-" +
+            day
+        );
+
+    }
+
+
+    /*--- RENDER DAY EVENTS ---*/
+    function renderDayEvents(
+        cell,
+        dayFollowUps
+    ) {
+
+
+        if (
+            !dayFollowUps ||
+            dayFollowUps.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        const maxEvents = 3;
+
+        const eventsToShow = dayFollowUps.slice(0, maxEvents);
+
+        eventsToShow.forEach(
+            function (followUp) {
+
+                const event = document.createElement("div");
+
+                event.className = "crm-event " + getEventStatusClass(followUp.status);
+
+                const studentName = escapeHtml(followUp.student_name || "Unknown Student");
+
+                const time = formatTime(followUp.follow_up_time);
+
+                const type = escapeHtml(followUp.follow_up_type || "" );
+
+                
+                event.innerHTML = `
+
+                    <span class="crm-event-student">
+                        ${studentName}
+                    </span>
+
+                    <span class="crm-event-time">
+                        <i class="fa fa-clock"></i>
+                        ${time}
+                    </span>
+
+                    <span class="crm-event-type">
+                        ${type}
+                    </span>
+
+                `;
+
+
+                event.title = "View Follow-up";
+
+
+                event.addEventListener("click",
+                    function () {
+
+                        openFollowUp(
+                            followUp.id
+                        );
+
+                    }
+                );
+
+
+                cell.appendChild(event);
+
+            }
+        );
+
+
+        /*--- MORE EVENTS ---*/
+        if (
+            dayFollowUps.length >
+            maxEvents
+        ) {
+
+            const more = document.createElement("span");
+
+            more.className = "crm-event-more";
+
+            more.textContent =
+                "+" +
+                (
+                    dayFollowUps.length -
+                    maxEvents
+                ) +
+                " more";
+
+
+            more.addEventListener(
+                "click",
+                function () {
+
+                    alert(
+                        "There are " +
+                        dayFollowUps.length +
+                        " follow-ups on this date."
+                    );
+
+                }
+            );
+
+
+            cell.appendChild(more);
+
+        }
+
+    }
+
+
+    /*--- STATUS CLASS ---*/
+    function getEventStatusClass(
+        status
+    ) {
+
+        switch (status) {
+
+            case "Interested":
+
+            case "Admission Confirmed":
+
+            case "Completed":
+
+                return "success";
+
+            case "Call Back":
+
+            case "Pending":
+
+                return "pending";
+
+            case "Not Interested":
+
+                return "danger";
+
+            default:
+
+                return "info";
+
+        }
+
+    }
+
+
+    /*--- STATUS TABLE CLASS ---*/
+    function getStatusTableClass(status) {
+
+        switch (status) {
+
+            case "Interested":
+
+            case "Admission Confirmed":
+
+            case "Completed":
+
+                return "completed";
+
+
+            case "Not Interested":
+
+                return "danger";
+
+
+            case "Call Back":
+
+            case "Pending":
+
+                return "pending";
+
+
+            default:
+
+                return "info";
+
+        }
+
+    }
+
+
+    /*--- TODAY EVENTS ---*/
+    function renderTodayEvents() {
+
+        const today = new Date();
+
+        const todayKey = normalizeDate(today);
+
+        const todayFollowUps = followUps.filter(
+                function (followUp) {
+
+                    return (
+                        normalizeDate(
+                            followUp.follow_up_date
+                        ) === todayKey
+                    );
+
+                }
+            );
+
+
+        todayEventsBody.innerHTML = "";
+
+
+        if (
+            todayFollowUps.length === 0
+        ) {
+
+            todayEventsBody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="5" class="crm-calendar-empty">
+                            <i class="fa fa-calendar-check"></i>
+                            No follow-up events scheduled for today.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        todayFollowUps.sort(
+            function (a, b) {
+
+                return String(
+                    a.follow_up_time || ""
+                ).localeCompare(
+                    String(
+                        b.follow_up_time || ""
+                    )
+                );
+
+            }
+        );
+
+
+        todayFollowUps.forEach(function (followUp) {
+
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+
+                    <td>
+                        ${escapeHtml(
+                            followUp.student_name ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            followUp.course_interested ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+                        ${formatTime(
+                            followUp.follow_up_time
+                        )}
+                    </td>
+
+                    <td>
+                        ${escapeHtml(
+                            followUp.follow_up_type ||
+                            "-"
+                        )}
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="crm-status-CV ${getStatusTableClass(
+                                followUp.status
+                            )}"
+                        >
+                            ${escapeHtml(
+                                followUp.status ||
+                                "-"
+                            )}
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                row.style.cursor = "pointer";
+
+                row.addEventListener(
+                    "click",
+                    function () {
+
+                        openFollowUp(
+                            followUp.id
+                        );
+
+                    }
+                );
+
+
+                todayEventsBody.appendChild(
+                    row
+                );
+
+            }
+        );
+
+    }
+
+
+    /*--- OPEN FOLLOW-UP ---*/
+
+    function openFollowUp(
+        id
+    ) {
+
+        if (!id) {
+
+            alert("Follow-up ID is missing.");
+
+            return;
+
+        }
+
+
+        window.location.href = "view-follow-ups.html?id=" + encodeURIComponent(id);
+
+    }
+
+
+    /*--- FORMAT TIME ---*/
+    function formatTime(
+        time
+    ) {
+
+        if (!time) {
+
+            return "-";
+
+        }
+
+
+        const parts = String(time).split(":");
+
+
+        if (
+            parts.length < 2
+        ) {
+
+            return escapeHtml(
+                time
+            );
+
+        }
+
+
+        let hour = parseInt(
+                parts[0],
+                10
+            );
+
+
+        const minute = parts[1];
+
+
+        if (
+            isNaN(hour)
+        ) {
+
+            return escapeHtml(
+                time
+            );
+
+        }
+
+
+        const ampm = hour >= 12
+                ? "PM"
+                : "AM";
+
+
+        hour = hour % 12 || 12;
+
+
+        return (
+            hour +
+            ":" +
+            minute +
+            " " +
+            ampm
+        );
+
+    }
+
+
+    /*--- ESCAPE HTML ---*/
+    function escapeHtml(
+        value
+    ) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return "";
+
+        }
+
+
+        return String(value)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /*--- PREVIOUS MONTH ---*/
+    previousMonthBtn.addEventListener("click", function () {
+
+            currentCalendarDate.setMonth(
+                currentCalendarDate.getMonth() - 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+    /*--- NEXT MONTH ---*/
+    nextMonthBtn.addEventListener("click", function () {
+
+            currentCalendarDate.setMonth(
+                currentCalendarDate.getMonth() + 1
+            );
+
+            renderCalendar();
+
+        }
+    );
+
+
+    /*--- TODAY ---*/
+    todayBtn.addEventListener("click", function () {
+
+            currentCalendarDate = new Date();
+
+            renderCalendar();
+
+            renderTodayEvents();
+
+        }
+    );
+
+
+    /*--- INITIAL LOAD ---*/
+    loadFollowUps();
+
+});
+
 </script>
 
 

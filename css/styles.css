@@ -2114,6 +2114,27 @@
 }
 
 
+/*--- TODAY BUTTON ---*/
+.crm-calendar-today-btn {
+  border: none;
+  background: #037c44;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.crm-calendar-today-btn i {
+  margin-right: 5px;
+}
+
+.crm-calendar-today-btn:hover {
+  background: #1d4ed8;
+}
+
+
 /*--- CALENDAR NAVIGATION ---*/
 .crm-calendar-navigation {
   display:flex;
@@ -2163,7 +2184,7 @@
 }
 
 .crm-calendar-view-table thead {
-  background:#2563eb;
+  background:#2563eb; 
 }
 
 .crm-calendar-view-table th {
@@ -2171,6 +2192,8 @@
   padding:16px;
   text-align:center;
   font-size:15px;
+  padding: 12px 8px; 
+  border: 1px solid #d0d0d0;
 }
 
 .crm-calendar-view-table td {
@@ -2209,12 +2232,15 @@
 .crm-event {
   display:block;
   background:#037c44;
-  color:white;
+  color: #1f1f1f;
   padding:6px 8px;
   border-radius:6px;
   font-size:14px;
   margin-bottom:6px;
   word-break:break-word;
+  cursor: pointer;
+  border-left: 4px solid #4472c4;
+  width: 100%;
 }
 
 
@@ -2233,7 +2259,11 @@
 
 .crm-box-calendar h3 {
   color:#1e3a8a;
-  font-size:24px;
+  font-size:22px;
+}
+
+.crm-box-calendar i {
+  margin-right: 8px;
 }
 
 
@@ -2254,6 +2284,8 @@
   padding:16px;
   text-align:center;
   font-size:15px;
+  padding: 11px;
+  border: 1px solid #d0d0d0;
 }
 
 .crm-table-Cal-view td {
@@ -2285,6 +2317,105 @@
 .crm-status-CV.completed {
   background:#DCFCE7;
   color:#15803D;
+}
+
+.crm-status-CV.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.crm-status-CV.danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.crm-status-CV.info {
+  background: #d9eaf7;
+  color: #1f4e78;
+}
+
+
+/*--- EMPTY / ERROR ---*/
+.crm-calendar-empty {
+  text-align: center;
+  color: #777777;
+  padding: 20px;
+}
+
+
+/*--- MORE EVENTS ---*/
+.crm-event-more {
+  display: block;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1f4e78;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.crm-event-more:hover {
+  text-decoration: underline;
+}
+
+
+/*--- STATUS COLORS ---*/
+.crm-event.success {
+  border-left-color: #28a745;
+  background: #edf8ef;
+}
+
+.crm-event.pending {
+  border-left-color: #f0ad4e;
+  background: #fff8e8;
+}
+
+.crm-event.danger {
+  border-left-color: #dc3545;
+  background: #fff0f1;
+}
+
+.crm-event.info {
+  border-left-color: #4472c4;
+  background: #eef5ff;
+}
+
+
+/*--- OTHER MONTH DAYS ---*/
+.crm-calendar-other-month {
+  background: #f5f5f5 !important;
+}
+
+.crm-calendar-other-month .crm-cal-date {
+  color: #aaaaaa;
+}
+
+
+/*--- EVENT STUDENT ---*/
+.crm-event-student {
+  display: block;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/*--- EVENT TIME ---*/
+.crm-event-time {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #555555;
+}
+
+
+/*--- EVENT TYPE ---*/
+.crm-event-type {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: #666666;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
