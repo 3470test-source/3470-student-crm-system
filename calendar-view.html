@@ -401,8 +401,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             todayEventsBody.innerHTML = `
                 <tr>
-                    <td colspan="5"
-                        style="text-align:center; padding:20px;">
+                    <td colspan="5" style="text-align:center; padding:20px;">
+                        <i class="fa fa-spinner fa-spin"></i>
                         Loading today's events...
                     </td>
                 </tr>
@@ -472,8 +472,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             calendarBody.innerHTML = `
                 <tr>
-                    <td colspan="7" style="text-align:center; padding:30px; color:red;">
-                        Unable to load follow-up data.
+                    <td colspan="7" style="text-align:center; padding:30px;">
+                        ❌ Unable to load follow-up data.
                     </td>
                 </tr>
             `;
@@ -481,8 +481,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             todayEventsBody.innerHTML = `
                 <tr>
-                    <td colspan="5" style=" text-align:center; padding:20px; color:red;">
-                        Unable to load today's events.
+                    <td colspan="5" style=" text-align:center; padding:20px;">
+                        ❌ Unable to load today's events.
                     </td>
                 </tr>
             `;

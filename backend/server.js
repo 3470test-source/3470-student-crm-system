@@ -2133,6 +2133,273 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
 
 
+/*==== GET ACTIVE COUNSELLORS ====*/
+app.get("/api/admissions/counsellors", async (req, res) => {
+  try {
+
+    const [counsellors] = await db.execute(`
+      SELECT DISTINCT counsellor AS name
+      FROM student_enquiries
+      WHERE counsellor IS NOT NULL
+        AND TRIM(counsellor) <> ''
+      ORDER BY counsellor ASC
+    `);
+
+    res.json({
+      success: true,
+      counsellors: counsellors
+    });
+
+  } catch (error) {
+    console.error("❌ Counsellors Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Unable to load counsellors.",
+      error: error.message
+    });
+  }
+});
+
+
+
+
+
+/*==== GET ACTIVE COURSES FOR ADMISSION ====*/
+app.get("/api/admissions/courses", async (req, res) => {
+  try {
+
+    const [courses] = await db.execute(`
+      SELECT
+        id, course_name, course_category, course_fee,
+        status
+      FROM courses
+      WHERE status = 'Active'
+      ORDER BY course_name ASC
+    `);
+
+    res.json({
+      success: true,
+      courses: courses
+    });
+
+  } catch (error) {
+    console.error("❌ Admission Courses Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Unable to load courses.",
+      error: error.message
+    });
+  }
+});
+
+
+
+
+
+/*==== CREATE NEW ADMISSION ====*/
+app.post("/api/admissions", async (req, res) => {
+  try {
+
+    const {
+      student_name, mobile, email, gender, date_of_birth, course, batch,
+      joining_date, course_fee, discount, final_fee, registration_amount,
+      balance_amount, payment_mode, counsellor, admission_status, remarks
+    } = req.body;
+
+    /*--- Required fields ---*/
+    if (!student_name || !mobile  || !course) {
+      return res.status(400).json({
+        success: false,
+        message: "Student name, mobile number and course are required."
+      });
+    }
+
+    
+    /*--- FEE CALCULATION ---*/
+    const courseFee = Number(course_fee) || 0;
+    const discountAmount = Number(discount) || 0;
+    const registrationAmount = Number(registration_amount) || 0;
+
+    let finalFee = Number(final_fee);
+
+    if (!final_fee || isNaN(finalFee)) {
+      finalFee = courseFee - discountAmount;
+    }
+
+    if (finalFee < 0) {
+      finalFee = 0;
+    }
+
+    let balanceAmount = Number(balance_amount);
+
+    if (!balance_amount || isNaN(balanceAmount)) {
+      balanceAmount = finalFee - registrationAmount;
+    }
+
+    if (balanceAmount < 0) {
+      balanceAmount = 0;
+    }
+
+
+    /*--- INSERT ADMISSION ---*/
+    const [result] = await db.execute(
+      `
+      INSERT INTO admissions (
+        student_name, mobile, email, gender, date_of_birth, course, batch,
+        joining_date, course_fee, discount, final_fee, registration_amount, balance_amount,
+        payment_mode, counsellor, admission_status, remarks
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `,
+      [
+        student_name, mobile, email || null, gender || null, date_of_birth || null, course, batch || null,
+        joining_date || null, courseFee, discountAmount, finalFee, registrationAmount, balanceAmount,
+        payment_mode || null, counsellor || null, admission_status || "Pending", remarks || null
+      ]
+    );
+
+    res.status(201).json({
+      success: true,
+      message: "Admission created successfully.",
+      admissionId: result.insertId
+    });
+
+  } catch (error) {
+
+    console.error("❌ Create Admission Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to create admission.",
+      error: error.message
+    });
+  }
+});
+
+
+
+
+
+/*==== GET ALL ADMISSIONS ====*/
+app.get("/api/admissions", async (req, res) => {
+    try {
+        const [admissions] = await db.execute(`
+            SELECT
+                id, student_name, mobile, email, gender, date_of_birth, course, batch, joining_date, course_fee,
+                discount, final_fee, registration_amount, balance_amount, payment_mode, counsellor, admission_status,
+                documents, remarks, created_at, updated_at
+            FROM admissions
+            ORDER BY id DESC
+        `);
+
+        res.json({
+            success: true,
+            admissions
+        });
+
+    } catch (error) {
+        console.error("❌ Get Admissions Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load admissions.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== GET SINGLE ADMISSION ====*/
+app.get("/api/admissions/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [admissions] = await db.execute(`
+            SELECT
+                id, student_name, mobile, email, gender, date_of_birth, course, batch, joining_date, course_fee,
+                discount, final_fee, registration_amount, balance_amount, payment_mode, counsellor, admission_status,
+                documents, remarks, created_at, updated_at
+            FROM admissions
+            WHERE id = ?
+        `, [id]);
+
+        if (admissions.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Admission not found."
+            });
+        }
+
+        res.json({
+            success: true,
+            admission: admissions[0]
+        });
+
+    } catch (error) {
+        console.error("❌ Get Single Admission Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load admission.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== DELETE ADMISSION ====*/
+app.delete("/api/admissions/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [result] = await db.execute(
+            `DELETE FROM admissions WHERE id = ?`,
+            [id]
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Admission not found."
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "Admission deleted successfully."
+        });
+
+    } catch (error) {
+        console.error("❌ Delete Admission Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete admission.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*==== Start server ====*/
 app.listen(PORT, () => {

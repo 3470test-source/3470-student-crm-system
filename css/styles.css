@@ -6285,3 +6285,82 @@
 }
 
 /* --------------------------------------------------------------------------------------------------------------------------------- */
+
+              /* ================================
+                      VIEW ADMISSION PAGE
+              ================================ */
+
+.crm-view-header-MD {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 15px;
+}
+
+.crm-view-header-left-MD h1 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+        
+.crm-view-header-left-MD p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.crm-view-header-actions-MD {
+  display: flex;
+  gap: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.crm-view-back-btn-MD,
+.crm-edit-btn-view-MD {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+
+
+
+
+
+        .crm-view-back-btn-MD {
+            background: #f1f5f9;
+            color: #334155;
+        }
+
+        .crm-view-back-btn-MD:hover {
+            background: #e2e8f0;
+        }
+
+        .crm-edit-btn-view-MD {
+            background: #1cbe60;
+            color: #ffffff;
+        }
+
+        .crm-edit-btn-view-MD:hover {
+            background: #15994c;
+        }
+

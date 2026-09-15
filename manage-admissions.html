@@ -228,12 +228,12 @@
 
                     <div class="crm-manageAdmission-search-box">
                         <i class="fa fa-search"></i>
-                        <input type="text" placeholder="Search Student Name / Mobile Number">
+                        <input type="text" id="searchAdmission" placeholder="Search Student Name / Mobile Number">
                     </div>
 
                     <div class="crm-manageAdmission-filter-box">
-                        <select>
-                            <option>-- All Courses --</option>
+                        <select id="courseFilter">
+                            <option value="">-- All Courses --</option>
                             <option value="BMCT">BMCT - Basic Medical Coding Training</option>
                             <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
                             <option value="CPC">CPC - Certified Professional Coder</option>
@@ -249,8 +249,8 @@
                     </div>
 
                     <div class="crm-manageAdmission-filter-box">
-                        <select>
-                            <option>-- All Batches --</option>
+                        <select id="batchFilter">
+                            <option value="">-- All Batches --</option>
                             <option>Morning</option>
                             <option>Afternoon</option>
                             <option>Evening</option>
@@ -259,8 +259,8 @@
                     </div>
 
                     <div class="crm-manageAdmission-filter-box">
-                        <select>
-                            <option>-- All Status --</option>
+                        <select id="statusFilter">
+                            <option value="">-- All Status --</option>
                             <option>Active</option>
                             <option>Completed</option>
                             <option>Cancelled</option>
@@ -292,71 +292,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>ADM001</td>
-                                <td>Rahul Kumar</td>
-                                <td>9876543210</td>
-                                <td>CPC</td>
-                                <td>Morning</td>
-                                <td>05-Aug-2026</td>
-                                <td>₹25,000</td>
-                                <td>₹10,000</td>
-                                <td>₹15,000</td>
-                                <td>
-                                    <span class="crm-status-MD active">Active</span>
-                                </td>
-                                <td>Ramesh</td>
-                                <td>
-                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>ADM002</td>
-                                <td>Anitha</td>
-                                <td>9876501234</td>
-                                <td>CRC</td>
-                                <td>Evening</td>
-                                <td>07-Aug-2026</td>
-                                <td>₹30,000</td>
-                                <td>₹30,000</td>
-                                <td>₹0</td>
-                                <td>
-                                    <span class="crm-status-MD completed">Completed</span>
-                                </td>
-                                <td>Renuka</td>
-                                <td>
-                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>ADM003</td>
-                                <td>Arun</td>
-                                <td>9876512345</td>
-                                <td>CCS</td>
-                                <td>Weekend</td>
-                                <td>10-Aug-2026</td>
-                                <td>₹28,000</td>
-                                <td>₹15,000</td>
-                                <td>₹13,000</td>
-                                <td>
-                                    <span class="crm-status-MD pending">Pending</span>
-                                </td>
-                                <td>Perumal</td>
-                                <td>
-                                    <button class="crm-view-btn-MD"><i class="fa fa-eye"></i></button>
-                                    <button class="crm-edit-btn-MD"><i class="fa fa-edit"></i></button>
-                                    <button class="crm-delete-btn-MD"><i class="fa fa-trash"></i></button>
-                                </td>
-                            </tr>
-
-                        </tbody>
+                        <tbody id="admissionsTableBody"></tbody>
 
                     </table>
 
@@ -364,7 +300,7 @@
 
                     <!-- Footer -->
                     <div class="crm-table-footer">
-                        <p>Showing 1 to 3 of 3 Records.p</p>
+                        <p>Showing <span id="recordCount">0</span> Records</p>
                     </div>
 
             </main>
@@ -407,6 +343,475 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Manage Admission - JS  -->
+<script>
+
+    const API_BASE = "http://localhost:3000/api";
+
+    let allAdmissions = [];
+
+
+/*--- LOAD ADMISSIONS ---*/
+async function loadAdmissions() {
+
+    try {
+
+        const response = await fetch(`${API_BASE}/admissions`);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch admissions");
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || "Unable to load admissions");
+        }
+
+        allAdmissions = data.admissions || [];
+
+        populateFilters();
+        renderAdmissions(allAdmissions);
+
+    } catch (error) {
+
+        console.error("❌ Admission Load Error:", error);
+
+        document.getElementById("admissionsTableBody").innerHTML = `
+            <tr>
+                <td colspan="12" style="text-align:center;color:red;">
+                    Failed to load admissions.
+                </td>
+            </tr>
+        `;
+    }
+}
+
+
+
+/*--- RENDER TABLE ---*/
+function renderAdmissions(admissions) {
+
+    const tbody = document.getElementById("admissionsTableBody");
+
+    tbody.innerHTML = "";
+
+    if (admissions.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="12" style="text-align:center;">
+                    No admissions found.
+                </td>
+            </tr>
+        `;
+
+        document.getElementById("recordCount").textContent = "0";
+
+        return;
+    }
+
+
+    admissions.forEach((admission, index) => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${index + 1}</td>
+
+            <td>${escapeHtml(admission.student_name)}</td>
+
+            <td>${escapeHtml(admission.mobile || "-")}</td>
+
+            <td>${escapeHtml(admission.course || "-")}</td>
+
+            <td>${escapeHtml(admission.batch || "-")}</td>
+
+            <td>${formatDate(admission.joining_date)}</td>
+
+            <td>₹${formatCurrency(admission.final_fee)}</td>
+
+            <td>₹${formatCurrency(admission.registration_amount)}</td>
+
+            <td>₹${formatCurrency(admission.balance_amount)}</td>
+
+            <td>
+                <span class="crm-status-MD ${getStatusClass(admission.admission_status)}">
+                    ${escapeHtml(admission.admission_status || "-")}
+                </span>
+            </td>
+
+            <td>${escapeHtml(admission.counsellor || "-")}</td>
+
+            <td>
+                <button class="crm-view-btn-MD" onclick="viewAdmission(${admission.id})" title="View">
+                    <i class="fa fa-eye"></i>
+                </button>
+
+                <button class="crm-edit-btn-MD" onclick="editAdmission(${admission.id})" title="Edit">
+                    <i class="fa fa-edit"></i>
+                </button>
+
+                <button class="crm-delete-btn-MD" onclick="deleteAdmission(${admission.id})" title="Delete">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+    });
+
+
+    document.getElementById("recordCount").textContent = admissions.length;
+
+}
+
+
+
+/*--- SEARCH + FILTER ---*/
+function filterAdmissions() {
+
+    const search = document.getElementById("searchAdmission")
+            .value
+            .toLowerCase()
+            .trim();
+
+    const course = document.getElementById("courseFilter").value;
+
+    const batch = document.getElementById("batchFilter").value;
+
+    const status = document.getElementById("statusFilter").value;
+
+    const filtered = allAdmissions.filter(admission => {
+
+        const matchesSearch =
+            !search ||
+            (admission.student_name || "")
+                .toLowerCase()
+                .includes(search) ||
+            (admission.mobile || "")
+                .toLowerCase()
+                .includes(search);
+
+
+        const matchesCourse =
+            !course ||
+            admission.course === course;
+
+
+        const matchesBatch =
+            !batch ||
+            admission.batch === batch;
+
+
+        const matchesStatus =
+            !status ||
+            admission.admission_status === status;
+
+
+        return (
+            matchesSearch &&
+            matchesCourse &&
+            matchesBatch &&
+            matchesStatus
+        );
+    });
+
+
+    renderAdmissions(filtered);
+}
+
+
+
+/*--- POPULATE FILTERS ---*/
+function populateFilters() {
+
+    const courseFilter = document.getElementById("courseFilter");
+
+    const batchFilter = document.getElementById("batchFilter");
+
+    const statusFilter = document.getElementById("statusFilter");
+
+    const courses = [
+        ...new Set(
+            allAdmissions
+                .map(item => item.course)
+                .filter(Boolean)
+        )
+    ];
+
+    const batches = [
+        ...new Set(
+            allAdmissions
+                .map(item => item.batch)
+                .filter(Boolean)
+        )
+    ];
+
+    const statuses = [
+        ...new Set(
+            allAdmissions
+                .map(item => item.admission_status)
+                .filter(Boolean)
+        )
+    ];
+
+    courseFilter.innerHTML = `<option value="">-- All Courses --</option>`;
+
+    courses.forEach(course => {
+
+        courseFilter.innerHTML += `
+            <option value="${escapeHtml(course)}">
+                ${escapeHtml(course)}
+            </option>
+        `;
+    });
+
+
+    batchFilter.innerHTML = `<option value="">-- All Batches --</option>`;
+
+    batches.forEach(batch => {
+
+        batchFilter.innerHTML += `
+            <option value="${escapeHtml(batch)}">
+                ${escapeHtml(batch)}
+            </option>
+        `;
+    });
+
+
+    statusFilter.innerHTML = `<option value="">-- All Status --</option>`;
+
+    statuses.forEach(status => {
+
+        statusFilter.innerHTML += `
+            <option value="${escapeHtml(status)}">
+                ${escapeHtml(status)}
+            </option>
+        `;
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// async function viewAdmission(id) {
+
+//     try {
+
+//         const response =
+//             await fetch(`${API_BASE}/admissions/${id}`);
+
+//         const data = await response.json();
+
+//         if (!data.success) {
+//             alert(data.message);
+//             return;
+//         }
+
+//         const admission = data.admission;
+
+//         alert(`
+// Student: ${admission.student_name}
+// Mobile: ${admission.mobile}
+// Email: ${admission.email || "-"}
+// Course: ${admission.course}
+// Batch: ${admission.batch || "-"}
+// Joining Date: ${formatDate(admission.joining_date)}
+// Course Fee: ₹${formatCurrency(admission.course_fee)}
+// Discount: ₹${formatCurrency(admission.discount)}
+// Final Fee: ₹${formatCurrency(admission.final_fee)}
+// Paid: ₹${formatCurrency(admission.registration_amount)}
+// Balance: ₹${formatCurrency(admission.balance_amount)}
+// Payment Mode: ${admission.payment_mode || "-"}
+// Counsellor: ${admission.counsellor || "-"}
+// Status: ${admission.admission_status || "-"}
+// Remarks: ${admission.remarks || "-"}
+//         `);
+
+//     } catch (error) {
+
+//         console.error(error);
+//         alert("Unable to load admission details.");
+//     }
+// }
+
+
+
+
+
+/*--- VIEW ---*/
+function viewAdmission(id) {
+    window.location.href = `view-admission.html?id=${id}`;
+}
+
+
+/*--- EDIT ---*/
+function editAdmission(id) {
+    window.location.href = `edit-admission.html?id=${id}`;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*--- DELETE ---*/
+async function deleteAdmission(id) {
+
+    const admission = allAdmissions.find(item => item.id == id);
+
+    if (!admission) return;
+
+    const confirmed = confirm(
+        `Are you sure you want to delete admission for "${admission.student_name}"?`
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+        const response = await fetch(`${API_BASE}/admissions/${id}`, {
+                method: "DELETE"
+            });
+
+        const data = await response.json();
+
+        if (!data.success) {
+            alert(data.message);
+            return;
+        }
+
+        alert("Admission deleted successfully.");
+
+        loadAdmissions();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to delete admission.");
+    }
+}
+
+
+
+/*--- HELPERS ---*/
+function formatCurrency(value) {
+
+    const number = Number(value) || 0;
+
+    return number.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+}
+
+
+function formatDate(date) {
+
+    if (!date) return "-";
+
+    const d = new Date(date);
+
+    if (isNaN(d.getTime())) {
+        return date;
+    }
+
+    return d.toLocaleDateString("en-IN");
+}
+
+
+function getStatusClass(status) {
+
+    if (!status) return "";
+
+    switch (status.toLowerCase()) {
+
+        case "confirmed":
+        case "active":
+            return "completed";
+
+        case "pending":
+            return "pending";
+
+        case "cancelled":
+            return "cancelled";
+
+        case "completed":
+            return "completed";
+
+        default:
+            return "pending";
+    }
+}
+
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+
+/*--- INITIAL LOAD ---*/
+document.addEventListener("DOMContentLoaded", () => {
+
+document.getElementById("searchAdmission").addEventListener("input", filterAdmissions);
+
+document.getElementById("courseFilter").addEventListener("change", filterAdmissions);
+
+document.getElementById("batchFilter").addEventListener("change", filterAdmissions);
+
+document.getElementById("statusFilter").addEventListener("change", filterAdmissions);
+
+    loadAdmissions();
+
+});
+
 </script>
 
 
