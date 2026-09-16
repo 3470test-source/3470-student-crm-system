@@ -393,8 +393,8 @@ async function loadAdmissions() {
 
         document.getElementById("admissionsTableBody").innerHTML = `
             <tr>
-                <td colspan="12" style="text-align:center;color:red;">
-                    Failed to load admissions.
+                <td colspan="12" style="text-align:center;">
+                    ❌ Failed to load admissions.
                 </td>
             </tr>
         `;
@@ -607,66 +607,6 @@ function populateFilters() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// async function viewAdmission(id) {
-
-//     try {
-
-//         const response =
-//             await fetch(`${API_BASE}/admissions/${id}`);
-
-//         const data = await response.json();
-
-//         if (!data.success) {
-//             alert(data.message);
-//             return;
-//         }
-
-//         const admission = data.admission;
-
-//         alert(`
-// Student: ${admission.student_name}
-// Mobile: ${admission.mobile}
-// Email: ${admission.email || "-"}
-// Course: ${admission.course}
-// Batch: ${admission.batch || "-"}
-// Joining Date: ${formatDate(admission.joining_date)}
-// Course Fee: ₹${formatCurrency(admission.course_fee)}
-// Discount: ₹${formatCurrency(admission.discount)}
-// Final Fee: ₹${formatCurrency(admission.final_fee)}
-// Paid: ₹${formatCurrency(admission.registration_amount)}
-// Balance: ₹${formatCurrency(admission.balance_amount)}
-// Payment Mode: ${admission.payment_mode || "-"}
-// Counsellor: ${admission.counsellor || "-"}
-// Status: ${admission.admission_status || "-"}
-// Remarks: ${admission.remarks || "-"}
-//         `);
-
-//     } catch (error) {
-
-//         console.error(error);
-//         alert("Unable to load admission details.");
-//     }
-// }
-
-
-
-
-
 /*--- VIEW ---*/
 function viewAdmission(id) {
     window.location.href = `view-admission.html?id=${id}`;
@@ -677,17 +617,6 @@ function viewAdmission(id) {
 function editAdmission(id) {
     window.location.href = `edit-admission.html?id=${id}`;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 /*--- DELETE ---*/

@@ -21,7 +21,7 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     </style>
  
 </head>
@@ -209,26 +209,278 @@
             </aside>
 
 
+            <!--- MAIN CONTENT --->
+            <main class="crm-dashboard-main">
+
+                <div class="crm-edit-admission-container">
+
+                    <!-- PAGE HEADER -->
+                    <div class="crm-edit-header-MD">
+
+                        <div class="crm-edit-header-left-MD">
+                            <h1>Edit Admission</h1>
+                            <p>Update student admission information.</p>
+                        </div>
+
+                        <div class="crm-edit-header-actions-MD">
+
+                            <button type="button" class="crm-back-btn-MD" onclick="goBack()">
+                                <i class="fa-solid fa-arrow-left"></i>Back
+                            </button>
+
+                            <button type="submit" form="editAdmissionForm" class="crm-save-header-btn-MD">
+                                <i class="fa-solid fa-save"></i>Update
+                            </button>
+
+                        </div>
+
+                    </div>
 
 
+                    <!--- LOADING --->
+                    <div id="loadingMessage" class="crm-loading-editMD">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <div>Loading admission details...</div>
+                    </div>
 
 
+                    <!--- ERROR --->
+                    <div id="errorMessage" class="crm-error-editMD" style="display:none;">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <h3>Unable to load admission</h3>
+                        <p id="errorText">Admission details could not be loaded.</p>
+                    
+                        <br>
+
+                        <button type="button" class="crm-back-btn-MD" onclick="goBack()">
+                            <i class="fa-solid fa-arrow-left"></i>Back to Manage Admissions
+                        </button>
+
+                    </div>
 
 
+                    <!--- FORM CONTENT --->
+                    <form id="editAdmissionForm" style="display:none;">
+
+                        <!--- STUDENT INFORMATION --->
+                        <div class="crm-admission-form-card-MD">
+
+                            <div class="crm-section-title-editMD">
+                                <h2><i class="fa-solid fa-user-graduate"></i>Student Information</h2>
+                            </div>
 
 
+                        <div class="crm-form-grid-MD">
+
+                            <!-- STUDENT NAME -->
+                            <div class="crm-form-group-MD">
+                                <label for="studentName">Student Name <span>*</span></label>
+                                <input type="text" id="studentName" name="student_name" placeholder="Enter student name" required>
+                            </div>
+
+                            <!-- MOBILE -->
+                            <div class="crm-form-group-MD">
+                                <label for="mobile">Mobile Number <span>*</span></label>
+                                <input type="text" id="mobile" name="mobile" placeholder="Enter 10 digit mobile number"
+                                    maxlength="10" inputmode="numeric" required>
+                            </div>
+
+                            <!-- EMAIL -->
+                            <div class="crm-form-group-MD">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="Enter email address">
+                            </div>
+
+                            <!-- GENDER -->
+                            <div class="crm-form-group-MD">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <!-- DATE OF BIRTH -->
+                            <div class="crm-form-group-MD">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" name="date_of_birth">
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
+                    <!--- ADMISSION INFORMATION --->
+                    <div class="crm-admission-form-card-MD">
+
+                        <div class="crm-section-title-editMD">
+                            <h2><i class="fa-solid fa-graduation-cap"></i>Admission Information</h2>
+                        </div>
+
+                        <div class="crm-form-grid-MD">
+
+                            <!-- COURSE -->
+                            <div class="crm-form-group-MD">
+                                <label for="course">Course <span>*</span></label>
+                                <select id="course" name="course" required>
+                                    <option value="">Loading courses...</option>
+                                </select>
+                            </div>
+
+                            <!-- BATCH -->
+                            <div class="crm-form-group-MD">
+                                <label for="batch">Batch</label>
+                                <select id="batch" name="batch">
+                                    <option value="">-- Select Batch --</option>
+                                    <option value="Morning">Morning</option>
+                                    <option value="Afternoon">Afternoon</option>
+                                    <option value="Evening">Evening</option>
+                                    <option value="Weekend">Weekend</option>
+                                </select>
+                            </div>
+
+                            <!-- JOINING DATE -->
+                            <div class="crm-form-group-MD">
+                                <label for="joiningDate">Joining Date</label>
+                                <input type="date" id="joiningDate" name="joining_date">
+                            </div>
+
+                            <!-- PAYMENT MODE -->
+                            <div class="crm-form-group-MD">
+                                <label for="paymentMode">Payment Mode</label>
+                                <select id="paymentMode" name="payment_mode">
+                                    <option value="">-- Select Payment Mode --</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="Card">Card</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cheque">Cheque</option>
+                                </select>
+                            </div>
+
+                            <!-- COUNSELLOR -->
+                            <div class="crm-form-group-MD">
+                                <label for="counsellor">Counsellor</label>
+                                <select id="counsellor" name="counsellor">
+                                    <option value="">Loading counsellors...</option>
+                                </select>
+                            </div>
+
+                            <!-- ADMISSION STATUS -->
+                            <div class="crm-form-group-MD">
+                                <label for="admissionStatus">Admission Status</label>
+                                <select id="admissionStatus" name="admission_status">
+                                    <option value="Confirmed">Confirmed</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
 
 
+                    <!--- FEE INFORMATION --->
+                    <div class="crm-admission-form-card-MD">
 
-            
+                        <div class="crm-section-title-editMD">
+                            <h2><i class="fa-solid fa-indian-rupee-sign"></i>Fee Information</h2>
+                        </div>
+
+                        <div class="crm-form-grid-MD">
+
+                            <!-- COURSE FEE -->
+                            <div class="crm-form-group-MD">
+                                <label for="courseFee">Course Fee</label>
+                                <input type="number" id="courseFee" name="course_fee" min="0" step="0.01" placeholder="0.00">
+                            </div>
+
+                            <!-- DISCOUNT -->
+                            <div class="crm-form-group-MD">
+                                <label for="discount">Discount</label>
+                                <input type="number" id="discount" name="discount" min="0" step="0.01" value="0" placeholder="0.00">
+                            </div>
+
+                            <!-- REGISTRATION -->
+                            <div class="crm-form-group-MD">
+                                <label for="registrationAmount">Registration / Paid Amount</label>
+                                <input type="number" id="registrationAmount" name="registration_amount"
+                                    min="0" step="0.01" value="0" placeholder="0.00">
+                            </div>
+
+                        </div>
+
+                        <!-- FEE SUMMARY -->
+                        <div class="crm-fee-summary-MD">
+
+                            <div class="crm-fee-box-MD">
+                                <label>Course Fee</label>
+                                <strong id="courseFeeDisplay">₹0.00</strong>
+                            </div>
+
+                            <div class="crm-fee-box-MD final">
+                                <label>Final Fee</label>
+                                <strong id="finalFeeDisplay">₹0.00</strong>
+                            </div>
+
+                            <div class="crm-fee-box-MD balance">
+                                <label>Balance Amount</label>
+                                <strong id="balanceAmountDisplay">₹0.00</strong>
+                            </div>
+
+                        </div>
+
+                        <!-- Hidden values submitted to backend -->
+                        <input type="hidden" id="finalFee" name="final_fee">
+                        <input type="hidden" id="balanceAmount" name="balance_amount">
+
+                    </div>
 
 
+                    <!--- REMARKS --->
+                    <div class="crm-admission-form-card-MD">
+
+                        <div class="crm-section-title-editMD">
+                            <h2><i class="fa-solid fa-comment"></i>Remarks</h2>
+                        </div>
+
+                        <div class="crm-form-grid-MD">
+
+                            <div class="crm-form-group-MD full-width">
+                                <label for="remarks">Remarks</label>
+                                <textarea id="remarks" name="remarks" placeholder="Enter admission remarks..."></textarea>
+                            </div>
+
+                        </div>
 
 
+                        <!-- FORM FOOTER -->
+                        <div class="crm-form-footer-MD">
 
-        </div>
+                            <button type="button" class="crm-cancel-btn-MD" onclick="goBack()">
+                                <i class="fa-solid fa-xmark"></i>Cancel
+                            </button>
+
+                            <button type="submit" class="crm-update-btn-MD" id="updateBtn">
+                                <i class="fa-solid fa-save"></i>Update Admission
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </main>
+
+    </div>
 
 
 <!-- Profile dropdown JS - Script -->
@@ -266,6 +518,632 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+<!-- Edit Admission - JS  -->
+<script>
+
+    /*--- API ---*/
+    const API_BASE = "http://localhost:3000/api";
+
+
+    /*--- GET ADMISSION ID ---*/
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const admissionId = urlParams.get("id");
+
+
+    /*--- ELEMENTS ---*/
+    const loadingMessage = document.getElementById("loadingMessage");
+
+    const errorMessage = document.getElementById("errorMessage");
+
+    const errorText = document.getElementById("errorText");
+
+    const editAdmissionForm = document.getElementById("editAdmissionForm");
+
+    const updateBtn = document.getElementById("updateBtn");
+
+
+    /*--- CURRENT ADMISSION ---*/
+    let currentAdmission = null;
+
+
+    /*--- FORMAT CURRENCY ---*/
+    function formatCurrency(value) {
+
+        const amount = Number(value) || 0;
+
+        return amount.toLocaleString("en-IN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+    }
+
+
+    /*--- FORMAT DATE FOR INPUT ---*/
+    function formatDateForInput(value) {
+
+        if (!value) {
+            return "";
+        }
+
+        const date = new Date(value);
+
+        if (isNaN(date.getTime())) {
+            return "";
+        }
+
+        const year = date.getFullYear();
+
+        const month =
+            String(
+                date.getMonth() + 1
+            ).padStart(2, "0");
+
+        const day =
+            String(
+                date.getDate()
+            ).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+
+    }
+
+
+    /*--- LOAD ADMISSION ---*/
+    async function loadAdmission() {
+
+        if (!admissionId) {
+
+            showError("No admission ID was provided.");
+
+            return;
+
+        }
+
+
+        try {
+
+            const response = await fetch(`${API_BASE}/admissions/${admissionId}`);
+
+            if (!response.ok) {
+
+                throw new Error("Admission not found.");
+
+            }
+
+            const data = await response.json();
+
+            if (
+                !data.success ||
+                !data.admission
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load admission."
+                );
+
+            }
+
+            currentAdmission = data.admission;
+
+            await Promise.all([
+                loadCourses(),
+                loadCounsellors()
+            ]);
+
+
+            populateForm(currentAdmission);
+
+            loadingMessage.style.display = "none";
+
+            errorMessage.style.display = "none";
+
+            editAdmissionForm.style.display = "block";
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Edit Admission Load Error:",
+                error
+            );
+
+            showError(
+                error.message ||
+                "Failed to load admission."
+            );
+
+        }
+
+    }
+
+
+    /*--- LOAD COURSES ---*/
+    async function loadCourses() {
+
+        const courseSelect = document.getElementById("course");
+
+        try {
+
+            const response = await fetch(`${API_BASE}/admissions/courses`);
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load courses."
+                );
+
+            }
+
+            const data = await response.json();
+
+            if (!data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load courses."
+                );
+
+            }
+
+            courseSelect.innerHTML = `<option value="">-- Select Course --</option>`;
+
+            (data.courses || []).forEach(
+                function(course) {
+
+                    const option = document.createElement("option");
+
+                    option.value = course.course_name;
+
+                    option.textContent = course.course_category
+                            ? `${course.course_name} - ${course.course_category}`
+                            : course.course_name;
+
+                    option.dataset.fee = course.course_fee || 0;
+
+                    courseSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Course Load Error:",
+                error
+            );
+
+            courseSelect.innerHTML = `<option value="">Unable to load courses</option>`;
+
+        }
+
+    }
+
+
+    /*--- LOAD COUNSELLORS ---*/
+    async function loadCounsellors() {
+
+        const counsellorSelect = document.getElementById("counsellor");
+
+        try {
+
+            const response = await fetch(`${API_BASE}/admissions/counsellors`);
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Failed to load counsellors."
+                );
+
+            }
+
+
+            const data = await response.json();
+
+            if (!data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Unable to load counsellors."
+                );
+
+            }
+
+
+            counsellorSelect.innerHTML = `<option value="">-- Select Counsellor --</option>`;
+
+            (data.counsellors || []).forEach(
+                function(counsellor) {
+
+                    const option = document.createElement("option");
+
+                    option.value = counsellor.name;
+
+                    option.textContent = counsellor.name;
+
+                    counsellorSelect.appendChild(
+                        option
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "❌ Counsellor Load Error:",
+                error
+            );
+
+            counsellorSelect.innerHTML = `<option value="">Unable to load counsellors</option>`;
+
+        }
+
+    }
+
+
+    /*--- POPULATE FORM ---*/
+    function populateForm(admission) {
+
+        document.getElementById("studentName").value = admission.student_name || "";
+
+        document.getElementById("mobile").value = admission.mobile || "";
+
+        document.getElementById("email").value = admission.email || "";
+
+        document.getElementById("gender").value = admission.gender || "";
+
+        document.getElementById("dateOfBirth").value = formatDateForInput(admission.date_of_birth);
+
+
+        /*--- Admission ---*/
+        document.getElementById("course").value = admission.course || "";
+
+        document.getElementById("batch").value = admission.batch || "";
+
+        document.getElementById("joiningDate").value = formatDateForInput(admission.joining_date);
+
+        document.getElementById("paymentMode").value = admission.payment_mode || "";
+
+        document.getElementById("counsellor").value = admission.counsellor || "";
+
+        document.getElementById("admissionStatus").value = admission.admission_status || "Confirmed";
+
+
+        /*--- Fees ---*/
+        document.getElementById("courseFee").value = Number(admission.course_fee) || 0;
+
+        document.getElementById("discount").value = Number(admission.discount) || 0;
+
+        document.getElementById("registrationAmount").value = Number(admission.registration_amount) || 0;
+
+
+        /*--- Remarks ---*/
+        document.getElementById("remarks").value = admission.remarks || "";
+
+        calculateFees();
+
+    }
+
+
+    /*--- CALCULATE FEES ---*/
+    function calculateFees() {
+
+        const courseFee = Number(document.getElementById("courseFee").value) || 0;
+
+        const discount = Number(document.getElementById("discount").value) || 0;
+
+        const registrationAmount = Number(document.getElementById("registrationAmount").value) || 0;
+
+        let finalFee = courseFee - discount;
+
+
+        if (finalFee < 0) {
+            finalFee = 0;
+        }
+
+
+        let balanceAmount = finalFee - registrationAmount;
+
+        if (balanceAmount < 0) {
+            balanceAmount = 0;
+        }
+
+
+        document.getElementById("finalFee").value = finalFee.toFixed(2);
+
+        document.getElementById("balanceAmount").value = balanceAmount.toFixed(2);
+
+        document.getElementById("courseFeeDisplay").textContent = `₹${formatCurrency(courseFee)}`;
+
+        document.getElementById("finalFeeDisplay").textContent = `₹${formatCurrency(finalFee)}`;
+
+        document.getElementById("balanceAmountDisplay").textContent = `₹${formatCurrency(balanceAmount)}`;
+
+    }
+
+
+    /*--- COURSE CHANGE ---*/
+    document.getElementById("course").addEventListener("change", function() {
+
+                const selectedOption = this.options[this.selectedIndex];
+
+                if (
+                    selectedOption &&
+                    selectedOption.dataset.fee
+                ) {
+
+                    const currentCourseFee =
+                        Number(
+                            document.getElementById(
+                                "courseFee"
+                            ).value
+                        ) || 0;
+
+
+                    /*
+                       Only automatically update course fee
+                       when selecting another course.
+                    */
+
+                    const newCourseFee =
+                        Number(
+                            selectedOption.dataset.fee
+                        ) || 0;
+
+
+                    if (
+                        currentCourseFee === 0 ||
+                        confirm(
+                            "Do you want to update the course fee based on the selected course?"
+                        )
+                    ) {
+
+                        document.getElementById(
+                            "courseFee"
+                        ).value =
+                            newCourseFee;
+
+                        calculateFees();
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    /*--- FEE INPUT EVENTS ---*/
+    document.getElementById("courseFee").addEventListener("input", calculateFees);
+
+    document.getElementById("discount").addEventListener("input", calculateFees);
+
+    document.getElementById("registrationAmount").addEventListener("input", calculateFees);
+
+
+    /*--- SUBMIT UPDATE ---*/
+    editAdmissionForm.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const studentName = document.getElementById("studentName").value.trim();
+
+            const mobile = document.getElementById("mobile").value.trim();
+
+            const course = document.getElementById("course").value;
+
+            const courseFee = Number(document.getElementById("courseFee").value) || 0;
+
+            const discount = Number(document.getElementById("discount").value) || 0;
+
+            const registrationAmount = Number(document.getElementById("registrationAmount").value) || 0;
+
+
+            /*--- VALIDATION ---*/
+            if (!studentName) {
+
+                alert("Please enter student name.");
+
+                document.getElementById("studentName").focus();
+
+                return;
+
+            }
+
+
+            if (!/^\d{10}$/.test(mobile)) {
+
+                alert("Please enter a valid 10 digit mobile number.");
+
+                document.getElementById("mobile").focus();
+
+                return;
+
+            }
+
+
+            if (!course) {
+
+                alert("Please select a course.");
+
+                document.getElementById("course").focus();
+
+                return;
+
+            }
+
+
+            if (discount > courseFee) {
+
+                alert("Discount cannot be greater than course fee.");
+
+                document.getElementById("discount").focus();
+
+                return;
+
+            }
+
+
+            const finalFee = Math.max(courseFee - discount, 0);
+
+
+            if (
+                registrationAmount >
+                finalFee
+            ) {
+
+                alert("Paid amount cannot be greater than final fee.");
+
+                document.getElementById("registrationAmount").focus();
+
+                return;
+
+            }
+
+
+            const balanceAmount = Math.max(finalFee - registrationAmount, 0);
+
+
+            /*--- REQUEST DATA ---*/
+            const admissionData = {
+
+                student_name: studentName,
+
+                mobile: mobile,
+
+                email: document.getElementById("email").value.trim() || null,
+
+                gender: document.getElementById("gender").value || null,
+
+                date_of_birth: document.getElementById("dateOfBirth").value || null,
+
+                course: course,
+
+                batch: document.getElementById("batch").value || null,
+
+                joining_date: document.getElementById("joiningDate").value || null,
+
+                course_fee: courseFee,
+
+                discount: discount,
+
+                final_fee: finalFee,
+
+                registration_amount: registrationAmount,
+
+                balance_amount: balanceAmount,
+
+                payment_mode: document.getElementById("paymentMode").value || null,
+
+                counsellor: document.getElementById("counsellor").value || null,
+
+                admission_status: document.getElementById("admissionStatus").value || "Confirmed",
+
+                remarks: document.getElementById("remarks").value.trim() || null
+
+            };
+
+
+            /*--- DISABLE BUTTON ---*/
+            updateBtn.disabled = true;
+
+            updateBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>Updating...`;
+
+            try {
+
+                const response = await fetch(`${API_BASE}/admissions/${admissionId}`, {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    admissionData
+                                )
+                        }
+                    );
+
+
+                const data = await response.json();
+
+                if (!response.ok ||
+                    !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to update admission."
+                    );
+
+                }
+
+
+                alert("Admission updated successfully.");
+
+                window.location.href = "manage-admissions.html";
+
+            } catch (error) {
+
+                console.error("❌ Update Admission Error:", error);
+
+                alert(
+                    error.message ||
+                    "Failed to update admission."
+                );
+
+
+                updateBtn.disabled = false;
+
+                updateBtn.innerHTML = `<i class="fa-solid fa-save"></i>Update Admission`;
+
+            }
+
+        }
+    );
+
+
+    /*--- SHOW ERROR ---*/
+    function showError(message) {
+
+        loadingMessage.style.display = "none";
+
+        editAdmissionForm.style.display = "none";
+
+        errorMessage.style.display = "block";
+
+        errorText.textContent = message;
+
+    }
+
+
+    /*--- BACK ---*/
+    function goBack() {
+
+        window.location.href = "manage-admissions.html";
+
+    }
+
+
+    /*--- INITIAL LOAD ---*/
+    document.addEventListener("DOMContentLoaded", function() {
+
+            loadAdmission();
+
+        }
+    );
+
 </script>
 
 

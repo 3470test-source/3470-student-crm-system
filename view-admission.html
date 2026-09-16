@@ -22,229 +22,6 @@
       box-sizing: border-box;
     }
     
-
-
-           
-
-      
-
-        
-        
-
-      
-        
-
-
-
-
-
-
-
-
-
-        /* =====================================================
-           MAIN CARD
-        ===================================================== */
-
-        .crm-admission-card-MD {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-            margin-bottom: 22px;
-            overflow: hidden;
-        }
-
-        .crm-section-title-MD {
-            padding: 18px 22px;
-            border-bottom: 1px solid #e5e7eb;
-            background: #f8fafc;
-        }
-
-        .crm-section-title-MD h2 {
-            margin: 0;
-            font-size: 18px;
-            color: #1f2937;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .crm-section-title-MD h2 i {
-            color: #1cbe60;
-        }
-
-        .crm-admission-grid-MD {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-        }
-
-        .crm-detail-item-MD {
-            padding: 18px 22px;
-            border-bottom: 1px solid #edf0f2;
-        }
-
-        .crm-detail-item-MD:nth-child(3n + 1),
-        .crm-detail-item-MD:nth-child(3n + 2) {
-            border-right: 1px solid #edf0f2;
-        }
-
-        .crm-detail-label-MD {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: #64748b;
-            margin-bottom: 7px;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .crm-detail-value-MD {
-            display: block;
-            font-size: 15px;
-            font-weight: 600;
-            color: #1f2937;
-            word-break: break-word;
-        }
-
-        /* =====================================================
-           FEE SECTION
-        ===================================================== */
-
-        .crm-fee-grid-MD {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-        }
-
-        .crm-fee-item-MD {
-            padding: 22px;
-            border-right: 1px solid #edf0f2;
-        }
-
-        .crm-fee-item-MD:last-child {
-            border-right: none;
-        }
-
-        .crm-fee-label-MD {
-            font-size: 13px;
-            color: #64748b;
-            margin-bottom: 8px;
-        }
-
-        .crm-fee-value-MD {
-            font-size: 21px;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        .crm-fee-value-MD.final {
-            color: #1cbe60;
-        }
-
-        .crm-fee-value-MD.paid {
-            color: #2563eb;
-        }
-
-        .crm-fee-value-MD.balance {
-            color: #dc2626;
-        }
-
-        /* =====================================================
-           STATUS
-        ===================================================== */
-
-        .crm-admission-status-MD {
-            padding: 18px 22px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-top: 1px solid #edf0f2;
-        }
-
-        .crm-status-label-MD {
-            font-size: 13px;
-            font-weight: 600;
-            color: #64748b;
-        }
-
-        .crm-status-MD {
-            display: inline-flex;
-            align-items: center;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .crm-status-MD.active,
-        .crm-status-MD.confirmed {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .crm-status-MD.completed {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .crm-status-MD.pending {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .crm-status-MD.cancelled {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        /* =====================================================
-           REMARKS
-        ===================================================== */
-
-        .crm-remarks-MD {
-            padding: 20px 22px;
-            color: #475569;
-            line-height: 1.6;
-            font-size: 14px;
-            min-height: 60px;
-        }
-
-        /* =====================================================
-           LOADING / ERROR
-        ===================================================== */
-
-        .crm-loading-MD {
-            text-align: center;
-            padding: 60px 20px;
-            color: #64748b;
-        }
-
-        .crm-loading-MD i {
-            font-size: 30px;
-            margin-bottom: 12px;
-        }
-
-        .crm-error-MD {
-            text-align: center;
-            padding: 60px 20px;
-            color: #dc2626;
-        }
-
-        .crm-error-MD i {
-            font-size: 35px;
-            margin-bottom: 12px;
-        }
-
-        
-
-
-
-
-
-
-
-
-
     </style>
  
 </head>
@@ -459,398 +236,177 @@
                     </div> 
 
 
+                    <!--- LOADING --->
+                    <div id="loadingMessage" class="crm-loading-MD">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <div>Loading admission details...</div>
+                    </div>
 
 
+                    <!--- ERROR --->
+                    <div id="errorMessage" class="crm-error-MD" style="display:none;">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <h3>Unable to load admission</h3>
+                        <p id="errorText">Admission details could not be loaded.</p>
+                    </div>
 
 
+                    <!--- ADMISSION CONTENT --->
+                    <div id="admissionContent" style="display:none;">
+
+                        <!-- STUDENT INFORMATION -->
+                        <div class="crm-admission-card-MD">
+
+                            <div class="crm-section-title-MD">
+                                <h2><i class="fa-solid fa-user-graduate"></i>Student Information</h2>
+                            </div>
+
+                            <div class="crm-admission-grid-MD">
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Admission ID</span>
+                                    <span class="crm-detail-value-MD" id="admissionId">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Student Name</span>
+                                    <span class="crm-detail-value-MD" id="studentName">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Mobile Number</span>
+                                    <span class="crm-detail-value-MD" id="mobile">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Email</span>
+                                    <span class="crm-detail-value-MD" id="email">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Gender</span>
+                                    <span class="crm-detail-value-MD" id="gender">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Date of Birth</span>
+                                    <span class="crm-detail-value-MD" id="dateOfBirth">-</span>
+                                </div>
+
+                            </div>
+
+                        </div>
 
 
+                        <!-- ADMISSION INFORMATION -->
+                        <div class="crm-admission-card-MD">
+
+                            <div class="crm-section-title-MD">
+                                <h2><i class="fa-solid fa-graduation-cap"></i>Admission Information</h2>
+                            </div>
+
+                            <div class="crm-admission-grid-MD">
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Course</span>
+                                    <span class="crm-detail-value-MD" id="course">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Batch</span>
+                                    <span class="crm-detail-value-MD" id="batch">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Joining Date</span>
+                                    <span class="crm-detail-value-MD" id="joiningDate">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Counsellor</span>
+                                    <span class="crm-detail-value-MD" id="counsellor">-</span>
+                                </div>
+
+                                <div class="crm-detail-item-MD">
+                                    <span class="crm-detail-label-MD">Payment Mode</span>
+                                    <span class="crm-detail-value-MD" id="paymentMode">-</span>
+                                </div>
+
+                            </div>
 
 
-        <!-- =================================================
-             LOADING
-        ================================================== -->
+                            <div class="crm-admission-status-MD">
 
-        <div id="loadingMessage"
-             class="crm-loading-MD">
+                                <span class="crm-status-label-MD">Admission Status:</span>
+                                <span id="admissionStatus" class="crm-status-viewMD">-</span>
 
-            <i class="fa-solid fa-spinner fa-spin"></i>
+                            </div>
 
-            <div>
-                Loading admission details...
-            </div>
-
-        </div>
+                        </div>
 
 
-        <!-- =================================================
-             ERROR
-        ================================================== -->
+                        <!-- FEE INFORMATION -->
+                        <div class="crm-admission-card-MD">
 
-        <div id="errorMessage"
-             class="crm-error-MD"
-             style="display:none;">
+                            <div class="crm-section-title-MD">
+                                <h2><i class="fa-solid fa-indian-rupee-sign"></i>Fee Information</h2>
+                            </div>
 
-            <i class="fa-solid fa-circle-exclamation"></i>
+                            <div class="crm-fee-grid-MD">
 
-            <h3>
-                Unable to load admission
-            </h3>
+                                <div class="crm-fee-item-MD">
+                                    <div class="crm-fee-label-MD">Course Fee</div>
+                                    <div class="crm-fee-value-MD" id="courseFee">₹0
+                                </div>
 
-            <p id="errorText">
-                Admission details could not be loaded.
-            </p>
+                            </div>
 
-        </div>
+                            <div class="crm-fee-item-MD">
+                                <div class="crm-fee-label-MD">Discount</div>
+                                <div class="crm-fee-value-MD" id="discount">₹0</div>
+                            </div>
 
+                            <div class="crm-fee-item-MD">
+                                <div class="crm-fee-label-MD">Final Fee</div>
+                                <div class="crm-fee-value-MD final" id="finalFee">₹0</div>
+                            </div>
 
-        <!-- =================================================
-             ADMISSION CONTENT
-        ================================================== -->
+                            <div class="crm-fee-item-MD">
+                                <div class="crm-fee-label-MD">Paid</div>
+                                <div class="crm-fee-value-MD paid" id="registrationAmount">₹0</div>
+                            </div>
 
-        <div id="admissionContent"
-             style="display:none;">
-
-
-            <!-- STUDENT INFORMATION -->
-
-            <div class="crm-admission-card-MD">
-
-                <div class="crm-section-title-MD">
-
-                    <h2>
-                        <i class="fa-solid fa-user-graduate"></i>
-                        Student Information
-                    </h2>
-
-                </div>
+                        </div>
 
 
-                <div class="crm-admission-grid-MD">
+                        <div class="crm-admission-status-MD">
 
-                    <div class="crm-detail-item-MD">
+                            <span class="crm-status-label-MD">Balance Amount:</span>
+                            <strong class="crm-fee-value-MD balance" id="balanceAmount">₹0</strong>
 
-                        <span class="crm-detail-label-MD">
-                            Admission ID
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="admissionId">
-                            -
-                        </span>
+                        </div>
 
                     </div>
 
 
-                    <div class="crm-detail-item-MD">
+                    <!-- REMARKS -->
+                    <div class="crm-admission-card-MD">
 
-                        <span class="crm-detail-label-MD">
-                            Student Name
-                        </span>
+                        <div class="crm-section-title-MD">
+                            <h2><i class="fa-solid fa-comment"></i>Remarks</h2>
+                        </div>
 
-                        <span class="crm-detail-value-MD"
-                              id="studentName">
-                            -
-                        </span>
+                        <div class="crm-remarks-MD" id="remarks">-</div>
 
                     </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Mobile Number
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="mobile">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Email
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="email">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Gender
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="gender">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Date of Birth
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="dateOfBirth">
-                            -
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ADMISSION INFORMATION -->
-
-            <div class="crm-admission-card-MD">
-
-                <div class="crm-section-title-MD">
-
-                    <h2>
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        Admission Information
-                    </h2>
-
-                </div>
-
-
-                <div class="crm-admission-grid-MD">
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Course
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="course">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Batch
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="batch">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Joining Date
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="joiningDate">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Counsellor
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="counsellor">
-                            -
-                        </span>
-
-                    </div>
-
-
-                    <div class="crm-detail-item-MD">
-
-                        <span class="crm-detail-label-MD">
-                            Payment Mode
-                        </span>
-
-                        <span class="crm-detail-value-MD"
-                              id="paymentMode">
-                            -
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="crm-admission-status-MD">
-
-                    <span class="crm-status-label-MD">
-                        Admission Status:
-                    </span>
-
-                    <span id="admissionStatus"
-                          class="crm-status-MD">
-                        -
-                    </span>
 
                 </div>
 
             </div>
 
-
-            <!-- FEE INFORMATION -->
-
-            <div class="crm-admission-card-MD">
-
-                <div class="crm-section-title-MD">
-
-                    <h2>
-                        <i class="fa-solid fa-indian-rupee-sign"></i>
-                        Fee Information
-                    </h2>
-
-                </div>
-
-
-                <div class="crm-fee-grid-MD">
-
-                    <div class="crm-fee-item-MD">
-
-                        <div class="crm-fee-label-MD">
-                            Course Fee
-                        </div>
-
-                        <div class="crm-fee-value-MD"
-                             id="courseFee">
-                            ₹0
-                        </div>
-
-                    </div>
-
-
-                    <div class="crm-fee-item-MD">
-
-                        <div class="crm-fee-label-MD">
-                            Discount
-                        </div>
-
-                        <div class="crm-fee-value-MD"
-                             id="discount">
-                            ₹0
-                        </div>
-
-                    </div>
-
-
-                    <div class="crm-fee-item-MD">
-
-                        <div class="crm-fee-label-MD">
-                            Final Fee
-                        </div>
-
-                        <div class="crm-fee-value-MD final"
-                             id="finalFee">
-                            ₹0
-                        </div>
-
-                    </div>
-
-
-                    <div class="crm-fee-item-MD">
-
-                        <div class="crm-fee-label-MD">
-                            Paid
-                        </div>
-
-                        <div class="crm-fee-value-MD paid"
-                             id="registrationAmount">
-                            ₹0
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="crm-admission-status-MD">
-
-                    <span class="crm-status-label-MD">
-                        Balance Amount:
-                    </span>
-
-                    <strong class="crm-fee-value-MD balance"
-                            id="balanceAmount">
-                        ₹0
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <!-- REMARKS -->
-
-            <div class="crm-admission-card-MD">
-
-                <div class="crm-section-title-MD">
-
-                    <h2>
-                        <i class="fa-solid fa-comment"></i>
-                        Remarks
-                    </h2>
-
-                </div>
-
-
-                <div class="crm-remarks-MD"
-                     id="remarks">
-                    -
-                </div>
-
-            </div>
-
-        </div>
+        </main>
 
     </div>
-
-</main>
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-        </div>
 
 
 <!-- Profile dropdown JS - Script -->
@@ -891,70 +447,31 @@ dropdowns.forEach(dropdown => {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
 
-    /* =====================================================
-       API
-    ===================================================== */
-
+    /*--- API ---*/
     const API_BASE = "http://localhost:3000/api";
 
 
-    /* =====================================================
-       GET ADMISSION ID FROM URL
-    ===================================================== */
-
+    /*--- GET ADMISSION ID FROM URL ---*/
     const urlParams = new URLSearchParams(window.location.search);
 
     const admissionId = urlParams.get("id");
 
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+    /*--- ELEMENTS ---*/
+    const loadingMessage = document.getElementById("loadingMessage");
 
-    const loadingMessage =
-        document.getElementById("loadingMessage");
+    const errorMessage = document.getElementById("errorMessage");
 
-    const errorMessage =
-        document.getElementById("errorMessage");
+    const errorText = document.getElementById("errorText");
 
-    const errorText =
-        document.getElementById("errorText");
+    const admissionContent = document.getElementById("admissionContent");
 
-    const admissionContent =
-        document.getElementById("admissionContent");
-
-    const editAdmissionBtn =
-        document.getElementById("editAdmissionBtn");
+    const editAdmissionBtn = document.getElementById("editAdmissionBtn");
 
 
-    /* =====================================================
-       FORMAT CURRENCY
-    ===================================================== */
-
+    /*--- FORMAT CURRENCY ---*/
     function formatCurrency(value) {
 
         const amount = Number(value) || 0;
@@ -967,10 +484,7 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       FORMAT DATE
-    ===================================================== */
-
+    /*--- FORMAT DATE ---*/
     function formatDate(dateValue) {
 
         if (!dateValue) {
@@ -992,10 +506,7 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       SAFE TEXT
-    ===================================================== */
-
+    /*--- SAFE TEXT ---*/
     function safeValue(value) {
 
         if (
@@ -1011,18 +522,14 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       STATUS CLASS
-    ===================================================== */
-
+    /*--- STATUS CLASS ---*/
     function getStatusClass(status) {
 
         if (!status) {
             return "pending";
         }
 
-        const value =
-            String(status).toLowerCase().trim();
+        const value = String(status).toLowerCase().trim();
 
         if (
             value === "active" ||
@@ -1048,17 +555,12 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       LOAD ADMISSION
-    ===================================================== */
-
+    /*--- LOAD ADMISSION ---*/
     async function loadAdmission() {
 
         if (!admissionId) {
 
-            showError(
-                "No admission ID was provided in the URL."
-            );
+            showError("No admission ID was provided in the URL.");
 
             return;
         }
@@ -1066,24 +568,15 @@ dropdowns.forEach(dropdown => {
 
         try {
 
-            const response =
-                await fetch(
-                    `${API_BASE}/admissions/${admissionId}`
-                );
-
+            const response = await fetch(`${API_BASE}/admissions/${admissionId}`);
 
             if (!response.ok) {
 
-                throw new Error(
-                    "Admission not found."
-                );
+                throw new Error("Admission not found.");
 
             }
 
-
-            const data =
-                await response.json();
-
+            const data = await response.json();
 
             if (!data.success || !data.admission) {
 
@@ -1094,11 +587,7 @@ dropdowns.forEach(dropdown => {
 
             }
 
-
-            displayAdmission(
-                data.admission
-            );
-
+            displayAdmission(data.admission);
 
         } catch (error) {
 
@@ -1117,101 +606,70 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       DISPLAY ADMISSION
-    ===================================================== */
-
+    /*--- DISPLAY ADMISSION ---*/
     function displayAdmission(admission) {
 
-        /* Student Information */
+        /*--- Student Information ---*/
+        document.getElementById("admissionId").textContent = `ADM${String(admission.id).padStart(3, "0")}`;
 
-        document.getElementById("admissionId").textContent =
-            `ADM${String(admission.id).padStart(3, "0")}`;
+        document.getElementById("studentName").textContent = safeValue(admission.student_name);
 
-        document.getElementById("studentName").textContent =
-            safeValue(admission.student_name);
+        document.getElementById("mobile").textContent = safeValue(admission.mobile);
 
-        document.getElementById("mobile").textContent =
-            safeValue(admission.mobile);
+        document.getElementById("email").textContent = safeValue(admission.email);
 
-        document.getElementById("email").textContent =
-            safeValue(admission.email);
+        document.getElementById("gender").textContent = safeValue(admission.gender);
 
-        document.getElementById("gender").textContent =
-            safeValue(admission.gender);
-
-        document.getElementById("dateOfBirth").textContent =
-            formatDate(admission.date_of_birth);
+        document.getElementById("dateOfBirth").textContent = formatDate(admission.date_of_birth);
 
 
-        /* Admission Information */
+        /*--- Admission Information ---*/
+        document.getElementById("course").textContent = safeValue(admission.course);
 
-        document.getElementById("course").textContent =
-            safeValue(admission.course);
+        document.getElementById("batch").textContent = safeValue(admission.batch);
 
-        document.getElementById("batch").textContent =
-            safeValue(admission.batch);
+        document.getElementById("joiningDate").textContent = formatDate(admission.joining_date);
 
-        document.getElementById("joiningDate").textContent =
-            formatDate(admission.joining_date);
+        document.getElementById("counsellor").textContent = safeValue(admission.counsellor);
 
-        document.getElementById("counsellor").textContent =
-            safeValue(admission.counsellor);
-
-        document.getElementById("paymentMode").textContent =
-            safeValue(admission.payment_mode);
+        document.getElementById("paymentMode").textContent = safeValue(admission.payment_mode);
 
 
-        /* Status */
+        /*--- Status ---*/
+        const statusElement = document.getElementById("admissionStatus");
 
-        const statusElement =
-            document.getElementById("admissionStatus");
-
-        const status =
-            safeValue(admission.admission_status);
+        const status = safeValue(admission.admission_status);
 
         statusElement.textContent = status;
 
-        statusElement.className =
-            `crm-status-MD ${getStatusClass(status)}`;
+        statusElement.className = `crm-status-viewMD ${getStatusClass(status)}`;
 
 
-        /* Fee Information */
+        /*--- Fee Information ---*/
+        document.getElementById("courseFee").textContent = `₹${formatCurrency(admission.course_fee)}`;
 
-        document.getElementById("courseFee").textContent =
-            `₹${formatCurrency(admission.course_fee)}`;
+        document.getElementById("discount").textContent = `₹${formatCurrency(admission.discount)}`;
 
-        document.getElementById("discount").textContent =
-            `₹${formatCurrency(admission.discount)}`;
+        document.getElementById("finalFee").textContent = `₹${formatCurrency(admission.final_fee)}`;
 
-        document.getElementById("finalFee").textContent =
-            `₹${formatCurrency(admission.final_fee)}`;
+        document.getElementById("registrationAmount").textContent = `₹${formatCurrency(admission.registration_amount)}`;
 
-        document.getElementById("registrationAmount").textContent =
-            `₹${formatCurrency(admission.registration_amount)}`;
-
-        document.getElementById("balanceAmount").textContent =
-            `₹${formatCurrency(admission.balance_amount)}`;
+        document.getElementById("balanceAmount").textContent = `₹${formatCurrency(admission.balance_amount)}`;
 
 
-        /* Remarks */
-
-        document.getElementById("remarks").textContent =
-            safeValue(admission.remarks);
+        /*--- Remarks ---*/
+        document.getElementById("remarks").textContent = safeValue(admission.remarks);
 
 
-        /* Edit Button */
-
+        /*--- Edit Button ---*/
         editAdmissionBtn.onclick = function () {
 
-            window.location.href =
-                `edit-admission.html?id=${admission.id}`;
+            window.location.href = `edit-admission.html?id=${admission.id}`;
 
         };
 
 
-        /* Show Content */
-
+        /*--- Show Content ---*/
         loadingMessage.style.display = "none";
 
         errorMessage.style.display = "none";
@@ -1221,10 +679,7 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       SHOW ERROR
-    ===================================================== */
-
+    /*--- SHOW ERROR ---*/
     function showError(message) {
 
         loadingMessage.style.display = "none";
@@ -1238,28 +693,18 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       BACK BUTTON
-    ===================================================== */
-
+    /*--- BACK BUTTON ---*/
     function goBack() {
 
-        window.location.href =
-            "manage-admissions.html";
+        window.location.href = "manage-admissions.html";
 
     }
 
 
-    /* =====================================================
-       PROFILE DROPDOWN
-    ===================================================== */
+    /*--- PROFILE DROPDOWN ---*/
+    const profile = document.querySelector(".crm-profile");
 
-    const profile =
-        document.querySelector(".crm-profile");
-
-    const profileDropdown =
-        document.querySelector(".crm-profile-dropdown");
-
+    const profileDropdown = document.querySelector(".crm-profile-dropdown");
 
     if (profile && profileDropdown) {
 
@@ -1287,20 +732,12 @@ dropdowns.forEach(dropdown => {
     }
 
 
-    /* =====================================================
-       SIDEBAR DROPDOWN
-    ===================================================== */
+    /*--- SIDEBAR DROPDOWN ---*/
+    document.querySelectorAll(".crm-dropdown-btn").forEach(function(button) {
 
-    document
-        .querySelectorAll(".crm-dropdown-btn")
-        .forEach(function(button) {
+            button.addEventListener("click", function() {
 
-            button.addEventListener(
-                "click",
-                function() {
-
-                    const dropdown =
-                        this.parentElement;
+                    const dropdown = this.parentElement;
 
                     dropdown.classList.toggle("open");
 
@@ -1310,13 +747,8 @@ dropdowns.forEach(dropdown => {
         });
 
 
-    /* =====================================================
-       LOAD PAGE
-    ===================================================== */
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        function() {
+    /*--- LOAD PAGE ---*/
+    document.addEventListener("DOMContentLoaded", function() {
 
             loadAdmission();
 
@@ -1324,9 +756,6 @@ dropdowns.forEach(dropdown => {
     );
 
 </script>
-
-
-
 
 
 </body>

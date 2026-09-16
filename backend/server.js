@@ -2397,6 +2397,197 @@ app.delete("/api/admissions/:id", async (req, res) => {
 
 
 
+app.put("/api/admissions/:id", async (req, res) => {
+    try {
+
+        const { id } = req.params;
+
+        const {
+            student_name,
+            mobile,
+            email,
+            gender,
+            date_of_birth,
+            course,
+            batch,
+            joining_date,
+            course_fee,
+            discount,
+            final_fee,
+            registration_amount,
+            balance_amount,
+            payment_mode,
+            counsellor,
+            admission_status,
+            remarks
+        } = req.body;
+
+
+        if (!student_name || !mobile || !course) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Student name, mobile number and course are required."
+            });
+
+        }
+
+
+        const courseFee =
+            Number(course_fee) || 0;
+
+        const discountAmount =
+            Number(discount) || 0;
+
+        const registrationAmount =
+            Number(registration_amount) || 0;
+
+
+        let finalFee =
+            Number(final_fee);
+
+        if (
+            isNaN(finalFee) ||
+            finalFee < 0
+        ) {
+            finalFee =
+                Math.max(
+                    courseFee - discountAmount,
+                    0
+                );
+        }
+
+
+        let balanceAmount =
+            Number(balance_amount);
+
+        if (
+            isNaN(balanceAmount) ||
+            balanceAmount < 0
+        ) {
+            balanceAmount =
+                Math.max(
+                    finalFee -
+                    registrationAmount,
+                    0
+                );
+        }
+
+
+        if (discountAmount > courseFee) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Discount cannot be greater than course fee."
+            });
+
+        }
+
+
+        if (registrationAmount > finalFee) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Registration amount cannot be greater than final fee."
+            });
+
+        }
+
+
+        const [result] = await db.execute(
+            `
+            UPDATE admissions
+            SET
+                student_name = ?,
+                mobile = ?,
+                email = ?,
+                gender = ?,
+                date_of_birth = ?,
+                course = ?,
+                batch = ?,
+                joining_date = ?,
+                course_fee = ?,
+                discount = ?,
+                final_fee = ?,
+                registration_amount = ?,
+                balance_amount = ?,
+                payment_mode = ?,
+                counsellor = ?,
+                admission_status = ?,
+                remarks = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+            `,
+            [
+                student_name,
+                mobile,
+                email || null,
+                gender || null,
+                date_of_birth || null,
+                course,
+                batch || null,
+                joining_date || null,
+                courseFee,
+                discountAmount,
+                finalFee,
+                registrationAmount,
+                balanceAmount,
+                payment_mode || null,
+                counsellor || null,
+                admission_status || "Confirmed",
+                remarks || null,
+                id
+            ]
+        );
+
+
+        if (result.affectedRows === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message:
+                    "Admission not found."
+            });
+
+        }
+
+
+        res.json({
+            success: true,
+            message:
+                "Admission updated successfully.",
+            admissionId: id
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Update Admission Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message:
+                "Failed to update admission.",
+            error:
+                error.message
+        });
+
+    }
+});
+
+
+
+
+
+
+
+
 
 
 

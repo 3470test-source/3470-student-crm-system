@@ -6317,21 +6317,11 @@
   gap: 15px;
 }
 
-
-
-
-
-
-
-
-
-
-
 .crm-view-back-btn-MD,
 .crm-edit-btn-view-MD {
   border: none;
   border-radius: 8px;
-  padding: 11px 18px;
+  padding: 8px 18px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -6341,26 +6331,478 @@
   text-decoration: none;
 }
 
+.crm-view-back-btn-MD {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.crm-view-back-btn-MD:hover {
+  background: #e2e8f0;
+}
+
+.crm-edit-btn-view-MD {
+  background: #1cbe60;
+  color: #ffffff;
+}
+
+.crm-edit-btn-view-MD:hover {
+  background: #15994c;
+}
 
 
+/*--- MAIN CARD ---*/
+.crm-admission-card-MD {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+        
+.crm-section-title-MD {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.crm-section-title-MD h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crm-section-title-MD h2 i {
+  color: #1cbe60;
+}
+
+.crm-admission-grid-MD {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.crm-detail-item-MD {
+  padding: 18px 22px;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.crm-detail-item-MD:nth-child(3n + 1),
+.crm-detail-item-MD:nth-child(3n + 2) {
+  border-right: 1px solid #edf0f2;
+}
+
+.crm-detail-label-MD {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.crm-detail-value-MD {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  word-break: break-word;
+}
 
 
+/*--- FEE SECTION ---*/
+.crm-fee-grid-MD {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
 
-        .crm-view-back-btn-MD {
-            background: #f1f5f9;
-            color: #334155;
-        }
+.crm-fee-item-MD {
+  padding: 22px;
+  border-right: 1px solid #edf0f2;
+}
 
-        .crm-view-back-btn-MD:hover {
-            background: #e2e8f0;
-        }
+.crm-fee-item-MD:last-child {
+  border-right: none;
+}
 
-        .crm-edit-btn-view-MD {
-            background: #1cbe60;
-            color: #ffffff;
-        }
+.crm-fee-label-MD {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
 
-        .crm-edit-btn-view-MD:hover {
-            background: #15994c;
-        }
+.crm-fee-value-MD {
+  font-size: 21px;
+  font-weight: 700;
+  color: #1f2937;
+}
 
+.crm-fee-value-MD.final {
+  color: #1cbe60;
+}
+
+.crm-fee-value-MD.paid {
+  color: #2563eb;
+}
+
+.crm-fee-value-MD.balance {
+  color: #dc2626;
+}
+
+
+/*--- STATUS ---*/
+.crm-admission-status-MD {
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-top: 1px solid #edf0f2;
+}
+
+.crm-status-label-MD {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.crm-status-viewMD {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.crm-status-viewMD.active,
+.crm-status-viewMD.confirmed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.crm-status-viewMD.completed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.crm-status-viewMD.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.crm-status-viewMD.cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/*--- REMARKS ---*/
+.crm-remarks-MD {
+  padding: 20px 22px;
+  color: #475569;
+  line-height: 1.6;
+  font-size: 14px;
+  min-height: 60px;
+}
+
+
+/*--- LOADING / ERROR ---*/
+.crm-loading-MD {
+  text-align: center;
+  padding: 60px 20px;
+  color: #64748b;
+}
+
+.crm-loading-MD i {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.crm-error-MD {
+  text-align: center;
+  padding: 60px 20px;
+  color: #dc2626;
+}
+
+.crm-error-MD i {
+  font-size: 35px;
+  margin-bottom: 12px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------------------- */
+
+                /* =============================
+                      EDIT ADMISSION PAGE
+                ============================= */
+
+/*--- PAGE HEADER ---*/
+.crm-edit-header-MD {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.crm-edit-header-left-MD h1 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-edit-header-left-MD p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.crm-edit-header-actions-MD {
+  display: flex;
+  gap: 15px;
+}
+
+.crm-back-btn-MD,
+.crm-save-header-btn-MD {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.crm-back-btn-MD {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.crm-back-btn-MD:hover {
+  background: #e2e8f0;
+}
+
+.crm-save-header-btn-MD {
+  background: #1cbe60;
+  color: #ffffff;
+}
+
+.crm-save-header-btn-MD:hover {
+  background: #15994c;
+}
+
+
+/*--- FORM CARD ---*/
+.crm-admission-form-card-MD {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 22px;
+  overflow: hidden;
+}
+
+.crm-section-title-editMD {
+  padding: 18px 22px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.crm-section-title-editMD h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.crm-section-title-editMD h2 i {
+  color: #1cbe60;
+}
+
+
+/*--- FORM GRID ---*/
+.crm-form-grid-MD {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 22px;
+}
+
+.crm-form-group-MD {
+  display: flex;
+  flex-direction: column;
+}
+
+.crm-form-group-MD.full-width {
+  grid-column: 1 / -1;
+}
+
+.crm-form-group-MD label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.crm-form-group-MD label span {
+  color: #dc2626;
+}
+
+.crm-form-group-MD input,
+.crm-form-group-MD select,
+.crm-form-group-MD textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #1f2937;
+  background: #ffffff;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.crm-form-group-MD input:focus,
+.crm-form-group-MD select:focus,
+.crm-form-group-MD textarea:focus {
+  border-color: #1cbe60;
+  box-shadow: 0 0 0 3px rgba(28, 190, 96, 0.10);
+}
+
+.crm-form-group-MD input[readonly] {
+  background: #f8fafc;
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.crm-form-group-MD textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+
+/*--- FEE SUMMARY ---*/
+.crm-fee-summary-MD {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  padding: 22px;
+}
+
+.crm-fee-box-MD {
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.crm-fee-box-MD label {
+  display: block;
+  font-size: 13px;
+  color: #64748b;
+  margin-bottom: 7px;
+  font-weight: 600;
+}
+
+.crm-fee-box-MD strong {
+  font-size: 21px;
+  color: #1f2937;
+}
+
+.crm-fee-box-MD.final strong {
+  color: #1cbe60;
+}
+
+.crm-fee-box-MD.balance strong {
+  color: #dc2626;
+}
+
+
+/*--- FORM FOOTER ---*/
+.crm-form-footer-MD {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 22px;
+  border-top: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.crm-cancel-btn-MD,
+.crm-update-btn-MD {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.crm-cancel-btn-MD {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.crm-cancel-btn-MD:hover {
+  background: #cbd5e1;
+}
+
+.crm-update-btn-MD {
+  background: #1cbe60;
+  color: #ffffff;
+}
+
+.crm-update-btn-MD:hover {
+  background: #15994c;
+}
+
+.crm-update-btn-MD:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+
+/*--- LOADING ---*/
+.crm-loading-editMD {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 70px 20px;
+  text-align: center;
+  color: #64748b;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.crm-loading-editMD i {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+
+/*--- ERROR ---*/
+.crm-error-editMD {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 70px 20px;
+  text-align: center;
+  color: #dc2626;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.crm-error-editMD i {
+  font-size: 35px;
+  margin-bottom: 12px;
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
