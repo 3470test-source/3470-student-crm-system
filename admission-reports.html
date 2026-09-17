@@ -21,7 +21,45 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    /*-- LOADING --*/
+    .crm-loading-row {
+      text-align: center;
+      padding: 35px !important;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .crm-loading-row i {
+      margin-right: 8px;
+      font-size: 18px
+    }
+
+    /*-- ERROR --*/
+    .crm-report-error {
+      color: #dc2626;
+      text-align: center;
+      padding: 30px !important;
+    }
+
+    /*-- EMPTY --*/
+    .crm-report-empty {
+      text-align: center;
+      padding: 30px !important;
+      color: #777;
+    }
+
+    /*-- EXPORT --*/
+    .crm-report-export-btn {
+      cursor: pointer;
+    }
+
+    /*-- DISABLED BUTTON --*/
+    .crm-report-export-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
     </style>
  
 </head>
@@ -234,7 +272,7 @@
 
                         <div>
                             <span>Total Admissions</span>
-                            <h3>72</h3>
+                            <h3 id="totalAdmissions">0</h3>
                         </div>
 
                     </div>
@@ -249,7 +287,7 @@
 
                         <div>
                             <span>Today's Admissions</span>
-                            <h3>5</h3>
+                            <h3 id="todayAdmissions">0</h3>
                         </div>
 
                     </div>
@@ -264,7 +302,7 @@
 
                         <div>
                             <span>This Month</span>
-                            <h3>28</h3>
+                            <h3 id="monthAdmissions">0</h3>
                         </div>
 
                     </div>
@@ -279,7 +317,7 @@
 
                         <div>
                             <span>Total Revenue</span>
-                            <h3>₹1.1L</h3>
+                            <h3 id="totalRevenue">₹0.00</h3>
                         </div>
 
                     </div>
@@ -319,17 +357,6 @@
                             <label for="admissionCourse">Course</label>
                             <select id="admissionCourse">
                                 <option value="">-- All Courses --</option>
-                                <option value="BMCT">Basic Medical Coding Training</option>
-                                <option value="AMCT">Advanced Medical Coding Training</option>
-                                <option value="CPC">Certified Professional Coder</option>
-                                <option value="E&M">Evaluation & Management</option>
-                                <option value="IPDRG">Inpatient Diagnosis-Related Group</option>
-                                <option value="ED">Emergency Department</option>
-                                <option value="CCS">Certified Coding Specialist</option>
-                                <option value="CPMA">Certified Professional Medical Auditor</option>
-                                <option value="CRC">Certified Risk Adjustment Coder</option>
-                                <option value="IVR">Interventional Radiology</option>
-                                <option value="Surgery">Surgery</option>
                             </select>
                         </div>
 
@@ -338,11 +365,6 @@
                             <label for="admissionCounsellor">Counsellor</label>
                             <select id="admissionCounsellor">
                                 <option value="">-- All Counsellors --</option>
-                                <option value="Ramesh">Ramesh</option>
-                                <option value="Perumal">Perumal</option>
-                                <option value="Kaviya">Kaviya</option>
-                                <option value="Jaya Shree">Jaya Shree</option>
-                                <option value="Renuka">Renuka</option>
                             </select>
                         </div>
 
@@ -359,8 +381,11 @@
 
                         <!-- Filter Buttons -->
                         <div class="crm-AdmissionReport-filter-actions">
-                            <button type="button" class="crm-admreport-filter-btn"><i class="fa fa-filter"></i>Apply Filter</button>
-                            <button type="button" class="crm-admreport-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
+                            <button type="button" class="crm-admreport-filter-btn" id="applyFilterBtn">
+                                <i class="fa fa-filter"></i>Apply Filter</button>
+
+                            <button type="button" class="crm-admreport-reset-btn" id="resetFilterBtn">
+                                <i class="fa fa-rotate-left"></i>Reset</button>
                         </div>
 
                     </div>
@@ -378,7 +403,8 @@
                             <p>Detailed student admission information.</p>
                         </div>
 
-                        <button type="button" class="crm-report-export-btn"><i class="fa fa-download"></i>Export Report</button>
+                        <button type="button" class="crm-report-export-btn" id="exportReportBtn">
+                            <i class="fa fa-download"></i>Export Report</button>
 
                     </div>
 
@@ -402,84 +428,11 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <!-- Row 1 -->
+                            <tbody id="admissionReportTableBody">
                                 <tr>
-                                    <td>1</td>
-                                    <td>Rahul Kumar</td>
-                                    <td>9876543210</td>
-                                    <td>CPC</td>
-                                    <td>Renuka</td>
-                                    <td>02-Aug-2026</td>
-                                    <td>₹25,000</td>
-                                    <td>₹25,000</td>
-                                    <td>₹0</td>
-                                    <td>
-                                        <span class="crm-status-AR paid">Paid</span>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 2 -->
-                                <tr>
-                                    <td>2</td>
-                                    <td>Priya Sharma</td>
-                                    <td>9876501234</td>
-                                    <td>CRC</td>
-                                    <td>Kaviya</td>
-                                    <td>04-Aug-2026</td>
-                                    <td>₹30,000</td>
-                                    <td>₹20,000</td>
-                                    <td>₹10,000</td>
-                                    <td>
-                                        <span class="crm-status-AR partial">Partial</span>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 -->
-                                <tr>
-                                    <td>3</td>
-                                    <td>Arun Kumar</td>
-                                    <td>9876512345</td>
-                                    <td>CCS</td>
-                                    <td>Jaya Shree</td>
-                                    <td>05-Aug-2026</td>
-                                    <td>₹28,000</td>
-                                    <td>₹15,000</td>
-                                    <td>₹13,000</td>
-                                    <td>
-                                        <span class="crm-status-AR pending">Pending</span>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 4 -->
-                                <tr>
-                                    <td>4</td>
-                                    <td>Kavin Raj</td>
-                                    <td>9876523456</td>
-                                    <td>CPMA</td>
-                                    <td>Perumal</td>
-                                    <td>07-Aug-2026</td>
-                                    <td>₹35,000</td>
-                                    <td>₹35,000</td>
-                                    <td>₹0</td>
-                                    <td>
-                                        <span class="crm-status-AR paid">Paid</span>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 5 -->
-                                <tr>
-                                    <td>5</td>
-                                    <td>Divya</td>
-                                    <td>9876534567</td>
-                                    <td>BMCT</td>
-                                    <td>Ramesh</td>
-                                    <td>09-Aug-2026</td>
-                                    <td>₹20,000</td>
-                                    <td>₹10,000</td>
-                                    <td>₹10,000</td>
-                                    <td>
-                                        <span class="crm-status-AR partial">Partial</span>
+                                    <td colspan="10" class="crm-loading-row">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        Loading admission reports...
                                     </td>
                                 </tr>
                             </tbody>
@@ -515,7 +468,7 @@
 
                             <div>
                                 <span>Total Course Fee</span>
-                                <strong>₹1.5L</strong>
+                                <strong id="summaryCourseFee">₹0.00</strong>
                             </div>
 
                         </div>
@@ -530,7 +483,7 @@
 
                             <div>
                                 <span>Total Paid</span>
-                                <strong>₹2L</strong>
+                                <strong id="summaryPaid">₹0.00</strong>
                             </div>
 
                         </div>
@@ -545,7 +498,7 @@
 
                             <div>
                                 <span>Partial Payments</span>
-                                <strong>₹2.1L</strong>
+                                <strong id="summaryPartial">₹0.00</strong>
                             </div>
 
                         </div>
@@ -560,7 +513,7 @@
 
                             <div>
                                 <span>Pending Amount</span>
-                                <strong>₹2.2L</strong>
+                                <strong id="summaryPending">₹0.00</strong>
                             </div>
 
                         </div>
@@ -610,6 +563,2091 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ExcelJS -->
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+
+
+
+
+
+
+
+
+
+<!-- ADMISSION REPORT - JS  -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+let currentReportData = [];
+
+
+/*--- FORMAT CURRENCY ---*/
+function formatCurrency(value) {
+
+    const number = Number(value) || 0;
+
+    return number.toLocaleString("en-IN", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+}
+
+
+/*--- FORMAT DATE - MySQL DATE = YYYY-MM-DD ---*/
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "-";
+    }
+
+    /*
+       Avoid timezone problems caused by:
+       new Date("2026-08-29")
+    */
+
+    if (
+        typeof dateValue === "string" &&
+        /^\d{4}-\d{2}-\d{2}/.test(dateValue)
+    ) {
+
+        const parts = dateValue
+            .substring(0, 10)
+            .split("-");
+
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+
+    const date = new Date(dateValue);
+
+    if (isNaN(date.getTime())) {
+        return dateValue;
+    }
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+
+}
+
+
+/*--- ESCAPE HTML ---*/
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/*--- PAYMENT STATUS CLASS ---*/
+function getPaymentStatusClass(status) {
+
+    switch (
+        String(status || "").toLowerCase()
+    ) {
+
+        case "paid":
+            return "paid";
+
+        case "partial":
+            return "partial";
+
+        case "pending":
+            return "pending";
+
+        default:
+            return "pending";
+    }
+}
+
+
+/*--- LOAD FILTER OPTIONS ---*/
+async function loadFilterOptions() {
+
+    const courseSelect = document.getElementById("admissionCourse");
+
+    const counsellorSelect = document.getElementById("admissionCounsellor");
+
+    if (!courseSelect) {
+
+        console.error("❌ admissionCourse element not found.");
+
+        return;
+    }
+
+
+    if (!counsellorSelect) {
+
+        console.error("❌ admissionCounsellor element not found.");
+
+        return;
+    }
+
+
+    try {
+
+        console.log("🔄 Loading report filter options...");
+
+
+        /*--- LOAD COURSES ---*/
+        const coursesResponse = await fetch(`${API_BASE}/admissions/report-courses`);
+
+        console.log("Courses API Status:", coursesResponse.status);
+
+
+        if (!coursesResponse.ok) {
+
+            const errorText = await coursesResponse.text();
+
+            throw new Error(
+                `Courses API returned ${coursesResponse.status}: ${errorText}`
+            );
+        }
+
+
+        const coursesData = await coursesResponse.json();
+
+        console.log("✅ Courses Response:", coursesData);
+
+        courseSelect.innerHTML = `<option value="">-- All Courses --</option>`;
+
+        if (
+            coursesData.success &&
+            Array.isArray(coursesData.courses)
+        ) {
+
+            coursesData.courses.forEach(item => {
+
+                if (!item.course) {
+                    return;
+                }
+
+
+                const option = document.createElement("option");
+
+                option.value = item.course;
+
+                option.textContent = item.course;
+
+                courseSelect.appendChild(option);
+
+            });
+        }
+
+
+        /*--- LOAD COUNSELLORS ---*/
+        const counsellorsResponse = await fetch(`${API_BASE}/admissions/report-counsellors`);
+
+        console.log("Counsellors API Status:", counsellorsResponse.status);
+
+
+        if (!counsellorsResponse.ok) {
+
+            const errorText = await counsellorsResponse.text();
+
+            throw new Error(
+                `Counsellors API returned ${counsellorsResponse.status}: ${errorText}`
+            );
+        }
+
+        const counsellorsData = await counsellorsResponse.json();
+
+        console.log("✅ Counsellors Response:", counsellorsData);
+
+        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
+
+        if (
+            counsellorsData.success &&
+            Array.isArray(
+                counsellorsData.counsellors
+            )
+        ) {
+
+            counsellorsData.counsellors.forEach(
+                item => {
+
+                    if (!item.counsellor) {
+                        return;
+                    }
+
+
+                    const option = document.createElement("option");
+
+                    option.value = item.counsellor;
+
+                    option.textContent = item.counsellor;
+
+                    counsellorSelect.appendChild(option);
+
+                }
+            );
+        }
+
+
+        console.log("✅ Admission report filters loaded.");
+
+    }
+
+    catch (error) {
+
+        console.error("❌ Filter Options Error:", error);
+
+        courseSelect.innerHTML = `<option value="">-- All Courses --</option>`;
+
+        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
+    }
+}
+
+
+/*--- LOAD ADMISSION REPORT ---*/
+async function loadAdmissionReport() {
+
+    const tbody = document.getElementById("admissionReportTableBody");
+
+
+    /*--- IMPORTANT NULL CHECK ---*/
+    if (!tbody) {
+
+        console.error("❌ admissionReportTableBody element was not found.");
+
+        return;
+    }
+
+
+    /*--- LOADING ---*/
+    tbody.innerHTML = `
+        <tr>
+            <td
+                colspan="10" class="crm-loading-row">
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                    Loading admission reports...
+            </td>
+        </tr>
+    `;
+
+
+    try {
+
+        const params = new URLSearchParams();
+
+
+        /*--- GET FILTER VALUES ---*/
+        const fromDate = document.getElementById("admissionFromDate").value;
+
+        const toDate = document.getElementById("admissionToDate").value;
+
+        const course = document.getElementById("admissionCourse").value;
+
+        const counsellor = document.getElementById("admissionCounsellor").value;
+
+        const paymentStatus = document.getElementById("paymentStatus").value;
+
+
+        /*--- DATE VALIDATION ---*/
+        if (
+            fromDate &&
+            toDate &&
+            fromDate > toDate
+        ) {
+
+            tbody.innerHTML = `
+                <tr>
+                    <td
+                        colspan="10" class="crm-report-error">
+                            ❌ From Date cannot be
+                            greater than To Date.
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+
+        /*--- BUILD QUERY PARAMETERS ---*/
+        if (fromDate) {
+
+            params.append("from_date", fromDate);
+        }
+
+
+        if (toDate) {
+
+            params.append("to_date", toDate);
+        }
+
+
+        if (course) {
+
+            params.append("course", course);
+        }
+
+
+        if (counsellor) {
+
+            params.append("counsellor", counsellor);
+        }
+
+
+        if (paymentStatus) {
+
+            params.append("payment_status", paymentStatus);
+        }
+
+
+        /*--- API URL ---*/
+        const url = `${API_BASE}/admissions/reports` +
+            (
+                params.toString()
+                    ? `?${params.toString()}`
+                    : ""
+            );
+
+
+        console.log("📊 Admission Report API:", url);
+
+
+        /*--- FETCH ---*/
+        const response = await fetch(url);
+
+        console.log("📡 Report HTTP Status:", response.status);
+
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            throw new Error(
+                `Server returned ${response.status}: ${errorText}`
+            );
+        }
+
+
+        /*--- JSON ---*/
+        const data = await response.json();
+
+        console.log("✅ Admission Report Response:", data);
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load admission report."
+            );
+        }
+
+
+        /*--- STORE REPORT DATA ---*/
+        currentReportData = Array.isArray(data.admissions)
+                ? data.admissions
+                : [];
+
+
+        /*--- UPDATE SUMMARY ---*/
+        updateSummary(
+            data.summary || {}
+        );
+
+
+        /*--- RENDER TABLE ---*/
+        renderAdmissionReport(currentReportData);
+
+    }
+
+    catch (error) {
+
+        console.error("❌ Admission Report Error:", error);
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="10" class="crm-report-error">
+                    ❌ Failed to load admission reports.
+
+                    <br><br>
+
+                    <small>
+                        ${escapeHtml(
+                            error.message
+                        )}
+                    </small>
+
+                </td>
+            </tr>
+        `;
+    }
+}
+
+
+
+/*--- UPDATE SUMMARY ---*/
+function updateSummary(summary) {
+
+    /*--- TOTAL ADMISSIONS ---*/
+    const totalAdmissions = document.getElementById("totalAdmissions");
+
+    if (totalAdmissions) {
+
+        totalAdmissions.textContent =
+            Number(
+                summary.total_admissions || 0
+            ).toLocaleString("en-IN");
+    }
+
+
+    /*--- TODAY'S ADMISSIONS ---*/
+    const todayAdmissions = document.getElementById("todayAdmissions");
+
+    if (todayAdmissions) {
+
+        todayAdmissions.textContent =
+            Number(
+                summary.today_admissions || 0
+            ).toLocaleString("en-IN");
+    }
+
+
+    /*--- THIS MONTH ---*/
+    const monthAdmissions = document.getElementById(
+            "monthAdmissions"
+        );
+
+    if (monthAdmissions) {
+
+        monthAdmissions.textContent =
+            Number(
+                summary.month_admissions || 0
+            ).toLocaleString("en-IN");
+    }
+
+
+    /*--- TOTAL REVENUE ---*/
+    const totalRevenue = document.getElementById("totalRevenue");
+
+    if (totalRevenue) {
+
+        totalRevenue.textContent =
+            "₹" +
+            formatCurrency(
+                summary.total_revenue || 0
+            );
+    }
+
+
+    /*--- TOTAL COURSE FEE ---*/
+    const summaryCourseFee = document.getElementById("summaryCourseFee");
+
+    if (summaryCourseFee) {
+
+        summaryCourseFee.textContent =
+            "₹" +
+            formatCurrency(
+                summary.total_course_fee || 0
+            );
+    }
+
+
+    /*--- TOTAL PAID ---*/
+    const summaryPaid = document.getElementById("summaryPaid");
+
+    if (summaryPaid) {
+
+        summaryPaid.textContent =
+            "₹" +
+            formatCurrency(
+                summary.total_paid || 0
+            );
+    }
+
+
+    /*--- PARTIAL PAYMENTS ---*/
+    const summaryPartial = document.getElementById("summaryPartial");
+
+    if (summaryPartial) {
+
+        summaryPartial.textContent =
+            "₹" +
+            formatCurrency(
+                summary.partial_payments || 0
+            );
+    }
+
+
+    /*--- PENDING AMOUNT ---*/
+    const summaryPending = document.getElementById("summaryPending");
+
+    if (summaryPending) {
+
+        summaryPending.textContent =
+            "₹" +
+            formatCurrency(
+                summary.pending_amount || 0
+            );
+    }
+}
+
+
+
+/*--- RENDER ADMISSION REPORT ---*/
+function renderAdmissionReport(admissions) {
+
+    const tbody = document.getElementById("admissionReportTableBody");
+
+    if (!tbody) {
+
+        console.error(
+            "❌ admissionReportTableBody not found."
+        );
+
+        return;
+    }
+
+    tbody.innerHTML = "";
+
+
+    /*--- NO DATA ---*/
+    if (!admissions.length) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="10" class="crm-report-empty">
+
+                    <i class="fa fa-file-circle-xmark" style="font-size:24px; margin-bottom:10px;"></i>
+
+                    <br>
+
+                    No admission records found.
+
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    /*--- DATA ROWS ---*/
+    admissions.forEach(
+        (admission, index) => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+
+                <td>${index + 1}</td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.student_name || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.mobile || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.course || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.counsellor || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        admission.admission_date
+                    )}
+                </td>
+
+                <td>
+                    ₹${formatCurrency(
+                        admission.course_fee
+                    )}
+                </td>
+
+                <td>
+                    ₹${formatCurrency(
+                        admission.paid_amount
+                    )}
+                </td>
+
+                <td>
+                    ₹${formatCurrency(
+                        admission.balance_amount
+                    )}
+                </td>
+
+                <td>
+                    <span
+                        class="crm-status-AR
+                        ${getPaymentStatusClass(
+                            admission.payment_status
+                        )}"
+                    >
+                        ${escapeHtml(
+                            admission.payment_status || "-"
+                        )}
+                    </span>
+                </td>
+
+            `;
+
+
+            tbody.appendChild(row);
+        }
+    );
+}
+
+
+/*--- APPLY FILTER ---*/
+document.getElementById("applyFilterBtn").addEventListener("click", loadAdmissionReport);
+
+
+/*--- RESET FILTER ---*/
+document.getElementById("resetFilterBtn").addEventListener("click", () => {
+
+            document.getElementById("admissionFromDate").value = "";
+
+            document.getElementById("admissionToDate").value = "";
+
+            document.getElementById("admissionCourse").value = "";
+
+            document.getElementById("admissionCounsellor").value = "";
+
+            document.getElementById("paymentStatus").value = "";
+
+            loadAdmissionReport();
+        }
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// /* =========================================================
+//    EXPORT CSV
+//    ========================================================= */
+
+// function exportAdmissionReport() {
+
+//     if (!currentReportData.length) {
+
+//         alert(
+//             "There is no admission data to export."
+//         );
+
+//         return;
+//     }
+
+
+//     const headers = [
+//         "No",
+//         "Student Name",
+//         "Mobile",
+//         "Course",
+//         "Counsellor",
+//         "Admission Date",
+//         "Course Fee",
+//         "Paid Amount",
+//         "Balance",
+//         "Payment Status"
+//     ];
+
+
+//     const rows =
+//         currentReportData.map(
+//             (admission, index) => [
+
+//                 index + 1,
+
+//                 admission.student_name || "",
+
+//                 admission.mobile || "",
+
+//                 admission.course || "",
+
+//                 admission.counsellor || "",
+
+//                 formatDate(
+//                     admission.admission_date
+//                 ),
+
+//                 Number(
+//                     admission.course_fee
+//                 ) || 0,
+
+//                 Number(
+//                     admission.paid_amount
+//                 ) || 0,
+
+//                 Number(
+//                     admission.balance_amount
+//                 ) || 0,
+
+//                 admission.payment_status || ""
+
+//             ]
+//         );
+
+
+//     const csvData = [
+//         headers,
+//         ...rows
+//     ];
+
+
+//     const csv =
+//         csvData
+//             .map(row =>
+
+//                 row.map(value => {
+
+//                     const stringValue =
+//                         String(value)
+//                             .replace(
+//                                 /"/g,
+//                                 '""'
+//                             );
+
+//                     return `"${stringValue}"`;
+
+//                 }).join(",")
+
+//             )
+//             .join("\n");
+
+
+//     const blob =
+//         new Blob(
+//             [csv],
+//             {
+//                 type:
+//                     "text/csv;charset=utf-8;"
+//             }
+//         );
+
+
+//     const url =
+//         URL.createObjectURL(blob);
+
+
+//     const link =
+//         document.createElement("a");
+
+
+//     link.href = url;
+
+
+//     const today =
+//         new Date()
+//             .toISOString()
+//             .split("T")[0];
+
+
+//     link.download =
+//         `admission-report-${today}.csv`;
+
+
+//     document.body.appendChild(link);
+
+
+//     link.click();
+
+
+//     document.body.removeChild(link);
+
+
+//     URL.revokeObjectURL(url);
+// }
+
+
+
+/* =========================================================
+   EXPORT ADMISSION REPORT - PROFESSIONAL EXCEL
+   ========================================================= */
+
+async function exportAdmissionReport() {
+
+    if (!currentReportData.length) {
+
+        alert(
+            "There is no admission data to export."
+        );
+
+        return;
+    }
+
+
+    /* -----------------------------------------------------
+       CHECK EXCELJS
+       ----------------------------------------------------- */
+
+    if (typeof ExcelJS === "undefined") {
+
+        alert(
+            "Excel export library is not loaded. Please refresh the page."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        console.log(
+            "📊 Preparing professional Excel report..."
+        );
+
+
+        /* =================================================
+           CREATE WORKBOOK
+           ================================================= */
+
+        const workbook =
+            new ExcelJS.Workbook();
+
+
+        workbook.creator =
+            "3470 Healthcare";
+
+        workbook.lastModifiedBy =
+            "3470 Healthcare";
+
+        workbook.created =
+            new Date();
+
+        workbook.modified =
+            new Date();
+
+        workbook.title =
+            "Admission Report";
+
+        workbook.subject =
+            "Student Admission Report";
+
+        workbook.description =
+            "3470 Healthcare & Student CRM System - Admission Report";
+
+
+
+        /* =================================================
+           CREATE WORKSHEET
+           ================================================= */
+
+        const worksheet =
+            workbook.addWorksheet(
+                "Admission Report",
+                {
+                    views: [
+                        {
+                            state: "frozen",
+                            ySplit: 11
+                        }
+                    ]
+                }
+            );
+
+
+
+        /* =================================================
+           PAGE SETUP
+           ================================================= */
+
+        worksheet.pageSetup = {
+
+            orientation: "landscape",
+
+            paperSize:
+                worksheet.PAPERSIZE_A4,
+
+            fitToPage: true,
+
+            fitToWidth: 1,
+
+            fitToHeight: 0,
+
+            margins: {
+                left: 0.25,
+                right: 0.25,
+                top: 0.5,
+                bottom: 0.5,
+                header: 0.2,
+                footer: 0.2
+            }
+
+        };
+
+
+
+        /* =================================================
+           COMPANY HEADER
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A1:J1"
+        );
+
+        const companyCell =
+            worksheet.getCell("A1");
+
+        companyCell.value =
+            "3470 HEALTHCARE";
+
+        companyCell.font = {
+
+            name: "Calibri",
+
+            size: 20,
+
+            bold: true
+
+        };
+
+        companyCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(1).height = 32;
+
+
+
+        /* =================================================
+           SYSTEM NAME
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A2:J2"
+        );
+
+        const systemCell =
+            worksheet.getCell("A2");
+
+        systemCell.value =
+            "STUDENT CRM SYSTEM";
+
+        systemCell.font = {
+
+            name: "Calibri",
+
+            size: 12,
+
+            bold: true
+
+        };
+
+        systemCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(2).height = 22;
+
+
+
+        /* =================================================
+           REPORT TITLE
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A3:J3"
+        );
+
+        const titleCell =
+            worksheet.getCell("A3");
+
+        titleCell.value =
+            "ADMISSION REPORT";
+
+        titleCell.font = {
+
+            name: "Calibri",
+
+            size: 16,
+
+            bold: true
+
+        };
+
+        titleCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(3).height = 26;
+
+
+
+        /* =================================================
+           GENERATED DATE
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A4:J4"
+        );
+
+        const generatedCell =
+            worksheet.getCell("A4");
+
+        generatedCell.value =
+            `Generated On: ${new Date().toLocaleString(
+                "en-IN"
+            )}`;
+
+        generatedCell.font = {
+
+            name: "Calibri",
+
+            size: 10
+
+        };
+
+        generatedCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+
+
+        /* =================================================
+           FILTER INFORMATION
+           ================================================= */
+
+        const fromDate =
+            document.getElementById(
+                "admissionFromDate"
+            )?.value || "";
+
+        const toDate =
+            document.getElementById(
+                "admissionToDate"
+            )?.value || "";
+
+        const course =
+            document.getElementById(
+                "admissionCourse"
+            )?.value || "";
+
+        const counsellor =
+            document.getElementById(
+                "admissionCounsellor"
+            )?.value || "";
+
+        const paymentStatus =
+            document.getElementById(
+                "paymentStatus"
+            )?.value || "";
+
+
+
+        const filterText = [
+
+            `From Date: ${fromDate || "All"}`,
+
+            `To Date: ${toDate || "All"}`,
+
+            `Course: ${course || "All Courses"}`,
+
+            `Counsellor: ${
+                counsellor || "All Counsellors"
+            }`,
+
+            `Payment Status: ${
+                paymentStatus || "All"
+            }`
+
+        ].join("   |   ");
+
+
+
+        worksheet.mergeCells(
+            "A5:J5"
+        );
+
+        const filterCell =
+            worksheet.getCell("A5");
+
+        filterCell.value =
+            filterText;
+
+        filterCell.font = {
+
+            name: "Calibri",
+
+            size: 10,
+
+            italic: true
+
+        };
+
+        filterCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle",
+
+            wrapText: true
+
+        };
+
+        worksheet.getRow(5).height = 28;
+
+
+
+        /* =================================================
+           SUMMARY
+           ================================================= */
+
+        const summary =
+            getCurrentReportSummary();
+
+
+        worksheet.mergeCells(
+            "A7:J7"
+        );
+
+        const summaryTitle =
+            worksheet.getCell("A7");
+
+        summaryTitle.value =
+            "ADMISSION PAYMENT SUMMARY";
+
+        summaryTitle.font = {
+
+            name: "Calibri",
+
+            size: 12,
+
+            bold: true
+
+        };
+
+        summaryTitle.alignment = {
+
+            horizontal: "left",
+
+            vertical: "middle"
+
+        };
+
+
+        worksheet.getRow(7).height = 22;
+
+
+
+        /* -------------------------------------------------
+           SUMMARY VALUES
+           ------------------------------------------------- */
+
+        const summaryData = [
+
+            [
+                "Total Admissions",
+                summary.totalAdmissions
+            ],
+
+            [
+                "Total Course Fee",
+                summary.totalCourseFee
+            ],
+
+            [
+                "Total Paid",
+                summary.totalPaid
+            ],
+
+            [
+                "Partial Payments",
+                summary.partialPayments
+            ],
+
+            [
+                "Pending Amount",
+                summary.pendingAmount
+            ]
+
+        ];
+
+
+        worksheet.getCell("A8").value =
+            "Summary";
+
+        worksheet.getCell("B8").value =
+            "Value";
+
+
+        worksheet.getRow(8).font = {
+
+            bold: true
+
+        };
+
+
+        let summaryRow =
+            9;
+
+
+        summaryData.forEach(item => {
+
+            worksheet.getCell(
+                `A${summaryRow}`
+            ).value = item[0];
+
+            worksheet.getCell(
+                `B${summaryRow}`
+            ).value = item[1];
+
+            summaryRow++;
+
+        });
+
+
+
+        /* =================================================
+           TABLE HEADER
+           ================================================= */
+
+        const headerRowNumber =
+            15;
+
+
+        const headers = [
+
+            "#",
+
+            "Student Name",
+
+            "Mobile",
+
+            "Course",
+
+            "Counsellor",
+
+            "Admission Date",
+
+            "Course Fee",
+
+            "Paid Amount",
+
+            "Balance",
+
+            "Payment Status"
+
+        ];
+
+
+        const headerRow =
+            worksheet.getRow(
+                headerRowNumber
+            );
+
+
+        headers.forEach(
+            (header, index) => {
+
+                headerRow.getCell(
+                    index + 1
+                ).value = header;
+
+            }
+        );
+
+
+        headerRow.font = {
+
+            bold: true,
+
+            size: 11
+
+        };
+
+
+        headerRow.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle",
+
+            wrapText: true
+
+        };
+
+
+        headerRow.height = 28;
+
+
+
+        /* =================================================
+           TABLE DATA
+           ================================================= */
+
+        currentReportData.forEach(
+            (admission, index) => {
+
+                const row =
+                    worksheet.addRow([
+
+                        index + 1,
+
+                        admission.student_name || "",
+
+                        admission.mobile || "",
+
+                        admission.course || "",
+
+                        admission.counsellor || "",
+
+                        formatExcelDate(
+                            admission.admission_date
+                        ),
+
+                        Number(
+                            admission.course_fee
+                        ) || 0,
+
+                        Number(
+                            admission.paid_amount
+                        ) || 0,
+
+                        Number(
+                            admission.balance_amount
+                        ) || 0,
+
+                        admission.payment_status || ""
+
+                    ]);
+
+
+                /* ------------------------------------------------
+                   CURRENCY
+                   ------------------------------------------------ */
+
+                row.getCell(7).numFmt =
+                    '₹#,##0.00';
+
+                row.getCell(8).numFmt =
+                    '₹#,##0.00';
+
+                row.getCell(9).numFmt =
+                    '₹#,##0.00';
+
+
+
+                /* ------------------------------------------------
+                   ALIGNMENT
+                   ------------------------------------------------ */
+
+                row.getCell(1).alignment = {
+
+                    horizontal: "center"
+
+                };
+
+
+                row.getCell(3).alignment = {
+
+                    horizontal: "center"
+
+                };
+
+
+                row.getCell(6).alignment = {
+
+                    horizontal: "center"
+
+                };
+
+
+                row.getCell(7).alignment = {
+
+                    horizontal: "right"
+
+                };
+
+
+                row.getCell(8).alignment = {
+
+                    horizontal: "right"
+
+                };
+
+
+                row.getCell(9).alignment = {
+
+                    horizontal: "right"
+
+                };
+
+
+                row.getCell(10).alignment = {
+
+                    horizontal: "center"
+
+                };
+
+
+                /* ------------------------------------------------
+                   PAYMENT STATUS
+                   ------------------------------------------------ */
+
+                const status =
+                    String(
+                        admission.payment_status || ""
+                    ).toLowerCase();
+
+
+                if (status === "paid") {
+
+                    row.getCell(10).font = {
+
+                        bold: true
+
+                    };
+
+                }
+
+                else if (
+                    status === "partial"
+                ) {
+
+                    row.getCell(10).font = {
+
+                        bold: true
+
+                    };
+
+                }
+
+                else if (
+                    status === "pending"
+                ) {
+
+                    row.getCell(10).font = {
+
+                        bold: true
+
+                    };
+
+                }
+
+            }
+        );
+
+
+
+        /* =================================================
+           TOTAL ROW
+           ================================================= */
+
+        const totalRowNumber =
+            worksheet.lastRow.number + 2;
+
+
+        worksheet.mergeCells(
+            `A${totalRowNumber}:F${totalRowNumber}`
+        );
+
+
+        const totalLabel =
+            worksheet.getCell(
+                `A${totalRowNumber}`
+            );
+
+
+        totalLabel.value =
+            "TOTAL";
+
+
+        totalLabel.font = {
+
+            bold: true,
+
+            size: 11
+
+        };
+
+
+        totalLabel.alignment = {
+
+            horizontal: "right",
+
+            vertical: "middle"
+
+        };
+
+
+        const totalCourseFee =
+            currentReportData.reduce(
+                (
+                    total,
+                    admission
+                ) =>
+                    total +
+                    (
+                        Number(
+                            admission.course_fee
+                        ) || 0
+                    ),
+                0
+            );
+
+
+        const totalPaid =
+            currentReportData.reduce(
+                (
+                    total,
+                    admission
+                ) =>
+                    total +
+                    (
+                        Number(
+                            admission.paid_amount
+                        ) || 0
+                    ),
+                0
+            );
+
+
+        const totalBalance =
+            currentReportData.reduce(
+                (
+                    total,
+                    admission
+                ) =>
+                    total +
+                    (
+                        Number(
+                            admission.balance_amount
+                        ) || 0
+                    ),
+                0
+            );
+
+
+        worksheet.getCell(
+            `G${totalRowNumber}`
+        ).value =
+            totalCourseFee;
+
+
+        worksheet.getCell(
+            `H${totalRowNumber}`
+        ).value =
+            totalPaid;
+
+
+        worksheet.getCell(
+            `I${totalRowNumber}`
+        ).value =
+            totalBalance;
+
+
+        worksheet.getCell(
+            `G${totalRowNumber}`
+        ).numFmt =
+            '₹#,##0.00';
+
+
+        worksheet.getCell(
+            `H${totalRowNumber}`
+        ).numFmt =
+            '₹#,##0.00';
+
+
+        worksheet.getCell(
+            `I${totalRowNumber}`
+        ).numFmt =
+            '₹#,##0.00';
+
+
+        worksheet.getCell(
+            `J${totalRowNumber}`
+        ).value =
+            `${currentReportData.length} Records`;
+
+
+        worksheet.getCell(
+            `J${totalRowNumber}`
+        ).alignment = {
+
+            horizontal: "center"
+
+        };
+
+
+
+        /* =================================================
+           BORDERS
+           ================================================= */
+
+        worksheet.eachRow(
+            (
+                row,
+                rowNumber
+            ) => {
+
+                if (
+                    rowNumber >= 8
+                ) {
+
+                    row.eachCell(
+                        cell => {
+
+                            cell.border = {
+
+                                top: {
+                                    style: "thin"
+                                },
+
+                                left: {
+                                    style: "thin"
+                                },
+
+                                bottom: {
+                                    style: "thin"
+                                },
+
+                                right: {
+                                    style: "thin"
+                                }
+
+                            };
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =================================================
+           COLUMN WIDTHS
+           ================================================= */
+
+        worksheet.columns = [
+
+            {
+                key: "no",
+                width: 7
+            },
+
+            {
+                key: "student",
+                width: 25
+            },
+
+            {
+                key: "mobile",
+                width: 16
+            },
+
+            {
+                key: "course",
+                width: 25
+            },
+
+            {
+                key: "counsellor",
+                width: 20
+            },
+
+            {
+                key: "date",
+                width: 18
+            },
+
+            {
+                key: "courseFee",
+                width: 17
+            },
+
+            {
+                key: "paid",
+                width: 17
+            },
+
+            {
+                key: "balance",
+                width: 17
+            },
+
+            {
+                key: "status",
+                width: 18
+            }
+
+        ];
+
+
+
+        /* =================================================
+           AUTO FILTER
+           ================================================= */
+
+        worksheet.autoFilter = {
+
+            from: `A${headerRowNumber}`,
+
+            to: `J${headerRowNumber}`
+
+        };
+
+
+
+        /* =================================================
+           PRINT TITLES
+           ================================================= */
+
+        worksheet.pageSetup.printTitlesRow =
+            `${headerRowNumber}:${headerRowNumber}`;
+
+
+
+        /* =================================================
+           FOOTER
+           ================================================= */
+
+        worksheet.headerFooter.oddFooter =
+            "&C3470 Healthcare | Student CRM System";
+
+
+        worksheet.headerFooter.oddFooter =
+            "&L3470 Healthcare&RPage &P of &N";
+
+
+
+        /* =================================================
+           CREATE EXCEL FILE
+           ================================================= */
+
+        const buffer =
+            await workbook.xlsx.writeBuffer();
+
+
+        const blob =
+            new Blob(
+                [buffer],
+                {
+                    type:
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+        link.download =
+            `3470-Healthcare-Admission-Report-${today}.xlsx`;
+
+
+        document.body.appendChild(link);
+
+
+        link.click();
+
+
+        document.body.removeChild(link);
+
+
+        URL.revokeObjectURL(url);
+
+
+        console.log(
+            "✅ Professional Excel report exported successfully."
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "❌ Excel Export Error:",
+            error
+        );
+
+
+        alert(
+            "Failed to export admission report.\n\n" +
+            error.message
+        );
+    }
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   GET CURRENT REPORT SUMMARY
+   ========================================================= */
+
+function getCurrentReportSummary() {
+
+    const totalAdmissions =
+        currentReportData.length;
+
+
+    const totalCourseFee =
+        currentReportData.reduce(
+            (
+                total,
+                admission
+            ) =>
+                total +
+                (
+                    Number(
+                        admission.course_fee
+                    ) || 0
+                ),
+            0
+        );
+
+
+    const totalPaid =
+        currentReportData.reduce(
+            (
+                total,
+                admission
+            ) =>
+                total +
+                (
+                    Number(
+                        admission.paid_amount
+                    ) || 0
+                ),
+            0
+        );
+
+
+    const partialPayments =
+        currentReportData
+            .filter(
+                admission =>
+                    String(
+                        admission.payment_status || ""
+                    ).toLowerCase() === "partial"
+            )
+            .reduce(
+                (
+                    total,
+                    admission
+                ) =>
+                    total +
+                    (
+                        Number(
+                            admission.paid_amount
+                        ) || 0
+                    ),
+                0
+            );
+
+
+    const pendingAmount =
+        currentReportData.reduce(
+            (
+                total,
+                admission
+            ) =>
+                total +
+                (
+                    Number(
+                        admission.balance_amount
+                    ) || 0
+                ),
+            0
+        );
+
+
+    return {
+
+        totalAdmissions,
+
+        totalCourseFee,
+
+        totalPaid,
+
+        partialPayments,
+
+        pendingAmount
+
+    };
+}
+
+
+
+/* =========================================================
+   EXCEL DATE
+   ========================================================= */
+
+function formatExcelDate(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    if (
+        typeof value === "string" &&
+        /^\d{4}-\d{2}-\d{2}/.test(value)
+    ) {
+
+        const parts =
+            value
+                .substring(0, 10)
+                .split("-");
+
+
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+    }
+
+
+    return formatDate(value);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   EXPORT BUTTON
+   ========================================================= */
+
+document
+    .getElementById("exportReportBtn")
+    .addEventListener(
+        "click",
+        exportAdmissionReport
+    );
+
+
+
+/* =========================================================
+   INITIAL PAGE LOAD
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        console.log(
+            "🚀 Admission Reports Page Loaded"
+        );
+
+
+        await loadFilterOptions();
+
+
+        await loadAdmissionReport();
+
+    }
+);
+
+</script>
+
+
+
+
+
+
 
 
 </body>

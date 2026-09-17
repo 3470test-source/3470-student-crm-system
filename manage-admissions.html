@@ -292,7 +292,14 @@
                             </tr>
                         </thead>
 
-                        <tbody id="admissionsTableBody"></tbody>
+                        <tbody id="admissionsTableBody">
+                            <tr>
+                                <td colspan="12" class="crm-loading-row">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    Loading admissions...
+                                </td>
+                            </tr>
+                        </tbody>
 
                     </table>
 
@@ -344,17 +351,6 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- Manage Admission - JS  -->
@@ -574,11 +570,8 @@ function populateFilters() {
 
     courses.forEach(course => {
 
-        courseFilter.innerHTML += `
-            <option value="${escapeHtml(course)}">
-                ${escapeHtml(course)}
-            </option>
-        `;
+        courseFilter.innerHTML += `<option value="${escapeHtml(course)}">${escapeHtml(course)}</option>`;
+
     });
 
 
@@ -586,11 +579,8 @@ function populateFilters() {
 
     batches.forEach(batch => {
 
-        batchFilter.innerHTML += `
-            <option value="${escapeHtml(batch)}">
-                ${escapeHtml(batch)}
-            </option>
-        `;
+        batchFilter.innerHTML += `<option value="${escapeHtml(batch)}">${escapeHtml(batch)}</option>`;
+
     });
 
 
@@ -598,11 +588,8 @@ function populateFilters() {
 
     statuses.forEach(status => {
 
-        statusFilter.innerHTML += `
-            <option value="${escapeHtml(status)}">
-                ${escapeHtml(status)}
-            </option>
-        `;
+        statusFilter.innerHTML += `<option value="${escapeHtml(status)}">${escapeHtml(status)}</option>`;
+
     });
 }
 

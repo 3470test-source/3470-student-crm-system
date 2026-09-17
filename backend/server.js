@@ -2314,6 +2314,257 @@ app.get("/api/admissions", async (req, res) => {
 
 
 
+/*==== ADMISSION REPORT - COURSE FILTER OPTIONS ====*/
+app.get("/api/admissions/report-courses", async (req, res) => {
+    try {
+        const [courses] = await db.execute(`
+            SELECT DISTINCT course
+            FROM admissions
+            WHERE course IS NOT NULL
+              AND TRIM(course) <> ''
+            ORDER BY course ASC
+        `);
+
+        res.json({
+            success: true,
+            courses
+        });
+
+    } catch (error) {
+        console.error("❌ Admission Report Courses Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load admission report courses.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== ADMISSION REPORT - COUNSELLOR FILTER OPTIONS ====*/
+app.get("/api/admissions/report-counsellors", async (req, res) => {
+    try {
+        const [counsellors] = await db.execute(`
+            SELECT DISTINCT counsellor
+            FROM admissions
+            WHERE counsellor IS NOT NULL
+              AND TRIM(counsellor) <> ''
+            ORDER BY counsellor ASC
+        `);
+
+        res.json({
+            success: true,
+            counsellors
+        });
+
+    } catch (error) {
+        console.error("❌ Admission Report Counsellors Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load admission report counsellors.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== DYNAMIC ADMISSION REPORT ====*/
+app.get("/api/admissions/reports", async (req, res) => {
+    try {
+        const {
+            from_date, to_date, course, counsellor, payment_status
+        } = req.query;
+
+        const conditions = [];
+        const params = [];
+
+        
+        /*--- DATE FILTER ---*/
+        if (from_date) {
+            conditions.push(`a.joining_date >= ?`);
+            params.push(from_date);
+        }
+
+        if (to_date) {
+            conditions.push(`
+                a.joining_date < DATE_ADD(?, INTERVAL 1 DAY)
+            `);
+            params.push(to_date);
+        }
+
+        
+        /*--- COURSE FILTER ---*/
+        if (course) {
+            conditions.push(`a.course = ?`);
+            params.push(course);
+        }
+
+        
+        /*--- COUNSELLOR FILTER ---*/
+        if (counsellor) {
+            conditions.push(`a.counsellor = ?`);
+            params.push(counsellor);
+        }
+
+        
+        /*--- PAYMENT STATUS ---*/
+        const paymentStatusCase = `
+            CASE
+                WHEN COALESCE(a.balance_amount, 0) <= 0
+                    THEN 'Paid'
+
+                WHEN COALESCE(a.registration_amount, 0) > 0
+                    AND COALESCE(a.balance_amount, 0) > 0
+                    THEN 'Partial'
+
+                ELSE 'Pending'
+            END
+        `;
+
+        if (
+            payment_status &&
+            ["Paid", "Partial", "Pending"].includes(payment_status)
+        ) {
+            conditions.push(`${paymentStatusCase} = ?`);
+            params.push(payment_status);
+        }
+
+        const whereClause = conditions.length > 0
+                ? `WHERE ${conditions.join(" AND ")}`
+                : "";
+
+        
+        /*--- REPORT RECORDS ---*/
+        const [admissions] = await db.execute(
+            `
+            SELECT
+                a.id, a.student_name, a.mobile, a.course, a.counsellor, a.joining_date AS admission_date,
+                a.course_fee, a.final_fee, a.registration_amount AS paid_amount, a.balance_amount,
+
+                ${paymentStatusCase} AS payment_status
+
+            FROM admissions a
+
+            ${whereClause}
+
+            ORDER BY a.id DESC
+            `,
+            params
+        );
+
+        
+        /*--- SUMMARY ---*/
+        const [summaryRows] = await db.execute(
+            `
+            SELECT
+
+                COUNT(*) AS total_admissions,
+
+                SUM(
+                    CASE
+                        WHEN DATE(a.joining_date) = CURDATE()
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS today_admissions,
+
+                SUM(
+                    CASE
+                        WHEN YEAR(a.joining_date) = YEAR(CURDATE())
+                        AND MONTH(a.joining_date) = MONTH(CURDATE())
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS month_admissions,
+
+                COALESCE(
+                    SUM(a.final_fee),
+                    0
+                ) AS total_course_fee,
+
+                COALESCE(
+                    SUM(a.registration_amount),
+                    0
+                ) AS total_paid,
+
+                COALESCE(
+                    SUM(
+                        CASE
+                            WHEN ${paymentStatusCase} = 'Partial'
+                            THEN a.registration_amount
+                            ELSE 0
+                        END
+                    ),
+                    0
+                ) AS partial_payments,
+
+                COALESCE(
+                    SUM(a.balance_amount),
+                    0
+                ) AS pending_amount,
+
+                COALESCE(
+                    SUM(a.registration_amount),
+                    0
+                ) AS total_revenue
+
+            FROM admissions a
+
+            ${whereClause}
+            `,
+            params
+        );
+
+        const summary = summaryRows[0] || {};
+
+        res.json({success: true,
+
+            summary: {
+                total_admissions: Number(summary.total_admissions) || 0,
+
+                today_admissions: Number(summary.today_admissions) || 0,
+
+                month_admissions: Number(summary.month_admissions) || 0,
+
+                total_course_fee: Number(summary.total_course_fee) || 0,
+
+                total_paid: Number(summary.total_paid) || 0,
+
+                partial_payments: Number(summary.partial_payments) || 0,
+
+                pending_amount: Number(summary.pending_amount) || 0,
+
+                total_revenue: Number(summary.total_revenue) || 0
+            },
+
+            admissions
+
+        });
+
+    } catch (error) {
+
+        console.error("❌ Admission Report Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load admission report.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
 /*==== GET SINGLE ADMISSION ====*/
 app.get("/api/admissions/:id", async (req, res) => {
     try {
@@ -2392,34 +2643,15 @@ app.delete("/api/admissions/:id", async (req, res) => {
 
 
 
-
-
-
-
-
+/*==== UPDATE Manage Admission - PUT ====*/
 app.put("/api/admissions/:id", async (req, res) => {
     try {
 
         const { id } = req.params;
 
         const {
-            student_name,
-            mobile,
-            email,
-            gender,
-            date_of_birth,
-            course,
-            batch,
-            joining_date,
-            course_fee,
-            discount,
-            final_fee,
-            registration_amount,
-            balance_amount,
-            payment_mode,
-            counsellor,
-            admission_status,
-            remarks
+            student_name, mobile, email, gender, date_of_birth, course, batch, joining_date, course_fee, discount,
+            final_fee, registration_amount, balance_amount, payment_mode, counsellor, admission_status, remarks
         } = req.body;
 
 
@@ -2427,47 +2659,38 @@ app.put("/api/admissions/:id", async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message:
-                    "Student name, mobile number and course are required."
+                message: "Student name, mobile number and course are required."
             });
 
         }
 
 
-        const courseFee =
-            Number(course_fee) || 0;
+        const courseFee = Number(course_fee) || 0;
 
-        const discountAmount =
-            Number(discount) || 0;
+        const discountAmount = Number(discount) || 0;
 
-        const registrationAmount =
-            Number(registration_amount) || 0;
+        const registrationAmount = Number(registration_amount) || 0;
 
-
-        let finalFee =
-            Number(final_fee);
+        let finalFee = Number(final_fee);
 
         if (
             isNaN(finalFee) ||
             finalFee < 0
         ) {
-            finalFee =
-                Math.max(
+            finalFee = Math.max(
                     courseFee - discountAmount,
                     0
                 );
         }
 
 
-        let balanceAmount =
-            Number(balance_amount);
+        let balanceAmount = Number(balance_amount);
 
         if (
             isNaN(balanceAmount) ||
             balanceAmount < 0
         ) {
-            balanceAmount =
-                Math.max(
+            balanceAmount = Math.max(
                     finalFee -
                     registrationAmount,
                     0
@@ -2479,8 +2702,7 @@ app.put("/api/admissions/:id", async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message:
-                    "Discount cannot be greater than course fee."
+                message: "Discount cannot be greater than course fee."
             });
 
         }
@@ -2490,8 +2712,7 @@ app.put("/api/admissions/:id", async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message:
-                    "Registration amount cannot be greater than final fee."
+                message: "Registration amount cannot be greater than final fee."
             });
 
         }
@@ -2501,43 +2722,16 @@ app.put("/api/admissions/:id", async (req, res) => {
             `
             UPDATE admissions
             SET
-                student_name = ?,
-                mobile = ?,
-                email = ?,
-                gender = ?,
-                date_of_birth = ?,
-                course = ?,
-                batch = ?,
-                joining_date = ?,
-                course_fee = ?,
-                discount = ?,
-                final_fee = ?,
-                registration_amount = ?,
-                balance_amount = ?,
-                payment_mode = ?,
-                counsellor = ?,
-                admission_status = ?,
-                remarks = ?,
+                student_name = ?, mobile = ?, email = ?, gender = ?, date_of_birth = ?, course = ?, batch = ?,
+                joining_date = ?, course_fee = ?, discount = ?, final_fee = ?, registration_amount = ?, balance_amount = ?,
+                payment_mode = ?, counsellor = ?, admission_status = ?, remarks = ?,
                 updated_at = CURRENT_TIMESTAMP
             WHERE id = ?
             `,
             [
-                student_name,
-                mobile,
-                email || null,
-                gender || null,
-                date_of_birth || null,
-                course,
-                batch || null,
-                joining_date || null,
-                courseFee,
-                discountAmount,
-                finalFee,
-                registrationAmount,
-                balanceAmount,
-                payment_mode || null,
-                counsellor || null,
-                admission_status || "Confirmed",
+                student_name, mobile, email || null, gender || null, date_of_birth || null, course, batch || null,
+                joining_date || null, courseFee, discountAmount, finalFee, registrationAmount, balanceAmount,
+                payment_mode || null, counsellor || null, admission_status || "Confirmed",
                 remarks || null,
                 id
             ]
@@ -2548,8 +2742,7 @@ app.put("/api/admissions/:id", async (req, res) => {
 
             return res.status(404).json({
                 success: false,
-                message:
-                    "Admission not found."
+                message: "Admission not found."
             });
 
         }
@@ -2557,8 +2750,7 @@ app.put("/api/admissions/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message:
-                "Admission updated successfully.",
+            message: "Admission updated successfully.",
             admissionId: id
         });
 
@@ -2572,21 +2764,12 @@ app.put("/api/admissions/:id", async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message:
-                "Failed to update admission.",
-            error:
-                error.message
+            message: "Failed to update admission.",
+            error: error.message
         });
 
     }
 });
-
-
-
-
-
-
-
 
 
 
