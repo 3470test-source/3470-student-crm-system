@@ -527,6 +527,7 @@ app.delete("/api/courses/:id", async (req, res) => {
 
 
 
+
 /*==== ADD STUDENT ENQUIRY - POST /api/enquiries ====*/
 app.post("/api/enquiries", async (req, res) => {
 
@@ -752,15 +753,264 @@ app.get("/api/enquiries", async (req, res) => {
 
             success: false,
             message: "Unable to fetch enquiries.",
-
-            error:
-                error.message
+            error: error.message
 
         });
 
     }
 
 });
+
+
+
+
+
+/*==== GET ENQUIRY REPORT FILTER OPTIONS - Courses + Counsellors ====*/
+app.get("/api/enquiries/report-options", async (req, res) => {
+
+    try {
+
+        /*--- LOAD ACTIVE COURSES ---*/
+        const [courses] = await db.execute(`
+            SELECT
+                id, course_name, course_category, status
+            FROM courses
+            WHERE status = 'Active'
+            ORDER BY course_name ASC
+        `);
+
+
+        /*--- LOAD COUNSELLORS - FROM STUDENT ENQUIRIES ---*/
+        const [counsellors] = await db.execute(`
+            SELECT DISTINCT
+                TRIM(counsellor) AS name
+            FROM student_enquiries
+            WHERE counsellor IS NOT NULL
+              AND TRIM(counsellor) <> ''
+            ORDER BY name ASC
+        `);
+
+
+        res.json({
+            success: true,
+            courses,
+            counsellors
+        });
+
+
+    } catch (error) {
+
+        console.error("❌ Enquiry Report Options Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load enquiry report options.",
+            error: error.message
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== GET DYNAMIC ENQUIRY REPORT ====*/
+app.get("/api/enquiries/reports", async (req, res) => {
+
+    try {
+
+        const {
+            from_date, to_date, course, counsellor, status
+        } = req.query;
+
+
+        /*--- BUILD WHERE CONDITION ---*/
+        const conditions = [];
+        const params = [];
+
+
+        /*--- FROM DATE ---*/
+        if (from_date) {
+
+            conditions.push(`DATE(se.enquiry_date) >= ?`);
+            params.push(from_date);
+
+        }
+
+
+        /*--- TO DATE ---*/
+        if (to_date) {
+
+            conditions.push(`DATE(se.enquiry_date) <= ?`);
+            params.push(to_date);
+
+        }
+
+
+        /*--- COURSE ---*/
+        if (course) {
+
+            conditions.push(`se.course_interested = ?`);
+            params.push(course);
+
+        }
+
+
+        /*--- COUNSELLOR ---*/
+        if (counsellor) {
+
+            conditions.push(`se.counsellor = ?`);
+            params.push(counsellor);
+
+        }
+
+
+        /*--- STATUS ---*/
+        if (status) {
+
+            conditions.push(`se.status = ?`);
+            params.push(status);
+
+        }
+
+
+        let whereClause = "";
+
+        if (conditions.length > 0) {
+
+            whereClause = `WHERE ${conditions.join(" AND ")}`;
+
+        }
+
+
+        /*--- GET ENQUIRY RECORDS ---*/
+        const [enquiries] = await db.execute(
+            `
+            SELECT
+                se.id, se.student_name, se.mobile, se.email, se.gender, se.date_of_birth, se.course_interested AS course,
+                se.enquiry_source, se.counsellor, se.enquiry_date, se.follow_up_date, se.follow_up_time, se.status,
+                se.address, se.comments, se.created_at, se.updated_at
+            FROM student_enquiries se
+
+            ${whereClause}
+
+            ORDER BY se.enquiry_date DESC, se.id DESC
+            `,
+            params
+        );
+
+
+        /*--- SUMMARY COUNTS ---*/
+        const [summaryRows] = await db.execute(
+            `
+            SELECT
+
+                COUNT(*) AS total_enquiries,
+
+                SUM(
+                    CASE
+                        WHEN se.status = 'Interested'
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS interested,
+
+                SUM(
+                    CASE
+                        WHEN se.status = 'Follow-up'
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS follow_ups,
+
+                SUM(
+                    CASE
+                        WHEN se.status = 'Admission Confirmed'
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS converted,
+
+                SUM(
+                    CASE
+                        WHEN se.status = 'Not Interested'
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS not_interested
+
+            FROM student_enquiries se
+
+            ${whereClause}
+            `,
+            params
+        );
+
+
+        /*--- STATUS SUMMARY ---*/
+        const [statusRows] = await db.execute(
+            `
+            SELECT
+                se.status,
+                COUNT(*) AS total
+            FROM student_enquiries se
+
+            ${whereClause}
+
+            GROUP BY se.status
+            ORDER BY total DESC
+            `,
+            params
+        );
+
+        const summary = summaryRows[0] || {};
+
+
+        /*--- NORMALIZE SUMMARY VALUES ---*/
+        const finalSummary = {
+
+            total_enquiries: Number(summary.total_enquiries) || 0,
+
+            interested: Number(summary.interested) || 0,
+
+            follow_ups: Number(summary.follow_ups) || 0,
+
+            converted: Number(summary.converted) || 0,
+
+            not_interested: Number(summary.not_interested) || 0
+
+        };
+
+
+        /*--- RESPONSE ---*/
+        res.json({
+
+            success: true,
+            summary: finalSummary,
+            status_summary: statusRows,
+            enquiries
+
+        });
+
+
+    } catch (error) {
+
+        console.error("❌ Enquiry Report Error:", error);
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load enquiry report.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
 
 
 

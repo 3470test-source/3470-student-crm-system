@@ -21,7 +21,34 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    /*-- REPORT LOADING --*/
+    .crm-report-loading {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-report-error {
+      text-align: center;
+      padding: 30px;
+      color: #dc2626;
+      font-size: 15px;
+    }
+
+    /*-- EXPORT BUTTON --*/
+    .crm-report-export-btn {
+      cursor: pointer;
+    }
+
+    /*-- NO DATA --*/
+    .crm-report-no-data {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+  
     </style>
  
 </head>
@@ -234,7 +261,7 @@
 
                         <div>
                             <span>Total Enquiries</span>
-                            <h3>250</h3>
+                            <h3 id="totalEnquiries">0</h3>
                         </div>
 
                     </div>
@@ -249,7 +276,7 @@
 
                         <div>
                             <span>Interested</span>
-                            <h3>145</h3>
+                            <h3 id="interestedEnquiries">0</h3>
                         </div>
 
                     </div>
@@ -264,7 +291,7 @@
 
                         <div>
                             <span>Follow-ups</span>
-                            <h3>68</h3>
+                            <h3 id="followUpEnquiries">0</h3>
                         </div>
 
                     </div>
@@ -279,7 +306,7 @@
 
                         <div>
                             <span>Converted</span>
-                            <h3>37</h3>
+                            <h3 id="convertedEnquiries">0</h3>
                         </div>
 
                     </div>
@@ -318,17 +345,6 @@
                             <label for="reportCourse">Course</label>
                             <select id="reportCourse">
                                 <option value="">-- All Courses --</option>
-                                <option value="BMCT">Basic Medical Coding Training</option>
-                                <option value="AMCT">Advanced Medical Coding Training</option>
-                                <option value="CPC">Certified Professional Coder</option>
-                                <option value="E&M">Evaluation & Management</option>
-                                <option value="IPDRG">Inpatient Diagnosis-Related Group</option>
-                                <option value="ED">Emergency Department</option>
-                                <option value="CCS">Certified Coding Specialist</option>
-                                <option value="CPMA">Certified Professional Medical Auditor</option>
-                                <option value="CRC">Certified Risk Adjustment Coder</option>
-                                <option value="IVR">Interventional Radiology</option>
-                                <option value="Surgery">Surgery</option>
                             </select>
                         </div>
 
@@ -337,11 +353,6 @@
                             <label for="reportCounsellor">Counsellor</label>
                             <select id="reportCounsellor">
                                 <option value="">-- All Counsellors --</option>
-                                <option value="">Ramesh</option>
-                                <option value="">Perumal</option>
-                                <option value="">Renuka</option>
-                                <option value="">Kaviya</option>
-                                <option value="">Jaya Shree</option>
                             </select>
                         </div>
 
@@ -359,8 +370,11 @@
 
                         <!-- Buttons -->
                         <div class="crm-Enq-report-filter-actions">
-                            <button type="button" class="crm-enq-report-filter-btn"><i class="fa fa-filter"></i>Apply Filter</button>
-                            <button type="button" class="crm-enq-report-reset-btn"><i class="fa fa-rotate-left"></i>Reset</button>
+                            <button type="button" class="crm-enq-report-filter-btn" id="applyFilterBtn">
+                                <i class="fa fa-filter"></i>Apply Filter</button>
+
+                            <button type="button" class="crm-enq-report-reset-btn" id="resetFilterBtn">
+                                <i class="fa fa-rotate-left"></i>Reset</button>
                         </div>
 
                     </div>
@@ -378,7 +392,8 @@
                             <p>Detailed student enquiry information.</p>
                         </div>
 
-                        <button type="button" class="crm-report-export-btn"><i class="fa fa-download"></i>Export Report</button>
+                        <button type="button" class="crm-report-export-btn" id="exportReportBtn">
+                            <i class="fa fa-download"></i>Export Report</button>
 
                     </div>
 
@@ -401,71 +416,15 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody id="enquiryReportTableBody">
+
                                 <tr>
-                                    <td>1</td>
-                                    <td>Rahul Kumar</td>
-                                    <td>9876543210</td>
-                                    <td>CPC</td>
-                                    <td>Renuka</td>
-                                    <td>05-Aug-2026</td>
-                                    <td>08-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-status-ER interested">Interested</span>
+                                    <td colspan="8" class="crm-report-loading">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        Loading enquiry report...
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <td>2</td>
-                                    <td>Priya Sharma</td>
-                                    <td>9876501234</td>
-                                    <td>CRC</td>
-                                    <td>Kaviya</td>
-                                    <td>06-Aug-2026</td>
-                                    <td>10-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-status-ER followup">Follow-up</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>3</td>
-                                    <td>Arun Kumar</td>
-                                    <td>9876512345</td>
-                                    <td>CCS</td>
-                                    <td>Jaya Shree</td>
-                                    <td>07-Aug-2026</td>
-                                    <td>--</td>
-                                    <td>
-                                        <span class="crm-status-ER not-interested">Not Interested</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>4</td>
-                                    <td>Kavin Raj</td>
-                                    <td>9876523456</td>
-                                    <td>CPMA</td>
-                                    <td>Perumal</td>
-                                    <td>08-Aug-2026</td>
-                                    <td>11-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-status-ER admission">Admission Confirmed</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>5</td>
-                                    <td>Divya</td>
-                                    <td>9876534567</td>
-                                    <td>E&M</td>
-                                    <td>Kaviya</td>
-                                    <td>09-Aug-2026</td>
-                                    <td>12-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-status-ER followup">Follow-up</span>
-                                    </td>
-                                </tr>
                             </tbody>
 
                         </table>
@@ -498,7 +457,7 @@
 
                             <div>
                                 <span>Interested</span>
-                                <strong>145</strong>
+                                <strong id="statusInterested">0</strong>
                             </div>
 
                         </div>
@@ -513,7 +472,7 @@
 
                             <div>
                                 <span>Follow-up</span>
-                                <strong>68</strong>
+                                <strong id="statusFollowup">0</strong>
                             </div>
 
                         </div>
@@ -528,7 +487,7 @@
 
                             <div>
                                 <span>Not Interested</span>
-                                <strong>30</strong>
+                                <strong id="statusNotInterested">0</strong>
                             </div>
 
                         </div>
@@ -543,7 +502,7 @@
 
                             <div>
                                 <span>Admission Confirmed</span>
-                                <strong>37</strong>
+                                <strong id="statusAdmission">0</strong>
                             </div>
 
                         </div>
@@ -594,6 +553,1996 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+
+
+
+
+
+
+<script>
+
+
+/* =========================================================
+   API
+   ========================================================= */
+
+const API_BASE = "http://localhost:3000/api";
+
+
+/* =========================================================
+   GLOBAL REPORT DATA
+   ========================================================= */
+
+let currentReportData = [];
+
+
+
+/* =========================================================
+   DOM READY
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        setupReportEvents();
+
+        await loadReportOptions();
+
+        await loadEnquiryReport();
+
+    }
+);
+
+
+
+/* =========================================================
+   SETUP EVENTS
+   ========================================================= */
+
+function setupReportEvents() {
+
+
+    /* APPLY FILTER */
+
+    document
+        .getElementById("applyFilterBtn")
+        .addEventListener(
+            "click",
+            loadEnquiryReport
+        );
+
+
+
+    /* RESET */
+
+    document
+        .getElementById("resetFilterBtn")
+        .addEventListener(
+            "click",
+            resetFilters
+        );
+
+
+
+    /* EXPORT */
+
+    document
+        .getElementById("exportReportBtn")
+        .addEventListener(
+            "click",
+            exportEnquiryReport
+        );
+
+}
+
+
+
+/* =========================================================
+   LOAD FILTER OPTIONS
+   ========================================================= */
+
+async function loadReportOptions() {
+
+    try {
+
+
+        const response = await fetch(
+            `${API_BASE}/enquiries/report-options`
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+
+        const data = await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load report options."
+            );
+
+        }
+
+
+
+        /* =================================================
+           COURSE OPTIONS
+           ================================================= */
+
+        const courseSelect =
+            document.getElementById("reportCourse");
+
+
+        courseSelect.innerHTML = `
+            <option value="">
+                -- All Courses --
+            </option>
+        `;
+
+
+        (data.courses || []).forEach(course => {
+
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                course.course_name;
+
+
+            option.textContent =
+                course.course_name;
+
+
+            courseSelect.appendChild(option);
+
+        });
+
+
+
+        /* =================================================
+           COUNSELLOR OPTIONS
+           ================================================= */
+
+        const counsellorSelect =
+            document.getElementById("reportCounsellor");
+
+
+        counsellorSelect.innerHTML = `
+            <option value="">
+                -- All Counsellors --
+            </option>
+        `;
+
+
+        (data.counsellors || []).forEach(counsellor => {
+
+
+            const option =
+                document.createElement("option");
+
+
+            option.value =
+                counsellor.name;
+
+
+            option.textContent =
+                counsellor.name;
+
+
+            counsellorSelect.appendChild(option);
+
+        });
+
+
+    } catch (error) {
+
+
+        console.error(
+            "❌ Report Options Error:",
+            error
+        );
+
+
+        alert(
+            "Unable to load course/counsellor filters."
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOAD ENQUIRY REPORT
+   ========================================================= */
+
+async function loadEnquiryReport() {
+
+
+    showReportLoading();
+
+
+    try {
+
+
+        const fromDate =
+            document
+                .getElementById("fromDate")
+                .value;
+
+
+        const toDate =
+            document
+                .getElementById("toDate")
+                .value;
+
+
+        const course =
+            document
+                .getElementById("reportCourse")
+                .value;
+
+
+        const counsellor =
+            document
+                .getElementById("reportCounsellor")
+                .value;
+
+
+        const status =
+            document
+                .getElementById("reportStatus")
+                .value;
+
+
+
+        /* =================================================
+           DATE VALIDATION
+           ================================================= */
+
+        if (
+            fromDate &&
+            toDate &&
+            fromDate > toDate
+        ) {
+
+            alert(
+                "From Date cannot be greater than To Date."
+            );
+
+            showNoData();
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           BUILD QUERY
+           ================================================= */
+
+        const params =
+            new URLSearchParams();
+
+
+        if (fromDate) {
+
+            params.append(
+                "from_date",
+                fromDate
+            );
+
+        }
+
+
+        if (toDate) {
+
+            params.append(
+                "to_date",
+                toDate
+            );
+
+        }
+
+
+        if (course) {
+
+            params.append(
+                "course",
+                course
+            );
+
+        }
+
+
+        if (counsellor) {
+
+            params.append(
+                "counsellor",
+                counsellor
+            );
+
+        }
+
+
+        if (status) {
+
+            params.append(
+                "status",
+                status
+            );
+
+        }
+
+
+
+        /* =================================================
+           API REQUEST
+           ================================================= */
+
+        const url =
+            `${API_BASE}/enquiries/reports` +
+            `?${params.toString()}`;
+
+
+        console.log(
+            "📊 Enquiry Report API:",
+            url
+        );
+
+
+        const response =
+            await fetch(url);
+
+
+        if (!response.ok) {
+
+
+            const errorText =
+                await response.text();
+
+
+            console.error(
+                "❌ Backend Response:",
+                errorText
+            );
+
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "✅ Enquiry Report Response:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load enquiry report."
+            );
+
+        }
+
+
+
+        /* =================================================
+           STORE DATA
+           ================================================= */
+
+        currentReportData =
+            data.enquiries || [];
+
+
+
+        /* =================================================
+           UPDATE SUMMARY
+           ================================================= */
+
+        updateSummary(
+            data.summary || {}
+        );
+
+
+
+        /* =================================================
+           UPDATE STATUS SUMMARY
+           ================================================= */
+
+        updateStatusSummary(
+            data.summary || {}
+        );
+
+
+
+        /* =================================================
+           RENDER TABLE
+           ================================================= */
+
+        renderEnquiryReport(
+            currentReportData
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            "❌ Enquiry Report Load Error:",
+            error
+        );
+
+
+        showReportError(
+            error.message
+        );
+
+    }
+
+}
+
+
+
+/* =========================================================
+   UPDATE SUMMARY CARDS
+   ========================================================= */
+
+function updateSummary(summary) {
+
+
+    document.getElementById(
+        "totalEnquiries"
+    ).textContent =
+        Number(
+            summary.total_enquiries
+        ) || 0;
+
+
+
+    document.getElementById(
+        "interestedEnquiries"
+    ).textContent =
+        Number(
+            summary.interested
+        ) || 0;
+
+
+
+    document.getElementById(
+        "followUpEnquiries"
+    ).textContent =
+        Number(
+            summary.follow_ups
+        ) || 0;
+
+
+
+    document.getElementById(
+        "convertedEnquiries"
+    ).textContent =
+        Number(
+            summary.converted
+        ) || 0;
+
+}
+
+
+
+/* =========================================================
+   UPDATE STATUS SUMMARY
+   ========================================================= */
+
+function updateStatusSummary(summary) {
+
+
+    document.getElementById(
+        "statusInterested"
+    ).textContent =
+        Number(
+            summary.interested
+        ) || 0;
+
+
+
+    document.getElementById(
+        "statusFollowup"
+    ).textContent =
+        Number(
+            summary.follow_ups
+        ) || 0;
+
+
+
+    document.getElementById(
+        "statusNotInterested"
+    ).textContent =
+        Number(
+            summary.not_interested
+        ) || 0;
+
+
+
+    document.getElementById(
+        "statusAdmission"
+    ).textContent =
+        Number(
+            summary.converted
+        ) || 0;
+
+}
+
+
+
+/* =========================================================
+   RENDER REPORT TABLE
+   ========================================================= */
+
+function renderEnquiryReport(enquiries) {
+
+
+    const tbody =
+        document.getElementById(
+            "enquiryReportTableBody"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+
+    if (!enquiries.length) {
+
+
+        showNoData();
+
+
+        return;
+
+    }
+
+
+
+    enquiries.forEach(
+        (enquiry, index) => {
+
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${index + 1}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.student_name
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.mobile || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.course || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.counsellor || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${formatDate(
+                        enquiry.enquiry_date
+                    )}
+                </td>
+
+
+                <td>
+                    ${formatDate(
+                        enquiry.follow_up_date
+                    )}
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="crm-status-ER
+                        ${getStatusClass(
+                            enquiry.status
+                        )}"
+                    >
+
+                        ${escapeHtml(
+                            enquiry.status || "-"
+                        )}
+
+                    </span>
+
+                </td>
+
+            `;
+
+
+            tbody.appendChild(row);
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   STATUS CSS CLASS
+   ========================================================= */
+
+function getStatusClass(status) {
+
+
+    if (!status) {
+
+        return "";
+
+    }
+
+
+    switch (
+        String(status)
+            .toLowerCase()
+            .trim()
+    ) {
+
+
+        case "interested":
+
+            return "interested";
+
+
+        case "follow-up":
+
+            return "followup";
+
+
+        case "follow up":
+
+            return "followup";
+
+
+        case "not interested":
+
+            return "not-interested";
+
+
+        case "admission confirmed":
+
+            return "admission";
+
+
+        default:
+
+            return "followup";
+
+    }
+
+}
+
+
+
+/* =========================================================
+   RESET FILTERS
+   ========================================================= */
+
+async function resetFilters() {
+
+
+    document.getElementById(
+        "fromDate"
+    ).value = "";
+
+
+    document.getElementById(
+        "toDate"
+    ).value = "";
+
+
+    document.getElementById(
+        "reportCourse"
+    ).value = "";
+
+
+    document.getElementById(
+        "reportCounsellor"
+    ).value = "";
+
+
+    document.getElementById(
+        "reportStatus"
+    ).value = "";
+
+
+
+    await loadEnquiryReport();
+
+}
+
+
+
+/* =========================================================
+   SHOW LOADING
+   ========================================================= */
+
+function showReportLoading() {
+
+
+    document.getElementById(
+        "enquiryReportTableBody"
+    ).innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="8"
+                class="crm-report-loading"
+            >
+
+                <i
+                    class="fa-solid
+                    fa-spinner
+                    fa-spin"
+                ></i>
+
+                Loading enquiry report...
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   SHOW NO DATA
+   ========================================================= */
+
+function showNoData() {
+
+
+    document.getElementById(
+        "enquiryReportTableBody"
+    ).innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="8"
+                class="crm-report-no-data"
+            >
+
+                <i class="fa fa-folder-open"></i>
+
+                <br><br>
+
+                No enquiry records found.
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   SHOW ERROR
+   ========================================================= */
+
+function showReportError(message) {
+
+
+    document.getElementById(
+        "enquiryReportTableBody"
+    ).innerHTML = `
+
+        <tr>
+
+            <td
+                colspan="8"
+                class="crm-report-error"
+            >
+
+                <i class="fa fa-circle-exclamation"></i>
+
+                <br><br>
+
+                Failed to load enquiry report.
+
+                <br><br>
+
+                <small>
+                    ${escapeHtml(message)}
+                </small>
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    currentReportData = [];
+
+
+
+    updateSummary({
+
+        total_enquiries: 0,
+
+        interested: 0,
+
+        follow_ups: 0,
+
+        converted: 0,
+
+        not_interested: 0
+
+    });
+
+
+    updateStatusSummary({
+
+        interested: 0,
+
+        follow_ups: 0,
+
+        converted: 0,
+
+        not_interested: 0
+
+    });
+
+}
+
+
+
+/* =========================================================
+   FORMAT DATE
+   ========================================================= */
+
+function formatDate(value) {
+
+
+    if (!value) {
+
+        return "--";
+
+    }
+
+
+    const text =
+        String(value);
+
+
+    /*
+       MySQL DATE:
+       2026-08-05
+    */
+
+    if (
+        /^\d{4}-\d{2}-\d{2}$/
+            .test(text)
+    ) {
+
+        const parts =
+            text.split("-");
+
+
+        return `
+            ${parts[2]}-
+            ${parts[1]}-
+            ${parts[0]}
+        `;
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return escapeHtml(value);
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN"
+    );
+
+}
+
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHtml(value) {
+
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================================
+   EXCEL SUMMARY
+   ========================================================= */
+
+function getCurrentReportSummary() {
+
+
+    return {
+
+        totalEnquiries:
+            currentReportData.length,
+
+
+        interested:
+            currentReportData.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    ).toLowerCase()
+                    === "interested"
+            ).length,
+
+
+        followUps:
+            currentReportData.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    ).toLowerCase()
+                    === "follow-up"
+            ).length,
+
+
+        notInterested:
+            currentReportData.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    ).toLowerCase()
+                    === "not interested"
+            ).length,
+
+
+        converted:
+            currentReportData.filter(
+                item =>
+                    String(
+                        item.status || ""
+                    ).toLowerCase()
+                    === "admission confirmed"
+            ).length
+
+    };
+
+}
+
+
+
+/* =========================================================
+   EXCEL DATE
+   ========================================================= */
+
+function formatExcelDate(value) {
+
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const text =
+        String(value);
+
+
+    if (
+        /^\d{4}-\d{2}-\d{2}/
+            .test(text)
+    ) {
+
+        const parts =
+            text
+                .substring(0, 10)
+                .split("-");
+
+
+        return `
+            ${parts[2]}-
+            ${parts[1]}-
+            ${parts[0]}
+        `;
+
+    }
+
+
+    return formatDate(value);
+
+}
+
+
+
+/* =========================================================
+   PROFESSIONAL EXCEL EXPORT
+   ========================================================= */
+
+async function exportEnquiryReport() {
+
+
+    if (!currentReportData.length) {
+
+
+        alert(
+            "There is no enquiry data to export."
+        );
+
+
+        return;
+
+    }
+
+
+
+    if (
+        typeof ExcelJS === "undefined"
+    ) {
+
+
+        alert(
+            "Excel export library is not loaded. Please refresh the page."
+        );
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+
+        console.log(
+            "📊 Preparing professional enquiry Excel report..."
+        );
+
+
+
+        /* =================================================
+           WORKBOOK
+           ================================================= */
+
+        const workbook =
+            new ExcelJS.Workbook();
+
+
+        workbook.creator =
+            "3470 Healthcare";
+
+
+        workbook.lastModifiedBy =
+            "3470 Healthcare";
+
+
+        workbook.created =
+            new Date();
+
+
+        workbook.modified =
+            new Date();
+
+
+
+        /* =================================================
+           WORKSHEET
+           ================================================= */
+
+        const worksheet =
+            workbook.addWorksheet(
+                "Enquiry Report"
+            );
+
+
+
+        /* =================================================
+           PAGE SETUP
+           ================================================= */
+
+        worksheet.pageSetup = {
+
+            orientation: "landscape",
+
+            paperSize: 9,
+
+            fitToPage: true,
+
+            fitToWidth: 1,
+
+            fitToHeight: 0,
+
+            margins: {
+
+                left: 0.25,
+
+                right: 0.25,
+
+                top: 0.5,
+
+                bottom: 0.5,
+
+                header: 0.2,
+
+                footer: 0.2
+
+            }
+
+        };
+
+
+
+        worksheet.views = [
+
+            {
+                state: "frozen",
+                ySplit: 15
+            }
+
+        ];
+
+
+
+        /* =================================================
+           COMPANY HEADER
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A1:H1"
+        );
+
+
+        const companyCell =
+            worksheet.getCell("A1");
+
+
+        companyCell.value =
+            "3470 HEALTHCARE PVT LTD";
+
+
+        companyCell.font = {
+
+            name: "Calibri",
+
+            size: 20,
+
+            bold: true,
+
+            color: {
+                argb: "FF1F4E78"
+            }
+
+        };
+
+
+        companyCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+
+        worksheet.getRow(1).height =
+            32;
+
+
+
+        /* =================================================
+           SYSTEM NAME
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A2:H2"
+        );
+
+
+        const systemCell =
+            worksheet.getCell("A2");
+
+
+        systemCell.value =
+            "STUDENT CRM SYSTEM";
+
+
+        systemCell.font = {
+
+            name: "Calibri",
+
+            size: 14,
+
+            bold: true
+
+        };
+
+
+        systemCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+
+        worksheet.getRow(2).height =
+            24;
+
+
+
+        /* =================================================
+           REPORT TITLE
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A3:H3"
+        );
+
+
+        const titleCell =
+            worksheet.getCell("A3");
+
+
+        titleCell.value =
+            "ENQUIRY REPORT";
+
+
+        titleCell.font = {
+
+            name: "Calibri",
+
+            size: 16,
+
+            bold: true
+
+        };
+
+
+        titleCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle"
+
+        };
+
+
+        worksheet.getRow(3).height =
+            26;
+
+
+
+        /* =================================================
+           GENERATED DATE
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A4:H4"
+        );
+
+
+        const generatedCell =
+            worksheet.getCell("A4");
+
+
+        generatedCell.value =
+            `Generated Date: ${new Date().toLocaleString("en-IN")}`;
+
+
+        generatedCell.font = {
+
+            italic: true,
+
+            size: 10
+
+        };
+
+
+        generatedCell.alignment = {
+
+            horizontal: "center"
+
+        };
+
+
+
+        /* =================================================
+           FILTER INFORMATION
+           ================================================= */
+
+        const selectedFrom =
+            document.getElementById(
+                "fromDate"
+            ).value || "All";
+
+
+        const selectedTo =
+            document.getElementById(
+                "toDate"
+            ).value || "All";
+
+
+        const selectedCourse =
+            document.getElementById(
+                "reportCourse"
+            ).value || "All Courses";
+
+
+        const selectedCounsellor =
+            document.getElementById(
+                "reportCounsellor"
+            ).value || "All Counsellors";
+
+
+        const selectedStatus =
+            document.getElementById(
+                "reportStatus"
+            ).value || "All Status";
+
+
+
+        worksheet.mergeCells(
+            "A5:H5"
+        );
+
+
+        const filterCell =
+            worksheet.getCell("A5");
+
+
+        filterCell.value =
+            `Filters: ${selectedFrom} to ${selectedTo} | ${selectedCourse} | ${selectedCounsellor} | ${selectedStatus}`;
+
+
+        filterCell.font = {
+
+            size: 10,
+
+            italic: true
+
+        };
+
+
+        filterCell.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle",
+
+            wrapText: true
+
+        };
+
+
+
+        worksheet.getRow(5).height =
+            30;
+
+
+
+        /* =================================================
+           SUMMARY TITLE
+           ================================================= */
+
+        worksheet.mergeCells(
+            "A7:H7"
+        );
+
+
+        const summaryTitle =
+            worksheet.getCell("A7");
+
+
+        summaryTitle.value =
+            "ENQUIRY SUMMARY";
+
+
+        summaryTitle.font = {
+
+            bold: true,
+
+            size: 12
+
+        };
+
+
+
+        /* =================================================
+           SUMMARY
+           ================================================= */
+
+        const excelSummary =
+            getCurrentReportSummary();
+
+
+        worksheet.getCell("A8").value =
+            "Total Enquiries";
+
+
+        worksheet.getCell("B8").value =
+            excelSummary.totalEnquiries;
+
+
+        worksheet.getCell("C8").value =
+            "Interested";
+
+
+        worksheet.getCell("D8").value =
+            excelSummary.interested;
+
+
+        worksheet.getCell("E8").value =
+            "Follow-ups";
+
+
+        worksheet.getCell("F8").value =
+            excelSummary.followUps;
+
+
+        worksheet.getCell("G8").value =
+            "Converted";
+
+
+        worksheet.getCell("H8").value =
+            excelSummary.converted;
+
+
+
+        /* =================================================
+           SUMMARY STYLING
+           ================================================= */
+
+        for (
+            let col = 1;
+            col <= 8;
+            col++
+        ) {
+
+
+            worksheet.getCell(
+                8,
+                col
+            ).border = {
+
+                top: {
+                    style: "thin"
+                },
+
+                left: {
+                    style: "thin"
+                },
+
+                bottom: {
+                    style: "thin"
+                },
+
+                right: {
+                    style: "thin"
+                }
+
+            };
+
+        }
+
+
+
+        /* =================================================
+           TABLE START
+           ================================================= */
+
+        const headerRowNumber =
+            11;
+
+
+        const headers = [
+
+            "#",
+
+            "Student Name",
+
+            "Mobile",
+
+            "Course",
+
+            "Counsellor",
+
+            "Enquiry Date",
+
+            "Follow-up",
+
+            "Status"
+
+        ];
+
+
+        const headerRow =
+            worksheet.getRow(
+                headerRowNumber
+            );
+
+
+        headerRow.values =
+            headers;
+
+
+        headerRow.font = {
+
+            bold: true,
+
+            size: 11
+
+        };
+
+
+        headerRow.alignment = {
+
+            horizontal: "center",
+
+            vertical: "middle",
+
+            wrapText: true
+
+        };
+
+
+        headerRow.height = 28;
+
+
+
+        /* =================================================
+           HEADER BORDER
+           ================================================= */
+
+        headerRow.eachCell(
+            cell => {
+
+                cell.border = {
+
+                    top: {
+                        style: "thin"
+                    },
+
+                    left: {
+                        style: "thin"
+                    },
+
+                    bottom: {
+                        style: "thin"
+                    },
+
+                    right: {
+                        style: "thin"
+                    }
+
+                };
+
+            }
+        );
+
+
+
+        /* =================================================
+           DATA
+           ================================================= */
+
+        currentReportData.forEach(
+            (enquiry, index) => {
+
+
+                const row =
+                    worksheet.addRow([
+
+                        index + 1,
+
+                        enquiry.student_name || "",
+
+                        enquiry.mobile || "",
+
+                        enquiry.course || "",
+
+                        enquiry.counsellor || "",
+
+                        formatExcelDate(
+                            enquiry.enquiry_date
+                        ),
+
+                        formatExcelDate(
+                            enquiry.follow_up_date
+                        ),
+
+                        enquiry.status || ""
+
+                    ]);
+
+
+                row.eachCell(
+                    cell => {
+
+                        cell.border = {
+
+                            top: {
+                                style: "thin"
+                            },
+
+                            left: {
+                                style: "thin"
+                            },
+
+                            bottom: {
+                                style: "thin"
+                            },
+
+                            right: {
+                                style: "thin"
+                            }
+
+                        };
+
+
+                        cell.alignment = {
+
+                            vertical: "middle"
+
+                        };
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =================================================
+           COLUMN WIDTHS
+           ================================================= */
+
+        worksheet.columns = [
+
+            {
+                key: "number",
+                width: 8
+            },
+
+            {
+                key: "student",
+                width: 25
+            },
+
+            {
+                key: "mobile",
+                width: 16
+            },
+
+            {
+                key: "course",
+                width: 28
+            },
+
+            {
+                key: "counsellor",
+                width: 20
+            },
+
+            {
+                key: "enquiryDate",
+                width: 17
+            },
+
+            {
+                key: "followUp",
+                width: 17
+            },
+
+            {
+                key: "status",
+                width: 24
+            }
+
+        ];
+
+
+
+        /* =================================================
+           AUTO FILTER
+           ================================================= */
+
+        worksheet.autoFilter = {
+
+            from: `A${headerRowNumber}`,
+
+            to: `H${headerRowNumber}`
+
+        };
+
+
+
+        /* =================================================
+           PRINT TITLE
+           ================================================= */
+
+        worksheet.pageSetup.printTitlesRow =
+            `${headerRowNumber}:${headerRowNumber}`;
+
+
+
+        /* =================================================
+           FOOTER
+           ================================================= */
+
+        worksheet.headerFooter.oddFooter =
+            "&L3470 Healthcare&RPage &P of &N";
+
+
+
+        /* =================================================
+           TOTAL
+           ================================================= */
+
+        const totalRow =
+            worksheet.addRow([]);
+
+
+        totalRow.getCell(1).value =
+            "TOTAL RECORDS";
+
+
+        totalRow.getCell(1).font = {
+
+            bold: true
+
+        };
+
+
+        totalRow.getCell(2).value =
+            currentReportData.length;
+
+
+        totalRow.getCell(2).font = {
+
+            bold: true
+
+        };
+
+
+
+        /* =================================================
+           DOWNLOAD
+           ================================================= */
+
+        const buffer =
+            await workbook.xlsx.writeBuffer();
+
+
+        const blob =
+            new Blob(
+                [buffer],
+                {
+                    type:
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+            );
+
+
+        const url =
+            window.URL.createObjectURL(blob);
+
+
+        const link =
+            document.createElement("a");
+
+
+        link.href = url;
+
+
+        const today =
+            new Date()
+                .toISOString()
+                .split("T")[0];
+
+
+        link.download =
+            `3470-Healthcare-Enquiry-Report-${today}.xlsx`;
+
+
+        document.body.appendChild(link);
+
+
+        link.click();
+
+
+        document.body.removeChild(link);
+
+
+        window.URL.revokeObjectURL(url);
+
+
+        console.log(
+            "✅ Enquiry Excel report exported successfully."
+        );
+
+
+    } catch (error) {
+
+
+        console.error(
+            "❌ Excel Export Error:",
+            error
+        );
+
+
+        alert(
+            "Failed to export enquiry report."
+        );
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logout() {
+
+
+    /*
+       If authentication is added later,
+       clear token/session here.
+    */
+
+    localStorage.removeItem(
+        "crmUser"
+    );
+
+
+    localStorage.removeItem(
+        "crmToken"
+    );
+
+}
+
+</script>
+
+
+
+
+
 
 
 </body>

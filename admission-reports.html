@@ -37,7 +37,6 @@
 
     /*-- ERROR --*/
     .crm-report-error {
-      color: #dc2626;
       text-align: center;
       padding: 30px !important;
     }
@@ -565,33 +564,8 @@ dropdowns.forEach(dropdown => {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- ExcelJS -->
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
-
-
-
-
-
-
-
 
 
 <!-- ADMISSION REPORT - JS  -->
@@ -1005,7 +979,6 @@ async function loadAdmissionReport() {
                             error.message
                         )}
                     </small>
-
                 </td>
             </tr>
         `;
@@ -1264,185 +1237,21 @@ document.getElementById("resetFilterBtn").addEventListener("click", () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// /* =========================================================
-//    EXPORT CSV
-//    ========================================================= */
-
-// function exportAdmissionReport() {
-
-//     if (!currentReportData.length) {
-
-//         alert(
-//             "There is no admission data to export."
-//         );
-
-//         return;
-//     }
-
-
-//     const headers = [
-//         "No",
-//         "Student Name",
-//         "Mobile",
-//         "Course",
-//         "Counsellor",
-//         "Admission Date",
-//         "Course Fee",
-//         "Paid Amount",
-//         "Balance",
-//         "Payment Status"
-//     ];
-
-
-//     const rows =
-//         currentReportData.map(
-//             (admission, index) => [
-
-//                 index + 1,
-
-//                 admission.student_name || "",
-
-//                 admission.mobile || "",
-
-//                 admission.course || "",
-
-//                 admission.counsellor || "",
-
-//                 formatDate(
-//                     admission.admission_date
-//                 ),
-
-//                 Number(
-//                     admission.course_fee
-//                 ) || 0,
-
-//                 Number(
-//                     admission.paid_amount
-//                 ) || 0,
-
-//                 Number(
-//                     admission.balance_amount
-//                 ) || 0,
-
-//                 admission.payment_status || ""
-
-//             ]
-//         );
-
-
-//     const csvData = [
-//         headers,
-//         ...rows
-//     ];
-
-
-//     const csv =
-//         csvData
-//             .map(row =>
-
-//                 row.map(value => {
-
-//                     const stringValue =
-//                         String(value)
-//                             .replace(
-//                                 /"/g,
-//                                 '""'
-//                             );
-
-//                     return `"${stringValue}"`;
-
-//                 }).join(",")
-
-//             )
-//             .join("\n");
-
-
-//     const blob =
-//         new Blob(
-//             [csv],
-//             {
-//                 type:
-//                     "text/csv;charset=utf-8;"
-//             }
-//         );
-
-
-//     const url =
-//         URL.createObjectURL(blob);
-
-
-//     const link =
-//         document.createElement("a");
-
-
-//     link.href = url;
-
-
-//     const today =
-//         new Date()
-//             .toISOString()
-//             .split("T")[0];
-
-
-//     link.download =
-//         `admission-report-${today}.csv`;
-
-
-//     document.body.appendChild(link);
-
-
-//     link.click();
-
-
-//     document.body.removeChild(link);
-
-
-//     URL.revokeObjectURL(url);
-// }
-
-
-
-/* =========================================================
-   EXPORT ADMISSION REPORT - PROFESSIONAL EXCEL
-   ========================================================= */
-
+/*--- EXPORT ADMISSION REPORT - PROFESSIONAL EXCEL ---*/
 async function exportAdmissionReport() {
 
     if (!currentReportData.length) {
 
-        alert(
-            "There is no admission data to export."
-        );
+        alert("There is no admission data to export.");
 
         return;
     }
 
 
-    /* -----------------------------------------------------
-       CHECK EXCELJS
-       ----------------------------------------------------- */
-
+    /*--- CHECK EXCELJS ---*/
     if (typeof ExcelJS === "undefined") {
 
-        alert(
-            "Excel export library is not loaded. Please refresh the page."
-        );
+        alert("Excel export library is not loaded. Please refresh the page.");
 
         return;
     }
@@ -1450,54 +1259,34 @@ async function exportAdmissionReport() {
 
     try {
 
-        console.log(
-            "📊 Preparing professional Excel report..."
-        );
+        console.log("📊 Preparing professional Excel report...");
 
 
-        /* =================================================
-           CREATE WORKBOOK
-           ================================================= */
+        /*--- CREATE WORKBOOK ---*/
+        const workbook = new ExcelJS.Workbook();
 
-        const workbook =
-            new ExcelJS.Workbook();
+        workbook.creator = "3470 Healthcare";
 
+        workbook.lastModifiedBy = "3470 Healthcare";
 
-        workbook.creator =
-            "3470 Healthcare";
+        workbook.created = new Date();
 
-        workbook.lastModifiedBy =
-            "3470 Healthcare";
+        workbook.modified = new Date();
 
-        workbook.created =
-            new Date();
+        workbook.title = "Admission Report";
 
-        workbook.modified =
-            new Date();
+        workbook.subject = "Student Admission Report";
 
-        workbook.title =
-            "Admission Report";
-
-        workbook.subject =
-            "Student Admission Report";
-
-        workbook.description =
-            "3470 Healthcare & Student CRM System - Admission Report";
+        workbook.description = "3470 Healthcare & Student CRM System - Admission Report";
 
 
-
-        /* =================================================
-           CREATE WORKSHEET
-           ================================================= */
-
-        const worksheet =
-            workbook.addWorksheet(
-                "Admission Report",
+        /*--- CREATE WORKSHEET ---*/
+        const worksheet = workbook.addWorksheet("Admission Report",
                 {
                     views: [
                         {
                             state: "frozen",
-                            ySplit: 11
+                            ySplit: 15
                         }
                     ]
                 }
@@ -1505,16 +1294,12 @@ async function exportAdmissionReport() {
 
 
 
-        /* =================================================
-           PAGE SETUP
-           ================================================= */
-
+        /*--- PAGE SETUP ---*/
         worksheet.pageSetup = {
 
             orientation: "landscape",
 
-            paperSize:
-                worksheet.PAPERSIZE_A4,
+            paperSize: worksheet.PAPERSIZE_A4,
 
             fitToPage: true,
 
@@ -1535,34 +1320,27 @@ async function exportAdmissionReport() {
 
 
 
-        /* =================================================
-           COMPANY HEADER
-           ================================================= */
+        /*--- COMPANY HEADER ---*/
+        worksheet.mergeCells("A1:J1");
 
-        worksheet.mergeCells(
-            "A1:J1"
-        );
+        const companyCell = worksheet.getCell("A1");
 
-        const companyCell =
-            worksheet.getCell("A1");
-
-        companyCell.value =
-            "3470 HEALTHCARE";
+        companyCell.value = "3470 HEALTHCARE PVT LTD";
 
         companyCell.font = {
 
             name: "Calibri",
-
             size: 20,
-
-            bold: true
+            bold: true,
+            color: {
+                argb: "FF006B3C"
+            }
 
         };
 
         companyCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
@@ -1571,62 +1349,45 @@ async function exportAdmissionReport() {
 
 
 
-        /* =================================================
-           SYSTEM NAME
-           ================================================= */
+        /*--- SYSTEM NAME ---*/
+        worksheet.mergeCells("A2:J2");
 
-        worksheet.mergeCells(
-            "A2:J2"
-        );
+        const systemCell = worksheet.getCell("A2");
 
-        const systemCell =
-            worksheet.getCell("A2");
-
-        systemCell.value =
-            "STUDENT CRM SYSTEM";
+        systemCell.value = "CRM SYSTEM";
 
         systemCell.font = {
 
             name: "Calibri",
-
-            size: 12,
-
-            bold: true
+            size: 15,
+            bold: true,
+            color: {
+                argb: "1F4E78"
+            }
 
         };
 
         systemCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
 
-        worksheet.getRow(2).height = 22;
+        worksheet.getRow(2).height = 24;
 
 
+        /*--- REPORT TITLE ---*/
+        worksheet.mergeCells("A3:J3");
 
-        /* =================================================
-           REPORT TITLE
-           ================================================= */
+        const titleCell = worksheet.getCell("A3");
 
-        worksheet.mergeCells(
-            "A3:J3"
-        );
-
-        const titleCell =
-            worksheet.getCell("A3");
-
-        titleCell.value =
-            "ADMISSION REPORT";
+        titleCell.value = "ADMISSION REPORT";
 
         titleCell.font = {
 
             name: "Calibri",
-
             size: 16,
-
             bold: true
 
         };
@@ -1634,7 +1395,6 @@ async function exportAdmissionReport() {
         titleCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
@@ -1642,17 +1402,10 @@ async function exportAdmissionReport() {
         worksheet.getRow(3).height = 26;
 
 
+        /*--- GENERATED DATE ---*/
+        worksheet.mergeCells("A4:J4");
 
-        /* =================================================
-           GENERATED DATE
-           ================================================= */
-
-        worksheet.mergeCells(
-            "A4:J4"
-        );
-
-        const generatedCell =
-            worksheet.getCell("A4");
+        const generatedCell = worksheet.getCell("A4");
 
         generatedCell.value =
             `Generated On: ${new Date().toLocaleString(
@@ -1662,51 +1415,31 @@ async function exportAdmissionReport() {
         generatedCell.font = {
 
             name: "Calibri",
-
-            size: 10
+            size: 12
 
         };
 
         generatedCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
 
+        worksheet.getRow(4).height = 28;
 
 
-        /* =================================================
-           FILTER INFORMATION
-           ================================================= */
 
-        const fromDate =
-            document.getElementById(
-                "admissionFromDate"
-            )?.value || "";
+        /*--- FILTER INFORMATION ---*/
+        const fromDate = document.getElementById("admissionFromDate")?.value || "";
 
-        const toDate =
-            document.getElementById(
-                "admissionToDate"
-            )?.value || "";
+        const toDate = document.getElementById("admissionToDate")?.value || "";
 
-        const course =
-            document.getElementById(
-                "admissionCourse"
-            )?.value || "";
+        const course = document.getElementById("admissionCourse")?.value || "";
 
-        const counsellor =
-            document.getElementById(
-                "admissionCounsellor"
-            )?.value || "";
+        const counsellor = document.getElementById("admissionCounsellor")?.value || "";
 
-        const paymentStatus =
-            document.getElementById(
-                "paymentStatus"
-            )?.value || "";
-
-
+        const paymentStatus = document.getElementById("paymentStatus")?.value || "";
 
         const filterText = [
 
@@ -1716,34 +1449,24 @@ async function exportAdmissionReport() {
 
             `Course: ${course || "All Courses"}`,
 
-            `Counsellor: ${
-                counsellor || "All Counsellors"
-            }`,
+            `Counsellor: ${counsellor || "All Counsellors"}`,
 
-            `Payment Status: ${
-                paymentStatus || "All"
-            }`
+            `Payment Status: ${paymentStatus || "All"}`
 
         ].join("   |   ");
 
 
 
-        worksheet.mergeCells(
-            "A5:J5"
-        );
+        worksheet.mergeCells("A5:J5");
 
-        const filterCell =
-            worksheet.getCell("A5");
+        const filterCell = worksheet.getCell("A5");
 
-        filterCell.value =
-            filterText;
+        filterCell.value = filterText;
 
         filterCell.font = {
 
             name: "Calibri",
-
-            size: 10,
-
+            size: 12,
             italic: true
 
         };
@@ -1751,9 +1474,7 @@ async function exportAdmissionReport() {
         filterCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle",
-
             wrapText: true
 
         };
@@ -1761,31 +1482,19 @@ async function exportAdmissionReport() {
         worksheet.getRow(5).height = 28;
 
 
+        /*--- SUMMARY ---*/
+        const summary = getCurrentReportSummary();
 
-        /* =================================================
-           SUMMARY
-           ================================================= */
+        worksheet.mergeCells("A7:J7");
 
-        const summary =
-            getCurrentReportSummary();
+        const summaryTitle = worksheet.getCell("A7");
 
-
-        worksheet.mergeCells(
-            "A7:J7"
-        );
-
-        const summaryTitle =
-            worksheet.getCell("A7");
-
-        summaryTitle.value =
-            "ADMISSION PAYMENT SUMMARY";
+        summaryTitle.value = "ADMISSION PAYMENT SUMMARY";
 
         summaryTitle.font = {
 
             name: "Calibri",
-
             size: 12,
-
             bold: true
 
         };
@@ -1793,122 +1502,95 @@ async function exportAdmissionReport() {
         summaryTitle.alignment = {
 
             horizontal: "left",
-
             vertical: "middle"
 
         };
 
-
-        worksheet.getRow(7).height = 22;
-
+        worksheet.getRow(7).height = 24;
 
 
-        /* -------------------------------------------------
-           SUMMARY VALUES
-           ------------------------------------------------- */
-
+        /*--- SUMMARY VALUES ---*/
         const summaryData = [
 
-            [
-                "Total Admissions",
-                summary.totalAdmissions
-            ],
+            ["Total Admissions", summary.totalAdmissions],
 
-            [
-                "Total Course Fee",
-                summary.totalCourseFee
-            ],
+            ["Total Course Fee", summary.totalCourseFee],
 
-            [
-                "Total Paid",
-                summary.totalPaid
-            ],
+            ["Total Paid", summary.totalPaid],
 
-            [
-                "Partial Payments",
-                summary.partialPayments
-            ],
+            ["Partial Payments", summary.partialPayments],
 
-            [
-                "Pending Amount",
-                summary.pendingAmount
-            ]
+            ["Pending Amount", summary.pendingAmount]
 
         ];
 
-
-        worksheet.getCell("A8").value =
-            "Summary";
-
-        worksheet.getCell("B8").value =
-            "Value";
-
+        worksheet.getCell("A8").value = "Summary";
+        worksheet.getCell("B8").value = "Value";
 
         worksheet.getRow(8).font = {
 
-            bold: true
+            name: "Calibri",
+            size: 12,
+            bold: true,
+            color: { argb: "000000" }
 
         };
 
+        worksheet.getRow(8).alignment = {
+            horizontal: "center",
+            vertical: "middle"
+        };
 
-        let summaryRow =
-            9;
+        worksheet.getRow(8).height = 24;
 
+        /*--- COLUMN WIDTH ---*/
+        worksheet.getColumn(1).width = 28;
+        worksheet.getColumn(2).width = 20;
+
+
+        /*--- SUMMARY VALUES ---*/
+        let summaryRow = 9;
 
         summaryData.forEach(item => {
 
-            worksheet.getCell(
-                `A${summaryRow}`
-            ).value = item[0];
+            worksheet.getCell(`A${summaryRow}`).value = item[0];
+            worksheet.getCell(`B${summaryRow}`).value = item[1];
 
-            worksheet.getCell(
-                `B${summaryRow}`
-            ).value = item[1];
+            /*-- Center A & B text --*/
+            worksheet.getCell(`A${summaryRow}`).alignment = {
+                horizontal: "center",
+                vertical: "middle"
+            };
+
+            worksheet.getCell(`B${summaryRow}`).alignment = {
+                horizontal: "center",
+                vertical: "middle"
+            };
 
             summaryRow++;
 
         });
 
 
-
-        /* =================================================
-           TABLE HEADER
-           ================================================= */
-
-        const headerRowNumber =
-            15;
-
+        /*--- TABLE HEADER ---*/
+        const headerRowNumber = 15;
 
         const headers = [
 
-            "#",
-
+            "S.No",
             "Student Name",
-
             "Mobile",
-
             "Course",
-
             "Counsellor",
-
             "Admission Date",
-
             "Course Fee",
-
             "Paid Amount",
-
             "Balance",
-
             "Payment Status"
 
         ];
 
-
-        const headerRow =
-            worksheet.getRow(
-                headerRowNumber
-            );
-
+        const headerRow = worksheet.getRow(headerRowNumber);
 
         headers.forEach(
             (header, index) => {
@@ -1924,152 +1606,107 @@ async function exportAdmissionReport() {
         headerRow.font = {
 
             bold: true,
-
-            size: 11
-
+            size: 12
+    
         };
 
 
         headerRow.alignment = {
 
             horizontal: "center",
-
             vertical: "middle",
-
             wrapText: true
 
         };
 
-
         headerRow.height = 28;
 
 
+        /*--- TABLE DATA ---*/
+        currentReportData.forEach((admission, index) => {
 
-        /* =================================================
-           TABLE DATA
-           ================================================= */
-
-        currentReportData.forEach(
-            (admission, index) => {
-
-                const row =
-                    worksheet.addRow([
+                const row = worksheet.addRow([
 
                         index + 1,
 
                         admission.student_name || "",
 
-                        admission.mobile || "",
+                        Number(admission.mobile) || 0,
 
                         admission.course || "",
 
                         admission.counsellor || "",
 
-                        formatExcelDate(
-                            admission.admission_date
-                        ),
+                        formatExcelDate(admission.admission_date),
 
-                        Number(
-                            admission.course_fee
-                        ) || 0,
+                        Number(admission.course_fee) || 0,
 
-                        Number(
-                            admission.paid_amount
-                        ) || 0,
+                        Number(admission.paid_amount) || 0,
 
-                        Number(
-                            admission.balance_amount
-                        ) || 0,
+                        Number(admission.balance_amount) || 0,
 
                         admission.payment_status || ""
 
                     ]);
 
 
-                /* ------------------------------------------------
-                   CURRENCY
-                   ------------------------------------------------ */
+                /*--- CURRENCY ---*/
+                row.getCell(7).numFmt = '₹#,##0.00';
 
-                row.getCell(7).numFmt =
-                    '₹#,##0.00';
+                row.getCell(8).numFmt = '₹#,##0.00';
 
-                row.getCell(8).numFmt =
-                    '₹#,##0.00';
-
-                row.getCell(9).numFmt =
-                    '₹#,##0.00';
+                row.getCell(9).numFmt = '₹#,##0.00';
 
 
-
-                /* ------------------------------------------------
-                   ALIGNMENT
-                   ------------------------------------------------ */
-
+                /*--- ALIGNMENT ---*/
                 row.getCell(1).alignment = {
-
                     horizontal: "center"
-
                 };
 
+                row.getCell(2).alignment = {
+                    horizontal: "center"
+                };
 
                 row.getCell(3).alignment = {
-
                     horizontal: "center"
-
                 };
 
+                row.getCell(4).alignment = {
+                    horizontal: "center"
+                };
+
+                 row.getCell(5).alignment = {
+                    horizontal: "center"
+                };
 
                 row.getCell(6).alignment = {
-
                     horizontal: "center"
-
                 };
-
 
                 row.getCell(7).alignment = {
-
                     horizontal: "right"
-
                 };
-
 
                 row.getCell(8).alignment = {
-
                     horizontal: "right"
-
                 };
-
 
                 row.getCell(9).alignment = {
-
                     horizontal: "right"
-
                 };
-
 
                 row.getCell(10).alignment = {
-
                     horizontal: "center"
-
                 };
 
 
-                /* ------------------------------------------------
-                   PAYMENT STATUS
-                   ------------------------------------------------ */
-
-                const status =
-                    String(
-                        admission.payment_status || ""
-                    ).toLowerCase();
-
+                /*--- PAYMENT STATUS ---*/
+                const status = String(admission.payment_status || "").toLowerCase();
 
                 if (status === "paid") {
 
                     row.getCell(10).font = {
-
                         bold: true
-
                     };
 
                 }
@@ -2079,9 +1716,7 @@ async function exportAdmissionReport() {
                 ) {
 
                     row.getCell(10).font = {
-
                         bold: true
-
                     };
 
                 }
@@ -2091,9 +1726,7 @@ async function exportAdmissionReport() {
                 ) {
 
                     row.getCell(10).font = {
-
                         bold: true
-
                     };
 
                 }
@@ -2102,34 +1735,18 @@ async function exportAdmissionReport() {
         );
 
 
+        /*--- TOTAL ROW ---*/
+        const totalRowNumber = worksheet.lastRow.number + 2;
 
-        /* =================================================
-           TOTAL ROW
-           ================================================= */
+        worksheet.mergeCells(`A${totalRowNumber}:F${totalRowNumber}`);
 
-        const totalRowNumber =
-            worksheet.lastRow.number + 2;
+        const totalLabel = worksheet.getCell(`A${totalRowNumber}`);
 
-
-        worksheet.mergeCells(
-            `A${totalRowNumber}:F${totalRowNumber}`
-        );
-
-
-        const totalLabel =
-            worksheet.getCell(
-                `A${totalRowNumber}`
-            );
-
-
-        totalLabel.value =
-            "TOTAL";
-
+        totalLabel.value = "TOTAL";
 
         totalLabel.font = {
 
             bold: true,
-
             size: 11
 
         };
@@ -2138,14 +1755,12 @@ async function exportAdmissionReport() {
         totalLabel.alignment = {
 
             horizontal: "right",
-
             vertical: "middle"
 
         };
 
 
-        const totalCourseFee =
-            currentReportData.reduce(
+        const totalCourseFee = currentReportData.reduce(
                 (
                     total,
                     admission
@@ -2160,8 +1775,7 @@ async function exportAdmissionReport() {
             );
 
 
-        const totalPaid =
-            currentReportData.reduce(
+        const totalPaid = currentReportData.reduce(
                 (
                     total,
                     admission
@@ -2176,8 +1790,7 @@ async function exportAdmissionReport() {
             );
 
 
-        const totalBalance =
-            currentReportData.reduce(
+        const totalBalance = currentReportData.reduce(
                 (
                     total,
                     admission
@@ -2192,62 +1805,26 @@ async function exportAdmissionReport() {
             );
 
 
-        worksheet.getCell(
-            `G${totalRowNumber}`
-        ).value =
-            totalCourseFee;
+        worksheet.getCell(`G${totalRowNumber}`).value = totalCourseFee;
 
+        worksheet.getCell(`H${totalRowNumber}`).value = totalPaid;
 
-        worksheet.getCell(
-            `H${totalRowNumber}`
-        ).value =
-            totalPaid;
+        worksheet.getCell(`I${totalRowNumber}`).value = totalBalance;
 
+        worksheet.getCell(`G${totalRowNumber}`).numFmt = '₹#,##0.00';
 
-        worksheet.getCell(
-            `I${totalRowNumber}`
-        ).value =
-            totalBalance;
+        worksheet.getCell(`H${totalRowNumber}`).numFmt = '₹#,##0.00';
 
+        worksheet.getCell(`I${totalRowNumber}`).numFmt = '₹#,##0.00';
 
-        worksheet.getCell(
-            `G${totalRowNumber}`
-        ).numFmt =
-            '₹#,##0.00';
+        worksheet.getCell(`J${totalRowNumber}`).value = `${currentReportData.length} Records`;
 
-
-        worksheet.getCell(
-            `H${totalRowNumber}`
-        ).numFmt =
-            '₹#,##0.00';
-
-
-        worksheet.getCell(
-            `I${totalRowNumber}`
-        ).numFmt =
-            '₹#,##0.00';
-
-
-        worksheet.getCell(
-            `J${totalRowNumber}`
-        ).value =
-            `${currentReportData.length} Records`;
-
-
-        worksheet.getCell(
-            `J${totalRowNumber}`
-        ).alignment = {
-
+        worksheet.getCell(`J${totalRowNumber}`).alignment = {
             horizontal: "center"
-
         };
 
 
-
-        /* =================================================
-           BORDERS
-           ================================================= */
-
+        /*--- BORDERS ---*/
         worksheet.eachRow(
             (
                 row,
@@ -2263,21 +1840,10 @@ async function exportAdmissionReport() {
 
                             cell.border = {
 
-                                top: {
-                                    style: "thin"
-                                },
-
-                                left: {
-                                    style: "thin"
-                                },
-
-                                bottom: {
-                                    style: "thin"
-                                },
-
-                                right: {
-                                    style: "thin"
-                                }
+                                top: {style: "thin"},
+                                left: {style: "thin"},
+                                bottom: {style: "thin"},
+                                right: {style: "thin"}
 
                             };
 
@@ -2290,158 +1856,72 @@ async function exportAdmissionReport() {
         );
 
 
-
-        /* =================================================
-           COLUMN WIDTHS
-           ================================================= */
-
+        /*--- COLUMN WIDTHS ---*/
         worksheet.columns = [
 
-            {
-                key: "no",
-                width: 7
-            },
+            {key: "no", width: 20},
 
-            {
-                key: "student",
-                width: 25
-            },
+            {key: "student", width: 27},
 
-            {
-                key: "mobile",
-                width: 16
-            },
+            {key: "mobile", width: 17},
 
-            {
-                key: "course",
-                width: 25
-            },
+            {key: "course", width: 25},
 
-            {
-                key: "counsellor",
-                width: 20
-            },
+            {key: "counsellor", width: 20},
 
-            {
-                key: "date",
-                width: 18
-            },
+            {key: "date", width: 18},
 
-            {
-                key: "courseFee",
-                width: 17
-            },
+            {key: "courseFee", width: 17},
 
-            {
-                key: "paid",
-                width: 17
-            },
+            {key: "paid", width: 17},
 
-            {
-                key: "balance",
-                width: 17
-            },
+            {key: "balance", width: 17},
 
-            {
-                key: "status",
-                width: 18
-            }
+            {key: "status", width: 18}
 
         ];
 
 
+        /*--- PRINT TITLES ---*/
+        worksheet.pageSetup.printTitlesRow = `${headerRowNumber}:${headerRowNumber}`;
 
-        /* =================================================
-           AUTO FILTER
-           ================================================= */
+        /*--- FOOTER ---*/
+        worksheet.headerFooter.oddFooter = "&C3470 Healthcare | Student CRM System";
 
-        worksheet.autoFilter = {
-
-            from: `A${headerRowNumber}`,
-
-            to: `J${headerRowNumber}`
-
-        };
+        worksheet.headerFooter.oddFooter = "&L3470 Healthcare&RPage &P of &N";
 
 
-
-        /* =================================================
-           PRINT TITLES
-           ================================================= */
-
-        worksheet.pageSetup.printTitlesRow =
-            `${headerRowNumber}:${headerRowNumber}`;
+        /*--- CREATE EXCEL FILE ---*/
+        const buffer = await workbook.xlsx.writeBuffer();
 
 
-
-        /* =================================================
-           FOOTER
-           ================================================= */
-
-        worksheet.headerFooter.oddFooter =
-            "&C3470 Healthcare | Student CRM System";
-
-
-        worksheet.headerFooter.oddFooter =
-            "&L3470 Healthcare&RPage &P of &N";
-
-
-
-        /* =================================================
-           CREATE EXCEL FILE
-           ================================================= */
-
-        const buffer =
-            await workbook.xlsx.writeBuffer();
-
-
-        const blob =
-            new Blob(
-                [buffer],
+        const blob = new Blob([buffer],
                 {
-                    type:
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 }
             );
 
+        const url = URL.createObjectURL(blob);
 
-        const url =
-            URL.createObjectURL(blob);
-
-
-        const link =
-            document.createElement("a");
-
+        const link = document.createElement("a");
 
         link.href = url;
 
-
-        const today =
-            new Date()
+        const today = new Date()
                 .toISOString()
                 .split("T")[0];
 
-
-        link.download =
-            `3470-Healthcare-Admission-Report-${today}.xlsx`;
-
+        link.download = `3470-Healthcare-Admission-Report-${today}.xlsx`;
 
         document.body.appendChild(link);
 
-
         link.click();
-
 
         document.body.removeChild(link);
 
-
         URL.revokeObjectURL(url);
 
-
-        console.log(
-            "✅ Professional Excel report exported successfully."
-        );
-
+        console.log("✅ Professional Excel report exported successfully.");
 
     }
 
@@ -2461,25 +1941,12 @@ async function exportAdmissionReport() {
 }
 
 
-
-
-
-
-
-
-
-/* =========================================================
-   GET CURRENT REPORT SUMMARY
-   ========================================================= */
-
+/*--- GET CURRENT REPORT SUMMARY ---*/
 function getCurrentReportSummary() {
 
-    const totalAdmissions =
-        currentReportData.length;
+    const totalAdmissions = currentReportData.length;
 
-
-    const totalCourseFee =
-        currentReportData.reduce(
+    const totalCourseFee = currentReportData.reduce(
             (
                 total,
                 admission
@@ -2494,8 +1961,7 @@ function getCurrentReportSummary() {
         );
 
 
-    const totalPaid =
-        currentReportData.reduce(
+    const totalPaid = currentReportData.reduce(
             (
                 total,
                 admission
@@ -2510,8 +1976,7 @@ function getCurrentReportSummary() {
         );
 
 
-    const partialPayments =
-        currentReportData
+    const partialPayments = currentReportData
             .filter(
                 admission =>
                     String(
@@ -2533,8 +1998,7 @@ function getCurrentReportSummary() {
             );
 
 
-    const pendingAmount =
-        currentReportData.reduce(
+    const pendingAmount = currentReportData.reduce(
             (
                 total,
                 admission
@@ -2552,24 +2016,16 @@ function getCurrentReportSummary() {
     return {
 
         totalAdmissions,
-
         totalCourseFee,
-
         totalPaid,
-
         partialPayments,
-
         pendingAmount
 
     };
 }
 
 
-
-/* =========================================================
-   EXCEL DATE
-   ========================================================= */
-
+/*--- EXCEL DATE ---*/
 function formatExcelDate(value) {
 
     if (!value) {
@@ -2582,11 +2038,9 @@ function formatExcelDate(value) {
         /^\d{4}-\d{2}-\d{2}/.test(value)
     ) {
 
-        const parts =
-            value
+        const parts = value
                 .substring(0, 10)
                 .split("-");
-
 
         return `${parts[2]}-${parts[1]}-${parts[0]}`;
     }
@@ -2596,45 +2050,18 @@ function formatExcelDate(value) {
 }
 
 
+/*--- EXPORT BUTTON ---*/
+document.getElementById("exportReportBtn").addEventListener("click", exportAdmissionReport);
 
 
-
-
-
-
-
-
-
-
-
-/* =========================================================
-   EXPORT BUTTON
-   ========================================================= */
-
-document
-    .getElementById("exportReportBtn")
-    .addEventListener(
-        "click",
-        exportAdmissionReport
-    );
-
-
-
-/* =========================================================
-   INITIAL PAGE LOAD
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+/*--- INITIAL PAGE LOAD ---*/
+document.addEventListener("DOMContentLoaded", async () => {
 
         console.log(
             "🚀 Admission Reports Page Loaded"
         );
 
-
         await loadFilterOptions();
-
 
         await loadAdmissionReport();
 
@@ -2642,12 +2069,6 @@ document.addEventListener(
 );
 
 </script>
-
-
-
-
-
-
 
 
 </body>
