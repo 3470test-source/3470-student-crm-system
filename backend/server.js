@@ -48,7 +48,6 @@ app.post("/api/auth/login", async (req, res) => {
 
 
         /*-- TEMPORARY ADMIN LOGIN - Later this will come from the database. --*/
-
         const adminEmail = "admin@3470healthcare.com";
 
         const adminPassword = "Crm@123";
@@ -89,15 +88,11 @@ app.post("/api/auth/login", async (req, res) => {
         res.json({
 
             success: true,
-
             message: "Login successful.",
-
             token: token,
-
             user: {
 
                 email: adminEmail,
-
                 role: "admin"
 
             }
@@ -112,7 +107,6 @@ app.post("/api/auth/login", async (req, res) => {
         res.status(500).json({
 
             success: false,
-
             message: "Server error."
 
         });
@@ -141,9 +135,7 @@ app.post("/api/courses", async (req, res) => {
             return res.status(400).json({
 
                 success: false,
-
-                message:
-                    "⚠️ Please enter the course name."
+                message: "⚠️ Please enter the course name."
 
             });
 
@@ -1068,7 +1060,6 @@ app.get("/api/enquiries/:id", async (req, res) => {
         res.json({
 
             success: true,
-
             enquiry: rows[0]
 
         });
@@ -1086,7 +1077,6 @@ app.get("/api/enquiries/:id", async (req, res) => {
 
             success: false,
             message: "Unable to fetch enquiry.",
-
             error: error.message
 
         });
@@ -1243,7 +1233,6 @@ app.put("/api/enquiries/:id", async (req, res) => {
 
             success: false,
             message: "Unable to update enquiry.",
-
             error: error.message
 
         });
@@ -1324,7 +1313,6 @@ app.delete("/api/enquiries/:id", async (req, res) => {
 
             success: false,
             message: "Unable to delete enquiry.",
-
             error: error.message
 
         });
@@ -1649,11 +1637,7 @@ app.get("/api/follow-ups/today", async (req, res) => {
             /*--- COUNSELLOR FILTER ---*/
             if (counsellor !== "") {
 
-                sql += `
-
-                    AND e.counsellor = ?
-
-                `;
+                sql += `AND e.counsellor = ?`;
 
                 params.push(counsellor);
 
@@ -1663,11 +1647,7 @@ app.get("/api/follow-ups/today", async (req, res) => {
             /*--- STATUS FILTER ---*/
             if (status !== "") {
 
-                sql += `
-
-                    AND f.status = ?
-
-                `;
+                sql += `AND f.status = ?`;
 
                 params.push(status);
 
@@ -1913,7 +1893,496 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
 
             success: false,
             message: "Unable to load scheduled follow-ups.",
+            error: error.message
 
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== UPCOMING FOLLOW-UPS ====*/
+app.get("/api/follow-ups/upcoming", async (req, res) => {
+
+    try {
+
+        const {
+            search = "", course = "", counsellor = "", date = ""
+        } = req.query;
+
+
+        /*--- BUILD FILTER CONDITIONS ---*/
+        const conditions = [
+            `
+            DATE(f.follow_up_date) > CURDATE()
+            `,
+            `
+            f.status NOT IN ('Completed', 'Not Interested')
+            `
+        ];
+
+        const params = [];
+
+        
+        /*--- SEARCH ---*/
+        if (search.trim() !== "") {
+
+            conditions.push(`
+                (
+                    f.student_name LIKE ?
+                    OR f.mobile_number LIKE ?
+                )
+            `);
+
+            const searchValue = `%${search.trim()}%`;
+
+            params.push(
+                searchValue,
+                searchValue
+            );
+
+        }
+
+
+        /*--- COURSE ---*/
+        if (course.trim() !== "") {
+
+            conditions.push(`
+                f.course = ?
+            `);
+
+            params.push(course.trim());
+
+        }
+
+
+        /*--- COUNSELLOR ---*/
+        if (counsellor.trim() !== "") {
+
+            conditions.push(`f.counsellor = ?`);
+
+            params.push(counsellor.trim());
+
+        }
+
+
+        /*--- SPECIFIC DATE ---*/
+        if (date.trim() !== "") {
+
+            conditions.push(`DATE(f.follow_up_date) = ?`);
+
+            params.push(date.trim());
+
+        }
+
+
+        const whereClause = `WHERE ${conditions.join(" AND ")}`;
+
+ 
+        /*--- GET UPCOMING FOLLOW-UPS ---*/
+        const [followUps] = await db.execute(
+            `
+            SELECT
+                f.id, f.enquiry_id, f.student_name, f.mobile_number, f.course, f.counsellor, f.follow_up_date, f.follow_up_time,
+                f.follow_up_type, f.status, f.next_follow_up_date, f.next_follow_up_time, f.comments, f.created_at, f.updated_at
+
+            FROM follow_ups f
+
+            ${whereClause}
+
+            ORDER BY
+                f.follow_up_date ASC,
+                f.follow_up_time ASC,
+                f.id ASC
+            `,
+            params
+        );
+
+
+        /*--- SUMMARY ---*/
+        const summaryParams = [...params];
+
+        const [summaryRows] = await db.execute(
+            `
+            SELECT
+
+                COUNT(*) AS total_upcoming,
+
+                SUM(
+                    CASE
+                        WHEN DATE(f.follow_up_date)
+                            = DATE_ADD(CURDATE(), INTERVAL 1 DAY)
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS tomorrow,
+
+                SUM(
+                    CASE
+                        WHEN DATE(f.follow_up_date)
+                            >= DATE_ADD(
+                                CURDATE(),
+                                INTERVAL -WEEKDAY(CURDATE()) DAY
+                            )
+                        AND DATE(f.follow_up_date)
+                            < DATE_ADD(
+                                CURDATE(),
+                                INTERVAL 7 - WEEKDAY(CURDATE()) DAY
+                            )
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS this_week,
+
+                COUNT(
+                    DISTINCT NULLIF(
+                        TRIM(f.counsellor),
+                        ''
+                    )
+                ) AS counsellors
+
+            FROM follow_ups f
+
+            ${whereClause}
+            `,
+            summaryParams
+        );
+
+        const summary = summaryRows[0] || {};
+
+
+        /*--- RESPONSE ---*/
+        res.json({
+
+            success: true,
+            summary: {
+
+                total_upcoming: Number(summary.total_upcoming) || 0,
+                tomorrow: Number(summary.tomorrow) || 0,
+                this_week: Number(summary.this_week) || 0,
+                counsellors: Number(summary.counsellors) || 0
+
+            },
+
+            followUps
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Upcoming Follow-ups Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load upcoming follow-ups.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== UPCOMING FOLLOW-UP FILTER OPTIONS  ====*/
+app.get("/api/follow-ups/upcoming/options", async (req, res) => {
+
+    try {
+
+        /*--- COURSES ---*/
+        const [courses] = await db.execute(`
+            SELECT DISTINCT
+                TRIM(course) AS course
+            FROM follow_ups
+            WHERE course IS NOT NULL
+              AND TRIM(course) <> ''
+            ORDER BY course ASC
+        `);
+
+ 
+        /*--- COUNSELLORS ---*/
+        const [counsellors] = await db.execute(`
+            SELECT DISTINCT
+                TRIM(counsellor) AS name
+            FROM follow_ups
+            WHERE counsellor IS NOT NULL
+              AND TRIM(counsellor) <> ''
+            ORDER BY name ASC
+        `);
+
+
+        res.json({
+
+            success: true,
+            courses,
+            counsellors
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Upcoming Filter Options Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load filter options.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== MISSED FOLLOW-UPS ====*/
+app.get("/api/follow-ups/missed", async (req, res) => {
+    try {
+
+        const {
+            search,
+            course,
+            counsellor,
+            date
+        } = req.query;
+
+        const conditions = [];
+        const params = [];
+
+        /*
+         * A follow-up is considered MISSED when:
+         *
+         * 1. Follow-up date is before today
+         * OR
+         * 2. Follow-up is today and the scheduled time has already passed
+         *
+         * Completed and Not Interested follow-ups are excluded.
+         */
+
+        conditions.push(`
+            (
+                DATE(f.follow_up_date) < CURDATE()
+                OR
+                (
+                    DATE(f.follow_up_date) = CURDATE()
+                    AND f.follow_up_time IS NOT NULL
+                    AND f.follow_up_time < CURTIME()
+                )
+            )
+        `);
+
+        conditions.push(`
+            f.status NOT IN ('Completed', 'Not Interested')
+        `);
+
+        /*-- Search Student Name / Mobile --*/
+        if (search) {
+
+            conditions.push(`
+                (
+                    f.student_name LIKE ?
+                    OR f.mobile_number LIKE ?
+                )
+            `);
+
+            params.push(`%${search}%`);
+            params.push(`%${search}%`);
+        }
+
+        /*-- Course filter --*/
+        if (course) {
+
+            conditions.push(`f.course = ?`);
+            params.push(course);
+        }
+
+        /*-- Counsellor filter --*/
+        if (counsellor) {
+
+            conditions.push(`f.counsellor = ?`);
+            params.push(counsellor);
+        }
+
+        /*-- Specific date filter --*/
+        if (date) {
+
+            conditions.push(`DATE(f.follow_up_date) = ?`);
+            params.push(date);
+        }
+
+        const whereClause = `
+            WHERE ${conditions.join(" AND ")}
+        `;
+
+
+        /*--- MISSED FOLLOW-UP LIST ---*/
+        const [followUps] = await db.execute(
+            `
+            SELECT
+                f.id, f.enquiry_id, f.student_name, f.mobile_number, f.course, f.counsellor, f.follow_up_date,
+                f.follow_up_time, f.follow_up_type, f.status, f.next_follow_up_date, f.next_follow_up_time,
+                f.comments, f.created_at, f.updated_at
+            FROM follow_ups f
+            ${whereClause}
+            ORDER BY
+                f.follow_up_date DESC,
+                f.follow_up_time DESC,
+                f.id DESC
+            `,
+            params
+        );
+
+
+        /*--- SUMMARY ---*/
+        const summaryParams = [...params];
+
+        const [summaryRows] = await db.execute(
+            `
+            SELECT
+
+                COUNT(*) AS total_missed,
+
+                SUM(
+                    CASE
+                        WHEN DATE(f.follow_up_date) = CURDATE()
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS today_missed,
+
+                SUM(
+                    CASE
+                        WHEN DATE(f.follow_up_date)
+                             >= DATE_ADD(
+                                    CURDATE(),
+                                    INTERVAL -WEEKDAY(CURDATE()) DAY
+                                )
+                         AND DATE(f.follow_up_date)
+                             < DATE_ADD(
+                                    CURDATE(),
+                                    INTERVAL 7 - WEEKDAY(CURDATE()) DAY
+                                )
+                        THEN 1
+                        ELSE 0
+                    END
+                ) AS this_week_missed,
+
+                COUNT(
+                    DISTINCT
+                    CASE
+                        WHEN f.counsellor IS NOT NULL
+                             AND TRIM(f.counsellor) <> ''
+                        THEN TRIM(f.counsellor)
+                    END
+                ) AS counsellors
+
+            FROM follow_ups f
+
+            ${whereClause}
+            `,
+            summaryParams
+        );
+
+
+        const summary = summaryRows[0] || {};
+
+        res.json({
+            success: true,
+
+            summary: {
+                total_missed: Number(summary.total_missed) || 0,
+                today_missed: Number(summary.today_missed) || 0,
+                this_week_missed: Number(summary.this_week_missed) || 0,
+                counsellors: Number(summary.counsellors) || 0
+            },
+
+            followUps
+
+        });
+
+    } catch (error) {
+
+        console.error("❌ Missed Follow-ups Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load missed follow-ups.",
+            error: error.message
+        });
+
+    }
+});
+
+
+
+
+
+/*==== MISSED FOLLOW-UP FILTER OPTIONS ====*/
+app.get("/api/follow-ups/missed/options", async (req, res) => {
+
+    try {
+
+        const [courses] = await db.execute(`
+            SELECT DISTINCT
+                TRIM(course) AS name
+            FROM follow_ups
+            WHERE course IS NOT NULL
+              AND TRIM(course) <> ''
+            ORDER BY name ASC
+        `);
+
+
+        const [counsellors] = await db.execute(`
+            SELECT DISTINCT
+                TRIM(counsellor) AS name
+            FROM follow_ups
+            WHERE counsellor IS NOT NULL
+              AND TRIM(counsellor) <> ''
+            ORDER BY name ASC
+        `);
+
+
+        res.json({
+
+            success: true,
+            courses,
+            counsellors
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Missed Follow-up Options Error:",
+            error
+        );
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load filter options.",
             error: error.message
 
         });
@@ -2133,7 +2602,6 @@ app.get("/api/follow-ups/:id", async (req, res) => {
 
                 success: false,
                 message: "Unable to load follow-up.",
-
                 error: error.message
 
             });
@@ -2378,6 +2846,215 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
     }
 );
+
+
+
+
+
+/*==== TODAY'S NOTIFICATIONS API ====*/
+app.get("/api/notifications/today", async (req, res) => {
+    try {
+
+        
+        /*--- 1. TODAY'S NEW ENQUIRIES ---*/
+        const [newEnquiries] = await db.execute(`
+            SELECT
+                id, student_name, course_interested, counsellor, enquiry_date, created_at
+            FROM student_enquiries
+            WHERE DATE(enquiry_date) = CURDATE()
+            ORDER BY created_at DESC, id DESC
+        `);
+
+
+        /*--- 2. TODAY'S FOLLOW-UPS ---*/
+        const [todayFollowUps] = await db.execute(`
+            SELECT
+                id, enquiry_id, student_name, mobile_number, course, counsellor, follow_up_date,
+                follow_up_time, follow_up_type, status, next_follow_up_date, comments, created_at
+            FROM follow_ups
+            WHERE DATE(follow_up_date) = CURDATE()
+            ORDER BY
+                CASE
+                    WHEN follow_up_time IS NULL THEN 1
+                    ELSE 0
+                END,
+                follow_up_time ASC,
+                id DESC
+        `);
+
+
+        /*--- 3. TODAY'S ADMISSIONS ---*/
+        const [todayAdmissions] = await db.execute(`
+            SELECT
+                id, student_name, course, counsellor, joining_date, admission_status, created_at
+            FROM admissions
+            WHERE DATE(created_at) = CURDATE()
+               OR DATE(joining_date) = CURDATE()
+            ORDER BY created_at DESC, id DESC
+        `);
+
+
+        /*--- 4. MISSED FOLLOW-UPS ---*/
+        const [missedFollowUps] = await db.execute(`
+            SELECT
+                id, student_name, course, counsellor, follow_up_date, follow_up_time,
+                status
+            FROM follow_ups
+            WHERE
+                (
+                    DATE(follow_up_date) < CURDATE()
+                    AND status NOT IN ('Completed', 'Not Interested')
+                )
+                OR
+                (
+                    DATE(follow_up_date) = CURDATE()
+                    AND follow_up_time < CURTIME()
+                    AND status NOT IN ('Completed', 'Not Interested')
+                )
+            ORDER BY follow_up_date ASC, follow_up_time ASC
+        `);
+
+
+        /*--- 5. BUILD NOTIFICATION LIST ---*/
+        const notifications = [];
+
+
+        /*--- New enquiries ---*/
+        newEnquiries.forEach(enquiry => {
+
+            notifications.push({
+                id: `enquiry-${enquiry.id}`,
+                type: "enquiry",
+                title: "New Student Enquiry",
+                message:
+                    `${enquiry.student_name || "Student"} has submitted a new enquiry` +
+                    `${enquiry.course_interested ? ` for the ${enquiry.course_interested} course.` : "."}`,
+                time: enquiry.created_at || enquiry.enquiry_date,
+                status: "New",
+                icon: "fa-user-plus"
+            });
+
+        });
+
+
+        /*--- Today's follow-ups ---*/
+        todayFollowUps.forEach(followUp => {
+
+            let status = "Pending";
+
+            if (followUp.status === "Completed") {
+                status = "Completed";
+            } else if (followUp.status === "Not Interested") {
+                status = "Not Interested";
+            } else {
+
+                const followUpDate = new Date(
+                    `${formatDateForJS(followUp.follow_up_date)}T${followUp.follow_up_time || "23:59:59"}`
+                );
+
+                if (!isNaN(followUpDate.getTime()) && followUpDate < new Date()) {
+                    status = "Attention";
+                }
+            }
+
+
+            notifications.push({
+                id: `followup-${followUp.id}`,
+                type: "followup",
+                title: "Follow-up Reminder",
+                message:
+                    `Follow-up with ${followUp.student_name || "Student"}` +
+                    `${followUp.course ? ` regarding the ${followUp.course} course` : ""}` +
+                    `${followUp.follow_up_time ? ` is scheduled for ${formatTimeForNotification(followUp.follow_up_time)}.` : "."}`,
+                time: followUp.follow_up_time || followUp.follow_up_date,
+                status: status,
+                icon: "fa-phone"
+            });
+
+        });
+
+
+        /*--- Today's admissions ---*/
+        todayAdmissions.forEach(admission => {
+
+            notifications.push({
+                id: `admission-${admission.id}`,
+                type: "admission",
+                title: "New Admission",
+                message:
+                    `${admission.student_name || "Student"} has completed admission` +
+                    `${admission.course ? ` for the ${admission.course} course.` : "."}`,
+                time: admission.created_at || admission.joining_date,
+                status: "Completed",
+                icon: "fa-user-check"
+            });
+
+        });
+
+
+        /*--- Missed follow-ups ---*/
+        missedFollowUps.forEach(followUp => {
+
+            notifications.push({
+                id: `missed-${followUp.id}`,
+                type: "alert",
+                title: "Pending Follow-up",
+                message:
+                    `${followUp.student_name || "Student"} has a missed follow-up` +
+                    `${followUp.course ? ` for the ${followUp.course} course.` : "."}`,
+                time: followUp.follow_up_time || followUp.follow_up_date,
+                status: "Attention",
+                icon: "fa-circle-exclamation"
+            });
+
+        });
+
+
+        /*--- SORT NOTIFICATIONS ---*/
+        notifications.sort((a, b) => {
+
+            const dateA = new Date(a.time);
+            const dateB = new Date(b.time);
+
+            return dateB - dateA;
+
+        });
+
+
+        /*--- SUMMARY ---*/
+        const summary = {
+            total_notifications: notifications.length,
+
+            follow_ups_today: todayFollowUps.length,
+
+            new_enquiries: newEnquiries.length,
+
+            admissions: todayAdmissions.length,
+
+            missed_follow_ups: missedFollowUps.length
+        };
+
+
+        /*--- RESPONSE ---*/
+        res.json({
+            success: true,
+            summary,
+            notifications
+        });
+
+
+    } catch (error) {
+
+        console.error("❌ Today's Notifications Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load today's notifications.",
+            error: error.message
+        });
+
+    }
+});
 
 
 

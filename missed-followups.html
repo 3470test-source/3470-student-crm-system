@@ -234,7 +234,7 @@
 
                         <div>
                             <span>Total Missed</span>
-                            <h3>12</h3>
+                            <h3 id="totalMissed">0</h3>
                         </div>
 
                     </div>
@@ -249,7 +249,7 @@
 
                         <div>
                             <span>Today's Missed</span>
-                            <h3>4</h3>
+                            <h3 id="todayMissed">0</h3>
                         </div>
 
                     </div>
@@ -264,7 +264,7 @@
 
                         <div>
                             <span>This Week</span>
-                            <h3>8</h3>
+                            <h3 id="thisWeekMissed">0</h3>
                         </div>
 
                     </div>
@@ -279,7 +279,7 @@
 
                         <div>
                             <span>Counsellors</span>
-                            <h3>4</h3>
+                            <h3 id="missedCounsellors">0</h3>
                         </div>
 
                     </div>
@@ -302,17 +302,6 @@
                         <div class="crm-missedfollow-filter-box">
                             <select id="missedCourseFilter">
                                 <option value="">-- All Courses --</option>
-                                <option value="BMCT">Basic Medical Coding Training</option>
-                                <option value="AMCT">Advanced Medical Coding Training</option>
-                                <option value="CPC">Certified Professional Coder</option>
-                                <option value="E&M">Evaluation & Management</option>
-                                <option value="IPDRG">Inpatient Diagnosis-Related Group</option>
-                                <option value="ED">Emergency Department</option>
-                                <option value="CCS">Certified Coding Specialist</option>
-                                <option value="CPMA">Certified Professional Medical Auditor</option>
-                                <option value="CRC">Certified Risk Adjustment Coder</option>
-                                <option value="IVR">Interventional Radiology</option>
-                                <option value="Surgery">Surgery</option>
                             </select>
                         </div>
 
@@ -320,11 +309,6 @@
                         <div class="crm-missedfollow-filter-box">
                             <select id="missedCounsellorFilter">
                                 <option value="">-- All Counsellors --</option>
-                                <option value="Ramesh">Ramesh</option>
-                                <option value="Renuka">Renuka</option>
-                                <option value="Kaviya">Kaviya</option>
-                                <option value="Perumal">Perumal</option>
-                                <option value="Jaya Shree">Jaya Shree</option>
                             </select>
                         </div>
 
@@ -370,83 +354,12 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <!-- Row 1 -->
-                                <tr>
-                                    <td>Rahul Kumar</td>
-                                    <td>9876543210</td>
-                                    <td>CPC</td>
-                                    <td>Renuka</td>
-                                    <td>07-Aug-2026</td>
-                                    <td>10:00 AM</td>
-                                    <td>
-                                        <span class="crm-followup-type phone"><i class="fa fa-phone"></i>Phone Call</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-MFUPS missed">Missed</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
-                                    </td>
-                                </tr>
+                            <tbody id="missedFollowupTableBody">
 
-                                <!-- Row 2 -->
                                 <tr>
-                                    <td>Priya Sharma</td>
-                                    <td>9876501234</td>
-                                    <td>BMCT</td>
-                                    <td>Ramesh</td>
-                                    <td>08-Aug-2026</td>
-                                    <td>11:30 AM</td>
-                                    <td>
-                                        <span class="crm-followup-type whatsapp"><i class="fa fa-whatsapp"></i>WhatsApp</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-MFUPS missed">Missed</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 -->
-                                <tr>
-                                    <td>Arun Kumar</td>
-                                    <td>9876512345</td>
-                                    <td>CRC</td>
-                                    <td>Jaya Shree</td>
-                                    <td>08-Aug-2026</td>
-                                    <td>02:00 PM</td>
-                                    <td>
-                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Email</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-MFUPS missed">Missed</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 4 -->
-                                <tr>
-                                    <td>Kavin Raj</td>
-                                    <td>9876523456</td>
-                                    <td>CCS</td>
-                                    <td>Perumal</td>
-                                    <td>09-Aug-2026</td>
-                                    <td>03:30 PM</td>
-                                    <td>
-                                        <span class="crm-followup-type walkin"><i class="fa fa-person-walking"></i>Walk-in</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-MFUPS missed">Missed</span></td>
-                                    <td>
-                                        <button class="crm-view-btn-MFUPS" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-MFUPS" title="Reschedule"><i class="fa fa-calendar-plus"></i></button>
+                                    <td colspan="9" style="text-align:center;padding:30px;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        Loading missed follow-ups...
                                     </td>
                                 </tr>
 
@@ -507,6 +420,762 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Missed Follow Ups -- JS  -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+let missedFollowUps = [];
+
+/*--- LOAD FILTER OPTIONS ---*/
+async function loadMissedFilterOptions() {
+
+    try {
+
+        const response = await fetch(`${API_BASE}/follow-ups/missed/options`);
+
+        if (!response.ok) {
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+        const data = await response.json();
+
+        console.log(
+            "✅ Missed Filter Options:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message || "Unable to load filter options"
+            );
+
+        }
+
+
+        populateMissedCourseFilter(
+            data.courses || []
+        );
+
+        populateMissedCounsellorFilter(
+            data.counsellors || []
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Missed Filter Options Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/*--- COURSE FILTER ---*/
+function populateMissedCourseFilter(courses) {
+
+    const select = document.getElementById("missedCourseFilter");
+
+    if (!select) return;
+
+
+    select.innerHTML = `<option value="">-- All Courses --</option>`;
+
+    courses.forEach(course => {
+
+        const option = document.createElement("option");
+
+        option.value = course.name || "";
+
+        option.textContent = course.name || "";
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/*--- COUNSELLOR FILTER ---*/
+function populateMissedCounsellorFilter(counsellors) {
+
+    const select = document.getElementById("missedCounsellorFilter");
+
+    if (!select) return;
+
+    select.innerHTML = `<option value="">-- All Counsellors --</option>`;
+
+    counsellors.forEach(counsellor => {
+
+        const option = document.createElement("option");
+
+        option.value = counsellor.name || "";
+
+        option.textContent = counsellor.name || "";
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/*--- LOAD MISSED FOLLOW-UPS ---*/
+async function loadMissedFollowUps() {
+
+    try {
+
+        showMissedLoading();
+
+        const search = document
+                .getElementById("missedSearch")
+                ?.value
+                .trim() || "";
+
+        const course = document
+                .getElementById("missedCourseFilter")
+                ?.value || "";
+
+        const counsellor = document
+                .getElementById("missedCounsellorFilter")
+                ?.value || "";
+
+        const date = document
+                .getElementById("missedDateFilter")
+                ?.value || "";
+
+        const params = new URLSearchParams();
+
+        if (search) {
+
+            params.append(
+                "search",
+                search
+            );
+
+        }
+
+        if (course) {
+
+            params.append(
+                "course",
+                course
+            );
+
+        }
+
+
+        if (counsellor) {
+
+            params.append(
+                "counsellor",
+                counsellor
+            );
+
+        }
+
+
+        if (date) {
+
+            params.append(
+                "date",
+                date
+            );
+
+        }
+
+
+        const url = `${API_BASE}/follow-ups/missed?${params.toString()}`;
+
+        console.log(
+            "🔄 Loading missed follow-ups:",
+            url
+        );
+
+
+        const response = await fetch(url);
+
+        console.log(
+            "HTTP Status:",
+            response.status
+        );
+
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error(
+                "❌ Backend Response:",
+                errorText
+            );
+
+            throw new Error(
+                `Server returned ${response.status}`
+            );
+
+        }
+
+
+        const data = await response.json();
+
+        console.log(
+            "✅ Missed Follow-ups API:",
+            data
+        );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load missed follow-ups"
+            );
+
+        }
+
+
+        missedFollowUps = data.followUps || [];
+
+        updateMissedSummary(
+            data.summary || {}
+        );
+
+        renderMissedFollowUps(
+            missedFollowUps
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Missed Follow-ups Load Error:",
+            error
+        );
+
+        const tbody = document.getElementById("missedFollowupTableBody");
+
+        if (tbody) {
+
+            tbody.innerHTML = `
+                <tr>
+
+                    <td colspan="9" style=" text-align:center; color:#dc2626; padding:30px;">
+
+                        ❌ Failed to load missed follow-ups.
+
+                        <br><br>
+
+                        <small>
+                            ${escapeHtml(error.message)}
+                        </small>
+
+                    </td>
+
+                </tr>
+            `;
+
+        }
+
+    }
+
+}
+
+
+/*--- LOADING ---*/
+function showMissedLoading() {
+
+    const tbody = document.getElementById("missedFollowupTableBody");
+
+    if (!tbody) return;
+
+    tbody.innerHTML = `
+
+        <tr>
+
+            <td colspan="9" style=" text-align:center; padding:30px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Loading missed follow-ups...
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/*--- SUMMARY ---*/
+function updateMissedSummary(summary) {
+
+    const total = document.getElementById("totalMissed");
+
+    const today = document.getElementById("todayMissed");
+
+    const week = document.getElementById("thisWeekMissed");
+
+    const counsellors = document.getElementById("missedCounsellors");
+
+
+    if (total) {
+
+        total.textContent = Number(summary.total_missed) || 0;
+
+    }
+
+
+    if (today) {
+
+        today.textContent = Number(summary.today_missed) || 0;
+
+    }
+
+
+    if (week) {
+
+        week.textContent = Number(summary.this_week_missed) || 0;
+
+    }
+
+
+    if (counsellors) {
+
+        counsellors.textContent = Number(summary.counsellors) || 0;
+
+    }
+
+}
+
+
+/*--- RENDER TABLE ---*/
+function renderMissedFollowUps(followUps) {
+
+    const tbody = document.getElementById("missedFollowupTableBody");
+
+    const emptyMessage = document.getElementById("missedEmptyMessage");
+
+    if (!tbody) return;
+
+    tbody.innerHTML = "";
+
+    if (!followUps.length) {
+
+        if (emptyMessage) {
+
+            emptyMessage.style.display = "block";
+
+        }
+
+        return;
+
+    }
+
+
+    if (emptyMessage) {
+
+        emptyMessage.style.display = "none";
+
+    }
+
+
+    followUps.forEach(followUp => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHtml(
+                    followUp.student_name || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.mobile_number || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.course || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.counsellor || "-"
+                )}
+            </td>
+
+            <td>
+                ${formatDate(
+                    followUp.follow_up_date
+                )}
+            </td>
+
+            <td>
+                ${formatTime(
+                    followUp.follow_up_time
+                )}
+            </td>
+
+            <td>
+                ${getFollowUpTypeHtml(
+                    followUp.follow_up_type
+                )}
+            </td>
+
+            <td>
+                <span class="crm-status-MFUPS missed">
+                    Missed
+                </span>
+            </td>
+
+            <td>
+
+                <button
+                    class="crm-view-btn-MFUPS"
+                    title="View"
+                    onclick="viewMissedFollowUp(${followUp.id})"
+                >
+                    <i class="fa fa-eye"></i>
+                </button>
+
+                <button
+                    class="crm-edit-btn-MFUPS"
+                    title="Reschedule"
+                    onclick="rescheduleMissedFollowUp(${followUp.id})"
+                >
+                    <i class="fa fa-calendar-plus"></i>
+                </button>
+
+            </td>
+
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/*--- FOLLOW-UP TYPE ---*/
+function getFollowUpTypeHtml(type) {
+
+    if (!type) {
+
+        return "-";
+
+    }
+
+
+    const normalized =
+        type
+            .toLowerCase()
+            .trim();
+
+
+    let cssClass = "phone";
+
+    let icon = "fa-phone";
+
+
+    if (
+        normalized.includes("whatsapp")
+    ) {
+
+        cssClass = "whatsapp";
+
+        icon = "fa-brands fa-whatsapp";
+
+    }
+
+    else if (
+        normalized.includes("email")
+    ) {
+
+        cssClass = "email";
+
+        icon = "fa-envelope";
+
+    }
+
+    else if (
+        normalized.includes("walk")
+    ) {
+
+        cssClass = "walkin";
+
+        icon = "fa-person-walking";
+
+    }
+
+    else if (
+        normalized.includes("phone") ||
+        normalized.includes("call")
+    ) {
+
+        cssClass = "phone";
+
+        icon = "fa-phone";
+
+    }
+
+
+    return `
+
+        <span class="crm-followup-type ${cssClass}">
+            <i class="fa ${icon}"></i>
+            ${escapeHtml(type)}
+        </span>
+
+    `;
+
+}
+
+
+/*--- DATE FORMAT ---*/
+function formatDate(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+
+        return escapeHtml(
+            String(value)
+        );
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/*--- TIME FORMAT ---*/
+function formatTime(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+
+    /*
+     * MySQL TIME may arrive as:
+     *
+     * 10:00:00
+     * 14:30:00
+     */
+
+
+    const parts = String(value).split(":");
+
+    if (parts.length < 2) {
+
+        return escapeHtml(
+            String(value)
+        );
+
+    }
+
+    let hours = parseInt(parts[0], 10);
+
+    const minutes = parts[1];
+
+    if (isNaN(hours)) {
+
+        return escapeHtml(
+            String(value)
+        );
+
+    }
+
+
+    const period =
+        hours >= 12
+            ? "PM"
+            : "AM";
+
+
+    hours =
+        hours % 12 || 12;
+
+
+    return `${String(hours).padStart(2, "0")}:${minutes} ${period}`;
+
+}
+
+
+/*--- VIEW ---*/
+function viewMissedFollowUp(id) {
+
+    window.location.href = `view-follow-ups.html?id=${id}`;
+
+}
+
+
+/*--- RESCHEDULE ---*/
+function rescheduleMissedFollowUp(id) {
+
+    window.location.href = `edit-follow-ups.html?id=${id}`;
+
+}
+
+
+/*--- ESCAPE HTML ---*/
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/*--- SEARCH DEBOUNCE ---*/
+let missedSearchTimer;
+
+function handleMissedSearch() {
+
+    clearTimeout(missedSearchTimer);
+
+    missedSearchTimer =
+        setTimeout(() => {
+
+            loadMissedFollowUps();
+
+        }, 300);
+
+}
+
+
+/*--- PAGE LOAD ---*/
+document.addEventListener("DOMContentLoaded", async () => {
+
+        console.log(
+            "🚀 Missed Follow-ups page loaded"
+        );
+
+
+        const search =
+            document.getElementById(
+                "missedSearch"
+            );
+
+
+        const course =
+            document.getElementById(
+                "missedCourseFilter"
+            );
+
+
+        const counsellor =
+            document.getElementById(
+                "missedCounsellorFilter"
+            );
+
+
+        const date =
+            document.getElementById(
+                "missedDateFilter"
+            );
+
+
+        if (search) {
+
+            search.addEventListener(
+                "input",
+                handleMissedSearch
+            );
+
+        }
+
+
+        if (course) {
+
+            course.addEventListener(
+                "change",
+                loadMissedFollowUps
+            );
+
+        }
+
+
+        if (counsellor) {
+
+            counsellor.addEventListener(
+                "change",
+                loadMissedFollowUps
+            );
+
+        }
+
+
+        if (date) {
+
+            date.addEventListener(
+                "change",
+                loadMissedFollowUps
+            );
+
+        }
+
+
+        await loadMissedFilterOptions();
+
+        await loadMissedFollowUps();
+
+    }
+);
+
 </script>
 
 

@@ -234,7 +234,7 @@
 
                         <div>
                             <span>Total Upcoming</span>
-                            <h3>18</h3>
+                            <h3 id="totalUpcoming">0</h3>
                         </div>
 
                     </div>
@@ -248,7 +248,7 @@
 
                         <div>
                             <span>Tomorrow</span>
-                            <h3>7</h3>
+                            <h3 id="tomorrowFollowups">0</h3>
                         </div>
 
                     </div>
@@ -262,7 +262,7 @@
 
                         <div>
                             <span>This Week</span>
-                            <h3>11</h3>
+                            <h3 id="thisWeekFollowups">0</h3>
                         </div>
 
                     </div>
@@ -276,7 +276,7 @@
 
                         <div>
                             <span>Counsellors</span>
-                            <h3>4</h3>
+                            <h3 id="upcomingCounsellors">0</h3>
                         </div>
 
                     </div>
@@ -299,17 +299,6 @@
                         <div class="crm-upcoming-filter-box">
                             <select id="courseFilter">
                                 <option value="">-- All Courses --</option>
-                                <option value="BMCT">BMCT - Basic Medical Coding Training</option>
-                                <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
-                                <option value="CPC">CPC - Certified Professional Coder</option>
-                                <option value="E&M">E&M - Evaluation & Management</option>
-                                <option value="IPDRG">IPDRG - Inpatient Diagnosis-Related Group</option>
-                                <option value="ED">ED - Emergency Department</option>
-                                <option value="CCS">CCS - Certified Coding Specialist</option>
-                                <option value="CPMA">CPMA - Certified Professional Medical Auditor</option>
-                                <option value="CRC">CRC - Certified Risk Adjustment Coder</option>
-                                <option value="IVR">IVR - Interventional Radiology</option>
-                                <option value="Surgery">Surgery</option>
                             </select>
                         </div>
 
@@ -317,11 +306,6 @@
                         <div class="crm-upcoming-filter-box">
                             <select id="counsellorFilter">
                                 <option value="">-- All Counsellors --</option>
-                                <option>Ramesh</option>
-                                <option>Renuka</option>
-                                <option>Perumal</option>
-                                <option>Kaviya</option>
-                                <option>Jaya Shree</option>
                             </select>
                         </div>
 
@@ -362,86 +346,15 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <!-- Row 1 -->
+                            <tbody id="upcomingFollowupTableBody">
+
                                 <tr>
-                                    <td>Rahul Kumar</td>
-                                    <td>9876543210</td>
-                                    <td>CPC</td>
-                                    <td>Renuka</td>
-                                    <td>09-Aug-2026</td>
-                                    <td>10:00 AM</td>
-                                    <td>
-                                        <span class="crm-followup-type phone"><i class="fa fa-phone"></i>Phone Call</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
+                                    <td colspan="9" style="text-align:center;padding:30px;">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        Loading upcoming follow-ups...
                                     </td>
                                 </tr>
 
-                                <!-- Row 2 -->
-                                <tr>
-                                    <td>Priya Sharma</td>
-                                    <td>9876501234</td>
-                                    <td>BMCT</td>
-                                    <td>Ramesh</td>
-                                    <td>10-Aug-2026</td>
-                                    <td>11:30 AM</td>
-                                    <td>
-                                        <span class="crm-followup-type whatsapp"><i class="fa fa-whatsapp"></i>WhatsApp</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 -->
-                                <tr>
-                                    <td>Arun Kumar</td>
-                                    <td>9876512345</td>
-                                    <td>CRC</td>
-                                    <td>Kaviya</td>
-                                    <td>12-Aug-2026</td>
-                                    <td>02:00 PM</td>
-                                    <td>
-                                        <span class="crm-followup-type email"><i class="fa fa-envelope"></i>Emai</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
-                                    </td>
-                                </tr>
-
-                                <!-- Row 4 -->
-                                <tr>
-                                    <td>Kavin Raj</td>
-                                    <td>9876523456</td>
-                                    <td>CCS</td>
-                                    <td>Jaya Shree</td>
-                                    <td>14-Aug-2026</td>
-                                    <td>03:30 PM</td>
-                                    <td>
-                                        <span class="crm-followup-type walkin"><i class="fa fa-person-walking"></i>Walk-in</span>
-                                    </td>
-                                    <td>
-                                        <span class="crm-status-NUPF upcoming">Upcoming</span>
-                                    </td>
-                                    <td>
-                                        <button class="crm-view-btn-NUPF" title="View"><i class="fa fa-eye"></i></button>
-                                        <button class="crm-edit-btn-NUPF" title="Edit"><i class="fa fa-edit"></i></button>
-                                    </td>
-                                </tr>
                             </tbody>
 
                         </table>
@@ -498,6 +411,762 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Upcoming Follow up  -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+let upcomingFollowUps = [];
+
+
+/*--- LOAD FILTER OPTIONS ---*/
+async function loadUpcomingFilterOptions() {
+
+    try {
+
+        console.log("🔄 Loading upcoming filter options...");
+
+        const response = await fetch(`${API_BASE}/follow-ups/upcoming/options`);
+
+        if (!response.ok) {
+
+            throw new Error(`Server returned ${response.status}`);
+
+        }
+
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load filter options."
+            );
+
+        }
+
+
+        populateCourseFilter(data.courses || []);
+
+        populateCounsellorFilter(data.counsellors || []);
+
+
+    } catch (error) {
+
+        console.error("❌ Filter Options Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/*--- COURSE FILTER ---*/
+function populateCourseFilter(courses) {
+
+    const select = document.getElementById("courseFilter");
+
+    select.innerHTML = `<option value="">-- All Courses --</option>`;
+
+    courses.forEach(item => {
+
+        const course = item.course;
+
+        if (!course) {
+            return;
+        }
+
+        const option = document.createElement("option");
+
+        option.value = course;
+
+        option.textContent = course;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/*--- COUNSELLOR FILTER ---*/
+function populateCounsellorFilter(counsellors) {
+
+    const select = document.getElementById("counsellorFilter");
+
+    select.innerHTML = `<option value="">-- All Counsellors --</option>`;
+
+    counsellors.forEach(item => {
+
+        const name = item.name;
+
+        if (!name) {
+            return;
+        }
+
+        const option = document.createElement("option");
+
+        option.value = name;
+
+        option.textContent = name;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/*--- LOAD UPCOMING FOLLOW-UPS ---*/
+async function loadUpcomingFollowUps() {
+
+    const tbody = document.getElementById("upcomingFollowupTableBody");
+
+    try {
+
+        showUpcomingLoading();
+
+        const search = document.getElementById("upcomingSearch").value.trim();
+
+        const course = document.getElementById("courseFilter").value;
+
+        const counsellor = document.getElementById("counsellorFilter").value;
+
+        const date = document.getElementById("dateFilter").value;
+
+        const params = new URLSearchParams();
+
+        if (search) {
+
+            params.append("search", search);
+
+        }
+
+
+        if (course) {
+
+            params.append("course", course);
+
+        }
+
+
+        if (counsellor) {
+
+            params.append("counsellor", counsellor);
+
+        }
+
+
+        if (date) {
+
+            params.append("date", date);
+
+        }
+
+
+        const url = `${API_BASE}/follow-ups/upcoming?${params.toString()}`;
+
+        console.log("🔄 Upcoming Follow-ups URL:", url);
+
+        const response = await fetch(url);
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error("❌ Backend Response:", errorText);
+
+            throw new Error(`Server returned ${response.status}`);
+
+        }
+
+        const data = await response.json();
+
+        console.log("✅ Upcoming Follow-ups Response:", data);
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load upcoming follow-ups."
+            );
+
+        }
+
+        upcomingFollowUps = data.followUps || [];
+
+        updateUpcomingSummary(data.summary);
+
+        renderUpcomingFollowUps(upcomingFollowUps);
+
+    } catch (error) {
+
+        console.error("❌ Upcoming Follow-ups Error:", error);
+
+        tbody.innerHTML = `
+
+            <tr>
+                <td colspan="9" style=" text-align:center; padding:30px;">
+                    <i class="fa-solid fa-circle-exclamation" style="color:#dc2626;"></i>
+                    Failed to load upcoming follow-ups.
+
+                    <br>
+
+                    <small>${escapeHtml(error.message)}</small>
+                </td>
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/*--- LOADING ---*/
+function showUpcomingLoading() {
+
+    const tbody = document.getElementById("upcomingFollowupTableBody");
+
+    tbody.innerHTML = `
+
+        <tr>
+            <td colspan="9" style=" text-align:center; padding:30px;">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Loading upcoming follow-ups...
+
+            </td>
+
+        </tr>
+
+    `;
+
+}
+
+
+/*--- SUMMARY ---*/
+function updateUpcomingSummary(summary) {
+
+    document.getElementById("totalUpcoming").textContent = Number(summary.total_upcoming) || 0;
+
+    document.getElementById("tomorrowFollowups").textContent = Number(summary.tomorrow) || 0;
+
+    document.getElementById("thisWeekFollowups").textContent = Number(summary.this_week) || 0;
+
+    document.getElementById("upcomingCounsellors").textContent = Number(summary.counsellors) || 0;
+
+}
+
+
+/*--- RENDER TABLE ---*/
+function renderUpcomingFollowUps(
+    followUps
+) {
+
+    const tbody =
+        document.getElementById(
+            "upcomingFollowupTableBody"
+        );
+
+
+    const emptyMessage =
+        document.getElementById(
+            "upcomingEmptyMessage"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    if (!followUps.length) {
+
+        emptyMessage.style.display =
+            "block";
+
+
+        return;
+
+    }
+
+
+    emptyMessage.style.display =
+        "none";
+
+
+    followUps.forEach(followUp => {
+
+        const row = document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                ${escapeHtml(
+                    followUp.student_name || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.mobile_number || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.course || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.counsellor || "-"
+                )}
+            </td>
+
+            <td>
+                ${formatDate(
+                    followUp.follow_up_date
+                )}
+            </td>
+
+            <td>
+                ${formatTime(
+                    followUp.follow_up_time
+                )}
+            </td>
+
+            <td>
+                ${getFollowUpTypeHtml(
+                    followUp.follow_up_type
+                )}
+            </td>
+
+            <td>
+                ${getStatusHtml(
+                    followUp.status
+                )}
+            </td>
+
+            <td>
+
+                <button
+                    class="crm-view-btn-NUPF"
+                    title="View"
+                    onclick="viewFollowUp(${followUp.id})"
+                >
+                    <i class="fa fa-eye"></i>
+                </button>
+
+
+                <button
+                    class="crm-edit-btn-NUPF"
+                    title="Edit"
+                    onclick="editFollowUp(${followUp.id})"
+                >
+                    <i class="fa fa-edit"></i>
+                </button>
+
+            </td>
+
+        `;
+
+
+        tbody.appendChild(row);
+
+    });
+
+}
+
+
+/*--- FOLLOW-UP TYPE ---*/
+function getFollowUpTypeHtml(type) {
+
+    if (!type) {
+
+        return "-";
+
+    }
+
+    const value =
+        type.toLowerCase();
+
+    let className =
+        "phone";
+
+    let icon =
+        "fa-phone";
+
+    let label =
+        type;
+
+    switch (value) {
+
+        case "phone call":
+
+        case "phone":
+
+            className =
+                "phone";
+
+            icon =
+                "fa-phone";
+
+            label =
+                "Phone Call";
+
+            break;
+
+
+        case "whatsapp":
+
+            className =
+                "whatsapp";
+
+            icon =
+                "fa-brands fa-whatsapp";
+
+            label =
+                "WhatsApp";
+
+            break;
+
+
+        case "email":
+
+            className =
+                "email";
+
+            icon =
+                "fa-envelope";
+
+            label =
+                "Email";
+
+            break;
+
+
+        case "walk-in":
+
+        case "walkin":
+
+            className =
+                "walkin";
+
+            icon =
+                "fa-person-walking";
+
+            label =
+                "Walk-in";
+
+            break;
+
+    }
+
+
+    return `
+
+        <span class="crm-followup-type ${className}">
+
+            <i class="fa ${icon}"></i>
+            ${escapeHtml(label)}
+
+        </span>
+
+    `;
+
+}
+
+
+/*--- STATUS ---*/
+function getStatusHtml(status) {
+
+    if (!status) {
+
+        return `
+            <span class="crm-status-NUPF upcoming">
+                Upcoming
+            </span>
+        `;
+
+    }
+
+
+    const value =
+        status.toLowerCase();
+
+
+    let className =
+        "upcoming";
+
+
+    let label =
+        status;
+
+
+    if (value === "completed") {
+
+        className =
+            "completed";
+
+    } else if (
+        value === "not interested"
+    ) {
+
+        className =
+            "cancelled";
+
+    } else {
+
+        className =
+            "upcoming";
+
+    }
+
+
+    return `
+
+        <span class="crm-status-NUPF ${className}">
+            ${escapeHtml(label)}
+        </span>
+
+    `;
+
+}
+
+
+/*--- DATE FORMAT ---*/
+function formatDate(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+
+        return escapeHtml(
+            String(value)
+        );
+
+    }
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/*--- TIME FORMAT ---*/
+function formatTime(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+    const parts = String(value).split(":");
+
+    if (parts.length < 2) {
+
+        return escapeHtml(
+            String(value)
+        );
+
+    }
+
+
+    let hour = Number(parts[0]);
+
+    const minute = parts[1];
+
+    const ampm =
+        hour >= 12 ? "PM" : "AM";
+
+    hour =
+        hour % 12;
+
+    if (hour === 0) {
+
+        hour = 12;
+
+    }
+
+    return `${String(hour).padStart(2, "0")}:${minute} ${ampm}`;
+
+}
+
+
+/*--- VIEW FOLLOW-UP ---*/
+function viewFollowUp(id) {
+
+    window.location.href = `view-follow-ups.html?id=${id}`;
+
+}
+
+
+/*--- EDIT FOLLOW-UP ---*/
+function editFollowUp(id) {
+
+    window.location.href = `edit-follow-ups.html?id=${id}`;
+
+}
+
+
+/*--- ESCAPE HTML ---*/
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/*--- FILTER EVENTS ---*/
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+
+        const searchInput =
+            document.getElementById(
+                "upcomingSearch"
+            );
+
+
+        const courseFilter =
+            document.getElementById(
+                "courseFilter"
+            );
+
+
+        const counsellorFilter =
+            document.getElementById(
+                "counsellorFilter"
+            );
+
+
+        const dateFilter =
+            document.getElementById(
+                "dateFilter"
+            );
+
+
+        /*--- Search ---*/
+        searchInput.addEventListener(
+            "input",
+            debounce(
+                loadUpcomingFollowUps,
+                300
+            )
+        );
+
+
+        /*--- Course ---*/
+        courseFilter.addEventListener(
+            "change",
+            loadUpcomingFollowUps
+        );
+
+
+        /*--- Counsellor ---*/
+        counsellorFilter.addEventListener(
+            "change",
+            loadUpcomingFollowUps
+        );
+
+
+        /*--- Date ---*/
+        dateFilter.addEventListener(
+            "change",
+            loadUpcomingFollowUps
+        );
+
+
+        /*--- Load options ---*/
+        loadUpcomingFilterOptions();
+
+
+        /*--- Load data ---*/
+        loadUpcomingFollowUps();
+
+    }
+);
+
+
+/*--- DEBOUNCE ---*/
+function debounce(functionToCall, delay) {
+
+    let timer;
+
+    return function () {
+
+        clearTimeout(timer);
+
+        timer =
+            setTimeout(
+                () => {
+
+                    functionToCall();
+
+                },
+                delay
+            );
+
+    };
+
+}
+
 </script>
 
 

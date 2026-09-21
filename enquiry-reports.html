@@ -33,8 +33,11 @@
     .crm-report-error {
       text-align: center;
       padding: 30px;
-      color: #dc2626;
       font-size: 15px;
+    }
+
+    .crm-report-error i {
+      color: #dc2626;
     }
 
     /*-- EXPORT BUTTON --*/
@@ -434,7 +437,7 @@
                 </div>
 
 
-                 <!-- Enquiry Status Summary -->
+                <!-- Enquiry Status Summary -->
                 <div class="crm-dashboard-box">
 
                     <div class="crm-box-enquiryReports">
@@ -555,124 +558,59 @@ dropdowns.forEach(dropdown => {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- ExcelJS -->
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 
 
-
-
-
-
+<!-- Enquiry Report - JS -->
 <script>
 
-
-/* =========================================================
-   API
-   ========================================================= */
-
+/*--- API ---*/
 const API_BASE = "http://localhost:3000/api";
 
 
-/* =========================================================
-   GLOBAL REPORT DATA
-   ========================================================= */
-
+/*--- GLOBAL REPORT DATA ---*/
 let currentReportData = [];
 
 
-
-/* =========================================================
-   DOM READY
-   ========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
+/*--- DOM READY ---*/
+document.addEventListener("DOMContentLoaded", async function () {
 
         setupReportEvents();
 
         await loadReportOptions();
-
         await loadEnquiryReport();
 
     }
 );
 
 
-
-/* =========================================================
-   SETUP EVENTS
-   ========================================================= */
-
+/*--- SETUP EVENTS ---*/
 function setupReportEvents() {
 
+    /*--- APPLY FILTER ---*/
+    document.getElementById("applyFilterBtn").addEventListener("click", loadEnquiryReport);
 
-    /* APPLY FILTER */
+    /*--- RESET ---*/
+    document.getElementById("resetFilterBtn").addEventListener("click", resetFilters);
 
-    document
-        .getElementById("applyFilterBtn")
-        .addEventListener(
-            "click",
-            loadEnquiryReport
-        );
-
-
-
-    /* RESET */
-
-    document
-        .getElementById("resetFilterBtn")
-        .addEventListener(
-            "click",
-            resetFilters
-        );
-
-
-
-    /* EXPORT */
-
-    document
-        .getElementById("exportReportBtn")
-        .addEventListener(
-            "click",
-            exportEnquiryReport
-        );
+    /*--- EXPORT ---*/
+    document.getElementById("exportReportBtn").addEventListener("click", exportEnquiryReport);
 
 }
 
 
-
-/* =========================================================
-   LOAD FILTER OPTIONS
-   ========================================================= */
-
+/*--- LOAD FILTER OPTIONS ---*/
 async function loadReportOptions() {
 
     try {
 
 
-        const response = await fetch(
-            `${API_BASE}/enquiries/report-options`
-        );
-
+        const response = await fetch(`${API_BASE}/enquiries/report-options`);
 
         if (!response.ok) {
 
-            throw new Error(
-                `Server returned ${response.status}`
-            );
+            throw new Error(`Server returned ${response.status}`);
 
         }
 
@@ -690,72 +628,36 @@ async function loadReportOptions() {
         }
 
 
+        /*--- COURSE OPTIONS ---*/
+        const courseSelect = document.getElementById("reportCourse");
 
-        /* =================================================
-           COURSE OPTIONS
-           ================================================= */
-
-        const courseSelect =
-            document.getElementById("reportCourse");
-
-
-        courseSelect.innerHTML = `
-            <option value="">
-                -- All Courses --
-            </option>
-        `;
-
+        courseSelect.innerHTML = `<option value="">-- All Courses --</option>`;
 
         (data.courses || []).forEach(course => {
 
+            const option = document.createElement("option");
 
-            const option =
-                document.createElement("option");
+            option.value = course.course_name;
 
-
-            option.value =
-                course.course_name;
-
-
-            option.textContent =
-                course.course_name;
-
+            option.textContent = course.course_name;
 
             courseSelect.appendChild(option);
 
         });
 
 
+        /*--- COUNSELLOR OPTIONS ---*/
+        const counsellorSelect = document.getElementById("reportCounsellor");
 
-        /* =================================================
-           COUNSELLOR OPTIONS
-           ================================================= */
-
-        const counsellorSelect =
-            document.getElementById("reportCounsellor");
-
-
-        counsellorSelect.innerHTML = `
-            <option value="">
-                -- All Counsellors --
-            </option>
-        `;
-
+        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
 
         (data.counsellors || []).forEach(counsellor => {
 
+            const option = document.createElement("option");
 
-            const option =
-                document.createElement("option");
+            option.value = counsellor.name;
 
-
-            option.value =
-                counsellor.name;
-
-
-            option.textContent =
-                counsellor.name;
-
+            option.textContent = counsellor.name;
 
             counsellorSelect.appendChild(option);
 
@@ -764,80 +666,41 @@ async function loadReportOptions() {
 
     } catch (error) {
 
+        console.error("❌ Report Options Error:", error);
 
-        console.error(
-            "❌ Report Options Error:",
-            error
-        );
-
-
-        alert(
-            "Unable to load course/counsellor filters."
-        );
+        alert("Unable to load course/counsellor filters.");
 
     }
 
 }
 
 
-
-/* =========================================================
-   LOAD ENQUIRY REPORT
-   ========================================================= */
-
+/*--- LOAD ENQUIRY REPORT ---*/
 async function loadEnquiryReport() {
-
 
     showReportLoading();
 
-
     try {
 
+        const fromDate = document.getElementById("fromDate").value;
 
-        const fromDate =
-            document
-                .getElementById("fromDate")
-                .value;
+        const toDate = document.getElementById("toDate").value;
 
+        const course = document.getElementById("reportCourse").value;
 
-        const toDate =
-            document
-                .getElementById("toDate")
-                .value;
+        const counsellor = document.getElementById("reportCounsellor").value;
+
+        const status = document .getElementById("reportStatus").value;
 
 
-        const course =
-            document
-                .getElementById("reportCourse")
-                .value;
-
-
-        const counsellor =
-            document
-                .getElementById("reportCounsellor")
-                .value;
-
-
-        const status =
-            document
-                .getElementById("reportStatus")
-                .value;
-
-
-
-        /* =================================================
-           DATE VALIDATION
-           ================================================= */
-
+        /*--- DATE VALIDATION ---*/
         if (
             fromDate &&
             toDate &&
             fromDate > toDate
         ) {
 
-            alert(
-                "From Date cannot be greater than To Date."
-            );
+            alert("From Date cannot be greater than To Date.");
 
             showNoData();
 
@@ -846,115 +709,69 @@ async function loadEnquiryReport() {
         }
 
 
-
-        /* =================================================
-           BUILD QUERY
-           ================================================= */
-
-        const params =
-            new URLSearchParams();
-
+        /*--- BUILD QUERY ---*/
+        const params = new URLSearchParams();
 
         if (fromDate) {
 
-            params.append(
-                "from_date",
-                fromDate
-            );
+            params.append("from_date", fromDate);
 
         }
 
 
         if (toDate) {
 
-            params.append(
-                "to_date",
-                toDate
-            );
+            params.append("to_date", toDate);
 
         }
 
 
         if (course) {
 
-            params.append(
-                "course",
-                course
-            );
+            params.append("course", course);
 
         }
 
 
         if (counsellor) {
 
-            params.append(
-                "counsellor",
-                counsellor
-            );
+            params.append("counsellor", counsellor);
 
         }
 
 
         if (status) {
 
-            params.append(
-                "status",
-                status
-            );
+            params.append("status", status);
 
         }
 
 
-
-        /* =================================================
-           API REQUEST
-           ================================================= */
-
+        /*--- API REQUEST ---*/
         const url =
             `${API_BASE}/enquiries/reports` +
             `?${params.toString()}`;
 
 
-        console.log(
-            "📊 Enquiry Report API:",
-            url
-        );
+        console.log("📊 Enquiry Report API:", url);
 
-
-        const response =
-            await fetch(url);
-
+        const response = await fetch(url);
 
         if (!response.ok) {
 
 
-            const errorText =
-                await response.text();
+            const errorText = await response.text();
 
+            console.error("❌ Backend Response:", errorText);
 
-            console.error(
-                "❌ Backend Response:",
-                errorText
-            );
-
-
-            throw new Error(
-                `Server returned ${response.status}`
-            );
+            throw new Error(`Server returned ${response.status}`);
 
         }
 
 
+        const data = await response.json();
 
-        const data =
-            await response.json();
-
-
-        console.log(
-            "✅ Enquiry Report Response:",
-            data
-        );
-
+        console.log("✅ Enquiry Report Response:", data);
 
         if (!data.success) {
 
@@ -966,57 +783,27 @@ async function loadEnquiryReport() {
         }
 
 
-
-        /* =================================================
-           STORE DATA
-           ================================================= */
-
-        currentReportData =
-            data.enquiries || [];
+        /*--- STORE DATA ---*/
+        currentReportData = data.enquiries || [];
 
 
-
-        /* =================================================
-           UPDATE SUMMARY
-           ================================================= */
-
-        updateSummary(
-            data.summary || {}
-        );
+        /*--- UPDATE SUMMARY ---*/
+        updateSummary(data.summary || {});
 
 
-
-        /* =================================================
-           UPDATE STATUS SUMMARY
-           ================================================= */
-
-        updateStatusSummary(
-            data.summary || {}
-        );
+        /*--- UPDATE STATUS SUMMARY ---*/
+        updateStatusSummary(data.summary || {});
 
 
-
-        /* =================================================
-           RENDER TABLE
-           ================================================= */
-
-        renderEnquiryReport(
-            currentReportData
-        );
+        /*--- RENDER TABLE ---*/
+        renderEnquiryReport(currentReportData);
 
 
     } catch (error) {
 
+        console.error("❌ Enquiry Report Load Error:", error);
 
-        console.error(
-            "❌ Enquiry Report Load Error:",
-            error
-        );
-
-
-        showReportError(
-            error.message
-        );
+        showReportError(error.message);
 
     }
 
@@ -1024,43 +811,28 @@ async function loadEnquiryReport() {
 
 
 
-/* =========================================================
-   UPDATE SUMMARY CARDS
-   ========================================================= */
-
+/*--- UPDATE SUMMARY CARDS ---*/
 function updateSummary(summary) {
 
-
-    document.getElementById(
-        "totalEnquiries"
-    ).textContent =
+    document.getElementById("totalEnquiries").textContent =
         Number(
             summary.total_enquiries
         ) || 0;
 
 
-
-    document.getElementById(
-        "interestedEnquiries"
-    ).textContent =
+    document.getElementById("interestedEnquiries").textContent =
         Number(
             summary.interested
         ) || 0;
 
 
-
-    document.getElementById(
-        "followUpEnquiries"
-    ).textContent =
+    document.getElementById("followUpEnquiries").textContent =
         Number(
             summary.follow_ups
         ) || 0;
 
 
-
-    document.getElementById(
-        "convertedEnquiries"
-    ).textContent =
+    document.getElementById("convertedEnquiries").textContent =
         Number(
             summary.converted
         ) || 0;
@@ -1068,44 +840,28 @@ function updateSummary(summary) {
 }
 
 
-
-/* =========================================================
-   UPDATE STATUS SUMMARY
-   ========================================================= */
-
+/*--- UPDATE STATUS SUMMARY ---*/
 function updateStatusSummary(summary) {
 
-
-    document.getElementById(
-        "statusInterested"
-    ).textContent =
+    document.getElementById("statusInterested").textContent =
         Number(
             summary.interested
         ) || 0;
 
 
-
-    document.getElementById(
-        "statusFollowup"
-    ).textContent =
+    document.getElementById("statusFollowup").textContent =
         Number(
             summary.follow_ups
         ) || 0;
 
 
-
-    document.getElementById(
-        "statusNotInterested"
-    ).textContent =
+    document.getElementById("statusNotInterested").textContent =
         Number(
             summary.not_interested
         ) || 0;
 
 
-
-    document.getElementById(
-        "statusAdmission"
-    ).textContent =
+    document.getElementById("statusAdmission").textContent =
         Number(
             summary.converted
         ) || 0;
@@ -1113,50 +869,29 @@ function updateStatusSummary(summary) {
 }
 
 
-
-/* =========================================================
-   RENDER REPORT TABLE
-   ========================================================= */
-
+/*--- RENDER REPORT TABLE ---*/
 function renderEnquiryReport(enquiries) {
 
-
-    const tbody =
-        document.getElementById(
-            "enquiryReportTableBody"
-        );
-
+    const tbody = document.getElementById("enquiryReportTableBody");
 
     tbody.innerHTML = "";
 
-
-
     if (!enquiries.length) {
 
-
         showNoData();
-
 
         return;
 
     }
 
 
+    enquiries.forEach((enquiry, index) => {
 
-    enquiries.forEach(
-        (enquiry, index) => {
-
-
-            const row =
-                document.createElement("tr");
-
+            const row = document.createElement("tr");
 
             row.innerHTML = `
 
-                <td>
-                    ${index + 1}
-                </td>
-
+                <td>${index + 1}</td>
 
                 <td>
                     ${escapeHtml(
@@ -1164,13 +899,11 @@ function renderEnquiryReport(enquiries) {
                     )}
                 </td>
 
-
                 <td>
                     ${escapeHtml(
                         enquiry.mobile || "-"
                     )}
                 </td>
-
 
                 <td>
                     ${escapeHtml(
@@ -1178,13 +911,11 @@ function renderEnquiryReport(enquiries) {
                     )}
                 </td>
 
-
                 <td>
                     ${escapeHtml(
                         enquiry.counsellor || "-"
                     )}
                 </td>
-
 
                 <td>
                     ${formatDate(
@@ -1192,13 +923,11 @@ function renderEnquiryReport(enquiries) {
                     )}
                 </td>
 
-
                 <td>
                     ${formatDate(
                         enquiry.follow_up_date
                     )}
                 </td>
-
 
                 <td>
 
@@ -1219,7 +948,6 @@ function renderEnquiryReport(enquiries) {
 
             `;
 
-
             tbody.appendChild(row);
 
         }
@@ -1229,12 +957,8 @@ function renderEnquiryReport(enquiries) {
 
 
 
-/* =========================================================
-   STATUS CSS CLASS
-   ========================================================= */
-
+/*--- STATUS CSS CLASS ---*/
 function getStatusClass(status) {
-
 
     if (!status) {
 
@@ -1254,26 +978,21 @@ function getStatusClass(status) {
 
             return "interested";
 
-
         case "follow-up":
 
             return "followup";
-
 
         case "follow up":
 
             return "followup";
 
-
         case "not interested":
 
             return "not-interested";
 
-
         case "admission confirmed":
 
             return "admission";
-
 
         default:
 
@@ -1285,73 +1004,34 @@ function getStatusClass(status) {
 
 
 
-/* =========================================================
-   RESET FILTERS
-   ========================================================= */
-
+/*--- RESET FILTERS ---*/
 async function resetFilters() {
 
+    document.getElementById("fromDate").value = "";
 
-    document.getElementById(
-        "fromDate"
-    ).value = "";
+    document.getElementById("toDate").value = "";
 
+    document.getElementById("reportCourse").value = "";
 
-    document.getElementById(
-        "toDate"
-    ).value = "";
+    document.getElementById("reportCounsellor").value = "";
 
-
-    document.getElementById(
-        "reportCourse"
-    ).value = "";
-
-
-    document.getElementById(
-        "reportCounsellor"
-    ).value = "";
-
-
-    document.getElementById(
-        "reportStatus"
-    ).value = "";
-
-
+    document.getElementById("reportStatus").value = "";
 
     await loadEnquiryReport();
 
 }
 
 
-
-/* =========================================================
-   SHOW LOADING
-   ========================================================= */
-
+/*--- SHOW LOADING ---*/
 function showReportLoading() {
 
-
-    document.getElementById(
-        "enquiryReportTableBody"
-    ).innerHTML = `
+    document.getElementById("enquiryReportTableBody").innerHTML = `
 
         <tr>
-
-            <td
-                colspan="8"
-                class="crm-report-loading"
-            >
-
-                <i
-                    class="fa-solid
-                    fa-spinner
-                    fa-spin"
-                ></i>
-
+            <td colspan="8" class="crm-report-loading">
+                <i class="fa-solid fa-spinner fa-spin"></i>
                 Loading enquiry report...
-
             </td>
-
         </tr>
 
     `;
@@ -1359,31 +1039,18 @@ function showReportLoading() {
 }
 
 
-
-/* =========================================================
-   SHOW NO DATA
-   ========================================================= */
-
+/*--- SHOW NO DATA ---*/
 function showNoData() {
 
-
-    document.getElementById(
-        "enquiryReportTableBody"
-    ).innerHTML = `
+    document.getElementById("enquiryReportTableBody").innerHTML = `
 
         <tr>
-
-            <td
-                colspan="8"
-                class="crm-report-no-data"
-            >
-
+            <td colspan="8" class="crm-report-no-data">
                 <i class="fa fa-folder-open"></i>
 
                 <br><br>
 
                 No enquiry records found.
-
             </td>
 
         </tr>
@@ -1393,25 +1060,13 @@ function showNoData() {
 }
 
 
-
-/* =========================================================
-   SHOW ERROR
-   ========================================================= */
-
+/*--- SHOW ERROR ---*/
 function showReportError(message) {
 
-
-    document.getElementById(
-        "enquiryReportTableBody"
-    ).innerHTML = `
+    document.getElementById("enquiryReportTableBody").innerHTML = `
 
         <tr>
-
-            <td
-                colspan="8"
-                class="crm-report-error"
-            >
-
+            <td colspan="8" class="crm-report-error">
                 <i class="fa fa-circle-exclamation"></i>
 
                 <br><br>
@@ -1420,31 +1075,20 @@ function showReportError(message) {
 
                 <br><br>
 
-                <small>
-                    ${escapeHtml(message)}
-                </small>
-
+                <small>${escapeHtml(message)}</small>
             </td>
-
         </tr>
 
     `;
 
-
     currentReportData = [];
-
-
 
     updateSummary({
 
         total_enquiries: 0,
-
         interested: 0,
-
         follow_ups: 0,
-
         converted: 0,
-
         not_interested: 0
 
     });
@@ -1453,11 +1097,8 @@ function showReportError(message) {
     updateStatusSummary({
 
         interested: 0,
-
         follow_ups: 0,
-
         converted: 0,
-
         not_interested: 0
 
     });
@@ -1465,13 +1106,8 @@ function showReportError(message) {
 }
 
 
-
-/* =========================================================
-   FORMAT DATE
-   ========================================================= */
-
+/*--- FORMAT DATE ---*/
 function formatDate(value) {
-
 
     if (!value) {
 
@@ -1479,10 +1115,7 @@ function formatDate(value) {
 
     }
 
-
-    const text =
-        String(value);
-
+    const text = String(value);
 
     /*
        MySQL DATE:
@@ -1494,9 +1127,7 @@ function formatDate(value) {
             .test(text)
     ) {
 
-        const parts =
-            text.split("-");
-
+        const parts = text.split("-");
 
         return `
             ${parts[2]}-
@@ -1507,9 +1138,7 @@ function formatDate(value) {
     }
 
 
-    const date =
-        new Date(value);
-
+    const date = new Date(value);
 
     if (
         isNaN(
@@ -1529,13 +1158,8 @@ function formatDate(value) {
 }
 
 
-
-/* =========================================================
-   HTML ESCAPE
-   ========================================================= */
-
+/*--- HTML ESCAPE ---*/
 function escapeHtml(value) {
-
 
     if (
         value === null ||
@@ -1546,53 +1170,29 @@ function escapeHtml(value) {
 
     }
 
-
     return String(value)
 
-        .replace(
-            /&/g,
-            "&amp;"
-        )
+        .replace(/&/g, "&amp;")
 
-        .replace(
-            /</g,
-            "&lt;"
-        )
+        .replace(/</g, "&lt;")
 
-        .replace(
-            />/g,
-            "&gt;"
-        )
+        .replace(/>/g, "&gt;")
 
-        .replace(
-            /"/g,
-            "&quot;"
-        )
+        .replace(/"/g, "&quot;")
 
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+        .replace(/'/g, "&#039;");
 
 }
 
 
-
-/* =========================================================
-   EXCEL SUMMARY
-   ========================================================= */
-
+/*--- EXCEL SUMMARY ---*/
 function getCurrentReportSummary() {
-
 
     return {
 
-        totalEnquiries:
-            currentReportData.length,
+        totalEnquiries: currentReportData.length,
 
-
-        interested:
-            currentReportData.filter(
+        interested: currentReportData.filter(
                 item =>
                     String(
                         item.status || ""
@@ -1601,8 +1201,7 @@ function getCurrentReportSummary() {
             ).length,
 
 
-        followUps:
-            currentReportData.filter(
+        followUps: currentReportData.filter(
                 item =>
                     String(
                         item.status || ""
@@ -1611,8 +1210,7 @@ function getCurrentReportSummary() {
             ).length,
 
 
-        notInterested:
-            currentReportData.filter(
+        notInterested: currentReportData.filter(
                 item =>
                     String(
                         item.status || ""
@@ -1621,8 +1219,7 @@ function getCurrentReportSummary() {
             ).length,
 
 
-        converted:
-            currentReportData.filter(
+        converted: currentReportData.filter(
                 item =>
                     String(
                         item.status || ""
@@ -1635,70 +1232,49 @@ function getCurrentReportSummary() {
 }
 
 
+/*--- EXCEL DATE ---*/
+function formatExcelDate(dateValue) {
 
-/* =========================================================
-   EXCEL DATE
-   ========================================================= */
-
-function formatExcelDate(value) {
-
-
-    if (!value) {
-
-        return "";
-
+    if (!dateValue) {
+        return null;
     }
 
+    /*--- Handle YYYY-MM-DD safely ---*/
+    if (typeof dateValue === "string") {
 
-    const text =
-        String(value);
+        const match = dateValue.match(/^(\d{4})-(\d{2})-(\d{2})/);
 
+        if (match) {
 
-    if (
-        /^\d{4}-\d{2}-\d{2}/
-            .test(text)
-    ) {
+            const year = Number(match[1]);
+            const month = Number(match[2]) - 1;
+            const day = Number(match[3]);
 
-        const parts =
-            text
-                .substring(0, 10)
-                .split("-");
-
-
-        return `
-            ${parts[2]}-
-            ${parts[1]}-
-            ${parts[0]}
-        `;
-
+            return new Date(year, month, day);
+        }
     }
 
+    /*--- If already a Date object ---*/
+    if (dateValue instanceof Date) {
+        return dateValue;
+    }
 
-    return formatDate(value);
-
+    return null;
 }
 
 
-
-/* =========================================================
-   PROFESSIONAL EXCEL EXPORT
-   ========================================================= */
-
+/*--- PROFESSIONAL EXCEL EXPORT ---*/
 async function exportEnquiryReport() {
 
 
     if (!currentReportData.length) {
 
 
-        alert(
-            "There is no enquiry data to export."
-        );
-
+        alert("There is no enquiry data to export.");
 
         return;
 
     }
-
 
 
     if (
@@ -1706,136 +1282,79 @@ async function exportEnquiryReport() {
     ) {
 
 
-        alert(
-            "Excel export library is not loaded. Please refresh the page."
-        );
-
+        alert("Excel export library is not loaded. Please refresh the page.");
 
         return;
 
     }
 
 
-
     try {
 
-
-        console.log(
-            "📊 Preparing professional enquiry Excel report..."
-        );
+        console.log("📊 Preparing professional enquiry Excel report...");
 
 
+        /*--- WORKBOOK ---*/
+        const workbook = new ExcelJS.Workbook();
 
-        /* =================================================
-           WORKBOOK
-           ================================================= */
+        workbook.creator = "3470 Healthcare";
 
-        const workbook =
-            new ExcelJS.Workbook();
+        workbook.lastModifiedBy = "3470 Healthcare";
 
+        workbook.created = new Date();
 
-        workbook.creator =
-            "3470 Healthcare";
-
-
-        workbook.lastModifiedBy =
-            "3470 Healthcare";
+        workbook.modified = new Date();
 
 
-        workbook.created =
-            new Date();
+        /*--- WORKSHEET ---*/
+        const worksheet = workbook.addWorksheet("Enquiry Report");
 
 
-        workbook.modified =
-            new Date();
-
-
-
-        /* =================================================
-           WORKSHEET
-           ================================================= */
-
-        const worksheet =
-            workbook.addWorksheet(
-                "Enquiry Report"
-            );
-
-
-
-        /* =================================================
-           PAGE SETUP
-           ================================================= */
+        /*--- PAGE SETUP ---*/
 
         worksheet.pageSetup = {
 
             orientation: "landscape",
 
             paperSize: 9,
-
             fitToPage: true,
-
             fitToWidth: 1,
-
             fitToHeight: 0,
-
             margins: {
-
                 left: 0.25,
-
                 right: 0.25,
-
                 top: 0.5,
-
                 bottom: 0.5,
-
                 header: 0.2,
-
                 footer: 0.2
-
             }
 
         };
-
-
 
         worksheet.views = [
 
             {
                 state: "frozen",
-                ySplit: 15
+                ySplit: 11
             }
 
         ];
 
 
+        /*--- COMPANY HEADER ---*/
+        worksheet.mergeCells("A1:H1");
 
-        /* =================================================
-           COMPANY HEADER
-           ================================================= */
+        const companyCell = worksheet.getCell("A1");
 
-        worksheet.mergeCells(
-            "A1:H1"
-        );
-
-
-        const companyCell =
-            worksheet.getCell("A1");
-
-
-        companyCell.value =
-            "3470 HEALTHCARE PVT LTD";
-
+        companyCell.value = "3470 HEALTHCARE PVT LTD";
 
         companyCell.font = {
 
             name: "Calibri",
-
             size: 20,
-
             bold: true,
-
             color: {
-                argb: "FF1F4E78"
+                argb: "FF006B3C"
             }
 
         };
@@ -1844,82 +1363,52 @@ async function exportEnquiryReport() {
         companyCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
 
-
-        worksheet.getRow(1).height =
-            32;
+        worksheet.getRow(1).height = 32;
 
 
+        /*--- SYSTEM NAME ---*/
+        worksheet.mergeCells("A2:H2");
 
-        /* =================================================
-           SYSTEM NAME
-           ================================================= */
+        const systemCell = worksheet.getCell("A2");
 
-        worksheet.mergeCells(
-            "A2:H2"
-        );
-
-
-        const systemCell =
-            worksheet.getCell("A2");
-
-
-        systemCell.value =
-            "STUDENT CRM SYSTEM";
-
+        systemCell.value = "CRM SYSTEM";
 
         systemCell.font = {
 
             name: "Calibri",
-
-            size: 14,
-
-            bold: true
+            size: 15,
+            bold: true,
+            color: {
+                argb: "1F4E78"
+            }
 
         };
-
 
         systemCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
 
-
-        worksheet.getRow(2).height =
-            24;
+        worksheet.getRow(2).height = 24;
 
 
+        /*--- REPORT TITLE ---*/
+        worksheet.mergeCells("A3:H3");
 
-        /* =================================================
-           REPORT TITLE
-           ================================================= */
+        const titleCell = worksheet.getCell("A3");
 
-        worksheet.mergeCells(
-            "A3:H3"
-        );
-
-
-        const titleCell =
-            worksheet.getCell("A3");
-
-
-        titleCell.value =
-            "ENQUIRY REPORT";
-
+        titleCell.value = "ENQUIRY REPORT";
 
         titleCell.font = {
 
             name: "Calibri",
-
             size: 16,
-
             bold: true
 
         };
@@ -1928,103 +1417,60 @@ async function exportEnquiryReport() {
         titleCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle"
 
         };
 
-
-        worksheet.getRow(3).height =
-            26;
+        worksheet.getRow(3).height = 26;
 
 
+        /*--- GENERATED DATE ---*/
+        worksheet.mergeCells("A4:H4");
 
-        /* =================================================
-           GENERATED DATE
-           ================================================= */
+        const generatedCell = worksheet.getCell("A4");
 
-        worksheet.mergeCells(
-            "A4:H4"
-        );
-
-
-        const generatedCell =
-            worksheet.getCell("A4");
-
-
-        generatedCell.value =
-            `Generated Date: ${new Date().toLocaleString("en-IN")}`;
-
+        generatedCell.value = `Generated Date: ${new Date().toLocaleString("en-IN")}`;
 
         generatedCell.font = {
 
-            italic: true,
-
-            size: 10
+            name: "Calibri",
+            size: 12
 
         };
 
 
         generatedCell.alignment = {
 
-            horizontal: "center"
+            horizontal: "center",
+            vertical: "middle"
 
         };
 
+        worksheet.getRow(4).height = 28;
 
 
-        /* =================================================
-           FILTER INFORMATION
-           ================================================= */
+        /*--- FILTER INFORMATION ---*/
+        const selectedFrom = document.getElementById("fromDate").value || "All";
 
-        const selectedFrom =
-            document.getElementById(
-                "fromDate"
-            ).value || "All";
+        const selectedTo = document.getElementById("toDate").value || "All";
 
+        const selectedCourse = document.getElementById("reportCourse").value || "All Courses";
 
-        const selectedTo =
-            document.getElementById(
-                "toDate"
-            ).value || "All";
+        const selectedCounsellor = document.getElementById("reportCounsellor").value || "All Counsellors";
 
+        const selectedStatus = document.getElementById("reportStatus").value || "All Status";
 
-        const selectedCourse =
-            document.getElementById(
-                "reportCourse"
-            ).value || "All Courses";
+        worksheet.mergeCells("A5:H5");
 
-
-        const selectedCounsellor =
-            document.getElementById(
-                "reportCounsellor"
-            ).value || "All Counsellors";
-
-
-        const selectedStatus =
-            document.getElementById(
-                "reportStatus"
-            ).value || "All Status";
-
-
-
-        worksheet.mergeCells(
-            "A5:H5"
-        );
-
-
-        const filterCell =
-            worksheet.getCell("A5");
-
+        const filterCell = worksheet.getCell("A5");
 
         filterCell.value =
-            `Filters: ${selectedFrom} to ${selectedTo} | ${selectedCourse} | ${selectedCounsellor} | ${selectedStatus}`;
-
+            `Filters: ${selectedFrom} to ${selectedTo}  |  Course: ${selectedCourse}  |  Counsellor: ${selectedCounsellor}  |  Status: ${selectedStatus}`;
 
         filterCell.font = {
 
-            size: 10,
-
+            name: "Calibri",
+            size: 12,
             italic: true
 
         };
@@ -2033,170 +1479,111 @@ async function exportEnquiryReport() {
         filterCell.alignment = {
 
             horizontal: "center",
-
             vertical: "middle",
-
             wrapText: true
 
         };
 
+        worksheet.getRow(5).height = 28;
 
 
-        worksheet.getRow(5).height =
-            30;
+        /*--- SUMMARY TITLE ---*/
+        worksheet.mergeCells("A7:H7");
 
+        const summaryTitle = worksheet.getCell("A7");
 
-
-        /* =================================================
-           SUMMARY TITLE
-           ================================================= */
-
-        worksheet.mergeCells(
-            "A7:H7"
-        );
-
-
-        const summaryTitle =
-            worksheet.getCell("A7");
-
-
-        summaryTitle.value =
-            "ENQUIRY SUMMARY";
-
+        summaryTitle.value = "ENQUIRY SUMMARY";
 
         summaryTitle.font = {
 
-            bold: true,
-
-            size: 12
+            name: "Calibri",
+            size: 12,
+            bold: true
 
         };
 
+        summaryTitle.alignment = {
+
+            horizontal: "left",
+            vertical: "middle"
+
+        };
+
+        worksheet.getRow(7).height = 24;
 
 
-        /* =================================================
-           SUMMARY
-           ================================================= */
+        /*--- SUMMARY ---*/
+        const excelSummary = getCurrentReportSummary();
 
-        const excelSummary =
-            getCurrentReportSummary();
+        worksheet.getCell("A8").value = "Total Enquiries";
 
+        worksheet.getCell("B8").value = excelSummary.totalEnquiries;
 
-        worksheet.getCell("A8").value =
-            "Total Enquiries";
+        worksheet.getCell("C8").value = "Interested";
 
+        worksheet.getCell("D8").value = excelSummary.interested;
 
-        worksheet.getCell("B8").value =
-            excelSummary.totalEnquiries;
+        worksheet.getCell("E8").value = "Follow-ups";
 
+        worksheet.getCell("F8").value = excelSummary.followUps;
 
-        worksheet.getCell("C8").value =
-            "Interested";
+        worksheet.getCell("G8").value = "Converted";
 
-
-        worksheet.getCell("D8").value =
-            excelSummary.interested;
+        worksheet.getCell("H8").value = excelSummary.converted;
 
 
-        worksheet.getCell("E8").value =
-            "Follow-ups";
+        /*--- SUMMARY STYLING ---*/
+        for (let col = 1; col <= 8; col++) {
 
+            const cell = worksheet.getCell(8, col);
 
-        worksheet.getCell("F8").value =
-            excelSummary.followUps;
+            cell.border = {
+                top: { style: "thin" },
+                left: { style: "thin" },
+                bottom: { style: "thin" },
+                right: { style: "thin" }
+            };
 
+            cell.alignment = {
+                horizontal: "center",
+                vertical: "middle"
+            };
 
-        worksheet.getCell("G8").value =
-            "Converted";
-
-
-        worksheet.getCell("H8").value =
-            excelSummary.converted;
-
-
-
-        /* =================================================
-           SUMMARY STYLING
-           ================================================= */
-
-        for (
-            let col = 1;
-            col <= 8;
-            col++
-        ) {
-
-
-            worksheet.getCell(
-                8,
-                col
-            ).border = {
-
-                top: {
-                    style: "thin"
-                },
-
-                left: {
-                    style: "thin"
-                },
-
-                bottom: {
-                    style: "thin"
-                },
-
-                right: {
-                    style: "thin"
-                }
-
+            cell.font = {
+                name: "Calibri",
+                size: 11,
+                bold: true,
+                color: { argb: "FF000000" }
             };
 
         }
 
 
-
-        /* =================================================
-           TABLE START
-           ================================================= */
-
-        const headerRowNumber =
-            11;
-
+        /*--- TABLE START ---*/
+        const headerRowNumber = 11;
 
         const headers = [
 
-            "#",
-
+            "S.No",
             "Student Name",
-
             "Mobile",
-
             "Course",
-
             "Counsellor",
-
             "Enquiry Date",
-
             "Follow-up",
-
             "Status"
 
         ];
 
 
-        const headerRow =
-            worksheet.getRow(
-                headerRowNumber
-            );
+        const headerRow = worksheet.getRow(headerRowNumber);
 
-
-        headerRow.values =
-            headers;
-
+        headerRow.values = headers;
 
         headerRow.font = {
 
             bold: true,
-
-            size: 11
+            size: 12
 
         };
 
@@ -2204,42 +1591,24 @@ async function exportEnquiryReport() {
         headerRow.alignment = {
 
             horizontal: "center",
-
             vertical: "middle",
-
             wrapText: true
 
         };
 
-
         headerRow.height = 28;
 
 
-
-        /* =================================================
-           HEADER BORDER
-           ================================================= */
-
+        /*--- HEADER BORDER ---*/
         headerRow.eachCell(
             cell => {
 
                 cell.border = {
 
-                    top: {
-                        style: "thin"
-                    },
-
-                    left: {
-                        style: "thin"
-                    },
-
-                    bottom: {
-                        style: "thin"
-                    },
-
-                    right: {
-                        style: "thin"
-                    }
+                    top: {style: "thin"},
+                    left: {style: "thin"},
+                    bottom: {style: "thin"},
+                    right: {style: "thin"}
 
                 };
 
@@ -2247,68 +1616,47 @@ async function exportEnquiryReport() {
         );
 
 
+        /*--- DATA ---*/
+        currentReportData.forEach((enquiry, index) => {
 
-        /* =================================================
-           DATA
-           ================================================= */
+                const row = worksheet.addRow([
 
-        currentReportData.forEach(
-            (enquiry, index) => {
+                    index + 1,
 
+                    enquiry.student_name || "",
 
-                const row =
-                    worksheet.addRow([
+                    Number(enquiry.mobile) || 0,
 
-                        index + 1,
+                    enquiry.course || "",
 
-                        enquiry.student_name || "",
+                    enquiry.counsellor || "",
 
-                        enquiry.mobile || "",
+                    formatExcelDate(enquiry.enquiry_date),
 
-                        enquiry.course || "",
+                    formatExcelDate(enquiry.follow_up_date),
 
-                        enquiry.counsellor || "",
+                    enquiry.status || ""
 
-                        formatExcelDate(
-                            enquiry.enquiry_date
-                        ),
-
-                        formatExcelDate(
-                            enquiry.follow_up_date
-                        ),
-
-                        enquiry.status || ""
-
-                    ]);
+                ]);
 
 
-                row.eachCell(
-                    cell => {
+                row.eachCell(cell => {
 
                         cell.border = {
 
-                            top: {
-                                style: "thin"
-                            },
-
-                            left: {
-                                style: "thin"
-                            },
-
-                            bottom: {
-                                style: "thin"
-                            },
-
-                            right: {
-                                style: "thin"
-                            }
+                            top: {style: "thin"},
+                            left: {style: "thin"},
+                            bottom: {style: "thin"},
+                            right: {style: "thin"}
 
                         };
 
 
                         cell.alignment = {
 
-                            vertical: "middle"
+                            horizontal: "center",
+                            vertical: "middle",
+                            wrapText: false
 
                         };
 
@@ -2319,127 +1667,94 @@ async function exportEnquiryReport() {
         );
 
 
-
-        /* =================================================
-           COLUMN WIDTHS
-           ================================================= */
-
+        /*--- COLUMN WIDTHS ---*/
         worksheet.columns = [
 
-            {
-                key: "number",
-                width: 8
-            },
+            {key: "number", width: 20},
 
-            {
-                key: "student",
-                width: 25
-            },
+            {key: "student", width: 25},
 
-            {
-                key: "mobile",
-                width: 16
-            },
+            {key: "mobile", width: 16},
 
-            {
-                key: "course",
-                width: 28
-            },
+            {key: "course", width: 28},
 
-            {
-                key: "counsellor",
-                width: 20
-            },
+            {key: "counsellor", width: 20},
 
-            {
-                key: "enquiryDate",
-                width: 17
-            },
+            {key: "enquiryDate", width: 20},
 
-            {
-                key: "followUp",
-                width: 17
-            },
+            {key: "followUp", width: 20},
 
-            {
-                key: "status",
-                width: 24
-            }
+            {key: "status", width: 24}
 
         ];
 
 
+        /*--- PRINT TITLE ---*/
+        worksheet.pageSetup.printTitlesRow = `${headerRowNumber}:${headerRowNumber}`;
 
-        /* =================================================
-           AUTO FILTER
-           ================================================= */
+        /*--- FOOTER ---*/
+        worksheet.headerFooter.oddFooter = "&L3470 Healthcare&RPage &P of &N";
 
-        worksheet.autoFilter = {
+        /*--- BLANK ROW BEFORE TOTAL ---*/
+        worksheet.addRow([]);
 
-            from: `A${headerRowNumber}`,
+        /*--- TOTAL ---*/
+        const totalRow = worksheet.addRow([]);
 
-            to: `H${headerRowNumber}`
-
-        };
-
-
-
-        /* =================================================
-           PRINT TITLE
-           ================================================= */
-
-        worksheet.pageSetup.printTitlesRow =
-            `${headerRowNumber}:${headerRowNumber}`;
-
-
-
-        /* =================================================
-           FOOTER
-           ================================================= */
-
-        worksheet.headerFooter.oddFooter =
-            "&L3470 Healthcare&RPage &P of &N";
-
-
-
-        /* =================================================
-           TOTAL
-           ================================================= */
-
-        const totalRow =
-            worksheet.addRow([]);
-
-
-        totalRow.getCell(1).value =
-            "TOTAL RECORDS";
-
+        totalRow.getCell(1).value = "TOTAL RECORDS";
 
         totalRow.getCell(1).font = {
 
-            bold: true
+            bold: true,
+            size: 11
 
         };
 
 
-        totalRow.getCell(2).value =
-            currentReportData.length;
-
+        totalRow.getCell(2).value = currentReportData.length;
 
         totalRow.getCell(2).font = {
 
-            bold: true
+            bold: true,
+            size: 11
 
         };
 
 
+        /*--- BORDERS ---*/
+        worksheet.eachRow(
+            (
+                row,
+                rowNumber
+            ) => {
 
-        /* =================================================
-           DOWNLOAD
-           ================================================= */
+                if (
+                    rowNumber >= 8
+                ) {
 
-        const buffer =
-            await workbook.xlsx.writeBuffer();
+                    row.eachCell(
+                        cell => {
 
+                            cell.border = {
+
+                                top: {style: "thin"},
+                                left: {style: "thin"},
+                                bottom: {style: "thin"},
+                                right: {style: "thin"}
+
+                            };
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+
+        /*--- DOWNLOAD ---*/
+        const buffer = await workbook.xlsx.writeBuffer();
 
         const blob =
             new Blob(
@@ -2451,98 +1766,56 @@ async function exportEnquiryReport() {
             );
 
 
-        const url =
-            window.URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
 
-
-        const link =
-            document.createElement("a");
-
+        const link = document.createElement("a");
 
         link.href = url;
 
-
-        const today =
-            new Date()
+        const today = new Date()
                 .toISOString()
                 .split("T")[0];
 
 
-        link.download =
-            `3470-Healthcare-Enquiry-Report-${today}.xlsx`;
-
+        link.download = `3470-Healthcare-Enquiry-Report-${today}.xlsx`;
 
         document.body.appendChild(link);
 
-
         link.click();
-
 
         document.body.removeChild(link);
 
-
         window.URL.revokeObjectURL(url);
 
-
-        console.log(
-            "✅ Enquiry Excel report exported successfully."
-        );
-
+        console.log("✅ Enquiry Excel report exported successfully.");
 
     } catch (error) {
 
 
-        console.error(
-            "❌ Excel Export Error:",
-            error
-        );
+        console.error("❌ Excel Export Error:", error);
 
-
-        alert(
-            "Failed to export enquiry report."
-        );
+        alert("Failed to export enquiry report.");
 
     }
 
 }
 
 
-
-
-
-
-
-
-
-/* =========================================================
-   LOGOUT
-   ========================================================= */
-
+/*--- LOGOUT ---*/
 function logout() {
-
 
     /*
        If authentication is added later,
        clear token/session here.
     */
 
-    localStorage.removeItem(
-        "crmUser"
-    );
+    localStorage.removeItem("crmUser");
 
-
-    localStorage.removeItem(
-        "crmToken"
-    );
+    localStorage.removeItem("crmToken");
 
 }
 
 </script>
-
-
-
-
-
 
 
 </body>

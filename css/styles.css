@@ -3375,22 +3375,20 @@
 
 /*--- View ---*/
 .crm-view-btn-NUPF {
-  background: #eff6ff;
-  color: #2563eb;
+  background:#0ea5e9;
 }
 
 .crm-view-btn-NUPF:hover {
-  background: #dbeafe;
+  background:#0284c7;
 }
 
 /*--- Edit ---*/
 .crm-edit-btn-NUPF {
-  background: #fef3c7;
-  color: #d97706;
+  background:#2563eb;
 }
 
 .crm-edit-btn-NUPF:hover {
-  background: #fde68a;
+  background:#1d4ed8;
 }
 
 /*--- EMPTY MESSAGE ---*/
@@ -3687,18 +3685,16 @@
 
 /*--- View ---*/
 .crm-view-btn-MFUPS {
-  background: #eff6ff;
-  color: #2563eb;
+  background: #2563eb;
 }
 
 .crm-view-btn-MFUPS:hover {
-  background: #dbeafe;
+  background:#1d4ed8;
 }
 
 /*--- Reschedule ---*/
 .crm-edit-btn-MFUPS {
-  background: #fef3c7;
-  color: #d97706;
+  background: #d97706;
 }
 
 .crm-edit-btn-MFUPS :hover {

@@ -53,9 +53,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
@@ -233,7 +233,7 @@
 
                         <div>
                             <span>Total Notifications</span>
-                            <h3>12</h3>
+                            <h3 id="totalNotifications">0</h3>
                         </div>
 
                     </div>
@@ -247,7 +247,7 @@
 
                         <div>
                             <span>Follow-ups Today</span>
-                            <h3>5</h3>
+                            <h3 id="followUpsToday">0</h3>
                         </div>
 
                     </div>
@@ -261,7 +261,7 @@
 
                         <div>
                             <span>New Enquiries</span>
-                            <h3>4</h3>
+                            <h3 id="newEnquiries">0</h3>
                         </div>
 
                     </div>
@@ -275,7 +275,7 @@
 
                         <div>
                             <span>Admissions</span>
-                            <h3>3</h3>
+                            <h3 id="todayAdmissions">0</h3>
                         </div>
 
                     </div>
@@ -296,10 +296,29 @@
                     </div>
 
 
-                    <div class="crm-notification-list">
+                    <div class="crm-notification-list" id="notificationList">
+
+                        <div class="crm-notification-item">
+
+                            <div class="crm-Tdynotification-content">
+                                <p>
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    Loading today's notifications...
+                                </p>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
 
                         <!-- Notification 1 -->
-                        <div class="crm-notification-item">
+                        <!-- <div class="crm-notification-item">
 
                             <div class="crm-notification-icon enquiry">
                                 <i class="fa fa-user-plus"></i>
@@ -315,11 +334,11 @@
 
                             <span class="crm-notification-badge new">New</span>
 
-                        </div>
+                        </div> -->
 
 
                         <!-- Notification 2 -->
-                        <div class="crm-notification-item">
+                        <!-- <div class="crm-notification-item">
 
                             <div class="crm-notification-icon followup">
                                 <i class="fa fa-phone"></i>
@@ -335,11 +354,11 @@
 
                             <span class="crm-notification-badge pending">Pending</span>
 
-                        </div>
+                        </div> -->
 
 
                         <!-- Notification 3 -->
-                        <div class="crm-notification-item">
+                        <!-- <div class="crm-notification-item">
 
                             <div class="crm-notification-icon admission">
                                 <i class="fa fa-user-check"></i>
@@ -355,11 +374,11 @@
 
                             <span class="crm-notification-badge completed">Completed</span>
 
-                        </div>
+                        </div> -->
 
 
                         <!-- Notification 4 -->
-                        <div class="crm-notification-item">
+                        <!-- <div class="crm-notification-item">
 
                             <div class="crm-notification-icon followup">
                                 <i class="fa fa-calendar-check"></i>
@@ -375,11 +394,11 @@
 
                             <span class="crm-notification-badge upcoming">Upcoming</span>
 
-                        </div>
+                        </div> -->
 
 
                         <!-- Notification 5 -->
-                        <div class="crm-notification-item">
+                        <!-- <div class="crm-notification-item">
 
                             <div class="crm-notification-icon alert">
                                 <i class="fa fa-circle-exclamation"></i>
@@ -395,7 +414,7 @@
 
                             <span class="crm-notification-badge warning">Attention</span>
 
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -410,12 +429,17 @@
                         <h3>Today's Activity Summary</h3>
                     </div>
 
-                    <div class="crm-notification-summary-text">
+                    <div class="crm-notification-summary-text" id="activitySummary">
 
-                        <p><i class="fa fa-check-circle"></i>4 new student enquiries received today.</p>
+                        <!-- <p><i class="fa fa-check-circle"></i>4 new student enquiries received today.</p>
                         <p><i class="fa fa-calendar-check"></i>5 follow-ups are scheduled for today.</p>
                         <p><i class="fa fa-user-check"></i>3 admissions have been completed today.</p>
-                        <p><i class="fa fa-circle-exclamation"></i>2 follow-ups are still pending.</p>
+                        <p><i class="fa fa-circle-exclamation"></i>2 follow-ups are still pending.</p> -->
+
+                        <p>
+                            <i class="fa fa-spinner fa-spin"></i>
+                            Loading today's activity...
+                        </p>
 
                     </div>
 
@@ -424,6 +448,10 @@
             </main> 
 
         </div>
+
+
+<!-- Javascript -->
+<script src="js/crm-notifications.js"></script>        
 
 
 <!-- Profile dropdown JS - Script -->
@@ -461,6 +489,391 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Today Notification - JS -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+/*--- LOAD TODAY'S NOTIFICATIONS ---*/
+async function loadTodayNotifications() {
+
+    const notificationList = document.getElementById("notificationList");
+
+    try {
+
+        console.log("🔄 Loading today's notifications...");
+
+        const response = await fetch(`${API_BASE}/notifications/today`);
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error("❌ Backend Response:", errorText);
+
+            throw new Error(`Server returned ${response.status}`);
+
+        }
+
+
+        const data = await response.json();
+
+        console.log("✅ Notifications API Response:", data);
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load notifications."
+            );
+
+        }
+
+
+        updateNotificationSummary(data.summary);
+
+        renderNotifications(data.notifications || []);
+
+        updateActivitySummary(data.summary);
+
+    } catch (error) {
+
+        console.error("❌ Notifications Load Error:", error);
+
+        notificationList.innerHTML = `
+
+            <div class="crm-notification-item">
+
+                <div class="crm-notification-icon alert">
+                    <i class="fa fa-circle-exclamation"></i>
+                </div>
+
+                <div class="crm-Tdynotification-content">
+
+                    <h4>Unable to Load Notifications</h4>
+                    <p>${escapeHtml(error.message)}</p>
+
+                </div>
+
+                <span class="crm-notification-badge warning">Error</span>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/*--- UPDATE SUMMARY CARDS ---*/
+function updateNotificationSummary(summary) {
+
+    document.getElementById("totalNotifications").textContent = Number(summary.total_notifications) || 0;
+
+    document.getElementById("followUpsToday").textContent = Number(summary.follow_ups_today) || 0;
+
+    document.getElementById("newEnquiries").textContent = Number(summary.new_enquiries) || 0;
+
+    document.getElementById("todayAdmissions").textContent = Number(summary.admissions) || 0;
+
+}
+
+
+/*--- RENDER NOTIFICATIONS ---*/
+function renderNotifications(notifications) {
+
+    const container = document.getElementById("notificationList");
+
+    container.innerHTML = "";
+
+    if (!notifications.length) {
+
+        container.innerHTML = `
+
+            <div class="crm-notification-item">
+
+                <div class="crm-notification-icon">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+
+                <div class="crm-Tdynotification-content">
+
+                    <h4>No Notifications Today</h4>
+                    <p>There are no new CRM activities or alerts for today.</p>
+
+                    <span class="crm-tdynotification-time">
+                        <i class="fa fa-clock"></i>
+                        Today
+                    </span>
+
+                </div>
+
+                <span class="crm-notification-badge completed">Clear</span>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    notifications.forEach(notification => {
+
+        const item = document.createElement("div");
+
+        item.className = "crm-notification-item";
+
+        const typeClass = getNotificationTypeClass(notification.type);
+
+        const badgeClass = getNotificationBadgeClass(notification.status);
+
+        const time = formatNotificationTime(notification.time);
+
+        item.innerHTML = `
+
+            <div class="crm-notification-icon ${typeClass}">
+
+                <i class="fa ${escapeHtml(
+                    notification.icon || "fa-bell"
+                )}"></i>
+
+            </div>
+
+
+            <div class="crm-Tdynotification-content">
+
+                <h4>
+                    ${escapeHtml(
+                        notification.title || "Notification"
+                    )}
+                </h4>
+
+
+                <p>
+                    ${escapeHtml(
+                        notification.message || ""
+                    )}
+                </p>
+
+
+                <span class="crm-tdynotification-time">
+                    <i class="fa fa-clock"></i>
+                    ${escapeHtml(time)}
+                </span>
+
+            </div>
+
+
+            <span class="crm-notification-badge ${badgeClass}">
+                ${escapeHtml(
+                    notification.status || "Info"
+                )}
+            </span>
+
+        `;
+
+        container.appendChild(item);
+
+    });
+
+}
+
+
+/*--- ACTIVITY SUMMARY ---*/
+function updateActivitySummary(summary) {
+
+    const container = document.getElementById("activitySummary");
+
+    const newEnquiries = Number(summary.new_enquiries) || 0;
+
+    const followUps = Number(summary.follow_ups_today) || 0;
+
+    const admissions = Number(summary.admissions) || 0;
+
+    const missedFollowUps = Number(summary.missed_follow_ups) || 0;
+
+    container.innerHTML = `
+
+        <p>
+            <i class="fa fa-user-plus"></i>
+            ${newEnquiries}
+            new student enquiries received today.
+        </p>
+
+        <p>
+            <i class="fa fa-calendar-check"></i>
+            ${followUps}
+            follow-ups are scheduled for today.
+        </p>
+
+        <p>
+            <i class="fa fa-user-check"></i>
+            ${admissions}
+            admissions recorded today.
+        </p>
+
+        <p>
+            <i class="fa fa-circle-exclamation"></i>
+            ${missedFollowUps}
+            follow-ups require attention.
+        </p>
+
+    `;
+
+}
+
+
+/*--- NOTIFICATION TYPE CLASS ---*/
+function getNotificationTypeClass(type) {
+
+    switch (type) {
+
+        case "enquiry":
+            return "enquiry";
+
+        case "followup":
+            return "followup";
+
+        case "admission":
+            return "admission";
+
+        case "alert":
+            return "alert";
+
+        default:
+            return "";
+
+    }
+
+}
+
+
+/*--- BADGE CLASS ---*/
+function getNotificationBadgeClass(status) {
+
+    if (!status) {
+        return "";
+    }
+
+
+    switch (
+        status.toLowerCase()
+    ) {
+
+        case "new":
+            return "new";
+
+        case "pending":
+            return "pending";
+
+        case "completed":
+            return "completed";
+
+        case "upcoming":
+            return "upcoming";
+
+        case "attention":
+            return "warning";
+
+        case "not interested":
+            return "warning";
+
+        default:
+            return "pending";
+
+    }
+
+}
+
+
+/*--- DATE/TIME FORMAT ---*/
+function formatNotificationTime(value) {
+
+    if (!value) {
+        return "Today";
+    }
+
+    const date = new Date(value);
+
+    if (isNaN(date.getTime())) {
+
+        /*-- If backend returned only HH:mm:ss --*/
+        if (
+            typeof value === "string" &&
+            value.includes(":")
+        ) {
+
+            const parts = value.split(":");
+
+            let hour = Number(parts[0]);
+
+            const minute = parts[1] || "00";
+
+            const ampm = hour >= 12 ? "PM" : "AM";
+
+            hour = hour % 12;
+
+            if (hour === 0) {
+                hour = 12;
+            }
+
+            return `${String(hour).padStart(2, "0")}:${minute} ${ampm}`;
+
+        }
+
+        return String(value);
+    }
+
+    return date.toLocaleTimeString(
+        "en-IN",
+        {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+        }
+    );
+
+}
+
+
+/*--- ESCAPE HTML ---*/
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/*--- PAGE LOAD ---*/
+document.addEventListener("DOMContentLoaded",() => {
+        loadTodayNotifications();
+    }
+);
+
 </script>
 
 
