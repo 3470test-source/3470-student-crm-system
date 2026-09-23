@@ -242,13 +242,13 @@
 
                     <!-- Counsellor -->
                     <div class="crm-ScheduledFollowup-filter-box">
-                        <select id="scheduledCounsellor">
+                        <select id="scheduledCounsellor" name="counsellor">
                             <option value="">-- All Counsellors --</option>
-                            <option value="Ramesh">Ramesh</option>
+                            <!-- <option value="Ramesh">Ramesh</option>
                             <option value="Renuka">Renuka</option>
                             <option value="Kaviya">Kaviya</option>
                             <option value="Perumal">Perumal</option>
-                            <option value="Jaya Shree">Jaya Shree</option>
+                            <option value="Jaya Shree">Jaya Shree</option> -->
                         </select>
                     </div>
 
@@ -1031,6 +1031,59 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 );
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+async function loadCounsellors() {
+    const counsellorSelect = document.getElementById("counsellor");
+
+    if (!counsellorSelect) return;
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/users/counsellors"
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || "Failed to load counsellors");
+        }
+
+        counsellorSelect.innerHTML =
+            '<option value="">-- Select Counsellor --</option>';
+
+        data.counsellors.forEach(counsellor => {
+            const option = document.createElement("option");
+
+            option.value = counsellor.full_name;
+            option.textContent = counsellor.full_name;
+
+            counsellorSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("❌ Counsellor Load Error:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCounsellors);
 
 </script>
 

@@ -6802,3 +6802,274 @@
 }
 
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+            /* ==========================
+                    VIEW USER PAGE
+            ========================== */
+
+.crm-viewUser-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.crm-viewUser-header h2 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.crm-viewUser-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.crm-viewUser-actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.crm-viewUser-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.crm-viewUser-back-btn {
+  background: #eef2f7;
+  color: #374151;
+}
+
+.crm-viewUser-back-btn:hover {
+  background: #e2e8f0;
+}
+
+
+.crm-viewUser-edit-btn {
+  background: #1cbe60;
+  color: #ffffff;
+}
+
+.crm-viewUser-edit-btn:hover {
+  background: #118140;
+}
+
+.crm-viewUser-toggle-btn {
+  background: #f59e0b;
+  color: #ffffff;
+}
+
+.crm-viewUser-toggle-btn:hover {
+  background: #ad720b;
+}
+
+.crm-viewUser-delete-btn {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.crm-viewUser-delete-btn:hover {
+  background: #af1b1b;
+}
+
+
+/*--- USER PROFILE ---*/
+.crm-viewUser-profile {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+.crm-viewUser-avatar {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1cbe60;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.crm-viewUser-profile-info h3 {
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+.crm-viewUser-profile-info p {
+  color: #6b7280;
+  margin-bottom: 15px;
+}
+
+.crm-viewUser-profile-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+
+/*--- DETAILS ---*/
+.crm-viewUser-details-grid {
+  display: grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.crm-viewUser-section {
+  padding: 25px;
+}
+
+.crm-viewUser-section.full-width {
+  grid-column: 1 / -1;
+}
+
+.crm-viewUser-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.crm-viewUser-section-title i {
+  color: #1cbe60;
+}
+
+.crm-viewUser-section-title h3 {
+  font-size: 18px;
+}
+
+.crm-viewUser-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.crm-viewUser-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.crm-viewUser-field.full-width {
+  grid-column: 1 / -1;
+}
+
+.crm-viewUser-field label {
+  font-size: 13px;
+  color: #375da8;
+  font-weight: 600;
+}
+
+.crm-viewUser-field-value {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 10px 13px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  color: #111827;
+  word-break: break-word;
+}
+
+.crm-viewUser-address {
+  min-height: 90px;
+  align-items: flex-start;
+  white-space: pre-wrap;
+}
+
+
+/*--- ROLE ---*/
+.crm-role-viewuser {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.crm-role-viewuser.admin {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.crm-role-viewuser.counsellor {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.crm-role-viewuser.staff {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+
+/*--- STATUS ---*/
+.crm-viewuser-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.crm-viewuser-status.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.crm-viewuser-status.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+
+/*--- LOADING ---*/
+.crm-viewUser-loading {
+  text-align: center;
+  padding: 70px 20px;
+  color: #6b7280;
+}
+
+.crm-viewUser-loading i {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+

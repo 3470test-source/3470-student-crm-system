@@ -758,28 +758,78 @@ app.get("/api/enquiries", async (req, res) => {
 
 
 /*==== GET ENQUIRY REPORT FILTER OPTIONS - Courses + Counsellors ====*/
-app.get("/api/enquiries/report-options", async (req, res) => {
+// app.get("/api/enquiries/report-options", async (req, res) => {
 
+//     try {
+
+//         /*--- LOAD ACTIVE COURSES ---*/
+//         const [courses] = await db.execute(`
+//             SELECT
+//                 id, course_name, course_category, status
+//             FROM courses
+//             WHERE status = 'Active'
+//             ORDER BY course_name ASC
+//         `);
+
+
+//         /*--- LOAD COUNSELLORS - FROM STUDENT ENQUIRIES ---*/
+//         const [counsellors] = await db.execute(`
+//             SELECT DISTINCT
+//                 TRIM(counsellor) AS name
+//             FROM student_enquiries
+//             WHERE counsellor IS NOT NULL
+//               AND TRIM(counsellor) <> ''
+//             ORDER BY name ASC
+//         `);
+
+
+//         res.json({
+//             success: true,
+//             courses,
+//             counsellors
+//         });
+
+
+//     } catch (error) {
+
+//         console.error("❌ Enquiry Report Options Error:", error);
+
+//         res.status(500).json({
+//             success: false,
+//             message: "Failed to load enquiry report options.",
+//             error: error.message
+//         });
+
+//     }
+
+// });
+
+
+app.get("/api/enquiries/report-options", async (req, res) => {
     try {
 
-        /*--- LOAD ACTIVE COURSES ---*/
+        // LOAD ACTIVE COURSES
         const [courses] = await db.execute(`
             SELECT
-                id, course_name, course_category, status
+                id,
+                course_name,
+                course_category,
+                status
             FROM courses
             WHERE status = 'Active'
             ORDER BY course_name ASC
         `);
 
 
-        /*--- LOAD COUNSELLORS - FROM STUDENT ENQUIRIES ---*/
+        // LOAD ACTIVE COUNSELLORS FROM add_users
         const [counsellors] = await db.execute(`
-            SELECT DISTINCT
-                TRIM(counsellor) AS name
-            FROM student_enquiries
-            WHERE counsellor IS NOT NULL
-              AND TRIM(counsellor) <> ''
-            ORDER BY name ASC
+            SELECT
+                id,
+                full_name AS name
+            FROM add_users
+            WHERE role = 'Counsellor'
+              AND status = 'Active'
+            ORDER BY full_name ASC
         `);
 
 
@@ -792,7 +842,10 @@ app.get("/api/enquiries/report-options", async (req, res) => {
 
     } catch (error) {
 
-        console.error("❌ Enquiry Report Options Error:", error);
+        console.error(
+            "❌ Enquiry Report Options Error:",
+            error
+        );
 
         res.status(500).json({
             success: false,
@@ -801,8 +854,10 @@ app.get("/api/enquiries/report-options", async (req, res) => {
         });
 
     }
-
 });
+
+
+
 
 
 
@@ -3061,31 +3116,65 @@ app.get("/api/notifications/today", async (req, res) => {
 
 
 /*==== GET ACTIVE COUNSELLORS ====*/
+// app.get("/api/admissions/counsellors", async (req, res) => {
+//   try {
+
+//     const [counsellors] = await db.execute(`
+//       SELECT DISTINCT counsellor AS name
+//       FROM student_enquiries
+//       WHERE counsellor IS NOT NULL
+//         AND TRIM(counsellor) <> ''
+//       ORDER BY counsellor ASC
+//     `);
+
+//     res.json({
+//       success: true,
+//       counsellors: counsellors
+//     });
+
+//   } catch (error) {
+//     console.error("❌ Counsellors Error:", error);
+
+//     res.status(500).json({
+//       success: false,
+//       message: "Unable to load counsellors.",
+//       error: error.message
+//     });
+//   }
+// });
+
 app.get("/api/admissions/counsellors", async (req, res) => {
-  try {
+    try {
 
-    const [counsellors] = await db.execute(`
-      SELECT DISTINCT counsellor AS name
-      FROM student_enquiries
-      WHERE counsellor IS NOT NULL
-        AND TRIM(counsellor) <> ''
-      ORDER BY counsellor ASC
-    `);
+        const [counsellors] = await db.execute(`
+            SELECT
+                id,
+                full_name AS name
+            FROM add_users
+            WHERE role = 'Counsellor'
+              AND status = 'Active'
+            ORDER BY full_name ASC
+        `);
 
-    res.json({
-      success: true,
-      counsellors: counsellors
-    });
+        res.json({
+            success: true,
+            counsellors
+        });
 
-  } catch (error) {
-    console.error("❌ Counsellors Error:", error);
+    } catch (error) {
 
-    res.status(500).json({
-      success: false,
-      message: "Unable to load counsellors.",
-      error: error.message
-    });
-  }
+        console.error(
+            "❌ Admission Counsellors Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to load counsellors.",
+            error: error.message
+        });
+
+    }
 });
 
 
@@ -3697,6 +3786,419 @@ app.put("/api/admissions/:id", async (req, res) => {
 
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*==== USERS - ADD USER ====*/
+app.post("/api/users", async (req, res) => {
+
+    try {
+
+        const {
+            full_name, email, mobile, username, password, role, status, department, joining_date, address
+        } = req.body;
+
+
+        /*--- VALIDATION ---*/
+        if (
+            !full_name ||
+            !email ||
+            !mobile ||
+            !username ||
+            !password ||
+            !role ||
+            !status
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Please fill all required fields."
+            });
+
+        }
+
+
+        if (!/^\d{10}$/.test(mobile)) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Mobile number must contain exactly 10 digits."
+            });
+
+        }
+
+
+        if (password.length < 6) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Password must contain at least 6 characters."
+            });
+
+        }
+
+
+        /*--- CHECK EMAIL ---*/
+        const [existingEmail] = await db.execute(
+            `
+            SELECT id
+            FROM add_users
+            WHERE email = ?
+            LIMIT 1
+            `,
+            [email]
+        );
+
+
+        if (existingEmail.length > 0) {
+
+            return res.status(409).json({
+                success: false,
+                message: "Email address already exists."
+            });
+
+        }
+
+
+        /*--- CHECK USERNAME ---*/
+        const [existingUsername] = await db.execute(
+            `
+            SELECT id
+            FROM add_users
+            WHERE username = ?
+            LIMIT 1
+            `,
+            [username]
+        );
+
+
+        if (existingUsername.length > 0) {
+
+            return res.status(409).json({
+                success: false,
+                message: "Username already exists."
+            });
+
+        }
+
+
+        /*--- HASH PASSWORD ---*/
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+
+        /*--- INSERT USER ---*/
+        const [result] = await db.execute(
+            `
+            INSERT INTO add_users (
+                full_name, email, mobile, username, password, role, status,
+                department, joining_date, address
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `,
+            [
+                full_name, email, mobile, username, hashedPassword, role, status,
+                department || null,
+                joining_date || null,
+                address || null
+            ]
+        );
+
+
+        res.status(201).json({
+
+            success: true,
+            message: "✅ User created successfully.",
+            userId: result.insertId
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Add User Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "❌ Failed to create user.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== GET ALL USERS ====*/
+app.get("/api/users", async (req, res) => {
+
+    try {
+
+        const [users] = await db.execute(
+            `
+            SELECT
+                id, full_name, email, mobile, username, role, status, department, joining_date, address,
+                created_at, updated_at
+            FROM add_users
+            ORDER BY id DESC
+            `
+        );
+
+
+        res.json({
+
+            success: true,
+            users
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Get Users Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load users.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+ 
+/*==== GET ACTIVE COUNSELLORS ====*/
+app.get("/api/users/counsellors", async (req, res) => {
+
+    try {
+
+        const [counsellors] = await db.execute(
+            `
+            SELECT
+                id, full_name, username, email, mobile, department, status
+            FROM add_users
+            WHERE role = 'Counsellor'
+              AND status = 'Active'
+            ORDER BY full_name ASC
+            `
+        );
+
+
+        res.json({
+
+            success: true,
+            counsellors
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Counsellors List Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+            message: "Failed to load counsellors.",
+            error: error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+/*==== GET SINGLE USER ====*/
+app.get("/api/users/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [users] = await db.execute(`
+            SELECT
+                id, full_name, email, mobile, username, role, status, department, joining_date, address,
+                created_at, updated_at
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [id]);
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        res.json({
+            success: true,
+            user: users[0]
+        });
+
+    } catch (error) {
+        console.error("❌ Get Single User Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load user.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== TOGGLE USER STATUS ====*/
+app.put("/api/users/:id/status", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [users] = await db.execute(`
+            SELECT id, status
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [id]);
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        const currentStatus = users[0].status;
+
+        const newStatus = currentStatus === "Active"
+                ? "Inactive"
+                : "Active";
+
+        await db.execute(`
+            UPDATE add_users
+            SET status = ?
+            WHERE id = ?
+        `, [newStatus, id]);
+
+        res.json({
+            success: true,
+            message: `User ${newStatus === "Active" ? "activated" : "deactivated"} successfully.`,
+            status: newStatus
+        });
+
+    } catch (error) {
+        console.error("❌ Toggle User Status Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update user status.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+/*==== DELETE USER ====*/
+app.delete("/api/users/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [users] = await db.execute(`
+            SELECT id, full_name
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [id]);
+
+        if (users.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        await db.execute(`
+            DELETE FROM add_users
+            WHERE id = ?
+        `, [id]);
+
+        res.json({
+            success: true,
+            message: "User deleted successfully."
+        });
+
+    } catch (error) {
+        console.error("❌ Delete User Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete user.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

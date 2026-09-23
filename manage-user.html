@@ -21,7 +21,31 @@
       padding: 0;
       box-sizing: border-box;  
     }
+
+    /*-- Empty Table Message --*/
+    .crm-user-empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #777;
+    }
+
+    .crm-user-empty i {
+      font-size: 40px;
+      margin-bottom: 10px;
+      display: block;
+    }
     
+    /*-- Loading --*/
+    .crm-user-loading {
+      text-align: center;
+      padding: 40px;
+      color: #555;
+    }
+
+    .crm-user-loading i {
+      margin-right: 8px;
+    }
+
     </style>
  
 </head>
@@ -238,7 +262,7 @@
 
                         <div>
                             <span>Total Users</span>
-                            <h3>5</h3>
+                            <h3 id="totalUsers">0</h3>
                         </div>
 
                     </div>
@@ -253,7 +277,7 @@
 
                         <div>
                             <span>Active Users</span>
-                            <h3>4</h3>
+                            <h3 id="activeUsers">0</h3>
                         </div>
 
                     </div>
@@ -268,7 +292,7 @@
 
                         <div>
                             <span>Inactive Users</span>
-                            <h3>1</h3>
+                            <h3 id="inactiveUsers">0</h3>
                         </div>
 
                     </div>
@@ -283,7 +307,7 @@
 
                         <div>
                             <span>Counsellors</span>
-                            <h3>3</h3>
+                            <h3 id="totalCounsellors">0</h3>
                         </div>
 
                     </div>
@@ -316,10 +340,6 @@
                         <div class="crm-ManageUser-filter-box">
                             <select id="userDepartmentFilter">
                                 <option value="">-- All Departments --</option>
-                                <option value="Counselling">Counselling</option>
-                                <option value="Admissions">Admissions</option>
-                                <option value="Accounts">Accounts</option>
-                                <option value="Administration">Administration</option>
                             </select>
                         </div>
 
@@ -369,237 +389,15 @@
                                 </tr>
                             </thead>
 
-                            <!--- USER 1 --->
-                            <tbody>
+                            <tbody id="usersTableBody">
+
                                 <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <div class="crm-user-name">
-
-                                            <div class="crm-user-avatar">A</div>
-                                            <div>
-                                                <strong>Admin User</strong>
-                                                <span>admin</span>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>admin@example.com</td>
-                                    <td>9876543210</td>
-                                    <td>
-                                        <span class="crm-role admin">Admin</span>
-                                    </td>
-                                    <td>Administration</td>
-                                    <td>01-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-user-status active">Active</span>
-                                    </td>
-                                    <td>
-                                        <div class="crm-user-actions">
-                                            <button type="button" class="crm-user-view-btn" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-edit-btn" title="Edit">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-toggle-btn" title="Deactivate">
-                                                <i class="fa fa-user-slash"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
+                                    <td colspan="9" class="crm-user-loading">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                        Loading users...
                                     </td>
                                 </tr>
 
-
-                                <!--- USER 2 --->
-                                <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <div class="crm-user-name">
-
-                                            <div class="crm-user-avatar">P</div>
-                                            <div>
-                                                <strong>Priya</strong>
-                                                <span>priya</span>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>priya@example.com</td>
-                                    <td>9876501234</td>
-                                    <td>
-                                        <span class="crm-role counsellor">Counsellor</span>
-                                    </td>
-                                    <td>Counselling</td>
-                                    <td>
-                                        03-Aug-2026
-                                    </td>
-                                    <td>
-                                        <span class="crm-user-status active">Active</span>
-                                    </td>
-                                    <td>
-                                        <div class="crm-user-actions">
-                                            <button type="button" class="crm-user-view-btn" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-edit-btn" title="Edit">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-toggle-btn" title="Deactivate">
-                                                <i class="fa fa-user-slash"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <!--- USER 3 --->
-                                <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <div class="crm-user-name">
-
-                                            <div class="crm-user-avatar">M</div>
-                                            <div>
-                                                <strong>Meena</strong>
-                                                <span>meena</span>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>meena@example.com</td>
-                                    <td>9876512345</td>
-                                    <td>
-                                        <span class="crm-role counsellor">Counsellor</span>
-                                    </td>
-                                    <td>Counselling</td>
-                                    <td>05-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-user-status active">Active</span>
-                                    </td>
-                                    <td>
-                                        <div class="crm-user-actions">
-                                            <button type="button" class="crm-user-view-btn" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-edit-btn" title="Edit">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-toggle-btn" title="Deactivate">
-                                                <i class="fa fa-user-slash"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                
-                                <!--- USER 4 --->
-                                <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <div class="crm-user-name">
-
-                                            <div class="crm-user-avatar">K</div>
-                                            <div>
-                                                <strong>Karthik</strong>
-                                                <span>karthik</span>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>karthik@example.com</td>
-                                    <td>9876523456</td>
-                                    <td>
-                                        <span class="crm-role counsellor">Counsellor</span>
-                                    </td>
-                                    <td>Counselling</td>
-                                    <td>06-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-user-status active">Active</span>
-                                    </td>
-                                    <td>
-                                        <div class="crm-user-actions">
-                                            <button type="button" class="crm-user-view-btn" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-edit-btn" title="Edit">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-toggle-btn" title="Deactivate">
-                                                <i class="fa fa-user-slash"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-
-
-                                <!--- USER 5 --->
-                                <tr>
-                                    <td>5</td>
-                                    <td>
-                                        <div class="crm-user-name">
-
-                                            <div class="crm-user-avatar">A</div>
-                                            <div>
-                                                <strong>Arun</strong>
-                                                <span>arun</span>
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                    <td>arun@example.com</td>
-                                    <td>9876534567</td>
-                                    <td>
-                                        <span class="crm-role staff">Staff</span>
-                                    </td>
-                                    <td>Admissions</td>
-                                    <td>08-Aug-2026</td>
-                                    <td>
-                                        <span class="crm-user-status inactive">Inactive</span>
-                                    </td>
-                                    <td>
-                                        <div class="crm-user-actions">
-                                            <button type="button" class="crm-user-view-btn" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-edit-btn" title="Edit">
-                                                <i class="fa fa-pen"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-toggle-btn" title="Activate">
-                                                <i class="fa fa-user-check"></i>
-                                            </button>
-
-                                            <button type="button" class="crm-user-delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
                             </tbody>
 
                         </table>
@@ -649,6 +447,704 @@ dropdowns.forEach(dropdown => {
     });
 
 });
+</script>
+
+
+
+<!-- Manage User - JS  -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+let allUsers = [];
+
+
+/*--- LOAD USERS ---*/
+async function loadUsers() {
+
+    const tableBody = document.getElementById("usersTableBody");
+
+    try {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="crm-user-loading">
+                    <i class="fa fa-spinner fa-spin"></i>
+                    Loading users...
+                </td>
+            </tr>
+        `;
+
+
+        const response = await fetch(`${API_BASE}/users`);
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const data = await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message || "Failed to load users."
+            );
+
+        }
+
+
+        allUsers = Array.isArray(data.users)
+            ? data.users
+            : [];
+
+
+        updateSummary();
+
+        populateDepartmentFilter();
+
+        applyUserFilters();
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Load Users Error:",
+            error
+        );
+
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="crm-user-empty">
+                    <i class="fa fa-triangle-exclamation"></i>
+                    Failed to load users.
+                    <br>
+                    <small>
+                        ${escapeHtml(error.message)}
+                    </small>
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+/*--- SUMMARY ---*/
+function updateSummary() {
+
+    const total = allUsers.length;
+
+    const active =
+        allUsers.filter(
+            user => user.status === "Active"
+        ).length;
+
+
+    const inactive =
+        allUsers.filter(
+            user => user.status === "Inactive"
+        ).length;
+
+
+    const counsellors =
+        allUsers.filter(
+            user =>
+                user.role === "Counsellor"
+        ).length;
+
+
+    document.getElementById("totalUsers").textContent = total;
+
+    document.getElementById("activeUsers").textContent = active;
+
+    document.getElementById("inactiveUsers").textContent = inactive;
+
+    document.getElementById("totalCounsellors").textContent = counsellors;
+
+}
+
+
+/*--- DEPARTMENT FILTER ---*/
+function populateDepartmentFilter() {
+
+    const select = document.getElementById("userDepartmentFilter");
+
+    const currentValue = select.value;
+
+    const departments =
+        [
+            ...new Set(
+                allUsers
+                    .map(user => user.department)
+                    .filter(Boolean)
+            )
+        ]
+        .sort();
+
+
+    select.innerHTML = `<option value="">-- All Departments --</option>`;
+
+    departments.forEach(department => {
+
+        const option = document.createElement("option");
+
+        option.value = department;
+
+        option.textContent = department;
+
+        select.appendChild(option);
+
+    });
+
+
+    if (
+        departments.includes(
+            currentValue
+        )
+    ) {
+
+        select.value = currentValue;
+
+    }
+
+}
+
+
+/*--- FILTER USERS ---*/
+function applyUserFilters() {
+
+    const search = document.getElementById("userSearch").value.trim().toLowerCase();
+
+    const role = document.getElementById("userRoleFilter").value;
+
+    const department = document.getElementById("userDepartmentFilter").value;
+
+    const status = document.getElementById("userStatusFilter").value;
+
+    const filteredUsers = allUsers.filter(user => {
+
+            const searchText = [
+
+                user.full_name,
+                user.email,
+                user.mobile,
+                user.username
+
+            ]
+            .filter(Boolean)
+            .join(" ")
+            .toLowerCase();
+
+            const matchesSearch =
+                !search ||
+                searchText.includes(search);
+
+
+            const matchesRole =
+                !role ||
+                user.role === role;
+
+
+            const matchesDepartment =
+                !department ||
+                user.department === department;
+
+
+            const matchesStatus =
+                !status ||
+                user.status === status;
+
+
+            return (
+                matchesSearch &&
+                matchesRole &&
+                matchesDepartment &&
+                matchesStatus
+            );
+
+        });
+
+
+    renderUsers(filteredUsers);
+
+}
+
+
+/*--- RENDER USERS ---*/
+function renderUsers(users) {
+
+    const tableBody = document.getElementById("usersTableBody");
+
+    if (!users.length) {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="crm-user-empty">
+                    <i class="fa fa-users-slash"></i>
+                    No users found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+
+    tableBody.innerHTML = "";
+
+    users.forEach((user, index) => {
+
+        const row = document.createElement("tr");
+
+        const initial = getInitial(
+                user.full_name
+            );
+
+
+        const roleClass = getRoleClass(
+                user.role
+            );
+
+
+        const statusClass = user.status === "Active"
+                ? "active"
+                : "inactive";
+
+
+        const actionTitle = user.status === "Active"
+                ? "Deactivate"
+                : "Activate";
+
+
+        const actionIcon = user.status === "Active"
+                ? "fa-user-slash"
+                : "fa-user-check";
+
+
+        row.innerHTML = `
+
+            <td>
+                ${index + 1}
+            </td>
+
+            <td>
+                <div class="crm-user-name">
+                    <div class="crm-user-avatar">
+                        ${escapeHtml(initial)}
+                    </div>
+
+                    <div>
+                        <strong>
+                            ${escapeHtml(
+                                user.full_name
+                            )}
+                        </strong>
+
+
+                        <span>
+                            ${escapeHtml(
+                                user.username || "-"
+                            )}
+                        </span>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    user.email || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    user.mobile || "-"
+                )}
+            </td>
+
+            <td>
+
+                <span
+                    class="crm-role ${roleClass}"
+                >
+
+                    ${escapeHtml(
+                        user.role || "-"
+                    )}
+
+                </span>
+
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    user.department || "-"
+                )}
+            </td>
+
+            <td>
+                ${formatDate(
+                    user.joining_date
+                )}
+            </td>
+
+            <td>
+
+                <span
+                    class="crm-user-status ${statusClass}"
+                >
+
+                    ${escapeHtml(
+                        user.status
+                    )}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <div class="crm-user-actions">
+
+                    <!-- View -->
+                    <button type="button" class="crm-user-view-btn" title="View" onclick="viewUser(${user.id})">
+                        <i class="fa fa-eye"></i>
+                    </button>
+
+
+                    <!-- Edit -->
+                    <button type="button" class="crm-user-edit-btn" title="Edit" onclick="editUser(${user.id})">
+                        <i class="fa fa-pen"></i>
+                    </button>
+
+
+                    <!-- Activate / Deactivate -->
+                    <button type="button" class="crm-user-toggle-btn" title="${actionTitle}" onclick="toggleUserStatus(
+                            ${user.id},
+                            '${escapeJs(user.full_name)}',
+                            '${user.status}'
+                        )"
+                    >
+
+                        <i class="fa ${actionIcon}"></i>
+                    </button>
+
+
+                    <!-- Delete -->
+                    <button type="button" class="crm-user-delete-btn" title="Delete" onclick="deleteUser(
+                            ${user.id},
+                            '${escapeJs(user.full_name)}'
+                        )"
+                    >
+
+                        <i class="fa fa-trash"></i>
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+}
+
+
+/*--- VIEW USER ---*/
+function viewUser(id) {
+
+    window.location.href = `view-user.html?id=${id}`;
+
+}
+
+
+/*--- EDIT USER ---*/
+function editUser(id) {
+
+    window.location.href = `edit-user.html?id=${id}`;
+
+}
+
+
+/*--- TOGGLE STATUS ---*/
+async function toggleUserStatus(
+    id,
+    name,
+    currentStatus
+) {
+
+    const action = currentStatus === "Active"
+            ? "deactivate"
+            : "activate";
+
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to ${action} "${name}"?`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/users/${id}/status`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to update user status."
+            );
+
+        }
+
+
+        alert(
+            data.message
+        );
+
+
+        await loadUsers();
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Toggle User Error:",
+            error
+        );
+
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+/*--- DELETE USER ---*/
+async function deleteUser(
+    id,
+    name
+) {
+
+    const confirmed =
+        confirm(
+            `Are you sure you want to permanently delete "${name}"?\n\nThis action cannot be undone.`
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/users/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to delete user."
+            );
+
+        }
+
+
+        alert(
+            data.message
+        );
+
+
+        await loadUsers();
+
+    } catch (error) {
+
+        console.error(
+            "❌ Delete User Error:",
+            error
+        );
+
+        alert(
+            error.message
+        );
+
+    }
+
+}
+
+
+/*--- GET INITIAL ---*/
+function getInitial(name) {
+
+    if (!name) {
+        return "?";
+    }
+
+    return name
+        .trim()
+        .charAt(0)
+        .toUpperCase();
+
+}
+
+
+/*--- ROLE CSS CLASS ---*/
+function getRoleClass(role) {
+
+    if (!role) {
+        return "";
+    }
+
+
+    return role
+        .toLowerCase()
+        .replace(/\s+/g, "-");
+
+}
+
+
+/*--- DATE FORMAT ---*/
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "-";
+    }
+
+
+    const date = new Date(dateValue);
+
+    if (isNaN(date.getTime())) {
+        return "-";
+    }
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+
+    const monthNames = [
+
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+
+    ];
+
+
+    const month =
+        monthNames[
+            date.getMonth()
+        ];
+
+
+    const year = date.getFullYear();
+
+    return `${day}-${month}-${year}`;
+
+}
+
+
+/*--- ESCAPE HTML ---*/
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/*--- ESCAPE JAVASCRIPT ---*/
+function escapeJs(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'")
+        .replace(/"/g, '\\"')
+        .replace(/\n/g, "\\n")
+        .replace(/\r/g, "\\r");
+
+}
+
+
+/*--- SEARCH ---*/
+document.getElementById("userSearch").addEventListener("input", applyUserFilters);
+
+
+/*--- ROLE FILTER ---*/
+document.getElementById("userRoleFilter").addEventListener("change", applyUserFilters);
+
+
+/*--- DEPARTMENT FILTER ---*/
+document.getElementById("userDepartmentFilter").addEventListener("change", applyUserFilters);
+
+
+/*--- STATUS FILTER ---*/
+document.getElementById("userStatusFilter").addEventListener("change", applyUserFilters);
+
+
+
+/*--- LOAD ON PAGE OPEN ---*/
+document.addEventListener("DOMContentLoaded",() => {
+        loadUsers();
+    }
+);
+
 </script>
 
 

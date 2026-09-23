@@ -265,12 +265,12 @@
                     <!-- Counsellor -->
                     <div class="crm-manageEnquiries-filter-box">
                         <select name="Counsellor" id="counsellorFilter">
-                            <option>-- All Counsellors --</option>
-                            <option>Ramesh</option>
+                            <option value="">-- All Counsellors --</option>
+                            <!-- <option>Ramesh</option>
                             <option>Renuka</option>
                             <option>Kaviya</option>
                             <option>Perumal</option>
-                            <option>Jaya Shree</option>
+                            <option>Jaya Shree</option> -->
                         </select>
                     </div>
 
@@ -944,6 +944,64 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+async function loadCounsellors() {
+    const counsellorSelect = document.getElementById("counsellor");
+
+    if (!counsellorSelect) return;
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/users/counsellors"
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || "Failed to load counsellors");
+        }
+
+        counsellorSelect.innerHTML =
+            '<option value="">-- Select Counsellor --</option>';
+
+        data.counsellors.forEach(counsellor => {
+            const option = document.createElement("option");
+
+            option.value = counsellor.full_name;
+            option.textContent = counsellor.full_name;
+
+            counsellorSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("❌ Counsellor Load Error:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCounsellors);
+
+</script>
+
+
 
 
 </body>

@@ -304,7 +304,7 @@
 
                         <!-- Counsellor -->
                         <div class="crm-upcoming-filter-box">
-                            <select id="counsellorFilter">
+                            <select id="counsellorFilter" name="counsellor">
                                 <option value="">-- All Counsellors --</option>
                             </select>
                         </div>
@@ -616,7 +616,7 @@ async function loadUpcomingFollowUps() {
                     <i class="fa-solid fa-circle-exclamation" style="color:#dc2626;"></i>
                     Failed to load upcoming follow-ups.
 
-                    <br>
+                    <br><br>
 
                     <small>${escapeHtml(error.message)}</small>
                 </td>
@@ -1168,6 +1168,57 @@ function debounce(functionToCall, delay) {
 }
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+async function loadCounsellors() {
+    const counsellorSelect = document.getElementById("counsellor");
+
+    if (!counsellorSelect) return;
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/users/counsellors"
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || "Failed to load counsellors");
+        }
+
+        counsellorSelect.innerHTML =
+            '<option value="">-- Select Counsellor --</option>';
+
+        data.counsellors.forEach(counsellor => {
+            const option = document.createElement("option");
+
+            option.value = counsellor.full_name;
+            option.textContent = counsellor.full_name;
+
+            counsellorSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("❌ Counsellor Load Error:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCounsellors);
+
+</script>
+
 
 
 </body>

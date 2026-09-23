@@ -248,7 +248,7 @@
                                 <!-- Full Name -->
                                 <div class="crm-form-group-AddUser">
                                     <label for="fullName">Full Name<span>*</span></label>
-                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
+                                    <input type="text" id="fullName" name="full_name" placeholder="Enter full name" required>
                                 </div>
 
                                 <!-- Email -->
@@ -260,7 +260,8 @@
                                 <!-- Mobile -->
                                 <div class="crm-form-group-AddUser">
                                     <label for="mobile">Mobile Number<span>*</span></label>
-                                    <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" maxlength="10" required>
+                                    <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" maxlength="10"
+                                        inputmode="numeric" required>
                                 </div>
 
                                 <!-- Username -->
@@ -344,6 +345,7 @@
                                     <select id="department" name="department">
                                         <option value="">-- Select Department --</option>
                                         <option value="Counselling">Counselling</option>
+                                        <option value="Business Development">Business Development</option>
                                         <option value="Admissions">Admissions</option>
                                         <option value="Accounts">Accounts</option>
                                         <option value="Administration">Administration</option>
@@ -353,7 +355,7 @@
                                 <!-- Joining Date -->
                                 <div class="crm-form-group-AddUser">
                                     <label for="joiningDate">Joining Date</label>
-                                    <input type="date" id="joiningDate" name="joiningDate">
+                                    <input type="date" id="joiningDate" name="joining_date">
                                 </div>
 
                                 <!-- Address -->
@@ -445,6 +447,190 @@ dropdowns.forEach(dropdown => {
     }
 
 }
+
+</script>
+
+
+
+<!-- Add User - Js -->
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+
+/*--- ADD USER FORM ---*/
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form = document.getElementById("addUserForm");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            
+            /*--- GET VALUES ---*/
+            const fullName = document.getElementById("fullName").value.trim();
+
+            const email = document.getElementById("email").value.trim();
+
+            const mobile = document.getElementById("mobile").value.trim();
+
+            const username = document.getElementById("username").value.trim();
+
+            const password = document.getElementById("password").value;
+
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            const role = document.getElementById("role").value;
+
+            const status = document.getElementById("status").value;
+
+            const department = document.getElementById("department").value;
+
+            const joiningDate = document.getElementById("joiningDate").value;
+
+            const address = document.getElementById("address").value.trim();
+
+
+            /*--- VALIDATION ---*/
+            if (password !== confirmPassword) {
+
+                alert("Password and Confirm Password do not match.");
+
+                return;
+
+            }
+
+
+            if (!/^\d{10}$/.test(mobile)) {
+
+                alert("Please enter a valid 10-digit mobile number.");
+
+                return;
+
+            }
+
+
+            if (password.length < 6) {
+
+                alert("Password must contain at least 6 characters.");
+
+                return;
+
+            }
+
+
+            /*--- REQUEST DATA ---*/
+            const userData = {
+
+                full_name: fullName,
+                email: email,
+                mobile: mobile,
+                username: username,
+                password: password,
+                role: role,
+                status: status,
+                department: department || null,
+                joining_date: joiningDate || null,
+                address: address || null
+
+            };
+
+
+            try {
+
+                /*--- Disable button while saving ---*/
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (submitButton) {
+
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>Saving...`;
+
+                }
+
+
+                console.log(
+                    "🔄 Creating user:",
+                    {
+                        ...userData,
+                        password: "********"
+                    }
+                );
+
+
+                const response = await fetch(`${API_BASE}/users`,{
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    userData
+                                )
+                        }
+                    );
+
+
+                const data = await response.json();
+
+                console.log(
+                    "✅ Add User Response:",
+                    data
+                );
+
+
+                if (!response.ok || !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to create user."
+                    );
+
+                }
+
+
+                alert("User added successfully.");
+
+                form.reset();
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Add User Error:",
+                    error
+                );
+
+
+                alert(
+                    error.message ||
+                    "Unable to add user."
+                );
+
+
+            } finally {
+
+                const submitButton = form.querySelector('button[type="submit"]');
+
+                if (submitButton) {
+
+                    submitButton.disabled = false;
+
+                    submitButton.innerHTML = `<i class="fa fa-user-plus"></i>Add User`;
+
+                }
+
+            }
+
+        }
+    );
+
+});
 
 </script>
 

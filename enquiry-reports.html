@@ -354,7 +354,7 @@
                         <!-- Counsellor -->
                         <div class="crm-Enq-report-filter-group">
                             <label for="reportCounsellor">Counsellor</label>
-                            <select id="reportCounsellor">
+                            <select id="reportCounsellor" name="counsellor">
                                 <option value="">-- All Counsellors --</option>
                             </select>
                         </div>
@@ -1814,6 +1814,61 @@ function logout() {
     localStorage.removeItem("crmToken");
 
 }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+async function loadCounsellors() {
+    const counsellorSelect = document.getElementById("counsellor");
+
+    if (!counsellorSelect) return;
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/users/counsellors"
+        );
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || "Failed to load counsellors");
+        }
+
+        counsellorSelect.innerHTML =
+            '<option value="">-- Select Counsellor --</option>';
+
+        data.counsellors.forEach(counsellor => {
+            const option = document.createElement("option");
+
+            option.value = counsellor.full_name;
+            option.textContent = counsellor.full_name;
+
+            counsellorSelect.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error("❌ Counsellor Load Error:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadCounsellors);
 
 </script>
 
