@@ -557,11 +557,7 @@ function renderUser(user) {
                         <label>Address</label>
 
                         <div class="crm-viewUser-field-value crm-viewUser-address">
-
-                            ${escapeHtml(
-                                user.address || "-"
-                            )}
-
+                            ${escapeHtml((user.address || "-").trim())}
                         </div>
 
                     </div>

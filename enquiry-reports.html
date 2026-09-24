@@ -1819,24 +1819,12 @@ function logout() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Counsellor - JS -->
 <script>
 
 async function loadCounsellors() {
-    const counsellorSelect = document.getElementById("counsellor");
+
+    const counsellorSelect = document.getElementById("reportCounsellor");
 
     if (!counsellorSelect) return;
 
@@ -1851,10 +1839,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;

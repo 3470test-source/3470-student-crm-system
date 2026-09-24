@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - View User Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;  
+    }
+    
+    </style>
+
+</head>
+<body>
+
+
+    <!-- CRM dashboard Header -->
+    <header class="crm-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="crm-header-left">
+
+            <div class="crm-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="crm-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+
+        <!-- CENTER -->
+        <div class="crm-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="crm-header-right">
+
+            <!-- Notification -->
+            <div class="crm-notification">
+                <i class="fa-solid fa-bell"></i>
+                <span class="crm-notification-count">5</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="crm-profile-dropdown">
+
+            <div class="crm-profile-btn" onclick="toggleDropdown()">
+
+                <div class="crm-avatar">
+                    <i class="fa fa-user"></i>
+                </div>
+                <span>Admin</span>
+                <i class="fa-solid fa-angle-down"></i>
+
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div class="crm-dropdown-menu" id="dropdownMenu">
+
+                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
+                <a href="crm-settings.html"><i class="fa fa-cog"></i>Settings</a>
+                <a href="login.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+
+    <!-- CRM Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="dashboard-crm.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
+
+                <!-- Course Management -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-book"></i>Course Management
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-course.html" class="active"><i class="fa fa-plus"></i>Add Course</a>
+                        <a href="manage-courses.html" class="active"><i class="fa fa-list"></i>Manage Courses</a>
+                    </div>
+
+                </div>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="manage-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
+                        <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
+                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
+                        <a href="calendar-view.html"><i class="fa fa-calendar-alt"></i>Calendar View</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="manage-admissions.html"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                    </div>
+
+                </div>
+
+                <!-- Notifications -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-bullhorn"></i>Notifications
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="today-notifications.html"><i class="fa fa-bell"></i>Today's Notifications</a>
+                        <a href="upcoming-follow-ups.html"><i class="fa fa-calendar-check"></i>Upcoming Follow-ups</a>
+                        <a href="missed-followups.html"><i class="fa fa-calendar-xmark"></i>Missed Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Reports -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-chart-bar"></i>Reports
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="enquiry-reports.html"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
+                        <a href="admission-reports.html"><i class="fa fa-chart-line"></i>Admission Reports</a>
+                    </div>
+
+                </div>
+
+                <!-- Users -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-shield"></i>Users
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
+                        <a href="manage-user.html"><i class="fa fa-users-cog"></i>Manage Users</a>
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- MAIN CONTENT  -->
+            <main class="crm-dashboard-main">
+
+                <div class="crm-editUser-header">
+
+                    <div>
+                        <h1>Edit User</h1>
+                        <p>Update CRM user information.</p>
+                    </div>
+
+
+                    <div class="crm-editUser-actions">
+                        <a href="manage-user.html" class="crm-editUser-btn crm-editUser-btn-back">
+                            <i class="fa-solid fa-arrow-left"></i>Back to Users
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <!-- Loading -->
+                <div id="loadingContainer" class="crm-loading-editUser">
+
+                    <div class="crm-spinner"></div>
+                        <p>Loading user information...</p>
+                </div>
+
+                <!-- Error -->
+                <div id="errorContainer" class="crm-error-box-editUser" style="display:none;">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <h3>Unable to Load User</h3>
+                    <p id="errorMessage">User information could not be loaded.</p>
+
+                    <button type="button" class="crm-btn crm-btn-back" onclick="loadUser()">
+                        <i class="fa-solid fa-rotate-right"></i>Try Again
+                    </button>
+
+                </div>
+
+
+                <!-- EDIT FORM -->
+                <div id="formContainer" class="crm-form-card-editUser" style="display:none;">
+
+                    <div id="formMessage" class="crm-message-editUser"></div>
+
+                        <form id="editUserForm">
+
+                            <!-- USER INFORMATION -->
+                            <div class="crm-section-title-editUser">
+
+                                <i class="fa-solid fa-user"></i>
+                                <h2>User Information</h2>
+
+                            </div>
+
+
+                            <div class="crm-form-grid-editUser">
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="full_name">Full Name
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <input type="text" id="full_name" name="full_name" placeholder="Enter full name" required>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="username">Username
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="email">Email
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <input type="email" id="email" name="email" placeholder="Enter email address" required>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="mobile">Mobile Number
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <input type="tel" id="mobile" name="mobile" placeholder="10-digit mobile number"
+                                        maxlength="10" inputmode="numeric" required>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="role">Role
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <select id="role" name="role" required>
+                                        <option value="">-- Select Role --</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Counsellor">Counsellor</option>
+                                        <option value="Staff">Staff</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="status">Status
+                                        <span class="crm-required">*</span>
+                                    </label>
+                                    <select id="status" name="status" required>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="department">Department</label>
+                                    <select id="department" name="department">
+                                        <option value="">-- Select Department --</option>
+                                        <option value="Counselling">Counselling</option>
+                                        <option value="Admissions">Admissions</option>
+                                        <option value="Accounts">Accounts</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="Business Development">Business Development</option>
+                                    </select>
+
+                                </div>
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="joining_date">Joining Date</label>
+                                    <input type="date" id="joining_date" name="joining_date">
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PASSWORD -->
+                            <div class="crm-section-title-editUser">
+
+                                <i class="fa-solid fa-lock"></i>
+                                <h2>Password</h2>
+
+                            </div>
+
+
+                            <div class="crm-form-grid-editUser">
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="password">New Password</label>
+
+                                        <div class="crm-password-row-editUser">
+
+                                            <input type="password" id="password" name="password"
+                                                placeholder="Leave blank to keep current password" autocomplete="new-password">
+
+                                            <button type="button" class="crm-password-toggle-editUser"
+                                                onclick="togglePassword('password', this)">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+
+                                        </div>
+
+                                    <div class="crm-help-text-editUser">
+                                        Leave blank if you do not want to change the password.
+                                        If entered, minimum 6 characters.
+                                    </div>
+
+                                </div>
+
+
+                                <div class="crm-editUser-form-group">
+
+                                    <label for="confirmPassword">Confirm New Password</label>
+
+                                        <div class="crm-password-row-editUser">
+
+                                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                                placeholder="Confirm new password" autocomplete="new-password">
+
+                                            <button type="button" class="crm-password-toggle-editUser"
+                                                onclick="togglePassword('confirmPassword', this)">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            <!-- ADDRESS -->
+                            <div class="crm-section-title-editUser">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <h2>Address</h2>
+                            </div>
+
+
+                            <div class="crm-form-grid-editUser">
+
+                                <div class="crm-editUser-form-group full-width">
+
+                                    <label for="address">Address</label>
+                                    <textarea id="address" name="address" placeholder="Enter complete address"></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- FORM FOOTER -->
+                            <div class="crm-form-footer-editUser">
+                                <a href="manage-user.html" class="crm-editUser-btn crm-editUser-btn-cancel">
+                                    <i class="fa-solid fa-xmark"></i>Cancel
+                                </a>
+
+                                <button type="submit" id="saveUserBtn" class="crm-editUser-btn crm-editUser-btn-save">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    <span id="saveButtonText">Save Changes</span>
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </main>
+            
+            </div>    
+
+
+
+<!-- Profile dropdown JS - Script -->
+<script>
+    function toggleDropdown(){
+
+    document.getElementById("dropdownMenu").classList.toggle("show");
+
+}
+
+window.onclick = function(e){
+
+    if(!e.target.closest(".crm-profile-dropdown")){
+
+        document.getElementById("dropdownMenu").classList.remove("show");
+
+    }
+
+}
+</script> 
+
+
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+
+<!-- Edit User - JS -->
+<script>
+
+    const API_BASE = "http://localhost:3000/api";
+
+    let currentUserId = null;
+
+
+    /*--- ESCAPE HTML ---*/
+    function escapeHtml(value) {
+
+        const div = document.createElement("div");
+
+        div.textContent = value ?? "";
+
+        return div.innerHTML;
+    }
+
+
+    /*--- SHOW MESSAGE ---*/
+    function showMessage(message, type = "success") {
+
+        const messageBox = document.getElementById("formMessage");
+
+            messageBox.textContent = message;
+
+            messageBox.className = `crm-message-editUser ${type}`;
+
+            messageBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+    /*--- SHOW ERROR ---*/
+    function showLoadError(message) {
+
+        document.getElementById("loadingContainer").style.display = "none";
+
+        document.getElementById("formContainer").style.display = "none";
+
+        document.getElementById("errorContainer").style.display = "block";
+
+        document.getElementById("errorMessage").textContent = message;
+    }
+
+
+    /*--- GET USER ID FROM URL ---*/
+    function getUserId() {
+
+        const params = new URLSearchParams(window.location.search);
+
+            return params.get("id");
+        }
+
+
+        /*--- LOAD USER ---*/
+        async function loadUser() {
+
+            currentUserId = getUserId();
+
+            if (!currentUserId) {
+
+                showLoadError(
+                    "User ID is missing from the URL."
+                );
+
+                return;
+            }
+
+
+            document.getElementById("loadingContainer").style.display = "block";
+
+            document.getElementById("formContainer").style.display = "none";
+
+            document.getElementById("errorContainer").style.display = "none";
+
+
+            try {
+
+                const response = await fetch(
+                    `${API_BASE}/users/${encodeURIComponent(currentUserId)}`
+                );
+
+
+                const data = await response.json();
+
+
+                if (!response.ok || !data.success) {
+
+                    throw new Error(
+                        data.message ||
+                        "Failed to load user information."
+                    );
+                }
+
+
+                populateUserForm(data.user);
+
+                document.getElementById("loadingContainer").style.display = "none";
+
+                document.getElementById("formContainer").style.display = "block";
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Load Edit User Error:",
+                    error
+                );
+
+                showLoadError(
+                    error.message ||
+                    "Unable to load user information."
+                );
+            }
+
+        }
+
+
+        /*--- POPULATE FORM ---*/
+        function populateUserForm(user) {
+
+            document.getElementById("full_name").value = user.full_name || "";
+
+            document.getElementById("username").value = user.username || "";
+
+            document.getElementById("email").value = user.email || "";
+
+            document.getElementById("mobile").value = user.mobile || "";
+
+            document.getElementById("role").value = user.role || "";
+
+            document.getElementById("status").value = user.status || "Active";
+
+            document.getElementById("department").value = user.department || "";
+
+            document.getElementById("joining_date").value = formatDateForInput(user.joining_date);
+
+            document.getElementById("address").value = user.address || "";
+
+        }
+
+
+        /*--- DATE FORMAT FOR INPUT ---*/
+        function formatDateForInput(dateValue) {
+
+            if (!dateValue) {
+                return "";
+            }
+
+
+            if (
+                typeof dateValue === "string" &&
+                /^\d{4}-\d{2}-\d{2}$/.test(dateValue)
+            ) {
+                return dateValue;
+            }
+
+
+            const date = new Date(dateValue);
+
+            if (isNaN(date.getTime())) {
+                return "";
+            }
+
+
+            const year = date.getFullYear();
+
+            const month =
+                String(date.getMonth() + 1)
+                    .padStart(2, "0");
+
+            const day =
+                String(date.getDate())
+                    .padStart(2, "0");
+
+
+            return `${year}-${month}-${day}`;
+        }
+
+
+        /*--- PASSWORD TOGGLE ---*/
+        function togglePassword(inputId, button) {
+
+            const input = document.getElementById(inputId);
+
+            const icon = button.querySelector("i");
+
+            if (input.type === "password") {
+
+                input.type = "text";
+
+                icon.className = "fa-solid fa-eye-slash";
+
+            } else {
+
+                input.type = "password";
+
+                icon.className = "fa-solid fa-eye";
+            }
+
+        }
+
+
+        /*--- MOBILE VALIDATION ---*/
+        document.getElementById("mobile").addEventListener("input", function () {
+
+                this.value = this.value.replace(/\D/g, "")
+                        .slice(0, 10);
+
+            });
+
+
+        /*--- SUBMIT FORM ---*/
+        document.getElementById("editUserForm").addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+                const saveButton = document.getElementById("saveUserBtn");
+
+                const saveButtonText = document.getElementById("saveButtonText");
+
+                const fullName = document.getElementById("full_name").value.trim();
+
+                const username = document.getElementById("username").value.trim();
+
+                const email = document.getElementById("email").value.trim();
+
+                const mobile = document.getElementById("mobile").value.trim();
+
+                const role = document.getElementById("role").value;
+
+                const status = document.getElementById("status").value;
+
+                const department = document.getElementById("department").value;
+
+                const joiningDate = document.getElementById("joining_date").value;
+
+                const address = document.getElementById("address").value.trim();
+
+                const password = document.getElementById("password").value;
+
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+
+                /*--- VALIDATION ---*/
+                if (!fullName) {
+
+                    showMessage(
+                        "Full name is required.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!username) {
+
+                    showMessage(
+                        "Username is required.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!email) {
+
+                    showMessage(
+                        "Email is required.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!/^\d{10}$/.test(mobile)) {
+
+                    showMessage(
+                        "Mobile number must be exactly 10 digits.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!role) {
+
+                    showMessage(
+                        "Please select a role.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                if (!status) {
+
+                    showMessage(
+                        "Please select a status.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                /*--- PASSWORD ---*/
+                if (password) {
+
+                    if (password.length < 6) {
+
+                        showMessage(
+                            "New password must be at least 6 characters.",
+                            "error"
+                        );
+
+                        return;
+                    }
+
+
+                    if (password !== confirmPassword) {
+
+                        showMessage(
+                            "New password and confirm password do not match.",
+                            "error"
+                        );
+
+                        return;
+                    }
+
+                } else {
+
+                    /*
+                     * If password is blank,
+                     * current password remains unchanged.
+                     */
+
+                }
+
+
+                /*--- REQUEST DATA ---*/
+                const payload = {
+
+                    full_name: fullName,
+                    username: username,
+                    email: email,
+                    mobile: mobile,
+                    role: role,
+                    status: status,
+                    department: department || null,
+                    joining_date: joiningDate || null,
+                    address: address || null
+                };
+
+
+                /*
+                 * Only send password when user
+                 * actually entered a new password.
+                 */
+
+                if (password) {
+
+                    payload.password = password;
+
+                }
+
+
+                try {
+
+                    saveButton.disabled = true;
+
+                    saveButtonText.textContent = "Saving...";
+
+                    const response = await fetch(
+                        `${API_BASE}/users/${encodeURIComponent(currentUserId)}`,
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify(payload)
+                        }
+                    );
+
+
+                    const data = await response.json();
+
+                    if (!response.ok || !data.success) {
+
+                        throw new Error(
+                            data.message ||
+                            "Failed to update user."
+                        );
+                    }
+
+
+                    showMessage(
+                        "User updated successfully.",
+                        "success"
+                    );
+
+
+                    /*
+                     * Redirect to View User
+                     * after successful update.
+                     */
+
+                    setTimeout(() => {
+
+                        window.location.href = `view-user.html?id=${currentUserId}`;
+
+                    }, 3000);
+
+
+                } catch (error) {
+
+                    console.error(
+                        "❌ Update User Error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to update user.",
+                        "error"
+                    );
+
+
+                    saveButton.disabled = false;
+
+                    saveButtonText.textContent = "Save Changes";
+                }
+
+            });
+
+
+    /*--- PAGE LOAD ---*/
+    document.addEventListener("DOMContentLoaded", function () {
+
+        loadUser();
+            
+        }
+    );
+
+</script>
+
+
+</body>
+</html>

@@ -266,11 +266,6 @@
                     <div class="crm-manageEnquiries-filter-box">
                         <select name="Counsellor" id="counsellorFilter">
                             <option value="">-- All Counsellors --</option>
-                            <!-- <option>Ramesh</option>
-                            <option>Renuka</option>
-                            <option>Kaviya</option>
-                            <option>Perumal</option>
-                            <option>Jaya Shree</option> -->
                         </select>
                     </div>
 
@@ -946,26 +941,12 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Counsellor - JS  -->
 <script>
 
 async function loadCounsellors() {
-    const counsellorSelect = document.getElementById("counsellor");
+
+    const counsellorSelect = document.getElementById("counsellorFilter");
 
     if (!counsellorSelect) return;
 
@@ -980,10 +961,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;
@@ -1000,8 +981,6 @@ async function loadCounsellors() {
 document.addEventListener("DOMContentLoaded", loadCounsellors);
 
 </script>
-
-
 
 
 </body>

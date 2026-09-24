@@ -467,7 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async function (event) {
 
-            event.preventDefault();
+        event.preventDefault();
 
             
             /*--- GET VALUES ---*/
@@ -595,9 +595,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                alert("User added successfully.");
+                alert("✅ User added successfully.");
 
-                form.reset();
+                window.location.href = "manage-user.html";
+
 
             } catch (error) {
 

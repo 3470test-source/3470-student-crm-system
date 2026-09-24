@@ -27,6 +27,8 @@ app.get("/", (req, res) => {
 
 
 
+
+
 /*==== Login Page - Script ====*/
 app.post("/api/auth/login", async (req, res) => {
 
@@ -114,6 +116,7 @@ app.post("/api/auth/login", async (req, res) => {
     }
 
 });
+
 
 
 
@@ -241,6 +244,7 @@ app.post("/api/courses", async (req, res) => {
 
 
 
+
 /*==== GET ALL COURSES API - GET /api/courses ====*/
 app.get("/api/courses", async (req, res) => {
 
@@ -283,6 +287,7 @@ app.get("/api/courses", async (req, res) => {
     }
 
 });
+
 
 
 
@@ -432,6 +437,7 @@ app.put("/api/courses/:id", async (req, res) => {
     }
 
 });
+
 
 
 
@@ -625,6 +631,7 @@ app.post("/api/enquiries", async (req, res) => {
 
 
 
+
 /*==== GET ALL ENQUIRIES - GET /api/enquiries ====*/
 app.get("/api/enquiries", async (req, res) => {
 
@@ -758,57 +765,10 @@ app.get("/api/enquiries", async (req, res) => {
 
 
 /*==== GET ENQUIRY REPORT FILTER OPTIONS - Courses + Counsellors ====*/
-// app.get("/api/enquiries/report-options", async (req, res) => {
-
-//     try {
-
-//         /*--- LOAD ACTIVE COURSES ---*/
-//         const [courses] = await db.execute(`
-//             SELECT
-//                 id, course_name, course_category, status
-//             FROM courses
-//             WHERE status = 'Active'
-//             ORDER BY course_name ASC
-//         `);
-
-
-//         /*--- LOAD COUNSELLORS - FROM STUDENT ENQUIRIES ---*/
-//         const [counsellors] = await db.execute(`
-//             SELECT DISTINCT
-//                 TRIM(counsellor) AS name
-//             FROM student_enquiries
-//             WHERE counsellor IS NOT NULL
-//               AND TRIM(counsellor) <> ''
-//             ORDER BY name ASC
-//         `);
-
-
-//         res.json({
-//             success: true,
-//             courses,
-//             counsellors
-//         });
-
-
-//     } catch (error) {
-
-//         console.error("❌ Enquiry Report Options Error:", error);
-
-//         res.status(500).json({
-//             success: false,
-//             message: "Failed to load enquiry report options.",
-//             error: error.message
-//         });
-
-//     }
-
-// });
-
-
 app.get("/api/enquiries/report-options", async (req, res) => {
     try {
 
-        // LOAD ACTIVE COURSES
+        /*--- LOAD ACTIVE COURSES ---*/
         const [courses] = await db.execute(`
             SELECT
                 id,
@@ -821,7 +781,7 @@ app.get("/api/enquiries/report-options", async (req, res) => {
         `);
 
 
-        // LOAD ACTIVE COUNSELLORS FROM add_users
+        /*--- LOAD ACTIVE COUNSELLORS FROM add_users ---*/
         const [counsellors] = await db.execute(`
             SELECT
                 id,
@@ -855,9 +815,6 @@ app.get("/api/enquiries/report-options", async (req, res) => {
 
     }
 });
-
-
-
 
 
 
@@ -1143,6 +1100,7 @@ app.get("/api/enquiries/:id", async (req, res) => {
 
 
 
+
 /*==== UPDATE ENQUIRY - PUT /api/enquiries/:id ====*/
 app.put("/api/enquiries/:id", async (req, res) => {
 
@@ -1299,6 +1257,7 @@ app.put("/api/enquiries/:id", async (req, res) => {
 
 
 
+
 /*==== DELETE ENQUIRY - DELETE /api/enquiries/:id ====*/
 app.delete("/api/enquiries/:id", async (req, res) => {
 
@@ -1375,6 +1334,7 @@ app.delete("/api/enquiries/:id", async (req, res) => {
     }
 
 });
+
 
 
 
@@ -1632,7 +1592,6 @@ app.get("/api/follow-ups/today", async (req, res) => {
         try {
 
             /*--- GET QUERY PARAMETERS ---*/
-
             const search = typeof req.query.search === "string"
                     ? req.query.search.trim()
                     : "";
@@ -3116,33 +3075,6 @@ app.get("/api/notifications/today", async (req, res) => {
 
 
 /*==== GET ACTIVE COUNSELLORS ====*/
-// app.get("/api/admissions/counsellors", async (req, res) => {
-//   try {
-
-//     const [counsellors] = await db.execute(`
-//       SELECT DISTINCT counsellor AS name
-//       FROM student_enquiries
-//       WHERE counsellor IS NOT NULL
-//         AND TRIM(counsellor) <> ''
-//       ORDER BY counsellor ASC
-//     `);
-
-//     res.json({
-//       success: true,
-//       counsellors: counsellors
-//     });
-
-//   } catch (error) {
-//     console.error("❌ Counsellors Error:", error);
-
-//     res.status(500).json({
-//       success: false,
-//       message: "Unable to load counsellors.",
-//       error: error.message
-//     });
-//   }
-// });
-
 app.get("/api/admissions/counsellors", async (req, res) => {
     try {
 
@@ -3791,24 +3723,6 @@ app.put("/api/admissions/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*==== USERS - ADD USER ====*/
 app.post("/api/users", async (req, res) => {
 
@@ -4128,7 +4042,7 @@ app.put("/api/users/:id/status", async (req, res) => {
 
         res.json({
             success: true,
-            message: `User ${newStatus === "Active" ? "activated" : "deactivated"} successfully.`,
+            message: `✅ User ${newStatus === "Active" ? "activated" : "deactivated"} successfully.`,
             status: newStatus
         });
 
@@ -4173,7 +4087,7 @@ app.delete("/api/users/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: "User deleted successfully."
+            message: "❌ User deleted successfully."
         });
 
     } catch (error) {
@@ -4191,11 +4105,178 @@ app.delete("/api/users/:id", async (req, res) => {
 
 
 
+/*==== UPDATE USER ====*/
+app.put("/api/users/:id", async (req, res) => {
+
+    try {
+
+        const userId = req.params.id;
+
+        const {
+            full_name, email, mobile, username, password, role, status, department, joining_date, address
+        } = req.body;
 
 
+        /*--- Required validation ---*/
+        if (
+            !full_name ||
+            !email ||
+            !mobile ||
+            !username ||
+            !role ||
+            !status
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Full name, email, mobile, username, role and status are required."
+            });
+
+        }
 
 
+        /*--- Mobile validation ---*/
+        if (!/^\d{10}$/.test(mobile)) {
 
+            return res.status(400).json({
+                success: false,
+                message: "Mobile number must be exactly 10 digits."
+            });
+
+        }
+
+
+        /*--- Check user exists ---*/
+        const [existingUser] = await db.execute(
+                `
+                SELECT id
+                FROM add_users
+                WHERE id = ?
+                LIMIT 1
+                `,
+                [userId]
+            );
+
+
+        if (existingUser.length === 0) {
+
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+
+        }
+
+
+        /*--- Check duplicate email / username ---*/
+        const [duplicateUser] = await db.execute(
+                `
+                SELECT id
+                FROM add_users
+                WHERE (email = ? OR username = ?)
+                AND id != ?
+                LIMIT 1
+                `,
+                [
+                    email,
+                    username,
+                    userId
+                ]
+            );
+
+
+        if (duplicateUser.length > 0) {
+
+            return res.status(409).json({
+                success: false,
+                message: "Email or username already exists for another user."
+            });
+
+        }
+
+
+        /*--- Update WITHOUT password ---*/
+        if (!password) {
+
+            await db.execute(
+                `
+                UPDATE add_users
+                SET
+                    full_name = ?, email = ?, mobile = ?, username = ?, role = ?, status = ?, department = ?,
+                    joining_date = ?, address = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+                `,
+                [
+                    full_name, email, mobile, username, role, status,
+                    department || null,
+                    joining_date || null,
+                    address || null,
+                    userId
+                ]
+            );
+
+        }
+
+
+        /*--- Update WITH new password ---*/
+        else {
+
+            if (password.length < 6) {
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Password must be at least 6 characters."
+                });
+
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+
+            await db.execute(
+                `
+                UPDATE add_users
+                SET
+                    full_name = ?, email = ?, mobile = ?, username = ?, password = ?, role = ?, status = ?,
+                    department = ?, joining_date = ?, address = ?,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE id = ?
+                `,
+                [
+                    full_name, email, mobile, username, hashedPassword, role, status,
+                    department || null,
+                    joining_date || null,
+                    address || null,
+                    userId
+                ]
+            );
+
+        }
+
+
+        /*--- Success ---*/
+        res.json({
+            success: true,
+            message: "✅ User updated successfully."
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Update User Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update user.",
+            error: error.message
+        });
+
+    }
+
+});
 
 
 

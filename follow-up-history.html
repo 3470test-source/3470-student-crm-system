@@ -250,11 +250,6 @@
                     <div class="crm-FollowUp-History-filter">
                         <select id="historyCounsellor" name="counsellor">
                             <option value="">-- All Counsellors --</option>
-                            <!-- <option value="Ramesh">Ramesh</option>
-                            <option value="Renuka">Renuka</option>
-                            <option value="Kaviya">Kaviya</option>
-                            <option value="Perumal">Perumal</option>
-                            <option value="Jaya Shree">Jaya Shree</option> -->
                         </select>
                     </div> 
 
@@ -318,8 +313,6 @@
 
 
 <!-- Excel Library -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script> -->
-
 <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
 
 
@@ -1408,22 +1401,12 @@ exportButton.addEventListener("click", async function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- counsellor - JS -->
 <script>
 
 async function loadCounsellors() {
-    const counsellorSelect = document.getElementById("counsellor");
+
+    const counsellorSelect = document.getElementById("historyCounsellor");
 
     if (!counsellorSelect) return;
 
@@ -1438,10 +1421,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;

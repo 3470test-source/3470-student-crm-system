@@ -244,11 +244,6 @@
                     <div class="crm-ScheduledFollowup-filter-box">
                         <select id="scheduledCounsellor" name="counsellor">
                             <option value="">-- All Counsellors --</option>
-                            <!-- <option value="Ramesh">Ramesh</option>
-                            <option value="Renuka">Renuka</option>
-                            <option value="Kaviya">Kaviya</option>
-                            <option value="Perumal">Perumal</option>
-                            <option value="Jaya Shree">Jaya Shree</option> -->
                         </select>
                     </div>
 
@@ -368,8 +363,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const countText = document.getElementById("scheduledFollowUpCount");
 
         /*--- API ---*/
-        // const API_URL = "http://localhost:3000/api/follow-ups/scheduled";
-
         const API_URL = "http://localhost:3000/api/follow-ups";
 
         const SCHEDULED_API_URL = `${API_URL}/scheduled`;
@@ -1036,22 +1029,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Counsellor - JS -->
 <script>
 
 async function loadCounsellors() {
-    const counsellorSelect = document.getElementById("counsellor");
+
+    const counsellorSelect = document.getElementById("scheduledCounsellor");
 
     if (!counsellorSelect) return;
 
@@ -1066,10 +1049,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;
