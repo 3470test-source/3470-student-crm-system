@@ -496,31 +496,31 @@ function populateCourseFilter(courses) {
 
 
 /*--- COUNSELLOR FILTER ---*/
-function populateCounsellorFilter(counsellors) {
+// function populateCounsellorFilter(counsellors) {
 
-    const select = document.getElementById("counsellorFilter");
+//     const select = document.getElementById("counsellorFilter");
 
-    select.innerHTML = `<option value="">-- All Counsellors --</option>`;
+//     select.innerHTML = `<option value="">-- All Counsellors --</option>`;
 
-    counsellors.forEach(item => {
+//     counsellors.forEach(item => {
 
-        const name = item.name;
+//         const name = item.name;
 
-        if (!name) {
-            return;
-        }
+//         if (!name) {
+//             return;
+//         }
 
-        const option = document.createElement("option");
+//         const option = document.createElement("option");
 
-        option.value = name;
+//         option.value = name;
 
-        option.textContent = name;
+//         option.textContent = name;
 
-        select.appendChild(option);
+//         select.appendChild(option);
 
-    });
+//     });
 
-}
+// }
 
 
 /*--- LOAD UPCOMING FOLLOW-UPS ---*/

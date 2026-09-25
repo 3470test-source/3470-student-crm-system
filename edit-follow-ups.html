@@ -53,9 +53,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
@@ -349,6 +349,10 @@
 
             </div>
 
+
+<!-- Javascript -->
+<script src="js/crm-notifications.js"></script>  
+            
 
 <!-- Profile dropdown JS - Script -->
 <script>

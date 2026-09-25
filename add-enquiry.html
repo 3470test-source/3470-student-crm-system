@@ -53,9 +53,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
@@ -297,11 +297,6 @@
                                 <label>Counsellor</label>
                                 <select id="counsellor" name="counsellor">
                                     <option value="">-- Select Counsellor --</option>
-                                    <!-- <option>Ramesh</option>
-                                    <option>Renuka</option>
-                                    <option>Kaviya</option>
-                                    <option>Perumal</option>
-                                    <option>Jaya Shree</option> -->
                                 </select>
                             </div>
 
@@ -363,6 +358,11 @@
             </main>
 
         </div>
+
+
+
+<!-- Javascript -->
+<script src="js/crm-notifications.js"></script>        
 
     
 <!-- Profile dropdown JS - Script -->
@@ -574,30 +574,11 @@ studentEnquiryForm.addEventListener("submit", async function(event) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- Counsellor - JS -->
 <script>
 
 async function loadCounsellors() {
+
     const counsellorSelect = document.getElementById("counsellor");
 
     if (!counsellorSelect) return;
@@ -613,10 +594,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;

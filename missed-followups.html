@@ -510,27 +510,27 @@ function populateMissedCourseFilter(courses) {
 
 
 /*--- COUNSELLOR FILTER ---*/
-function populateMissedCounsellorFilter(counsellors) {
+// function populateMissedCounsellorFilter(counsellors) {
 
-    const select = document.getElementById("missedCounsellorFilter");
+//     const select = document.getElementById("missedCounsellorFilter");
 
-    if (!select) return;
+//     if (!select) return;
 
-    select.innerHTML = `<option value="">-- All Counsellors --</option>`;
+//     select.innerHTML = `<option value="">-- All Counsellors --</option>`;
 
-    counsellors.forEach(counsellor => {
+//     counsellors.forEach(counsellor => {
 
-        const option = document.createElement("option");
+//         const option = document.createElement("option");
 
-        option.value = counsellor.name || "";
+//         option.value = counsellor.name || "";
 
-        option.textContent = counsellor.name || "";
+//         option.textContent = counsellor.name || "";
 
-        select.appendChild(option);
+//         select.appendChild(option);
 
-    });
+//     });
 
-}
+// }
 
 
 /*--- LOAD MISSED FOLLOW-UPS ---*/
@@ -1180,12 +1180,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-
-
-
-
-
-
 <!-- Counsellor - JS -->
 <script>
 
@@ -1225,7 +1219,6 @@ async function loadCounsellors() {
 document.addEventListener("DOMContentLoaded", loadCounsellors);
 
 </script>
-
 
 
 </body>

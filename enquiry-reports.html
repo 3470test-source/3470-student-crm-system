@@ -647,21 +647,21 @@ async function loadReportOptions() {
 
 
         /*--- COUNSELLOR OPTIONS ---*/
-        const counsellorSelect = document.getElementById("reportCounsellor");
+        // const counsellorSelect = document.getElementById("reportCounsellor");
 
-        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
+        // counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
 
-        (data.counsellors || []).forEach(counsellor => {
+        // (data.counsellors || []).forEach(counsellor => {
 
-            const option = document.createElement("option");
+        //     const option = document.createElement("option");
 
-            option.value = counsellor.name;
+        //     option.value = counsellor.name;
 
-            option.textContent = counsellor.name;
+        //     option.textContent = counsellor.name;
 
-            counsellorSelect.appendChild(option);
+        //     counsellorSelect.appendChild(option);
 
-        });
+        // });
 
 
     } catch (error) {

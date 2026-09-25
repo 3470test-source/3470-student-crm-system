@@ -4282,9 +4282,6 @@ app.put("/api/users/:id", async (req, res) => {
 
 
 
-
-
-
 /*==== Start server ====*/
 app.listen(PORT, () => {
 

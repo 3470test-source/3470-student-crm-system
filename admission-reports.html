@@ -762,7 +762,7 @@ async function loadFilterOptions() {
 
         console.log("✅ Counsellors Response:", counsellorsData);
 
-        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
+        // counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
 
         if (
             counsellorsData.success &&
@@ -802,7 +802,7 @@ async function loadFilterOptions() {
 
         courseSelect.innerHTML = `<option value="">-- All Courses --</option>`;
 
-        counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
+        // counsellorSelect.innerHTML = `<option value="">-- All Counsellors --</option>`;
     }
 }
 
@@ -2073,9 +2073,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 <!-- Counsellor - JS -->
-<script>
+<!-- <script>
 
 async function loadCounsellors() {
+
     const counsellorSelect = document.getElementById("admissionCounsellor");
 
     if (!counsellorSelect) return;
@@ -2091,10 +2092,10 @@ async function loadCounsellors() {
             throw new Error(data.message || "Failed to load counsellors");
         }
 
-        counsellorSelect.innerHTML =
-            '<option value="">-- Select Counsellor --</option>';
+        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
         data.counsellors.forEach(counsellor => {
+
             const option = document.createElement("option");
 
             option.value = counsellor.full_name;
@@ -2110,7 +2111,7 @@ async function loadCounsellors() {
 
 document.addEventListener("DOMContentLoaded", loadCounsellors);
 
-</script>
+</script> -->
 
 
 </body>
