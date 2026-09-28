@@ -21,7 +21,89 @@
       padding: 0;
       box-sizing: border-box;
     }
+
+    /*-- VIEW ALL BUTTON --*/
+    .crm-box-header > a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      background: #0f8f5b;
+      color: #ffffff;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      margin-top: 15px;
+      letter-spacing: 0.5px;
+    }
+
+    /*-- Hover --*/
+    .crm-box-header > a:hover {
+      background: #087a4d;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /*-- Active --*/
+    .crm-box-header > a:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    /*-- Focus --*/
+    .crm-box-header > a:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(15, 143, 91, 0.2);
+    }
+
+    .crm-box-header > a {
+      gap: 8px;
+    }
+
+    .crm-box-header > a i {
+      font-size: 12px;
+      transition: transform 0.2s ease;
+    }
+
+    .crm-box-header > a:hover i {
+      transform: translateX(3px);
+    }
     
+
+
+
+
+/* =====================================================
+           DASHBOARD LOADING
+        ===================================================== */
+
+        /* .crm-dashboard-loading {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 180px;
+
+            color: #64748b;
+
+            font-size: 15px;
+
+        }
+
+
+        .crm-dashboard-loading i {
+
+            margin-right: 10px;
+
+        } */
+
+
+
     </style>
 
 </head>
@@ -53,9 +135,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
@@ -229,7 +311,7 @@
 
                         <div class="crm-card-content">
                             <h3>Total Enquiries</h3>
-                            <h2>250</h2>
+                            <h2 id="totalEnquiries">0</h2>
                         </div>
                     </div>
 
@@ -241,7 +323,7 @@
 
                         <div class="crm-card-content">
                             <h3>Today's Follow-ups</h3>
-                            <h2>18</h2>
+                            <h2 id="todayFollowupsCount">0</h2>
                         </div>
                     </div>
 
@@ -253,7 +335,7 @@
 
                         <div class="crm-card-content">
                             <h3>Admissions</h3>
-                            <h2>72</h2>
+                            <h2 id="totalAdmissions">0</h2>
                         </div>
                     </div>
 
@@ -265,7 +347,7 @@
 
                         <div class="crm-card-content">
                             <h3>Users</h3>
-                            <h2>5</h2>
+                            <h2 id="totalUsers">0</h2>
                         </div>
                     </div>
 
@@ -277,6 +359,9 @@
 
                     <div class="crm-box-header">
                         <h3>Today's Follow-ups</h3>
+
+                        <a href="today-followups.html">View All<i class="fa-solid fa-arrow-right"></i></a>
+
                     </div>
 
                     <table class="crm-table">
@@ -285,25 +370,22 @@
                             <tr>
                                 <th>Student Name</th>
                                 <th>Course</th>
+                                <th>Counsellor</th>
                                 <th>Time</th>
+                                <th>Type</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="todayFollowupsTable">
+                            
                             <tr>
-                                <td>Rahul</td>
-                                <td>Full Stack</td>
-                                <td>10:00 AM</td>
-                                <td>Pending</td>
+                                <td colspan="6" class="crm-table-empty">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    Loading today's follow-ups...
+                                </td>
                             </tr>
 
-                            <tr>
-                                <td>Priya</td>
-                                <td>Java</td>
-                                <td>12:30 PM</td>
-                                <td>Completed</td>
-                            </tr>
                         </tbody>
 
                     </table>
@@ -316,6 +398,9 @@
 
                     <div class="crm-box-header">
                         <h3>Recent Student Enquiries</h3>
+
+                        <a href="manage-enquiries.html">View All<i class="fa-solid fa-arrow-right"></i></a>
+
                     </div>
 
                     <table class="crm-table">
@@ -329,20 +414,15 @@
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>Arun</td>
-                                <td>9876543210</td>
-                                <td>Python</td>
-                                <td>Interested</td>
-                            </tr>
+                        <tbody id="recentEnquiriesTable">
 
                             <tr>
-                                <td>Kavin</td>
-                                <td>9876501234</td>
-                                <td>Java</td>
-                                <td>Follow-up</td>
+                                <td colspan="5" class="crm-table-empty">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                    Loading enquiries...
+                                </td>
                             </tr>
+
                         </tbody>
 
                     </table>
@@ -357,14 +437,17 @@
 
                         <div class="crm-box-header">
                             <h3>Notifications</h3>
+
+                            <a href="today-notifications.html">View All<i class="fa-solid fa-arrow-right"></i></a>
+
                         </div>
 
-                        <ul class="crm-notification-list">
-                            <li>📞 Rahul follow-up at 10:00 AM</li>
-                            <li>🎓 New admission completed</li>
-                            <li>🆕 New enquiry received</li>
-                            <li>⚠️ Two follow-ups pending</li>
-                        </ul>
+                        <div id="dashboardNotifications">
+                            <div class="crm-dashboard-loading">
+                                <i class="fa-solid fa-spinner fa-spin"></i>
+                                Loading notifications...
+                            </div>
+                        </div>
 
                     </div>
 
@@ -378,16 +461,19 @@
 
                         <div class="crm-actions">
 
-                            <button onclick="window.location.href='add-enquiry.html'">
+                            <button type="button" onclick="window.location.href='add-enquiry.html'">
                                 <i class="fa fa-user-plus"></i>Add Enquiry</button>
 
-                            <button onclick="window.location.href='add-follow-up.html'">
+                            <button type="button" onclick="window.location.href='add-follow-up.html'">
                                 <i class="fa fa-calendar-plus"></i>Add Follow-up</button>
 
-                            <button onclick="window.location.href='new-admission.html'">
+                            <button type="button" onclick="window.location.href='new-admission.html'">
                                 <i class="fa fa-user-check"></i>New Admission</button>
+
+                            <button type="button" onclick="window.location.href='add-user.html'">
+                                <i class="fa fa-user-plus"></i>Add User</button>    
                             
-                            <button onclick="window.location.href='enquiry-reports.html'">
+                            <button type="button" onclick="window.location.href='enquiry-reports.html'">
                                 <i class="fa fa-chart-column"></i>Enquiry Report</button>
 
                         </div>
@@ -399,6 +485,10 @@
             </main>
 
         </div>
+
+
+<!-- Javascript -->
+<script src="js/crm-notifications.js"></script>  
 
 
 <!-- Profile dropdown JS - Script -->
@@ -437,6 +527,738 @@ dropdowns.forEach(dropdown => {
 
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+<!-- =========================================================
+     DASHBOARD JAVASCRIPT
+========================================================= -->
+
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (value === null || value === undefined) {
+
+        return "";
+
+    }
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(time) {
+
+    if (!time) {
+
+        return "-";
+
+    }
+
+
+    const parts =
+        String(time).split(":");
+
+
+    if (parts.length < 2) {
+
+        return time;
+
+    }
+
+
+    let hour =
+        parseInt(parts[0], 10);
+
+    const minute =
+        parts[1];
+
+    const period =
+        hour >= 12 ? "PM" : "AM";
+
+
+    hour =
+        hour % 12 || 12;
+
+
+    return `${hour}:${minute} ${period}`;
+
+}
+
+
+/* =========================================================
+   STATUS CLASS
+========================================================= */
+
+function getStatusClass(status) {
+
+    if (!status) {
+
+        return "";
+
+    }
+
+
+    return String(status)
+
+        .toLowerCase()
+
+        .replace(/\s+/g, "-");
+
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
+
+async function loadDashboard() {
+
+    try {
+
+        const refreshButton =
+            document.getElementById(
+                "refreshDashboard"
+            );
+
+
+        if (refreshButton) {
+
+            refreshButton.disabled = true;
+
+        }
+
+
+        const response =
+            await fetch(
+                `${API_BASE}/dashboard`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load dashboard."
+            );
+
+        }
+
+
+        /* =================================================
+           SUMMARY CARDS
+        ================================================= */
+
+        document.getElementById(
+            "totalEnquiries"
+        ).textContent =
+            Number(
+                data.summary.total_enquiries
+            ) || 0;
+
+
+        document.getElementById(
+            "todayFollowupsCount"
+        ).textContent =
+            Number(
+                data.summary.today_followups
+            ) || 0;
+
+
+        document.getElementById(
+            "totalAdmissions"
+        ).textContent =
+            Number(
+                data.summary.admissions
+            ) || 0;
+
+
+        document.getElementById(
+            "totalUsers"
+        ).textContent =
+            Number(
+                data.summary.users
+            ) || 0;
+
+
+        /* =================================================
+           TODAY'S ACTIVITY
+        ================================================= */
+
+        document.getElementById(
+            "todayEnquiries"
+        ).textContent =
+            Number(
+                data.summary.today_enquiries
+            ) || 0;
+
+
+        document.getElementById(
+            "todayAdmissions"
+        ).textContent =
+            Number(
+                data.summary.today_admissions
+            ) || 0;
+
+
+        document.getElementById(
+            "missedFollowups"
+        ).textContent =
+            Number(
+                data.summary.missed_followups
+            ) || 0;
+
+
+        /* =================================================
+           TABLES
+        ================================================= */
+
+        renderTodayFollowups(
+            data.todayFollowups || []
+        );
+
+
+        renderRecentEnquiries(
+            data.recentEnquiries || []
+        );
+
+
+        renderNotifications(
+            data.notifications || []
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Dashboard Load Error:",
+            error
+        );
+
+
+        showDashboardError(
+            error.message
+        );
+
+
+    } finally {
+
+        const refreshButton =
+            document.getElementById(
+                "refreshDashboard"
+            );
+
+
+        if (refreshButton) {
+
+            refreshButton.disabled = false;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   TODAY'S FOLLOW-UPS
+========================================================= */
+
+function renderTodayFollowups(followups) {
+
+    const tbody =
+        document.getElementById(
+            "todayFollowupsTable"
+        );
+
+
+    if (!tbody) return;
+
+
+    if (!followups.length) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="crm-table-empty"
+                >
+
+                    <i class="fa-regular fa-calendar-check"></i>
+
+                    No follow-ups scheduled for today.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        followups.map(followup => `
+
+            <tr>
+
+                <td>
+
+                    <strong>
+                        ${escapeHtml(
+                            followup.student_name
+                        )}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        ${escapeHtml(
+                            followup.mobile_number || ""
+                        )}
+                    </small>
+
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        followup.course || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        followup.counsellor || "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${formatTime(
+                        followup.follow_up_time
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        followup.follow_up_type || "-"
+                    )}
+                </td>
+
+
+                <td>
+
+                    <span class="
+                        crm-dashboard-status
+                        ${getStatusClass(
+                            followup.status
+                        )}
+                    ">
+
+                        ${escapeHtml(
+                            followup.status || "-"
+                        )}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+   RECENT ENQUIRIES
+========================================================= */
+
+function renderRecentEnquiries(enquiries) {
+
+    const tbody =
+        document.getElementById(
+            "recentEnquiriesTable"
+        );
+
+
+    if (!tbody) return;
+
+
+    if (!enquiries.length) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="crm-table-empty"
+                >
+
+                    <i class="fa-regular fa-folder-open"></i>
+
+                    No student enquiries found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        enquiries.map(enquiry => `
+
+            <tr>
+
+                <td>
+
+                    <strong>
+
+                        ${escapeHtml(
+                            enquiry.student_name
+                        )}
+
+                    </strong>
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        enquiry.mobile || "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        enquiry.course_interested || "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    ${escapeHtml(
+                        enquiry.counsellor || "-"
+                    )}
+
+                </td>
+
+
+                <td>
+
+                    <span class="
+                        crm-dashboard-status
+                        ${getStatusClass(
+                            enquiry.status
+                        )}
+                    ">
+
+                        ${escapeHtml(
+                            enquiry.status || "-"
+                        )}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+   NOTIFICATION ICON
+========================================================= */
+
+function getNotificationIcon(type) {
+
+    switch (type) {
+
+        case "followup":
+
+            return `
+                <i class="fa-solid fa-phone"></i>
+            `;
+
+
+        case "enquiry":
+
+            return `
+                <i class="fa-solid fa-user-plus"></i>
+            `;
+
+
+        case "admission":
+
+            return `
+                <i class="fa-solid fa-user-check"></i>
+            `;
+
+
+        default:
+
+            return `
+                <i class="fa-solid fa-bell"></i>
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DASHBOARD NOTIFICATIONS
+========================================================= */
+
+function renderNotifications(notifications) {
+
+    const container =
+        document.getElementById(
+            "dashboardNotifications"
+        );
+
+
+    if (!container) return;
+
+
+    if (!notifications.length) {
+
+        container.innerHTML = `
+
+            <div class="crm-dashboard-empty">
+
+                <i class="fa-regular fa-bell-slash"></i>
+
+                No notifications for today.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        notifications.map(notification => `
+
+            <div class="
+                crm-dashboard-notification-item
+            ">
+
+                <div class="
+                    crm-dashboard-notification-icon
+                ">
+
+                    ${getNotificationIcon(
+                        notification.notification_type
+                    )}
+
+                </div>
+
+
+                <div class="
+                    crm-dashboard-notification-content
+                ">
+
+                    <div class="
+                        crm-dashboard-notification-title
+                    ">
+
+                        ${escapeHtml(
+                            notification.title
+                        )}
+
+                    </div>
+
+
+                    <div class="
+                        crm-dashboard-notification-message
+                    ">
+
+                        ${escapeHtml(
+                            notification.message
+                        )}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =========================================================
+   ERROR DISPLAY
+========================================================= */
+
+function showDashboardError(message) {
+
+    const followups =
+        document.getElementById(
+            "todayFollowupsTable"
+        );
+
+
+    const enquiries =
+        document.getElementById(
+            "recentEnquiriesTable"
+        );
+
+
+    if (followups) {
+
+        followups.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="crm-table-empty"
+                    style="color:#dc2626;"
+                >
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    ${escapeHtml(message)}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    if (enquiries) {
+
+        enquiries.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="crm-table-empty"
+                    style="color:#dc2626;"
+                >
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    ${escapeHtml(message)}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const refreshButton =
+            document.getElementById(
+                "refreshDashboard"
+            );
+
+
+        if (refreshButton) {
+
+            refreshButton.addEventListener(
+                "click",
+                loadDashboard
+            );
+
+        }
+
+
+        loadDashboard();
+
+    }
+);
+
+</script>
+
+
+
 
 
 </body>

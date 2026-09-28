@@ -4282,6 +4282,313 @@ app.put("/api/users/:id", async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   DASHBOARD API
+========================================================= */
+
+app.get("/api/dashboard", async (req, res) => {
+
+    try {
+
+        /* =====================================================
+           1. TOTAL ENQUIRIES
+        ===================================================== */
+
+        const [[enquiryCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM student_enquiries
+        `);
+
+
+        /* =====================================================
+           2. TODAY'S FOLLOW-UPS
+        ===================================================== */
+
+        const [[todayFollowupCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE DATE(follow_up_date) = CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+        `);
+
+
+        /* =====================================================
+           3. TOTAL ADMISSIONS
+        ===================================================== */
+
+        const [[admissionCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM admissions
+        `);
+
+
+        /* =====================================================
+           4. TOTAL USERS
+        ===================================================== */
+
+        const [[userCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM add_users
+        `);
+
+
+        /* =====================================================
+           5. TODAY'S FOLLOW-UPS LIST
+        ===================================================== */
+
+        const [todayFollowups] = await db.execute(`
+            SELECT
+                id,
+                student_name,
+                mobile_number,
+                course,
+                counsellor,
+                follow_up_date,
+                follow_up_time,
+                follow_up_type,
+                status,
+                comments
+            FROM follow_ups
+            WHERE DATE(follow_up_date) = CURDATE()
+            ORDER BY
+                CASE
+                    WHEN follow_up_time IS NULL THEN 1
+                    ELSE 0
+                END,
+                follow_up_time ASC
+            LIMIT 10
+        `);
+
+
+        /* =====================================================
+           6. RECENT STUDENT ENQUIRIES
+        ===================================================== */
+
+        const [recentEnquiries] = await db.execute(`
+            SELECT
+                id,
+                student_name,
+                mobile,
+                course_interested,
+                status,
+                counsellor,
+                enquiry_date,
+                created_at
+            FROM student_enquiries
+            ORDER BY id DESC
+            LIMIT 10
+        `);
+
+
+        /* =====================================================
+           7. TODAY'S NEW ENQUIRIES
+        ===================================================== */
+
+        const [[todayEnquiryCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM student_enquiries
+            WHERE DATE(enquiry_date) = CURDATE()
+        `);
+
+
+        /* =====================================================
+           8. TODAY'S ADMISSIONS
+        ===================================================== */
+
+        const [[todayAdmissionCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM admissions
+            WHERE DATE(created_at) = CURDATE()
+               OR DATE(joining_date) = CURDATE()
+        `);
+
+
+        /* =====================================================
+           9. MISSED FOLLOW-UPS
+        ===================================================== */
+
+        const [[missedFollowupCount]] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE
+            (
+                DATE(follow_up_date) < CURDATE()
+
+                OR
+
+                (
+                    DATE(follow_up_date) = CURDATE()
+                    AND follow_up_time IS NOT NULL
+                    AND follow_up_time < CURTIME()
+                )
+            )
+            AND status NOT IN ('Completed', 'Not Interested')
+        `);
+
+
+        /* =====================================================
+           10. RECENT NOTIFICATIONS
+        ===================================================== */
+
+        const [notifications] = await db.execute(`
+
+            SELECT *
+            FROM (
+
+                /* Today's Follow-up */
+                SELECT
+                    f.id AS reference_id,
+                    'followup' AS notification_type,
+                    'Follow-up' AS title,
+                    CONCAT(
+                        f.student_name,
+                        ' follow-up at ',
+                        TIME_FORMAT(f.follow_up_time, '%h:%i %p')
+                    ) AS message,
+                    f.created_at AS notification_date
+                FROM follow_ups f
+                WHERE DATE(f.follow_up_date) = CURDATE()
+
+                UNION ALL
+
+                /* New Enquiry */
+                SELECT
+                    e.id AS reference_id,
+                    'enquiry' AS notification_type,
+                    'New Enquiry' AS title,
+                    CONCAT(
+                        e.student_name,
+                        ' submitted a new enquiry'
+                    ) AS message,
+                    e.created_at AS notification_date
+                FROM student_enquiries e
+                WHERE DATE(e.enquiry_date) = CURDATE()
+
+                UNION ALL
+
+                /* New Admission */
+                SELECT
+                    a.id AS reference_id,
+                    'admission' AS notification_type,
+                    'New Admission' AS title,
+                    CONCAT(
+                        a.student_name,
+                        ' admission completed'
+                    ) AS message,
+                    a.created_at AS notification_date
+                FROM admissions a
+                WHERE DATE(a.created_at) = CURDATE()
+                   OR DATE(a.joining_date) = CURDATE()
+
+            ) AS dashboard_notifications
+
+            ORDER BY notification_date DESC
+
+            LIMIT 8
+
+        `);
+
+
+        /* =====================================================
+           11. RESPONSE
+        ===================================================== */
+
+        res.json({
+
+            success: true,
+
+            summary: {
+
+                total_enquiries:
+                    Number(enquiryCount.total) || 0,
+
+                today_followups:
+                    Number(todayFollowupCount.total) || 0,
+
+                admissions:
+                    Number(admissionCount.total) || 0,
+
+                users:
+                    Number(userCount.total) || 0,
+
+                today_enquiries:
+                    Number(todayEnquiryCount.total) || 0,
+
+                today_admissions:
+                    Number(todayAdmissionCount.total) || 0,
+
+                missed_followups:
+                    Number(missedFollowupCount.total) || 0
+
+            },
+
+            todayFollowups,
+
+            recentEnquiries,
+
+            notifications
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Dashboard API Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Failed to load dashboard data.",
+
+            error:
+                error.message
+
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 /*==== Start server ====*/
 app.listen(PORT, () => {
 
