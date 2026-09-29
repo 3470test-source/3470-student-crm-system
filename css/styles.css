@@ -1231,7 +1231,7 @@
 
 .crm-table-ME {
   width:100%;
-  border-collapse:collapse;
+  border-collapse:collapse; 
   border-radius: 10px;
   overflow: hidden;
 }
@@ -1611,6 +1611,11 @@
 .crm-status-AFU.callback {
   background:#DBEAFE;
   color:#1D4ED8;
+}
+
+.crm-status-AFU.danger {
+  background:#FEE2E2;
+  color:#DC2626;
 }
 
 
@@ -2063,7 +2068,7 @@
   color:#1D4ED8;
 }
 
-.crm-status-FUH.rejected {
+.crm-status-FUH.danger {
   background:#FEE2E2;
   color:#DC2626;
 }
@@ -7344,11 +7349,155 @@
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
+                  /* ===============================
+                         CRM - Dashboard  
+                  =============================== */
+
+/*--- EMPTY MESSAGE ---*/
+.crm-dashboard-empty {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+}
+
+.crm-dashboard-empty i {
+  display: block;
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.crm-dashboard-table-empty {
+  text-align: center;
+  padding: 20px !important;
+  color: #64748b;
+}
+
+.crm-table-dashboard {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.crm-table-dashboard thead {
+  background:#2563eb;
+}
+
+.crm-table-dashboard th {
+  color:#ffffff;
+  padding:16px;
+  text-align:center;
+  font-size:15px;
+}
+
+.crm-table-dashboard td {
+  padding:16px;
+  font-size:15px;
+  text-align:center;
+  border-bottom:1px solid #dce3ec;
+}
+
+.crm-table-dashboard tbody tr:hover{
+  background:#d0ecdf;
+}
+
+.crm-dashboard-status {
+  display:inline-block;
+  padding:6px 14px;
+  border-radius:30px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.crm-dashboard-status.interested {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.crm-dashboard-status.not-interested {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.crm-dashboard-status.call-back {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.crm-dashboard-status.admission-confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.crm-dashboard-status.completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.crm-dashboard-status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.crm-dashboard-status.follow-up {
+  background: #fef3c7;
+  color: #b45309;
+}        
 
 
+/*--- DASHBOARD LOADING ---*/
+.crm-dashboard-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  color: #64748b;
+  font-size: 15px;
+}
+
+.crm-dashboard-loading i {
+  margin-right: 10px;
+}
 
 
+/*--- NOTIFICATION LIST ---*/
+.crm-dashboard-notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f7;
+}
 
+.crm-dashboard-notification-item:last-child {
+  border-bottom: none;
+}
 
+.crm-dashboard-notification-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef6ff;
+  color: #1769aa;
+}
 
+.crm-dashboard-notification-content {
+  flex: 1;
+}       
 
+.crm-dashboard-notification-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+
+.crm-dashboard-notification-message {
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------------------------------------------------------- */

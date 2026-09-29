@@ -22,6 +22,61 @@
       box-sizing: border-box;
     }
     
+
+
+
+
+
+.crm-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.crm-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #d5dce5;
+    background: #ffffff;
+    color: #1f3c88;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.crm-pagination button:hover:not(:disabled) {
+    background: #eef4ff;
+    border-color: #2864e6;
+}
+
+.crm-pagination button.active {
+    background: #2864e6;
+    color: #ffffff;
+    border-color: #2864e6;
+    font-weight: 600;
+}
+
+.crm-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.crm-pagination .pagination-dots {
+    min-width: 30px;
+    text-align: center;
+    color: #777;
+    font-weight: 600;
+}
+
+
+
+
+
     </style>
  
 </head>
@@ -305,6 +360,8 @@
                     <!-- Footer -->
                     <div class="crm-table-footer">
                         <p id="historyCount">Loading records...</p>
+
+                        <div class="crm-pagination" id="historyPagination"></div>
                     </div>
 
             </main>

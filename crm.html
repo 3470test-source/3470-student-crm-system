@@ -2134,84 +2134,8 @@ function showDashboardError(message) {
 }
 
 
-/* =========================================================
-   PROFILE DROPDOWN
-========================================================= */
-
-function toggleDropdown() {
-
-    const menu =
-        document.getElementById(
-            "dropdownMenu"
-        );
 
 
-    if (menu) {
-
-        menu.classList.toggle("show");
-
-    }
-
-}
-
-
-window.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            !event.target.closest(
-                ".crm-profile-dropdown"
-            )
-        ) {
-
-            const menu =
-                document.getElementById(
-                    "dropdownMenu"
-                );
-
-
-            if (menu) {
-
-                menu.classList.remove("show");
-
-            }
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SIDEBAR DROPDOWNS
-========================================================= */
-
-document
-    .querySelectorAll(".crm-dropdown")
-    .forEach(dropdown => {
-
-        const button =
-            dropdown.querySelector(
-                ".crm-dropdown-btn"
-            );
-
-
-        if (!button) return;
-
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                dropdown.classList.toggle(
-                    "active"
-                );
-
-            }
-        );
-
-    });
 
 
 /* =========================================================

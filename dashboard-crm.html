@@ -73,37 +73,6 @@
       transform: translateX(3px);
     }
     
-
-
-
-
-/* =====================================================
-           DASHBOARD LOADING
-        ===================================================== */
-
-        /* .crm-dashboard-loading {
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            min-height: 180px;
-
-            color: #64748b;
-
-            font-size: 15px;
-
-        }
-
-
-        .crm-dashboard-loading i {
-
-            margin-right: 10px;
-
-        } */
-
-
-
     </style>
 
 </head>
@@ -364,7 +333,7 @@
 
                     </div>
 
-                    <table class="crm-table">
+                    <table class="crm-table-dashboard">
 
                         <thead>
                             <tr>
@@ -380,7 +349,7 @@
                         <tbody id="todayFollowupsTable">
                             
                             <tr>
-                                <td colspan="6" class="crm-table-empty">
+                                <td colspan="6" class="crm-dashboard-table-empty">
                                     <i class="fa-solid fa-spinner fa-spin"></i>
                                     Loading today's follow-ups...
                                 </td>
@@ -403,13 +372,14 @@
 
                     </div>
 
-                    <table class="crm-table">
+                    <table class="crm-table-dashboard">
 
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Mobile</th>
                                 <th>Course</th>
+                                <th>Counsellor</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -417,7 +387,7 @@
                         <tbody id="recentEnquiriesTable">
 
                             <tr>
-                                <td colspan="5" class="crm-table-empty">
+                                <td colspan="5" class="crm-dashboard-table-empty">
                                     <i class="fa-solid fa-spinner fa-spin"></i>
                                     Loading enquiries...
                                 </td>
@@ -530,27 +500,13 @@ dropdowns.forEach(dropdown => {
 
 
 
-
-
-
-
-
-
-
-
-<!-- =========================================================
-     DASHBOARD JAVASCRIPT
-========================================================= -->
-
+<!--- CRM - DASHBOARD JS --->
 <script>
 
 const API_BASE = "http://localhost:3000/api";
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
+/*--- ESCAPE HTML ---*/
 function escapeHtml(value) {
 
     if (value === null || value === undefined) {
@@ -574,10 +530,7 @@ function escapeHtml(value) {
 }
 
 
-/* =========================================================
-   FORMAT TIME
-========================================================= */
-
+/*--- FORMAT TIME ---*/
 function formatTime(time) {
 
     if (!time) {
@@ -587,8 +540,7 @@ function formatTime(time) {
     }
 
 
-    const parts =
-        String(time).split(":");
+    const parts = String(time).split(":");
 
 
     if (parts.length < 2) {
@@ -598,29 +550,20 @@ function formatTime(time) {
     }
 
 
-    let hour =
-        parseInt(parts[0], 10);
+    let hour = parseInt(parts[0], 10);
 
-    const minute =
-        parts[1];
+    const minute = parts[1];
 
-    const period =
-        hour >= 12 ? "PM" : "AM";
+    const period = hour >= 12 ? "PM" : "AM";
 
-
-    hour =
-        hour % 12 || 12;
-
+    hour = hour % 12 || 12;
 
     return `${hour}:${minute} ${period}`;
 
 }
 
 
-/* =========================================================
-   STATUS CLASS
-========================================================= */
-
+/*--- STATUS CLASS ---*/
 function getStatusClass(status) {
 
     if (!status) {
@@ -639,18 +582,12 @@ function getStatusClass(status) {
 }
 
 
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
+/*--- LOAD DASHBOARD ---*/
 async function loadDashboard() {
 
     try {
 
-        const refreshButton =
-            document.getElementById(
-                "refreshDashboard"
-            );
+        const refreshButton = document.getElementById("refreshDashboard");
 
 
         if (refreshButton) {
@@ -659,21 +596,11 @@ async function loadDashboard() {
 
         }
 
+        const response = await fetch(`${API_BASE}/dashboard`);
 
-        const response =
-            await fetch(
-                `${API_BASE}/dashboard`
-            );
+        const data = await response.json();
 
-
-        const data =
-            await response.json();
-
-
-        if (
-            !response.ok ||
-            !data.success
-        ) {
+        if (!response.ok || !data.success) {
 
             throw new Error(
                 data.message ||
@@ -683,93 +610,58 @@ async function loadDashboard() {
         }
 
 
-        /* =================================================
-           SUMMARY CARDS
-        ================================================= */
+        /*--- SUMMARY CARDS ---*/
+        const totalEnquiries = document.getElementById("totalEnquiries");
 
-        document.getElementById(
-            "totalEnquiries"
-        ).textContent =
-            Number(
-                data.summary.total_enquiries
-            ) || 0;
+        if (totalEnquiries) {
+
+            totalEnquiries.textContent = Number(data.summary.total_enquiries) || 0;
+
+        }
 
 
-        document.getElementById(
-            "todayFollowupsCount"
-        ).textContent =
-            Number(
-                data.summary.today_followups
-            ) || 0;
+        const todayFollowupsCount = document.getElementById("todayFollowupsCount");
+
+        if (todayFollowupsCount) {
+
+            todayFollowupsCount.textContent = Number(data.summary.today_followups) || 0;
+
+        }
 
 
-        document.getElementById(
-            "totalAdmissions"
-        ).textContent =
-            Number(
-                data.summary.admissions
-            ) || 0;
+        const totalAdmissions = document.getElementById("totalAdmissions");
+
+        if (totalAdmissions) {
+
+            totalAdmissions.textContent = Number(data.summary.admissions) || 0;
+
+        }
 
 
-        document.getElementById(
-            "totalUsers"
-        ).textContent =
-            Number(
-                data.summary.users
-            ) || 0;
+        const totalUsers = document.getElementById("totalUsers");
+
+        if (totalUsers) {
+
+            totalUsers.textContent = Number(data.summary.users) || 0;
+
+        }
 
 
-        /* =================================================
-           TODAY'S ACTIVITY
-        ================================================= */
-
-        document.getElementById(
-            "todayEnquiries"
-        ).textContent =
-            Number(
-                data.summary.today_enquiries
-            ) || 0;
+        /*--- TODAY'S FOLLOW-UPS ---*/
+        renderTodayFollowups(data.todayFollowups || []);
 
 
-        document.getElementById(
-            "todayAdmissions"
-        ).textContent =
-            Number(
-                data.summary.today_admissions
-            ) || 0;
+        /*--- RECENT ENQUIRIES ---*/
+        renderRecentEnquiries(data.recentEnquiries || []);
 
 
-        document.getElementById(
-            "missedFollowups"
-        ).textContent =
-            Number(
-                data.summary.missed_followups
-            ) || 0;
-
-
-        /* =================================================
-           TABLES
-        ================================================= */
-
-        renderTodayFollowups(
-            data.todayFollowups || []
-        );
-
-
-        renderRecentEnquiries(
-            data.recentEnquiries || []
-        );
-
-
-        renderNotifications(
-            data.notifications || []
-        );
+        /*--- NOTIFICATIONS ---*/
+        renderNotifications(data.notifications || []);
 
 
     } catch (error) {
 
-        console.error(
-            "❌ Dashboard Load Error:",
+        console.error("❌ Dashboard Load Error:",
             error
         );
 
@@ -781,11 +673,7 @@ async function loadDashboard() {
 
     } finally {
 
-        const refreshButton =
-            document.getElementById(
-                "refreshDashboard"
-            );
-
+        const refreshButton = document.getElementById("refreshDashboard");
 
         if (refreshButton) {
 
@@ -798,20 +686,13 @@ async function loadDashboard() {
 }
 
 
-/* =========================================================
-   TODAY'S FOLLOW-UPS
-========================================================= */
 
+/*--- TODAY'S FOLLOW-UPS ---*/
 function renderTodayFollowups(followups) {
 
-    const tbody =
-        document.getElementById(
-            "todayFollowupsTable"
-        );
-
+    const tbody = document.getElementById("todayFollowupsTable");
 
     if (!tbody) return;
-
 
     if (!followups.length) {
 
@@ -820,14 +701,9 @@ function renderTodayFollowups(followups) {
             <tr>
 
                 <td
-                    colspan="6"
-                    class="crm-table-empty"
-                >
-
-                    <i class="fa-regular fa-calendar-check"></i>
-
-                    No follow-ups scheduled for today.
-
+                    colspan="6" class="crm-dashboard-table-empty">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        No follow-ups scheduled for today.
                 </td>
 
             </tr>
@@ -839,11 +715,9 @@ function renderTodayFollowups(followups) {
     }
 
 
-    tbody.innerHTML =
-        followups.map(followup => `
+    tbody.innerHTML = followups.map(followup => `
 
             <tr>
-
                 <td>
 
                     <strong>
@@ -915,20 +789,12 @@ function renderTodayFollowups(followups) {
 }
 
 
-/* =========================================================
-   RECENT ENQUIRIES
-========================================================= */
-
+/*--- RECENT ENQUIRIES ---*/
 function renderRecentEnquiries(enquiries) {
 
-    const tbody =
-        document.getElementById(
-            "recentEnquiriesTable"
-        );
-
+    const tbody = document.getElementById("recentEnquiriesTable");
 
     if (!tbody) return;
-
 
     if (!enquiries.length) {
 
@@ -937,14 +803,9 @@ function renderRecentEnquiries(enquiries) {
             <tr>
 
                 <td
-                    colspan="5"
-                    class="crm-table-empty"
-                >
-
-                    <i class="fa-regular fa-folder-open"></i>
-
-                    No student enquiries found.
-
+                    colspan="5" class="crm-dashboard-table-empty">
+                        <i class="fa-regular fa-folder-open"></i>
+                        No student enquiries found.
                 </td>
 
             </tr>
@@ -956,23 +817,16 @@ function renderRecentEnquiries(enquiries) {
     }
 
 
-    tbody.innerHTML =
-        enquiries.map(enquiry => `
+    tbody.innerHTML = enquiries.map(enquiry => `
 
             <tr>
-
                 <td>
 
-                    <strong>
-
-                        ${escapeHtml(
-                            enquiry.student_name
-                        )}
-
-                    </strong>
+                    ${escapeHtml(
+                        enquiry.student_name
+                    )}
 
                 </td>
-
 
                 <td>
 
@@ -982,7 +836,6 @@ function renderRecentEnquiries(enquiries) {
 
                 </td>
 
-
                 <td>
 
                     ${escapeHtml(
@@ -991,7 +844,6 @@ function renderRecentEnquiries(enquiries) {
 
                 </td>
 
-
                 <td>
 
                     ${escapeHtml(
@@ -999,7 +851,6 @@ function renderRecentEnquiries(enquiries) {
                     )}
 
                 </td>
-
 
                 <td>
 
@@ -1025,10 +876,7 @@ function renderRecentEnquiries(enquiries) {
 }
 
 
-/* =========================================================
-   NOTIFICATION ICON
-========================================================= */
-
+/*--- NOTIFICATION ICON ---*/
 function getNotificationIcon(type) {
 
     switch (type) {
@@ -1065,17 +913,10 @@ function getNotificationIcon(type) {
 }
 
 
-/* =========================================================
-   DASHBOARD NOTIFICATIONS
-========================================================= */
-
+/*--- DASHBOARD NOTIFICATIONS ---*/
 function renderNotifications(notifications) {
 
-    const container =
-        document.getElementById(
-            "dashboardNotifications"
-        );
-
+    const container = document.getElementById("dashboardNotifications");
 
     if (!container) return;
 
@@ -1085,11 +926,8 @@ function renderNotifications(notifications) {
         container.innerHTML = `
 
             <div class="crm-dashboard-empty">
-
                 <i class="fa-regular fa-bell-slash"></i>
-
                 No notifications for today.
-
             </div>
 
         `;
@@ -1099,16 +937,11 @@ function renderNotifications(notifications) {
     }
 
 
-    container.innerHTML =
-        notifications.map(notification => `
+    container.innerHTML = notifications.map(notification => `
 
-            <div class="
-                crm-dashboard-notification-item
-            ">
+            <div class="crm-dashboard-notification-item">
 
-                <div class="
-                    crm-dashboard-notification-icon
-                ">
+                <div class="crm-dashboard-notification-icon">
 
                     ${getNotificationIcon(
                         notification.notification_type
@@ -1117,13 +950,9 @@ function renderNotifications(notifications) {
                 </div>
 
 
-                <div class="
-                    crm-dashboard-notification-content
-                ">
+                <div class="crm-dashboard-notification-content">
 
-                    <div class="
-                        crm-dashboard-notification-title
-                    ">
+                    <div class="crm-dashboard-notification-title">
 
                         ${escapeHtml(
                             notification.title
@@ -1132,9 +961,7 @@ function renderNotifications(notifications) {
                     </div>
 
 
-                    <div class="
-                        crm-dashboard-notification-message
-                    ">
+                    <div class="crm-dashboard-notification-message">
 
                         ${escapeHtml(
                             notification.message
@@ -1151,23 +978,12 @@ function renderNotifications(notifications) {
 }
 
 
-/* =========================================================
-   ERROR DISPLAY
-========================================================= */
-
+/*--- ERROR DISPLAY ---*/
 function showDashboardError(message) {
 
-    const followups =
-        document.getElementById(
-            "todayFollowupsTable"
-        );
+    const followups = document.getElementById("todayFollowupsTable");
 
-
-    const enquiries =
-        document.getElementById(
-            "recentEnquiriesTable"
-        );
-
+    const enquiries = document.getElementById("recentEnquiriesTable");
 
     if (followups) {
 
@@ -1175,16 +991,9 @@ function showDashboardError(message) {
 
             <tr>
 
-                <td
-                    colspan="6"
-                    class="crm-table-empty"
-                    style="color:#dc2626;"
-                >
-
+                <td colspan="6" class="crm-dashboard-table-empty" style="color:#dc2626;">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-
                     ${escapeHtml(message)}
-
                 </td>
 
             </tr>
@@ -1200,16 +1009,9 @@ function showDashboardError(message) {
 
             <tr>
 
-                <td
-                    colspan="5"
-                    class="crm-table-empty"
-                    style="color:#dc2626;"
-                >
-
+                <td colspan="5" class="crm-dashboard-table-empty" style="color:#dc2626;">
                     <i class="fa-solid fa-triangle-exclamation"></i>
-
                     ${escapeHtml(message)}
-
                 </td>
 
             </tr>
@@ -1221,31 +1023,14 @@ function showDashboardError(message) {
 }
 
 
+/*--- REFRESH BUTTON ---*/
+document.addEventListener("DOMContentLoaded",() => {
 
-
-
-
-
-/* =========================================================
-   REFRESH BUTTON
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-
-        const refreshButton =
-            document.getElementById(
-                "refreshDashboard"
-            );
-
+        const refreshButton = document.getElementById("refreshDashboard");
 
         if (refreshButton) {
 
-            refreshButton.addEventListener(
-                "click",
-                loadDashboard
-            );
+            refreshButton.addEventListener("click", loadDashboard);
 
         }
 
@@ -1256,9 +1041,6 @@ document.addEventListener(
 );
 
 </script>
-
-
-
 
 
 </body>

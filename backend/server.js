@@ -2865,6 +2865,65 @@ app.put("/api/follow-ups/:id", async (req, res) => {
 
 
 
+/*==== NOTIFICATION HELPER FUNCTIONS ====*/
+function formatDateForJS(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    if (value instanceof Date) {
+
+        const year = value.getFullYear();
+        const month = String(value.getMonth() + 1).padStart(2, "0");
+        const day = String(value.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    if (typeof value === "string") {
+        return value.substring(0, 10);
+    }
+
+    return String(value);
+}
+
+
+function formatTimeForNotification(value) {
+
+    if (!value) {
+        return "";
+    }
+
+    const timeString = String(value);
+    const parts = timeString.split(":");
+
+    if (parts.length < 2) {
+        return timeString;
+    }
+
+    let hour = Number(parts[0]);
+    const minute = String(parts[1]).padStart(2, "0");
+
+    if (Number.isNaN(hour)) {
+        return timeString;
+    }
+
+    const ampm = hour >= 12 ? "PM" : "AM";
+
+    hour = hour % 12;
+
+    if (hour === 0) {
+        hour = 12;
+    }
+
+    return `${String(hour).padStart(2, "0")}:${minute} ${ampm}`;
+}
+
+
+
+
+
 /*==== TODAY'S NOTIFICATIONS API ====*/
 app.get("/api/notifications/today", async (req, res) => {
     try {
@@ -4282,51 +4341,19 @@ app.put("/api/users/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================================
-   DASHBOARD API
-========================================================= */
-
+/*==== DASHBOARD API ====*/
 app.get("/api/dashboard", async (req, res) => {
 
     try {
 
-        /* =====================================================
-           1. TOTAL ENQUIRIES
-        ===================================================== */
-
+        /*--- 1. TOTAL ENQUIRIES ---*/
         const [[enquiryCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM student_enquiries
         `);
 
 
-        /* =====================================================
-           2. TODAY'S FOLLOW-UPS
-        ===================================================== */
-
+        /*--- 2. TODAY'S FOLLOW-UPS ---*/
         const [[todayFollowupCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM follow_ups
@@ -4335,42 +4362,25 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           3. TOTAL ADMISSIONS
-        ===================================================== */
-
+        /*--- 3. TOTAL ADMISSIONS ---*/
         const [[admissionCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM admissions
         `);
 
 
-        /* =====================================================
-           4. TOTAL USERS
-        ===================================================== */
-
+        /*--- 4. TOTAL USERS ---*/
         const [[userCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM add_users
         `);
 
 
-        /* =====================================================
-           5. TODAY'S FOLLOW-UPS LIST
-        ===================================================== */
-
+        /*--- 5. TODAY'S FOLLOW-UPS LIST ---*/
         const [todayFollowups] = await db.execute(`
             SELECT
-                id,
-                student_name,
-                mobile_number,
-                course,
-                counsellor,
-                follow_up_date,
-                follow_up_time,
-                follow_up_type,
-                status,
-                comments
+                id, student_name, mobile_number, course, counsellor, follow_up_date, follow_up_time, follow_up_type,
+                status, comments
             FROM follow_ups
             WHERE DATE(follow_up_date) = CURDATE()
             ORDER BY
@@ -4383,30 +4393,18 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           6. RECENT STUDENT ENQUIRIES
-        ===================================================== */
-
+        /*--- 6. RECENT STUDENT ENQUIRIES ---*/
         const [recentEnquiries] = await db.execute(`
             SELECT
-                id,
-                student_name,
-                mobile,
-                course_interested,
-                status,
-                counsellor,
-                enquiry_date,
-                created_at
+                id, student_name, mobile, course_interested, status, counsellor,
+                enquiry_date, created_at
             FROM student_enquiries
             ORDER BY id DESC
             LIMIT 10
         `);
 
 
-        /* =====================================================
-           7. TODAY'S NEW ENQUIRIES
-        ===================================================== */
-
+        /*--- 7. TODAY'S NEW ENQUIRIES ---*/
         const [[todayEnquiryCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM student_enquiries
@@ -4414,10 +4412,7 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           8. TODAY'S ADMISSIONS
-        ===================================================== */
-
+        /*--- 8. TODAY'S ADMISSIONS ---*/
         const [[todayAdmissionCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM admissions
@@ -4426,10 +4421,7 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           9. MISSED FOLLOW-UPS
-        ===================================================== */
-
+        /*--- 9. MISSED FOLLOW-UPS ---*/
         const [[missedFollowupCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM follow_ups
@@ -4449,10 +4441,7 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           10. RECENT NOTIFICATIONS
-        ===================================================== */
-
+        /*--- 10. RECENT NOTIFICATIONS ---*/
         const [notifications] = await db.execute(`
 
             SELECT *
@@ -4512,14 +4501,10 @@ app.get("/api/dashboard", async (req, res) => {
         `);
 
 
-        /* =====================================================
-           11. RESPONSE
-        ===================================================== */
-
+        /*--- 11. RESPONSE ---*/
         res.json({
 
             success: true,
-
             summary: {
 
                 total_enquiries:
@@ -4566,25 +4551,15 @@ app.get("/api/dashboard", async (req, res) => {
 
             success: false,
 
-            message:
-                "Failed to load dashboard data.",
+            message: "Failed to load dashboard data.",
 
-            error:
-                error.message
+            error: error.message
 
         });
 
     }
 
 });
-
-
-
-
-
-
-
-
 
 
 
