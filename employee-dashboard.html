@@ -22,355 +22,6 @@
       box-sizing: border-box;
     }
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
-
-
-
-     
-
-    
-
-
-        
-
-        /* .crm-sidebar {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            bottom: 0;
-            width: 245px;
-            background: #12351d;
-            padding: 20px 12px;
-            overflow-y: auto;
-            transition: 0.3s ease;
-            z-index: 900;
-        } */
-
-        /* .crm-sidebar.collapsed {
-            left: -245px;
-        }
-
-        .crm-nav-title {
-            color: #94a3b8;
-            font-size: 11px;
-            text-transform: uppercase;
-            padding: 12px 14px 8px;
-            letter-spacing: 0.8px;
-        }
-
-        .crm-nav-link {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            padding: 12px 14px;
-            margin-bottom: 4px;
-            border-radius: 8px;
-            color: #d1fae5;
-            text-decoration: none;
-            font-size: 14px;
-            transition: 0.2s ease;
-        }
-
-        .crm-nav-link:hover {
-            background: #1f5b32;
-            color: #ffffff;
-        }
-
-        .crm-nav-link.active {
-            background: #1cbe60;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .crm-nav-link i {
-            width: 20px;
-            text-align: center;
-        } */
-
-        /* .crm-logout {
-            margin-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.12);
-            padding-top: 15px;
-        }
-
-        .crm-nav-link.logout {
-            color: #fecaca;
-        } */
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        .crm-main {
-            margin-left: 245px;
-            padding: 95px 28px 30px;
-            transition: 0.3s ease;
-        }
-
-        .crm-main.expanded {
-            margin-left: 0;
-        }
-
-        .crm-page-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: #17202a;
-            margin-bottom: 6px;
-        }
-
-        .crm-page-subtitle {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        /* =========================
-           CARDS
-        ========================= */
-
-        .crm-dashboard-cards {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 25px;
-        }
-
-        .crm-dashboard-card {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        }
-
-        .crm-card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 21px;
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .crm-card-content h3 {
-            font-size: 13px;
-            color: #6b7280;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .crm-card-number {
-            font-size: 25px;
-            font-weight: 700;
-            color: #111827;
-        }
-
-        /* =========================
-           SECTIONS
-        ========================= */
-
-        .crm-dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .crm-section {
-            background: #ffffff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .crm-section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 17px 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .crm-section-title {
-            font-size: 17px;
-            font-weight: 700;
-        }
-
-        .crm-view-all {
-            color: #15803d;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        /* =========================
-           TABLE
-        ========================= */
-
-        .crm-table-wrapper {
-            overflow-x: auto;
-        }
-
-        .crm-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .crm-table th,
-        .crm-table td {
-            padding: 13px 16px;
-            border-bottom: 1px solid #eef0f2;
-            text-align: left;
-            font-size: 13px;
-            white-space: nowrap;
-        }
-
-        .crm-table th {
-            background: #f8fafc;
-            color: #475569;
-            font-weight: 600;
-        }
-
-        .crm-table td {
-            color: #374151;
-        }
-
-        .crm-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .crm-status {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .crm-status.pending {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .crm-status.completed {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .crm-status.interested {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        /* =========================
-           NOTIFICATIONS
-        ========================= */
-
-        .crm-notification-list {
-            padding: 5px 0;
-        }
-
-        .crm-notification-item {
-            display: flex;
-            gap: 12px;
-            padding: 15px 18px;
-            border-bottom: 1px solid #eef0f2;
-        }
-
-        .crm-notification-item:last-child {
-            border-bottom: none;
-        }
-
-        .crm-notification-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #dcfce7;
-            color: #15803d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .crm-notification-text {
-            font-size: 13px;
-            color: #374151;
-            line-height: 1.5;
-        }
-
-        .crm-notification-time {
-            display: block;
-            color: #9ca3af;
-            font-size: 11px;
-            margin-top: 3px;
-        }
-
-        /* =========================
-           QUICK ACTIONS
-        ========================= */
-
-        .crm-quick-actions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            padding: 18px;
-        }
-
-        .crm-action-btn {
-            border: 1px solid #d1d5db;
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 13px;
-            cursor: pointer;
-            color: #166534;
-            font-weight: 600;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-
-        .crm-action-btn:hover {
-            background: #f0fdf4;
-            border-color: #22c55e;
-        }
-
-        
     </style>
 
 
@@ -433,20 +84,12 @@
     </header>
 
 
-
-
-
-
-
-
-
-
     <!-- EMP Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
 
-        <div class="crm-sidebar-container">
+        <div class="EMP-sidebar-container">
 
-            <aside class="crm-sidebar" id="crmSidebar">
+            <aside class="EMP-sidebar" id="crmSidebar">
 
                 <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
                     <i class="fa fa-home"></i>Dashboard
@@ -479,362 +122,233 @@
             </aside>
 
 
+            <!-- MAIN CONTENT -->
+            <main class="EMP-dashboard-main" id="crmMain">
 
+                <div class="EMP-dashboard-title">
 
+                    <h1>Employee Dashboard</h1>
+                    <p>
+                        Welcome back, <span id="welcomeEmployeeName">Employee</span>!
+                        Here's your CRM activity summary.
+                    </p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- =========================
-     MAIN CONTENT
-========================= -->
-
-<!-- <main class="crm-main" id="crmMain">
-
-    <h1 class="crm-page-title">
-        Employee Dashboard
-    </h1>
-
-    <p class="crm-page-subtitle">
-        Welcome back, <span id="welcomeEmployeeName">Employee</span>!
-        Here's your CRM activity summary.
-    </p> -->
-
-
-    <!-- =========================
-         DASHBOARD CARDS
-    ========================= -->
-
-    <!-- <section class="crm-dashboard-cards">
-
-        <div class="crm-dashboard-card">
-
-            <div class="crm-card-icon">
-                <i class="fa-solid fa-user-graduate"></i>
-            </div>
-
-            <div class="crm-card-content">
-
-                <h3>My Enquiries</h3>
-
-                <div class="crm-card-number"
-                     id="myEnquiriesCount">
-                    0
                 </div>
 
-            </div>
 
-        </div>
+                <!-- DASHBOARD CARDS -->
+                <section class="EMP-dashboard-cards">
 
+                    <div class="EMP-dashboard-card">
 
-        <div class="crm-dashboard-card">
+                        <div class="EMP-card-icon">
+                            <i class="fa-solid fa-user-graduate"></i>
+                        </div>
 
-            <div class="crm-card-icon">
-                <i class="fa-solid fa-phone"></i>
-            </div>
+                        <div class="Emp-card-content">
 
-            <div class="crm-card-content">
+                            <h3>My Enquiries</h3>
+                            <div class="EMP-card-number" id="myEnquiriesCount">0</div>
 
-                <h3>Today's Follow-ups</h3>
+                        </div>
 
-                <div class="crm-card-number"
-                     id="todayFollowupsCount">
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="crm-dashboard-card">
-
-            <div class="crm-card-icon">
-                <i class="fa-solid fa-user-check"></i>
-            </div>
-
-            <div class="crm-card-content">
-
-                <h3>My Admissions</h3>
-
-                <div class="crm-card-number"
-                     id="myAdmissionsCount">
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="crm-dashboard-card">
-
-            <div class="crm-card-icon">
-                <i class="fa-solid fa-clock"></i>
-            </div>
-
-            <div class="crm-card-content">
-
-                <h3>Pending Follow-ups</h3>
-
-                <div class="crm-card-number"
-                     id="pendingFollowupsCount">
-                    0
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
- -->
-
-    <!-- =========================
-         FOLLOWUPS + NOTIFICATIONS
-    ========================= -->
-
-    <!-- <section class="crm-dashboard-grid"> -->
-
-        <!-- Today's Follow-ups -->
-
-        <!-- <div class="crm-section">
-
-            <div class="crm-section-header">
-
-                <h2 class="crm-section-title">
-                    Today's Follow-ups
-                </h2>
-
-                <a href="my-follow-ups.html"
-                   class="crm-view-all">
-                    View All
-                </a>
-
-            </div>
-
-            <div class="crm-table-wrapper">
-
-                <table class="crm-table">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Student</th>
-                            <th>Course</th>
-                            <th>Time</th>
-                            <th>Type</th>
-                            <th>Status</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody id="todayFollowupsTable">
-
-                        <tr>
-                            <td colspan="5"
-                                style="text-align:center;">
-                                Loading...
-                            </td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div> -->
-
-
-        <!-- Notifications -->
-
-        <!-- <div class="crm-section">
-
-            <div class="crm-section-header">
-
-                <h2 class="crm-section-title">
-                    Notifications
-                </h2>
-
-                <a href="my-notifications.html"
-                   class="crm-view-all">
-                    View All
-                </a>
-
-            </div>
-
-            <div class="crm-notification-list"
-                 id="dashboardNotifications">
-
-                <div class="crm-notification-item">
-
-                    <div class="crm-notification-icon">
-                        <i class="fa-solid fa-spinner fa-spin"></i>
                     </div>
 
-                    <div class="crm-notification-text">
-                        Loading notifications...
+
+                    <div class="EMP-dashboard-card">
+
+                        <div class="EMP-card-icon">
+                            <i class="fa-solid fa-phone"></i> 
+                        </div>
+
+                        <div class="Emp-card-content">
+
+                            <h3>Today's Follow-ups</h3>
+                            <div class="EMP-card-number" id="todayFollowupsCount">0</div>
+
+                        </div>
+
                     </div>
 
-                </div>
 
-            </div>
+                    <div class="EMP-dashboard-card">
+
+                        <div class="EMP-card-icon">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+
+                        <div class="Emp-card-content">
+
+                            <h3>My Admissions</h3>
+                            <div class="EMP-card-number" id="myAdmissionsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="EMP-dashboard-card">
+
+                        <div class="EMP-card-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+
+                        <div class="Emp-card-content">
+
+                            <h3>Pending Follow-ups</h3>
+                            <div class="EMP-card-number" id="pendingFollowupsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FOLLOWUPS + NOTIFICATIONS -->
+                <section class="EMP-dashboard-grid">
+
+                    <!-- Today's Follow-ups -->
+                    <div class="EMP-section">
+
+                        <div class="EMP-section-header">
+
+                            <h2 class="EMP-section-title">Today's Follow-ups</h2>
+                            <a href="my-follow-ups.html" class="EMP-view-all">View All</a>
+
+                        </div>
+
+                        <div class="EMP-table-wrapper">
+
+                            <table class="EMP-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Course</th>
+                                        <th>Time</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="todayFollowupsTable">
+
+                                    <tr>
+                                        <td colspan="5" style="text-align:center;">
+                                            Loading...
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Notifications -->
+                    <div class="EMP-section">
+
+                        <div class="EMP-section-header">
+
+                            <h2 class="EMP-section-title">Notifications</h2>
+                            <a href="my-notifications.html" class="EMP-view-all">View All</a>
+
+                        </div>
+
+                        <div class="EMP-notification-list" id="dashboardNotifications">
+
+                            <div class="EMP-notification-item">
+
+                                <div class="EMP-notification-icon">
+                                    <i class="fa-solid fa-spinner fa-spin"></i>
+                                </div>
+
+                                <div class="EMP-notification-text">
+                                    Loading notifications...
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECENT ENQUIRIES -->
+                <section class="EMP-section">
+
+                    <div class="EMP-section-header">
+
+                        <h2 class="EMP-section-title">My Recent Enquiries</h2>
+                        <a href="my-enquiries.html" class="EMP-view-all">View All</a>
+
+                    </div>
+
+                    <div class="EMP-table-wrapper">
+
+                        <table class="EMP-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Mobile</th>
+                                    <th>Course</th>
+                                    <th>Status</th>
+                                    <th>Enquiry Date</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="recentEnquiriesTable">
+
+                                <tr>
+                                    <td colspan="5" style="text-align:center;">
+                                        Loading...
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+
+                <!-- QUICK ACTIONS -->
+                <section class="EMP-section">
+
+                    <div class="EMP-section-header">
+                        <h2 class="EMP-section-title">Quick Actions</h2>
+                    </div>
+
+                    <div class="EMP-quick-actions">
+
+                        <button class="EMP-action-btn" onclick="window.location.href='add-enquiry.html'">
+                            <i class="fa-solid fa-plus"></i>Add Enquiry
+                        </button>
+
+                        <button class="EMP-action-btn" onclick="window.location.href='add-follow-up.html'">
+                            <i class="fa-solid fa-phone"></i>Add Follow-up
+                        </button>
+
+                        <button class="EMP-action-btn" onclick="window.location.href='new-admission.html'">
+                            <i class="fa-solid fa-user-plus"></i>New Admission
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </main>
 
         </div>
-
-    </section> -->
-
-
-    <!-- =========================
-         RECENT ENQUIRIES
-    ========================= -->
-
-    <!-- <section class="crm-section">
-
-        <div class="crm-section-header">
-
-            <h2 class="crm-section-title">
-                My Recent Enquiries
-            </h2>
-
-            <a href="my-enquiries.html"
-               class="crm-view-all">
-                View All
-            </a>
-
-        </div>
-
-        <div class="crm-table-wrapper">
-
-            <table class="crm-table">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Student Name</th>
-                        <th>Mobile</th>
-                        <th>Course</th>
-                        <th>Status</th>
-                        <th>Enquiry Date</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody id="recentEnquiriesTable">
-
-                    <tr>
-
-                        <td colspan="5"
-                            style="text-align:center;">
-                            Loading...
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </section> -->
-
-
-    <!-- =========================
-         QUICK ACTIONS
-    ========================= -->
-
-    <!-- <section class="crm-section"
-             style="margin-top:20px;">
-
-        <div class="crm-section-header">
-
-            <h2 class="crm-section-title">
-                Quick Actions
-            </h2>
-
-        </div>
-
-        <div class="crm-quick-actions">
-
-            <button class="crm-action-btn"
-                    onclick="window.location.href='add-enquiry.html'">
-
-                <i class="fa-solid fa-plus"></i>
-                Add Enquiry
-
-            </button>
-
-            <button class="crm-action-btn"
-                    onclick="window.location.href='add-follow-up.html'">
-
-                <i class="fa-solid fa-phone"></i>
-                Add Follow-up
-
-            </button>
-
-            <button class="crm-action-btn"
-                    onclick="window.location.href='new-admission.html'">
-
-                <i class="fa-solid fa-user-plus"></i>
-                New Admission
-
-            </button>
-
-        </div>
-
-    </section> -->
-
-</main>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1087,7 +601,7 @@
                     </td>
 
                     <td>
-                        <span class="crm-status ${getStatusClass(
+                        <span class="EMP-status ${getStatusClass(
                             followup.status
                         )}">
                             ${escapeHtml(
@@ -1152,7 +666,7 @@
                     </td>
 
                     <td>
-                        <span class="crm-status interested">
+                        <span class="EMP-status interested">
                             ${escapeHtml(
                                 enquiry.status || "-"
                             )}
@@ -1187,13 +701,13 @@
         if (!notifications.length) {
 
             container.innerHTML = `
-                <div class="crm-notification-item">
+                <div class="EMP-notification-item">
 
-                    <div class="crm-notification-icon">
+                    <div class="EMP-notification-icon">
                         <i class="fa-solid fa-check"></i>
                     </div>
 
-                    <div class="crm-notification-text">
+                    <div class="EMP-notification-text">
                         No new notifications.
                     </div>
 
@@ -1208,20 +722,20 @@
             notifications.slice(0, 5).map(notification => {
 
                 return `
-                    <div class="crm-notification-item">
+                    <div class="EMP-notification-item">
 
-                        <div class="crm-notification-icon">
+                        <div class="EMP-notification-icon">
                             <i class="fa-solid fa-bell"></i>
                         </div>
 
-                        <div class="crm-notification-text">
+                        <div class="EMP-notification-text">
 
                             ${escapeHtml(
                                 notification.message ||
                                 "New notification"
                             )}
 
-                            <span class="crm-notification-time">
+                            <span class="EMP-notification-time">
                                 ${formatDateTime(
                                     notification.created_at
                                 )}
@@ -1458,13 +972,13 @@
         document.getElementById(
             "dashboardNotifications"
         ).innerHTML = `
-            <div class="crm-notification-item">
+            <div class="EMP-notification-item">
 
-                <div class="crm-notification-icon">
+                <div class="EMP-notification-icon">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
 
-                <div class="crm-notification-text">
+                <div class="EMP-notification-text">
                     ${escapeHtml(message)}
                 </div>
 
