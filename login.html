@@ -128,24 +128,30 @@
 <!-- Login Page - JS Script -->
 <script>
 
-const loginForm = document.getElementById("loginForm");
-
-const loginBtn = document.getElementById("loginBtn");
-
+    const loginForm = document.getElementById("loginForm");
+    const loginBtn = document.getElementById("loginBtn");
 
 loginForm.addEventListener("submit", async function (event) {
 
     event.preventDefault();
-
 
     const email = document.getElementById("email").value.trim();
 
     const password = document.getElementById("password").value;
 
 
+    if (!email || !password) {
+
+        alert("Please enter email and password.");
+
+        return;
+
+    }
+
+
     loginBtn.disabled = true;
 
-    loginBtn.innerHTML ='<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
+    loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
 
 
     try {
@@ -160,45 +166,64 @@ loginForm.addEventListener("submit", async function (event) {
                 },
 
                 body: JSON.stringify({
-
                     email: email,
                     password: password
-
                 })
             }
         );
 
+
         const data = await response.json();
 
-        if (!response.ok) {
+        if (!response.ok || !data.success) {
 
-            alert(data.message);
+            alert(
+                data.message ||
+                "Invalid email or password."
+            );
 
             return;
 
         }
 
 
-        /*-- Save authentication token --*/
-        localStorage.setItem(
-            "crmToken",
-            data.token
-        );
+        /*--- SAVE JWT ---*/
+        localStorage.setItem("crmToken", data.token);
 
 
-        /*-- Save user information --*/
-        localStorage.setItem(
-            "crmUser",
-            JSON.stringify(data.user)
-        );
+        /*--- SAVE USER ---*/
+        localStorage.setItem("crmUser", JSON.stringify(data.user));
 
 
-        /*-- Redirect to Admin Dashboard --*/
-        window.location.href ="dashboard-crm.html";
+        /*--- ROLE REDIRECT ---*/
+        if (data.user.role === "Admin") {
+
+            window.location.href = "dashboard-crm.html";
+
+        }
+
+        else if (
+            data.user.role === "Counsellor" ||
+            data.user.role === "Staff"
+        ) {
+
+            window.location.href = "employee-dashboard.html";
+
+        }
+
+        else {
+
+            alert("Invalid user role.");
+
+        }
+
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "❌ Login Error:",
+            error
+        );
 
         alert("Unable to connect to CRM server.");
 
@@ -207,7 +232,7 @@ loginForm.addEventListener("submit", async function (event) {
 
         loginBtn.disabled = false;
 
-        loginBtn.innerHTML ='<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+        loginBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
 
     }
 

@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee Dashboard Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .table-empty {
+        text-align: center !important;
+        padding: 40px !important;
+        color: #6b7280;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 6px;
+        padding: 18px 20px;
+        flex-wrap: wrap;
+    }
+
+    .pagination button {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 11px;
+        border: 1px solid #d5dce5;
+        background: #fff;
+        color: #2864e6;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .pagination button:hover:not(:disabled) {
+        background: #eef4ff;
+    }
+
+    .pagination button.active {
+        background: #2864e6;
+        color: #fff;
+        border-color: #2864e6;
+    }
+
+    .pagination button:disabled {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+    .pagination-dots {
+        padding: 0 5px;
+    }
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" onclick="openNotifications()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="EMP-sidebar-container">
+
+            <aside class="EMP-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <a href="my-enquiries.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-graduate"></i>My Enquiries
+                </a>
+
+                <a href="my-follow-ups.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-phone"></i>My Follow-ups
+                </a>
+
+                <a href="my-admissions.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-check"></i>My Admissions
+                </a>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="my-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- My Enquiries  -->
+            <main class="EMP-dashboard-main">
+
+                <div class="employee-my-enquiries">
+
+                    <h1>My Enquiries</h1>
+                    <p>View and manage student enquiries assigned to you.</p>
+
+                </div>
+
+
+                <!-- FILTERS -->
+                <div class="EMP-MyEnquiry-filters">
+
+                    <input type="text" id="enquirySearch" placeholder="Search student, mobile or email...">
+                    <select id="courseFilter">
+                        <option value="">-- All Courses --</option>
+                    </select>
+
+                    <select id="statusFilter">
+                        <option value="">-- All Status --</option>
+                    </select>
+
+                    <button type="button" class="EMP-btn-primary" id="searchBtn">
+                        <i class="fa-solid fa-search"></i>Search
+                    </button>
+
+                    <button type="button" class="EMP-btn-secondary" id="clearBtn">
+                        <i class="fa-solid fa-rotate-left"></i>Clear
+                    </button>
+
+                </div>
+
+
+                <!-- TABLE -->
+                <div class="EMP-MyEnquiries-card">
+
+                    <div class="EMP-MyEnquiries-card-header">
+
+                        <h2>Student Enquiries</h2>
+                        <span class="EMP-record-count" id="recordCount">Showing 0 records.</span>
+
+                    </div>
+
+                    <div class="EMP-MyEnquiries-table-wrapper">
+
+                        <table class="EMP-Myenquiries-table">
+
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Student Name</th>
+                                    <th>Mobile</th>
+                                    <th>Course</th>
+                                    <th>Enquiry Date</th>
+                                    <th>Follow-up Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="enquiriesTableBody">
+
+                                <tr>
+                                    <td colspan="8" class="table-empty">
+                                        Loading enquiries...
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div> 
+
+                    <div class="pagination" id="enquiriesPagination"></div>
+
+                </div>
+
+            </main>
+
+        </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+
+/* =========================================================
+   EMPLOYEE - MY ENQUIRIES
+========================================================= */
+
+const API_BASE =
+    "http://localhost:3000/api";
+
+const API_URL =
+    `${API_BASE}/employee/enquiries`;
+
+const ROWS_PER_PAGE = 10;
+
+let currentPage = 1;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const searchInput =
+    document.getElementById("enquirySearch");
+
+const courseFilter =
+    document.getElementById("courseFilter");
+
+const statusFilter =
+    document.getElementById("statusFilter");
+
+const searchBtn =
+    document.getElementById("searchBtn");
+
+const clearBtn =
+    document.getElementById("clearBtn");
+
+const tableBody =
+    document.getElementById(
+        "enquiriesTableBody"
+    );
+
+const recordCount =
+    document.getElementById(
+        "recordCount"
+    );
+
+const pagination =
+    document.getElementById(
+        "enquiriesPagination"
+    );
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+function getToken() {
+
+    return localStorage.getItem(
+        "crmToken"
+    );
+}
+
+
+function checkLogin() {
+
+    const token =
+        getToken();
+
+    const user =
+        localStorage.getItem(
+            "crmUser"
+        );
+
+    if (!token || !user) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+/* =========================================================
+   API REQUEST
+========================================================= */
+
+async function apiRequest(
+    url,
+    options = {}
+) {
+
+    const token =
+        getToken();
+
+    if (!token) {
+
+        window.location.href =
+            "login.html";
+
+        throw new Error(
+            "Authentication required."
+        );
+    }
+
+
+    const response =
+        await fetch(
+            url,
+            {
+                ...options,
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        `Bearer ${token}`,
+
+                    ...(options.headers || {})
+                }
+            }
+        );
+
+
+    let data = {};
+
+    try {
+
+        data =
+            await response.json();
+
+    } catch (error) {
+
+        data = {};
+    }
+
+
+    if (
+        response.status === 401
+    ) {
+
+        localStorage.removeItem(
+            "crmToken"
+        );
+
+        localStorage.removeItem(
+            "crmUser"
+        );
+
+        window.location.href =
+            "login.html";
+
+        throw new Error(
+            "Session expired."
+        );
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            "Request failed."
+        );
+    }
+
+
+    return data;
+}
+
+
+/* =========================================================
+   LOAD ENQUIRIES
+========================================================= */
+
+async function loadEnquiries() {
+
+    showLoading();
+
+    try {
+
+        const search =
+            searchInput
+                ? searchInput.value.trim()
+                : "";
+
+        const course =
+            courseFilter
+                ? courseFilter.value
+                : "";
+
+        const status =
+            statusFilter
+                ? statusFilter.value
+                : "";
+
+
+        const params =
+            new URLSearchParams();
+
+        params.set(
+            "page",
+            currentPage
+        );
+
+        params.set(
+            "limit",
+            ROWS_PER_PAGE
+        );
+
+
+        if (search) {
+
+            params.set(
+                "search",
+                search
+            );
+        }
+
+
+        if (course) {
+
+            params.set(
+                "course",
+                course
+            );
+        }
+
+
+        if (status) {
+
+            params.set(
+                "status",
+                status
+            );
+        }
+
+
+        const data =
+            await apiRequest(
+                `${API_URL}?${params.toString()}`
+            );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load enquiries."
+            );
+        }
+
+
+        renderEnquiries(
+            data.enquiries || []
+        );
+
+
+        renderPagination(
+            data.pagination || {}
+        );
+
+
+        loadFilterOptions(
+            data.filters || {}
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ My Enquiries Error:",
+            error
+        );
+
+        showError(
+            error.message
+        );
+    }
+}
+
+
+/* =========================================================
+   RENDER TABLE
+========================================================= */
+
+function renderEnquiries(
+    enquiries
+) {
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    if (
+        !Array.isArray(enquiries) ||
+        enquiries.length === 0
+    ) {
+
+        tableBody.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="table-empty"
+                >
+                    <i class="fa-solid fa-inbox"></i>  
+                    No enquiries found.
+                </td>
+            </tr>
+        `;
+
+
+        if (recordCount) {
+
+            recordCount.textContent =
+                "Showing 0 records.";
+        }
+
+        return;
+    }
+
+
+    tableBody.innerHTML = "";
+
+
+    enquiries.forEach(
+        function (enquiry) {
+
+            const row =
+                document.createElement("tr");
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.id
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.student_name ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.mobile ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        enquiry.course_interested ||
+                        "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        enquiry.enquiry_date
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        enquiry.follow_up_date
+                    )}
+                </td>
+
+                <td>
+                    ${getStatusBadge(
+                        enquiry.status
+                    )}
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="EMP-MyEnq-action-btn"
+                        title="View Enquiry"
+                        data-id="${escapeHtml(
+                            enquiry.id
+                        )}"
+                        onclick="viewEnquiry(this.dataset.id)"
+                    >
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+
+                </td>
+            `;
+
+
+            tableBody.appendChild(
+                row
+            );
+        }
+    );
+
+
+    const paginationData =
+        window.currentPagination || {};
+
+    const page =
+        Number(
+            paginationData.page
+        ) || currentPage;
+
+    const limit =
+        Number(
+            paginationData.limit
+        ) || ROWS_PER_PAGE;
+
+    const total =
+        Number(
+            paginationData.total
+        ) || enquiries.length;
+
+    const start =
+        total === 0
+            ? 0
+            : ((page - 1) * limit) + 1;
+
+    const end =
+        Math.min(
+            page * limit,
+            total
+        );
+
+
+    if (recordCount) {
+
+        recordCount.textContent =
+            `Showing ${start}-${end} of ${total} records.`;
+    }
+}
+
+
+/* =========================================================
+   PAGINATION
+========================================================= */
+
+function renderPagination(
+    paginationData
+) {
+
+    if (!pagination) {
+        return;
+    }
+
+
+    window.currentPagination =
+        paginationData;
+
+
+    const page =
+        Number(
+            paginationData.page
+        ) || 1;
+
+    const totalPages =
+        Number(
+            paginationData.totalPages
+        ) || 1;
+
+
+    currentPage =
+        page;
+
+
+    pagination.innerHTML = "";
+
+
+    if (totalPages <= 1) {
+        return;
+    }
+
+
+    /* Previous */
+
+    const previousBtn =
+        document.createElement(
+            "button"
+        );
+
+    previousBtn.textContent =
+        "Previous";
+
+    previousBtn.disabled =
+        page <= 1;
+
+    previousBtn.addEventListener(
+        "click",
+        function () {
+
+            if (page > 1) {
+
+                currentPage =
+                    page - 1;
+
+                loadEnquiries();
+            }
+        }
+    );
+
+    pagination.appendChild(
+        previousBtn
+    );
+
+
+    /* Page numbers */
+
+    const pages =
+        getPaginationPages(
+            page,
+            totalPages
+        );
+
+
+    pages.forEach(
+        function (pageNumber) {
+
+            if (
+                pageNumber === "..."
+            ) {
+
+                const dots =
+                    document.createElement(
+                        "span"
+                    );
+
+                dots.className =
+                    "pagination-dots";
+
+                dots.textContent =
+                    "...";
+
+                pagination.appendChild(
+                    dots
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+            button.textContent =
+                pageNumber;
+
+
+            if (
+                pageNumber === page
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+            }
+
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    currentPage =
+                        pageNumber;
+
+                    loadEnquiries();
+                }
+            );
+
+
+            pagination.appendChild(
+                button
+            );
+        }
+    );
+
+
+    /* Next */
+
+    const nextBtn =
+        document.createElement(
+            "button"
+        );
+
+    nextBtn.textContent =
+        "Next";
+
+    nextBtn.disabled =
+        page >= totalPages;
+
+
+    nextBtn.addEventListener(
+        "click",
+        function () {
+
+            if (
+                page < totalPages
+            ) {
+
+                currentPage =
+                    page + 1;
+
+                loadEnquiries();
+            }
+        }
+    );
+
+
+    pagination.appendChild(
+        nextBtn
+    );
+}
+
+
+/* =========================================================
+   PAGINATION PAGE NUMBERS
+========================================================= */
+
+function getPaginationPages(
+    current,
+    total
+) {
+
+    if (total <= 7) {
+
+        return Array.from(
+            {
+                length: total
+            },
+            (_, index) =>
+                index + 1
+        );
+    }
+
+
+    if (current <= 4) {
+
+        return [
+            1,
+            2,
+            3,
+            4,
+            "...",
+            total
+        ];
+    }
+
+
+    if (
+        current >= total - 3
+    ) {
+
+        return [
+            1,
+            "...",
+            total - 3,
+            total - 2,
+            total - 1,
+            total
+        ];
+    }
+
+
+    return [
+        1,
+        "...",
+        current - 1,
+        current,
+        current + 1,
+        "...",
+        total
+    ];
+}
+
+
+/* =========================================================
+   FILTER OPTIONS
+========================================================= */
+
+function loadFilterOptions(
+    filters
+) {
+
+    if (!filters) {
+        return;
+    }
+
+
+    /* Courses */
+
+    if (
+        courseFilter &&
+        Array.isArray(
+            filters.courses
+        )
+    ) {
+
+        const currentValue =
+            courseFilter.value;
+
+        courseFilter.innerHTML = `
+            <option value="">
+                -- All Courses --
+            </option>
+        `;
+
+
+        filters.courses.forEach(
+            function (course) {
+
+                if (!course) {
+                    return;
+                }
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    course;
+
+                option.textContent =
+                    course;
+
+                courseFilter.appendChild(
+                    option
+                );
+            }
+        );
+
+
+        courseFilter.value =
+            currentValue;
+    }
+
+
+    /* Status */
+
+    if (
+        statusFilter &&
+        Array.isArray(
+            filters.statuses
+        )
+    ) {
+
+        const currentValue =
+            statusFilter.value;
+
+        statusFilter.innerHTML = `
+            <option value="">
+                -- All Status --
+            </option>
+        `;
+
+
+        filters.statuses.forEach(
+            function (status) {
+
+                if (!status) {
+                    return;
+                }
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    status;
+
+                option.textContent =
+                    status;
+
+                statusFilter.appendChild(
+                    option
+                );
+            }
+        );
+
+
+        statusFilter.value =
+            currentValue;
+    }
+}
+
+
+/* =========================================================
+   VIEW ENQUIRY
+========================================================= */
+
+function viewEnquiry(
+    id
+) {
+
+    if (!id) {
+        return;
+    }
+
+
+    window.location.href =
+        `view-enquiry.html?id=${encodeURIComponent(id)}`;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+function getStatusBadge(
+    status
+) {
+
+    const safeStatus =
+        String(
+            status || "Unknown"
+        );
+
+    const normalized =
+        safeStatus
+            .toLowerCase()
+            .replace(/\s+/g, "-");
+
+
+    let className =
+        "EMP-MyEnq-status-default";
+
+
+    if (
+        normalized ===
+        "interested"
+    ) {
+
+        className =
+            "EMP-MyEnq-status-interested";
+
+    } else if (
+        normalized ===
+        "not-interested"
+    ) {
+
+        className =
+            "EMP-MyEnq-status-not-interested";
+
+    } else if (
+        normalized ===
+        "call-back"
+    ) {
+
+        className =
+            "EMP-MyEnq-status-call-back";
+
+    } else if (
+        normalized ===
+        "admission-confirmed"
+    ) {
+
+        className =
+            "EMP-MyEnq-status-admission-confirmed";
+    }
+
+
+    return `
+        <span class="EMP-status-badge-MyEnq ${className}">
+            ${escapeHtml(
+                safeStatus
+            )}
+        </span>
+    `;
+}
+
+
+/* =========================================================
+   DATE FORMAT
+========================================================= */
+
+function formatDate(
+    dateValue
+) {
+
+    if (!dateValue) {
+        return "-";
+    }
+
+
+    const date =
+        new Date(dateValue);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "-";
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function showLoading() {
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    tableBody.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="table-empty"
+            >
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Loading enquiries...
+            </td>
+        </tr>
+    `;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+function showError(
+    message
+) {
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    tableBody.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="table-empty"
+                style="color:#b91c1c;"
+            >
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                ${escapeHtml(
+                    message ||
+                    "Unable to load enquiries."
+                )}
+            </td>
+        </tr>
+    `;
+
+
+    if (recordCount) {
+
+        recordCount.textContent =
+            "Unable to load records.";
+    }
+
+
+    if (pagination) {
+
+        pagination.innerHTML = "";
+    }
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+if (searchBtn) {
+
+    searchBtn.addEventListener(
+        "click",
+        function () {
+
+            currentPage = 1;
+
+            loadEnquiries();
+        }
+    );
+}
+
+
+/* =========================================================
+   ENTER KEY SEARCH
+========================================================= */
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                currentPage = 1;
+
+                loadEnquiries();
+            }
+        }
+    );
+}
+
+
+/* =========================================================
+   FILTER CHANGE
+========================================================= */
+
+if (courseFilter) {
+
+    courseFilter.addEventListener(
+        "change",
+        function () {
+
+            currentPage = 1;
+
+            loadEnquiries();
+        }
+    );
+}
+
+
+if (statusFilter) {
+
+    statusFilter.addEventListener(
+        "change",
+        function () {
+
+            currentPage = 1;
+
+            loadEnquiries();
+        }
+    );
+}
+
+
+/* =========================================================
+   CLEAR FILTERS
+========================================================= */
+
+if (clearBtn) {
+
+    clearBtn.addEventListener(
+        "click",
+        function () {
+
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            if (courseFilter) {
+                courseFilter.value = "";
+            }
+
+            if (statusFilter) {
+                statusFilter.value = "";
+            }
+
+            currentPage = 1;
+
+            loadEnquiries();
+        }
+    );
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        console.log(
+            "🚀 My Enquiries initializing..."
+        );
+
+
+        if (!checkLogin()) {
+            return;
+        }
+
+
+        loadEnquiries();
+
+
+        console.log(
+            "✅ My Enquiries ready."
+        );
+    }
+);
+
+
+/* =========================================================
+   GLOBAL FUNCTION
+========================================================= */
+
+window.viewEnquiry =
+    viewEnquiry;
+</script>
+
+
+
+</body>
+
+</html>

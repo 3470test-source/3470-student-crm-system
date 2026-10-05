@@ -7966,3 +7966,202 @@
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------ */
+
+              /* ===================================
+                      Employee - My Enquiries
+              =================================== */
+
+.employee-my-enquiries {
+  margin-bottom: 25px;
+}
+
+.employee-my-enquiries h1 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.employee-my-enquiries p {            
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.EMP-MyEnquiry-filters {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+
+  display: grid;
+  grid-template-columns:
+                2fr
+                1fr
+                1fr
+                auto
+                auto;
+
+  gap: 12px;
+  align-items: center;
+}
+
+.EMP-MyEnquiry-filters input,
+.EMP-MyEnquiry-filters select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  font-size: 13px;
+  outline: none;
+}
+
+.EMP-MyEnquiry-filters input:focus,
+.EMP-MyEnquiry-filters select:focus {
+  border-color: #2864e6;
+}
+
+.EMP-btn-primary {
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2864e6;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.EMP-btn-primary:hover {
+  background: #1a4ab1;
+}
+
+.EMP-btn-secondary {
+  padding: 10px 12px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.EMP-btn-secondary:hover {
+  background: #ebc6c6;
+}
+
+.EMP-btn-primary i,
+.EMP-btn-secondary i {
+  margin-right: 5px;
+}
+
+.EMP-MyEnquiries-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  overflow: hidden;    
+}
+
+.EMP-MyEnquiries-card-header {
+  padding: 15px 18px;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.EMP-MyEnquiries-card-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color:#1e3a8a;
+}
+
+.EMP-record-count {
+  color: #0f7032;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+}
+
+.EMP-MyEnquiries-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.EMP-Myenquiries-table {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.EMP-Myenquiries-table th,
+.EMP-Myenquiries-table td {
+  padding: 13px 15px;
+  border-bottom: 1px solid #edf0f3;
+  text-align: center;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.EMP-Myenquiries-table th {            
+  font-weight: 600;
+  background:#2563eb;
+  color:#ffffff;  
+}
+
+.EMP-Myenquiries-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.EMP-status-badge-MyEnq {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.EMP-MyEnq-status-interested {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.EMP-MyEnq-status-not-interested {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.EMP-MyEnq-status-call-back {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.EMP-MyEnq-status-admission-confirmed {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.EMP-MyEnq-status-default {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.EMP-MyEnq-action-btn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #dbe2ea;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #2864e6;
+}
+
+.EMP-MyEnq-action-btn:hover {
+  background: #eef4ff;
+}
+
+
+

@@ -363,649 +363,1045 @@
 
 
 
-<!-- <script>
-
-    const API_BASE = "http://localhost:3000/api";
 
 
-    /* =========================
-       SIDEBAR
-    ========================= */
-
-    const menuToggle = document.getElementById("menuToggle");
-    const crmSidebar = document.getElementById("crmSidebar");
-    const crmMain = document.getElementById("crmMain");
-
-    menuToggle.addEventListener("click", function () {
-
-        if (window.innerWidth <= 768) {
-
-            crmSidebar.classList.toggle("open");
-
-        } else {
-
-            crmSidebar.classList.toggle("collapsed");
-            crmMain.classList.toggle("expanded");
-
-        }
-
-    });
+        
 
 
-    /* =========================
-       AUTH USER
-    ========================= */
 
-    function getLoggedInUser() {
 
-        const storedUser = localStorage.getItem("crmUser");
 
-        if (!storedUser) {
-            return null;
-        }
+<!-- EMPLOYEE DASHBOARD - JS  -->
+<script>
+    
+const API_BASE = "http://localhost:3000/api";
 
-        try {
+/*--- GLOBAL VARIABLES ---*/
+let currentUser = null;
 
-            return JSON.parse(storedUser);
 
-        } catch (error) {
-
-            console.error("Invalid crmUser data:", error);
-
-            return null;
-
-        }
-
+/*--- COMMON HELPERS ---*/
+function escapeHtml(value) {
+    if (value === null || value === undefined) {
+        return "";
     }
 
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
-    /* =========================
-       LOAD EMPLOYEE INFO
-    ========================= */
 
-    function loadEmployeeInfo() {
+/*--- Get JWT token ---*/
+function getToken() {
+    return localStorage.getItem("crmToken");
+}
 
-        const user = getLoggedInUser();
 
-        if (!user) {
+/*--- Get logged-in user ---*/
+function getStoredUser() {
+    const storedUser = localStorage.getItem("crmUser");
 
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-        const name = user.full_name || user.name || "Employee";
-        const role = user.role || "Employee";
-
-        document.getElementById("employeeName").textContent = name;
-        document.getElementById("welcomeEmployeeName").textContent = name;
-        document.getElementById("employeeRole").textContent = role;
-
-        const firstLetter = name.charAt(0).toUpperCase();
-
-        document.getElementById("profileAvatar").textContent = firstLetter;
-
+    if (!storedUser) {
+        return null;
     }
 
-
-    /* =========================
-       LOAD DASHBOARD
-    ========================= */
-
-    async function loadEmployeeDashboard() {
-
-        const user = getLoggedInUser();
-
-        if (!user) {
-            window.location.href = "login.html";
-            return;
-        }
-
-        try {
-
-            /*
-             * IMPORTANT:
-             * Backend must identify the logged-in employee
-             * from the authenticated session/JWT.
-             *
-             * Do not trust a user ID from the frontend
-             * for security-sensitive filtering.
-             */
-
-            const response = await fetch(
-                `${API_BASE}/employee/dashboard`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
-
-            if (!response.ok) {
-
-                throw new Error(
-                    `Dashboard request failed: ${response.status}`
-                );
-
-            }
-
-            const data = await response.json();
-
-            if (!data.success) {
-
-                throw new Error(
-                    data.message || "Unable to load dashboard"
-                );
-
-            }
-
-            renderDashboard(data);
-
-        } catch (error) {
-
-            console.error(
-                "❌ Employee Dashboard Error:",
-                error
-            );
-
-            showDashboardError(error.message);
-
-        }
-
-    }
-
-
-    /* =========================
-       RENDER DASHBOARD
-    ========================= */
-
-    function renderDashboard(data) {
-
-        const summary = data.summary || {};
-
-        document.getElementById("myEnquiriesCount").textContent =
-            Number(summary.my_enquiries || 0);
-
-        document.getElementById("todayFollowupsCount").textContent =
-            Number(summary.today_followups || 0);
-
-        document.getElementById("myAdmissionsCount").textContent =
-            Number(summary.my_admissions || 0);
-
-        document.getElementById("pendingFollowupsCount").textContent =
-            Number(summary.pending_followups || 0);
-
-
-        renderFollowups(
-            data.today_followups || []
-        );
-
-        renderEnquiries(
-            data.recent_enquiries || []
-        );
-
-        renderNotifications(
-            data.notifications || []
-        );
-
-    }
-
-
-    /* =========================
-       FOLLOWUPS
-    ========================= */
-
-    function renderFollowups(followups) {
-
-        const tbody =
-            document.getElementById("todayFollowupsTable");
-
-        if (!followups.length) {
-
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5"
-                        style="text-align:center;">
-                        No follow-ups scheduled for today.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
-        }
-
-        tbody.innerHTML = followups.map(followup => {
-
-            return `
-                <tr>
-
-                    <td>
-                        ${escapeHtml(followup.student_name || "-")}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(followup.course || "-")}
-                    </td>
-
-                    <td>
-                        ${formatTime(followup.follow_up_time)}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            followup.follow_up_type || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        <span class="EMP-status ${getStatusClass(
-                            followup.status
-                        )}">
-                            ${escapeHtml(
-                                followup.status || "-"
-                            )}
-                        </span>
-                    </td>
-
-                </tr>
-            `;
-
-        }).join("");
-
-    }
-
-
-    /* =========================
-       ENQUIRIES
-    ========================= */
-
-    function renderEnquiries(enquiries) {
-
-        const tbody =
-            document.getElementById("recentEnquiriesTable");
-
-        if (!enquiries.length) {
-
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5"
-                        style="text-align:center;">
-                        No enquiries found.
-                    </td>
-                </tr>
-            `;
-
-            return;
-
-        }
-
-        tbody.innerHTML = enquiries.map(enquiry => {
-
-            return `
-                <tr>
-
-                    <td>
-                        ${escapeHtml(
-                            enquiry.student_name || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            enquiry.mobile || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHtml(
-                            enquiry.course_interested || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        <span class="EMP-status interested">
-                            ${escapeHtml(
-                                enquiry.status || "-"
-                            )}
-                        </span>
-                    </td>
-
-                    <td>
-                        ${formatDate(
-                            enquiry.enquiry_date
-                        )}
-                    </td>
-
-                </tr>
-            `;
-
-        }).join("");
-
-    }
-
-
-    /* =========================
-       NOTIFICATIONS
-    ========================= */
-
-    function renderNotifications(notifications) {
-
-        const container =
-            document.getElementById(
-                "dashboardNotifications"
-            );
-
-        if (!notifications.length) {
-
-            container.innerHTML = `
-                <div class="EMP-notification-item">
-
-                    <div class="EMP-notification-icon">
-                        <i class="fa-solid fa-check"></i>
-                    </div>
-
-                    <div class="EMP-notification-text">
-                        No new notifications.
-                    </div>
-
-                </div>
-            `;
-
-            return;
-
-        }
-
-        container.innerHTML =
-            notifications.slice(0, 5).map(notification => {
-
-                return `
-                    <div class="EMP-notification-item">
-
-                        <div class="EMP-notification-icon">
-                            <i class="fa-solid fa-bell"></i>
-                        </div>
-
-                        <div class="EMP-notification-text">
-
-                            ${escapeHtml(
-                                notification.message ||
-                                "New notification"
-                            )}
-
-                            <span class="EMP-notification-time">
-                                ${formatDateTime(
-                                    notification.created_at
-                                )}
-                            </span>
-
-                        </div>
-
-                    </div>
-                `;
-
-            }).join("");
-
-    }
-
-
-    /* =========================
-       HEADER NOTIFICATION COUNT
-    ========================= */
-
-    async function loadNotificationCount() {
-
-        const count =
-            document.getElementById(
-                "headerNotificationCount"
-            );
-
-        try {
-
-            const response = await fetch(
-                `${API_BASE}/notifications/today`
-            );
-
-            const data = await response.json();
-
-            if (
-                response.ok &&
-                data.success &&
-                data.summary
-            ) {
-
-                count.textContent =
-                    Number(
-                        data.summary.total_notifications || 0
-                    );
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "❌ Notification Count Error:",
-                error
-            );
-
-            count.textContent = "0";
-
-        }
-
-    }
-
-
-    /* =========================
-       OPEN NOTIFICATIONS
-    ========================= */
-
-    function openNotifications() {
-
-        window.location.href =
-            "my-notifications.html";
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    function logoutEmployee(event) {
-
-        event.preventDefault();
+    try {
+        return JSON.parse(storedUser);
+    } catch (error) {
+        console.error("❌ Invalid crmUser data:", error);
 
         localStorage.removeItem("crmUser");
         localStorage.removeItem("crmToken");
 
-        window.location.href = "login.html";
+        return null;
+    }
+}
 
+
+/*--- Redirect to login ---*/
+function redirectToLogin() {
+    localStorage.removeItem("crmUser");
+    localStorage.removeItem("crmToken");
+
+    window.location.href = "login.html";
+}
+
+
+/*--- Authenticated API request helper ---*/
+async function apiRequest(url, options = {}) {
+
+    const token = getToken();
+
+    const headers = {
+        "Content-Type": "application/json",
+        ...(options.headers || {})
+    };
+
+    if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(url, {
+        ...options,
+        headers
+    });
+
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch (error) {
+        data = {};
+    }
+
+    /*--- Token expired / unauthorized ---*/
+    if (response.status === 401) {
+        console.error("❌ Authentication expired.");
+
+        redirectToLogin();
+
+        throw new Error("Your session has expired. Please login again.");
+    }
+
+    if (response.status === 403) {
+        throw new Error(
+            data.message || "You are not authorized to access this page."
+        );
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            data.message || `Request failed with status ${response.status}`
+        );
+    }
+
+    return data;
+}
+
+
+/*--- LOAD LOGGED-IN EMPLOYEE INFORMATION ---*/
+function loadEmployeeInfo() {
+
+    const storedUser = localStorage.getItem("crmUser");
+
+    if (!storedUser) {
+        console.error("❌ crmUser not found in localStorage.");
+
+        redirectToLogin();
+
+        return;
+    }
+
+    try {
+
+        const user = JSON.parse(storedUser);
+
+        currentUser = user;
+
+        console.log("👤 Logged-in Employee:", user);
+
+        const employeeName =
+            user.full_name ||
+            user.name ||
+            user.username ||
+            "Employee";
+
+        const employeeRole =
+            user.role ||
+            "Employee";
+
+        const employeeEmail =
+            user.email ||
+            "";
+
+        /*--- Header name ---*/
+        const employeeNameElement = document.getElementById("employeeName");
+
+        if (employeeNameElement) {
+            employeeNameElement.textContent = employeeName;
+        }
+
+        /*--- Welcome message ---*/
+        const welcomeEmployeeName = document.getElementById("welcomeEmployeeName");
+
+        if (welcomeEmployeeName) {
+            welcomeEmployeeName.textContent = employeeName;
+        }
+
+        /*--- Role ---*/
+        const employeeRoleElement = document.getElementById("employeeRole");
+
+        if (employeeRoleElement) {
+            employeeRoleElement.textContent = employeeRole;
+        }
+
+        /*--- Avatar ---*/
+        const profileAvatar = document.getElementById("profileAvatar");
+
+        if (profileAvatar) {
+
+            const firstLetter = employeeName
+                    .trim()
+                    .charAt(0)
+                    .toUpperCase();
+
+            profileAvatar.textContent =
+                firstLetter || "E";
+        }
+
+        /*--- Optional email element ---*/
+        const employeeEmailElement = document.getElementById("employeeEmail");
+
+        if (employeeEmailElement) {
+            employeeEmailElement.textContent = employeeEmail;
+        }
+
+        console.log(
+            `✅ Employee loaded: ${employeeName} (${employeeRole})`
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Failed to read crmUser:",
+            error
+        );
+
+        redirectToLogin();
+    }
+}
+
+
+/*--- MOBILE SIDEBAR ---*/
+function setupMobileMenu() {
+
+    const menuButton = document.getElementById("menuBtn");
+
+    const sidebar = document.getElementById("employeeSidebar");
+
+    const overlay = document.getElementById("sidebarOverlay");
+
+    if (!menuButton) {
+        console.warn("⚠️ menuBtn not found.");
+        return;
+    }
+
+    if (!sidebar) {
+        console.warn("⚠️ employeeSidebar not found.");
+        return;
+    }
+
+    menuButton.addEventListener("click", function () {
+
+        sidebar.classList.toggle("active");
+
+        if (overlay) {
+            overlay.classList.toggle("active");
+        }
+    });
+
+
+    /*--- Close sidebar when overlay clicked ---*/
+    if (overlay) {
+
+        overlay.addEventListener("click", function () {
+
+            sidebar.classList.remove("active");
+
+            overlay.classList.remove("active");
+        });
     }
 
 
-    /* =========================
-       STATUS
-    ========================= */
+    /*--- Close sidebar after clicking sidebar link ---*/
+    const sidebarLinks = sidebar.querySelectorAll("a");
 
-    function getStatusClass(status) {
+    sidebarLinks.forEach(function (link) {
 
-        if (!status) {
-            return "pending";
-        }
+        link.addEventListener("click", function () {
 
-        const value =
-            status.toLowerCase();
+            sidebar.classList.remove("active");
 
-        if (
-            value === "completed" ||
-            value === "admission confirmed"
-        ) {
+            if (overlay) {
+                overlay.classList.remove("active");
+            }
+        });
+    });
+}
 
-            return "completed";
 
-        }
+/*--- EMPLOYEE DASHBOARD API ---*/
+async function loadEmployeeDashboard() {
 
-        return "pending";
+    const token = getToken();
+    const storedUser = localStorage.getItem("crmUser");
 
+    if (!storedUser || !token) {
+
+        console.error(
+            "❌ Login information not found."
+        );
+
+        redirectToLogin();
+
+        return;
     }
 
+    try {
 
-    /* =========================
-       DATE
-    ========================= */
+        console.log(
+            "📊 Loading employee dashboard..."
+        );
 
-    function formatDate(value) {
+        const data = await apiRequest(
+            `${API_BASE}/employee/dashboard`,
+            {
+                method: "GET"
+            }
+        );
 
-        if (!value) {
-            return "-";
+        console.log(
+            "📊 Employee Dashboard Response:",
+            data
+        );
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load employee dashboard."
+            );
         }
 
-        const date = new Date(value);
+        renderEmployeeDashboard(data);
 
-        if (Number.isNaN(date.getTime())) {
-            return value;
-        }
+    } catch (error) {
 
-        return date.toLocaleDateString("en-IN");
+        console.error(
+            "❌ Employee Dashboard Error:",
+            error
+        );
 
+        showDashboardError(
+            error.message ||
+            "Unable to load dashboard data."
+        );
+    }
+}
+
+
+/*--- RENDER EMPLOYEE DASHBOARD ---*/
+function renderEmployeeDashboard(data) {
+
+    const summary = data.summary || {};
+
+    /*--- SUMMARY CARDS ---*/
+    setText(
+        "totalEnquiries",
+        numberValue(
+            summary.total_enquiries ??
+            summary.totalEnquiries ??
+            data.total_enquiries ??
+            0
+        )
+    );
+
+    setText(
+        "todayFollowupsCount",
+        numberValue(
+            summary.today_followups ??
+            summary.todayFollowups ??
+            data.today_followups ??
+            0
+        )
+    );
+
+    setText(
+        "totalAdmissions",
+        numberValue(
+            summary.total_admissions ??
+            summary.totalAdmissions ??
+            data.total_admissions ??
+            0
+        )
+    );
+
+    setText(
+        "missedFollowups",
+        numberValue(
+            summary.missed_followups ??
+            summary.missedFollowups ??
+            data.missed_followups ??
+            0
+        )
+    );
+
+
+    /*--- RECENT ENQUIRIES ---*/
+    const enquiries =
+        data.recent_enquiries ||
+        data.recentEnquiries ||
+        data.enquiries ||
+        [];
+
+    renderRecentEnquiries(enquiries);
+
+
+    /*--- TODAY'S FOLLOW-UPS ---*/
+    const followUps =
+        data.today_followups ||
+        data.todayFollowups ||
+        data.follow_ups ||
+        [];
+
+    renderTodayFollowUps(followUps);
+
+
+    /*--- NOTIFICATIONS ---*/
+    const notifications =
+        data.notifications ||
+        data.today_notifications ||
+        [];
+
+    renderDashboardNotifications(notifications);
+}
+
+
+/*--- RECENT ENQUIRIES ---*/
+function renderRecentEnquiries(enquiries) {
+
+    const tableBody = document.getElementById("recentEnquiriesTable");
+
+    if (!tableBody) {
+        return;
     }
 
+    if (!Array.isArray(enquiries) ||
+        enquiries.length === 0) {
 
-    /* =========================
-       TIME
-    ========================= */
-
-    function formatTime(value) {
-
-        if (!value) {
-            return "-";
-        }
-
-        const parts = String(value).split(":");
-
-        if (parts.length < 2) {
-            return value;
-        }
-
-        let hour = Number(parts[0]);
-        const minute = parts[1];
-
-        const suffix =
-            hour >= 12 ? "PM" : "AM";
-
-        hour = hour % 12 || 12;
-
-        return `${hour}:${minute} ${suffix}`;
-
-    }
-
-
-    /* =========================
-       DATE + TIME
-    ========================= */
-
-    function formatDateTime(value) {
-
-        if (!value) {
-            return "";
-        }
-
-        const date = new Date(value);
-
-        if (Number.isNaN(date.getTime())) {
-            return "";
-        }
-
-        return date.toLocaleString("en-IN");
-
-    }
-
-
-    /* =========================
-       HTML SECURITY
-    ========================= */
-
-    function escapeHtml(value) {
-
-        return String(value ?? "")
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =========================
-       ERROR
-    ========================= */
-
-    function showDashboardError(message) {
-
-        document.getElementById(
-            "todayFollowupsTable"
-        ).innerHTML = `
+        tableBody.innerHTML = `
             <tr>
                 <td colspan="5"
-                    style="text-align:center;color:#dc2626;">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    ${escapeHtml(message)}
+                    class="crm-dashboard-table-empty">
+                    No recent enquiries found.
                 </td>
             </tr>
         `;
 
-        document.getElementById(
-            "recentEnquiriesTable"
-        ).innerHTML = `
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+    enquiries.forEach(function (enquiry) {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>
+                ${escapeHtml(
+                    enquiry.student_name || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    enquiry.mobile || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    enquiry.course_interested ||
+                    enquiry.course ||
+                    "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    enquiry.status || "-"
+                )}
+            </td>
+
+            <td>
+                ${formatDate(
+                    enquiry.enquiry_date
+                )}
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+}
+
+
+/*--- TODAY'S FOLLOW-UPS ---*/
+function renderTodayFollowUps(followUps) {
+
+    const tableBody = document.getElementById("todayFollowupsTable");
+
+    if (!tableBody) {
+        return;
+    }
+
+    if (!Array.isArray(followUps) ||
+        followUps.length === 0) {
+
+        tableBody.innerHTML = `
             <tr>
-                <td colspan="5"
-                    style="text-align:center;color:#dc2626;">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                    ${escapeHtml(message)}
+                <td colspan="6"
+                    class="crm-dashboard-table-empty">
+                    No follow-ups scheduled for today.
                 </td>
             </tr>
         `;
 
-        document.getElementById(
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+    followUps.forEach(function (followUp) {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>
+                ${escapeHtml(
+                    followUp.student_name || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.mobile_number ||
+                    followUp.mobile ||
+                    "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.course ||
+                    followUp.course_interested ||
+                    "-"
+                )}
+            </td>
+
+            <td>
+                ${formatTime(
+                    followUp.follow_up_time
+                )}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    followUp.follow_up_type ||
+                    "-"
+                )}
+            </td>
+
+            <td>
+                <span class="crm-status">
+                    ${escapeHtml(
+                        followUp.status || "-"
+                    )}
+                </span>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+}
+
+
+/*--- DASHBOARD NOTIFICATIONS ---*/
+function renderDashboardNotifications(notifications) {
+
+    const container = document.getElementById(
             "dashboardNotifications"
-        ).innerHTML = `
-            <div class="EMP-notification-item">
+        );
 
-                <div class="EMP-notification-icon">
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-                </div>
+    if (!container) {
+        return;
+    }
 
-                <div class="EMP-notification-text">
+    if (!Array.isArray(notifications) ||
+        notifications.length === 0) {
+
+        container.innerHTML = `
+            <div class="crm-dashboard-empty">
+                <i class="fa-solid fa-bell"></i>
+                <span>No new notifications.</span>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    notifications.forEach(function (notification) {
+
+        const item = document.createElement("div");
+
+        item.className = "crm-dashboard-notification-item";
+
+        const message =
+            notification.message ||
+            notification.title ||
+            "Notification";
+
+        item.innerHTML = `
+            <div class="crm-dashboard-notification-icon">
+                <i class="fa-solid fa-bell"></i>
+            </div>
+
+            <div class="crm-dashboard-notification-content">
+
+                <strong>
+                    ${escapeHtml(
+                        notification.title ||
+                        "Notification"
+                    )}
+                </strong>
+
+                <span>
                     ${escapeHtml(message)}
-                </div>
+                </span>
 
             </div>
         `;
 
+        container.appendChild(item);
+    });
+}
+
+
+/*--- HEADER NOTIFICATION COUNT ---*/
+async function loadNotificationCount() {
+
+    const countElement = document.getElementById("headerNotificationCount");
+
+    if (!countElement) {
+        return;
+    }
+
+    try {
+
+        const data = await apiRequest(
+            `${API_BASE}/notifications/today`,
+            {
+                method: "GET"
+            }
+        );
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load notification count."
+            );
+        }
+
+        const summary = data.summary || {};
+
+        const count =
+            Number(
+                summary.total_notifications
+            ) || 0;
+
+        countElement.textContent = count;
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Notification Error:",
+            error
+        );
+
+        countElement.textContent = "0";
+    }
+}
+
+
+/*--- OPEN NOTIFICATIONS ---*/
+function openNotifications() {
+
+    window.location.href = "today-notifications.html";
+
+}
+
+
+/*--- LOGOUT ---*/
+function logoutEmployee(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    console.log(
+        "👋 Employee logout"
+    );
+
+    localStorage.removeItem("crmToken");
+    localStorage.removeItem("crmUser");
+
+    window.location.href = "login.html";
+}
+
+
+/*--- SET TEXT HELPER ---*/
+function setText(id, value) {
+
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent = value;
+}
+
+
+/*--- NUMBER HELPER ---*/
+function numberValue(value) {
+
+    const number = Number(value);
+
+    if (Number.isNaN(number)) {
+        return "0";
+    }
+
+    return number.toLocaleString();
+}
+
+
+/*--- DATE FORMAT ---*/
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "-";
+    }
+
+    try {
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return "-";
+        }
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    } catch (error) {
+
+        return "-";
+    }
+}
+
+
+/*--- TIME FORMAT ---*/
+function formatTime(timeValue) {
+
+    if (!timeValue) {
+        return "-";
+    }
+
+    const parts = String(timeValue).split(":");
+
+    if (parts.length < 2) {
+        return escapeHtml(timeValue);
+    }
+
+    let hours = parseInt(parts[0], 10);
+
+    const minutes = parts[1];
+
+    if (Number.isNaN(hours)) {
+        return escapeHtml(timeValue);
+    }
+
+    const ampm = hours >= 12
+            ? "PM"
+            : "AM";
+
+    hours = hours % 12 || 12;
+
+    return `${hours}:${minutes} ${ampm}`;
+}
+
+
+/*--- DASHBOARD ERROR ---*/
+function showDashboardError(message) {
+
+    const followups = document.getElementById(
+            "todayFollowupsTable"
+        );
+
+    const enquiries = document.getElementById(
+            "recentEnquiriesTable"
+        );
+
+    const notifications = document.getElementById(
+            "dashboardNotifications"
+        );
+
+
+    if (followups) {
+
+        followups.innerHTML = `
+            <tr>
+                <td colspan="6"
+                    class="crm-dashboard-table-empty error">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    ${escapeHtml(message)}
+
+                </td>
+            </tr>
+        `;
     }
 
 
-    /* =========================
-       INITIALIZE
-    ========================= */
+    if (enquiries) {
 
-    document.addEventListener(
-        "DOMContentLoaded",
-        function () {
+        enquiries.innerHTML = `
+            <tr>
+                <td colspan="5"
+                    class="crm-dashboard-table-empty error">
 
-            loadEmployeeInfo();
+                    <i class="fa-solid fa-triangle-exclamation"></i>
 
-            loadEmployeeDashboard();
+                    ${escapeHtml(message)}
 
-            loadNotificationCount();
+                </td>
+            </tr>
+        `;
+    }
 
+
+    if (notifications) {
+
+        notifications.innerHTML = `
+            <div class="crm-dashboard-empty error">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <span>
+                    ${escapeHtml(message)}
+                </span>
+
+            </div>
+        `;
+    }
+}
+
+
+/*--- PROFILE DROPDOWN ---*/
+function setupProfileDropdown() {
+
+    const profileButton = document.getElementById("profileBtn");
+
+    const profileDropdown = document.getElementById("profileDropdown");
+
+    if (!profileButton ||
+        !profileDropdown) {
+
+        return;
+    }
+
+
+    profileButton.addEventListener("click", function (event) {
+
+            event.stopPropagation();
+
+            profileDropdown.classList.toggle("active");
         }
     );
 
-</script> -->
+
+    document.addEventListener("click", function () {
+
+            profileDropdown.classList.remove(
+                "active"
+            );
+        }
+    );
+}
+
+
+/*--- PROTECT EMPLOYEE DASHBOARD ---*/
+function validateEmployeeAccess() {
+
+    const token = getToken();
+
+    const user = getStoredUser();
+
+    if (!token || !user) {
+
+        console.error(
+            "❌ No valid login session."
+        );
+
+        redirectToLogin();
+
+        return false;
+    }
+
+
+    if (
+        user.role !== "Counsellor" &&
+        user.role !== "Staff"
+    ) {
+
+        console.error(
+            "❌ Unauthorized role:",
+            user.role
+        );
+
+        /*--- Admin should use Admin Dashboard ---*/
+        if (user.role === "Admin") {
+
+            window.location.href = "dashboard-crm.html";
+
+        } else {
+
+            redirectToLogin();
+        }
+
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/*--- ACTIVE SIDEBAR LINK ---*/
+function setActiveSidebarLink() {
+
+    const currentPage = window.location.pathname
+            .split("/")
+            .pop();
+
+    const links =
+        document.querySelectorAll(
+            ".crm-sidebar a, .employee-sidebar a"
+        );
+
+    links.forEach(function (link) {
+
+        const href = link.getAttribute("href");
+
+        if (!href) {
+            return;
+        }
+
+        const linkPage = href.split("/").pop();
+
+        if (linkPage === currentPage) {
+
+            link.classList.add("active");
+
+        } else {
+
+            link.classList.remove("active");
+        }
+    });
+}
+
+
+/*--- GLOBAL LOGOUT BUTTONS ---*/
+function setupLogoutButtons() {
+
+    const logoutButtons = document.querySelectorAll(
+            '[data-action="logout"], .employee-logout'
+        );
+
+    logoutButtons.forEach(function (button) {
+
+        button.addEventListener("click", logoutEmployee
+        );
+    });
+}
+
+
+/*--- INITIALIZE EMPLOYEE DASHBOARD ---*/
+document.addEventListener("DOMContentLoaded", function () {
+
+        console.log(
+            "🚀 Employee Dashboard Initializing..."
+        );
+
+
+        /*--- 1. Validate login ---*/
+        if (!validateEmployeeAccess()) {
+            return;
+        }
+
+
+        /*--- 2. Load employee information ---*/
+        loadEmployeeInfo();
+
+
+        /*--- 3. Setup mobile menu ---*/
+        setupMobileMenu();
+
+
+        /*--- 4. Setup profile dropdown ---*/
+        setupProfileDropdown();
+
+
+        /*--- 5. Setup logout ---*/
+        setupLogoutButtons();
+
+
+        /*--- 6. Active sidebar ---*/
+        setActiveSidebarLink();
+
+
+        /*--- 7. Load dashboard data ---*/
+        loadEmployeeDashboard();
+
+
+        /*--- 8. Load notification count ---*/
+        loadNotificationCount();
+
+        console.log("✅ Employee Dashboard Ready.");
+    }
+);
+
+
+/*--- MAKE FUNCTIONS AVAILABLE TO HTML ---*/
+window.openNotifications = openNotifications;
+
+window.logoutEmployee = logoutEmployee;
+
+</script>
+
 
 </body>
 </html>

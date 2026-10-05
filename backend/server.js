@@ -29,87 +29,118 @@ app.get("/", (req, res) => {
 
 
 
-/*==== Login Page - Script ====*/
+/*==== LOGIN - ADMIN + COUNSELLOR + STAFF ====*/
 app.post("/api/auth/login", async (req, res) => {
 
     try {
 
         const { email, password } = req.body;
 
-        /*-- Basic validation --*/
+        /*--- VALIDATION ---*/
         if (!email || !password) {
 
             return res.status(400).json({
-
                 success: false,
                 message: "Email and password are required."
-
             });
 
         }
 
 
-        /*-- TEMPORARY ADMIN LOGIN - Later this will come from the database. --*/
-        const adminEmail = "admin@3470healthcare.com";
+        /*--- FIND USER ---*/
+        const [users] = await db.execute(`
+            SELECT
+                id, full_name, email, mobile, username, password, role, status, department, joining_date, address
+            FROM add_users
+            WHERE email = ?
+            LIMIT 1
+        `, [email]);
 
-        const adminPassword = "Crm@123";
 
-
-        if (
-            email !== adminEmail ||
-            password !== adminPassword
-        ) {
+        if (users.length === 0) {
 
             return res.status(401).json({
-
                 success: false,
                 message: "⚠️ Invalid email or password. Please check your credentials and try again."
-
             });
 
         }
 
 
-        /*-- Create token --*/
+        const user = users[0];
+
+
+        /*--- CHECK ACCOUNT STATUS ---*/
+        if (user.status !== "Active") {
+
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive. Please contact the administrator."
+            });
+
+        }
+
+
+        /*--- CHECK PASSWORD ---*/
+        const passwordMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+
+        if (!passwordMatch) {
+
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+
+        }
+
+
+        /*--- CREATE JWT ---*/
         const token = jwt.sign(
 
             {
-                email: adminEmail,
-                role: "admin"
+                id: user.id,
+                email: user.email,
+                role: user.role,
+                full_name: user.full_name
             },
 
             process.env.JWT_SECRET || "temporary-secret",
 
             {
-                expiresIn: "1h"
+                expiresIn: "8h"
             }
 
         );
 
 
+        /*--- REMOVE PASSWORD ---*/
+        delete user.password;
+
+
+        /*--- LOGIN RESPONSE ---*/
         res.json({
 
             success: true,
             message: "Login successful.",
             token: token,
-            user: {
-
-                email: adminEmail,
-                role: "admin"
-
-            }
+            user: user
 
         });
 
 
     } catch (error) {
 
-        console.error(error);
+        console.error("❌ Login Error:", error);
 
         res.status(500).json({
 
             success: false,
-            message: "Server error."
+            message: "Server error during login.",
+            error: error.message
 
         });
 
@@ -4560,6 +4591,710 @@ app.get("/api/dashboard", async (req, res) => {
     }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -----------------------------------------------------------------------------------
+
+
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({
+            success: false,
+            message: "Authentication token required."
+        });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET || "temporary-secret"
+        );
+
+        req.user = decoded;
+
+        next();
+
+    } catch (error) {
+
+        console.error("❌ JWT Error:", error);
+
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired authentication token."
+        });
+    }
+}
+
+
+
+
+
+
+
+
+app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+        console.log(
+            `👤 Employee Dashboard Request: ID=${employeeId}, Role=${employeeRole}`
+        );
+
+        /* =========================================
+           ONLY COUNSELLOR / STAFF
+        ========================================= */
+
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee dashboard only."
+            });
+        }
+
+
+        /* =========================================
+           EMPLOYEE INFORMATION
+        ========================================= */
+
+        const [employeeRows] = await db.execute(`
+            SELECT
+                id,
+                full_name,
+                email,
+                mobile,
+                username,
+                role,
+                status,
+                department,
+                joining_date,
+                address
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employeeRows.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+        }
+
+
+        const employee = employeeRows[0];
+
+
+        /* =========================================
+           MY ENQUIRIES COUNT
+        ========================================= */
+
+        const [enquiryCountRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+        `, [employeeId]);
+
+
+        const totalEnquiries =
+            Number(enquiryCountRows[0].total) || 0;
+
+
+        /* =========================================
+           TODAY'S FOLLOW-UPS COUNT
+        ========================================= */
+
+        const [todayFollowupRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) = CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+        `, [employeeId]);
+
+
+        const todayFollowups =
+            Number(todayFollowupRows[0].total) || 0;
+
+
+        /* =========================================
+           MY ADMISSIONS COUNT
+        ========================================= */
+
+        const [admissionCountRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM admissions
+            WHERE counsellor_id = ?
+        `, [employeeId]);
+
+
+        const totalAdmissions =
+            Number(admissionCountRows[0].total) || 0;
+
+
+        /* =========================================
+           MISSED FOLLOW-UPS
+        ========================================= */
+
+        const [missedFollowupRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND (
+                    DATE(follow_up_date) < CURDATE()
+                    OR (
+                        DATE(follow_up_date) = CURDATE()
+                        AND follow_up_time < CURTIME()
+                    )
+                  )
+              AND status NOT IN ('Completed', 'Not Interested')
+        `, [employeeId]);
+
+
+        const missedFollowups =
+            Number(missedFollowupRows[0].total) || 0;
+
+
+        /* =========================================
+           RECENT MY ENQUIRIES
+        ========================================= */
+
+        const [recentEnquiries] = await db.execute(`
+            SELECT
+                id,
+                student_name,
+                mobile,
+                email,
+                course_interested,
+                enquiry_source,
+                counsellor,
+                enquiry_date,
+                follow_up_date,
+                follow_up_time,
+                status
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+            ORDER BY id DESC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /* =========================================
+           TODAY'S MY FOLLOW-UPS
+        ========================================= */
+
+        const [todayFollowupsList] = await db.execute(`
+            SELECT
+                id,
+                enquiry_id,
+                student_name,
+                mobile_number,
+                course,
+                counsellor,
+                follow_up_date,
+                follow_up_time,
+                follow_up_type,
+                status,
+                next_follow_up_date,
+                next_follow_up_time,
+                comments
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) = CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+            ORDER BY follow_up_time ASC
+        `, [employeeId]);
+
+
+        /* =========================================
+           RECENT MY ADMISSIONS
+        ========================================= */
+
+        const [recentAdmissions] = await db.execute(`
+            SELECT
+                id,
+                student_name,
+                mobile,
+                email,
+                course,
+                batch,
+                joining_date,
+                course_fee,
+                final_fee,
+                registration_amount,
+                balance_amount,
+                payment_mode,
+                counsellor,
+                admission_status
+            FROM admissions
+            WHERE counsellor_id = ?
+            ORDER BY id DESC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /* =========================================
+           MY UPCOMING FOLLOW-UPS
+        ========================================= */
+
+        const [upcomingFollowups] = await db.execute(`
+            SELECT
+                id,
+                student_name,
+                mobile_number,
+                course,
+                counsellor,
+                follow_up_date,
+                follow_up_time,
+                follow_up_type,
+                status
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) > CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+            ORDER BY follow_up_date ASC,
+                     follow_up_time ASC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /* =========================================
+           EMPLOYEE NOTIFICATIONS
+        ========================================= */
+
+        const notifications = [];
+
+
+        /* Today's follow-ups */
+
+        if (todayFollowups > 0) {
+
+            notifications.push({
+                type: "follow-up",
+                title: "Today's Follow-ups",
+                message:
+                    `You have ${todayFollowups} follow-up(s) scheduled today.`,
+                count: todayFollowups
+            });
+        }
+
+
+        /* Missed follow-ups */
+
+        if (missedFollowups > 0) {
+
+            notifications.push({
+                type: "missed-follow-up",
+                title: "Missed Follow-ups",
+                message:
+                    `You have ${missedFollowups} missed follow-up(s).`,
+                count: missedFollowups
+            });
+        }
+
+
+        /* No notification */
+
+        if (notifications.length === 0) {
+
+            notifications.push({
+                type: "info",
+                title: "All Clear",
+                message:
+                    "You have no pending notifications.",
+                count: 0
+            });
+        }
+
+
+        /* =========================================
+           FINAL RESPONSE
+        ========================================= */
+
+        res.json({
+
+            success: true,
+
+            employee: {
+                id: employee.id,
+                full_name: employee.full_name,
+                email: employee.email,
+                mobile: employee.mobile,
+                username: employee.username,
+                role: employee.role,
+                status: employee.status,
+                department: employee.department,
+                joining_date: employee.joining_date,
+                address: employee.address
+            },
+
+            summary: {
+
+                total_enquiries:
+                    totalEnquiries,
+
+                today_followups:
+                    todayFollowups,
+
+                total_admissions:
+                    totalAdmissions,
+
+                missed_followups:
+                    missedFollowups
+            },
+
+            recent_enquiries:
+                recentEnquiries,
+
+            today_followups:
+                todayFollowupsList,
+
+            recent_admissions:
+                recentAdmissions,
+
+            upcoming_followups:
+                upcomingFollowups,
+
+            notifications:
+                notifications
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Dashboard Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load employee dashboard.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   EMPLOYEE - MY ENQUIRIES
+========================================================= */
+
+app.get("/api/employee/enquiries", authenticateToken, async (req, res) => {
+    try {
+        const employeeId = req.user.id;
+
+        const {
+            search = "",
+            course = "",
+            status = "",
+            page = 1,
+            limit = 10
+        } = req.query;
+
+        const currentPage = Math.max(parseInt(page, 10) || 1, 1);
+        const perPage = Math.min(
+            Math.max(parseInt(limit, 10) || 10, 1),
+            100
+        );
+
+        const offset = (currentPage - 1) * perPage;
+
+        const conditions = ["se.counsellor_id = ?"];
+        const params = [employeeId];
+
+        /* Search */
+        if (search.trim()) {
+            conditions.push(`
+                (
+                    se.student_name LIKE ?
+                    OR se.mobile LIKE ?
+                    OR se.email LIKE ?
+                )
+            `);
+
+            const searchValue = `%${search.trim()}%`;
+
+            params.push(
+                searchValue,
+                searchValue,
+                searchValue
+            );
+        }
+
+        /* Course */
+        if (course.trim()) {
+            conditions.push(
+                "se.course_interested = ?"
+            );
+
+            params.push(course.trim());
+        }
+
+        /* Status */
+        if (status.trim()) {
+            conditions.push(
+                "se.status = ?"
+            );
+
+            params.push(status.trim());
+        }
+
+        const whereClause =
+            conditions.length
+                ? `WHERE ${conditions.join(" AND ")}`
+                : "";
+
+        /* =========================================
+           TOTAL COUNT
+        ========================================= */
+
+        const [countRows] = await db.execute(
+            `
+            SELECT COUNT(*) AS total
+            FROM student_enquiries se
+            ${whereClause}
+            `,
+            params
+        );
+
+        const total =
+            Number(countRows[0]?.total) || 0;
+
+        const totalPages =
+            Math.ceil(total / perPage);
+
+
+        /* =========================================
+           ENQUIRIES
+        ========================================= */
+
+        const [enquiries] = await db.execute(
+            `
+            SELECT
+                se.id,
+                se.student_name,
+                se.mobile,
+                se.email,
+                se.gender,
+                se.date_of_birth,
+                se.course_interested,
+                se.enquiry_source,
+                se.counsellor,
+                se.counsellor_id,
+                se.enquiry_date,
+                se.follow_up_date,
+                se.follow_up_time,
+                se.status,
+                se.address,
+                se.comments,
+                se.created_at,
+                se.updated_at
+
+            FROM student_enquiries se
+
+            ${whereClause}
+
+            ORDER BY se.id DESC
+
+            LIMIT ${perPage}
+            OFFSET ${offset}
+            `,
+            params
+        );
+
+
+        /* =========================================
+           COURSES
+        ========================================= */
+
+        const [courses] = await db.execute(`
+            SELECT DISTINCT course_interested
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+              AND course_interested IS NOT NULL
+              AND course_interested <> ''
+            ORDER BY course_interested ASC
+        `, [employeeId]);
+
+
+        /* =========================================
+           STATUSES
+        ========================================= */
+
+        const [statuses] = await db.execute(`
+            SELECT DISTINCT status
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+              AND status IS NOT NULL
+              AND status <> ''
+            ORDER BY status ASC
+        `, [employeeId]);
+
+
+        res.json({
+            success: true,
+
+            enquiries,
+
+            pagination: {
+                page: currentPage,
+                limit: perPage,
+                total,
+                totalPages
+            },
+
+            filters: {
+                courses: courses.map(
+                    row => row.course_interested
+                ),
+
+                statuses: statuses.map(
+                    row => row.status
+                )
+            }
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Enquiries Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load employee enquiries.",
+            error: error.message
+        });
+    }
+});
+
+
+
+
+
+app.get(
+    "/api/employee/enquiries/:id",
+    authenticateToken,
+    async (req, res) => {
+
+        try {
+
+            const employeeId = req.user.id;
+            const enquiryId = req.params.id;
+
+            const [rows] = await db.execute(`
+                SELECT
+                    se.id,
+                    se.student_name,
+                    se.mobile,
+                    se.email,
+                    se.gender,
+                    se.date_of_birth,
+                    se.course_interested,
+                    se.enquiry_source,
+                    se.counsellor,
+                    se.counsellor_id,
+                    se.enquiry_date,
+                    se.follow_up_date,
+                    se.follow_up_time,
+                    se.status,
+                    se.address,
+                    se.comments,
+                    se.created_at,
+                    se.updated_at
+
+                FROM student_enquiries se
+
+                WHERE se.id = ?
+                  AND se.counsellor_id = ?
+
+                LIMIT 1
+            `, [
+                enquiryId,
+                employeeId
+            ]);
+
+            if (!rows.length) {
+
+                return res.status(404).json({
+                    success: false,
+                    message:
+                        "Enquiry not found or you are not authorized to view it."
+                });
+            }
+
+            res.json({
+                success: true,
+                enquiry: rows[0]
+            });
+
+        } catch (error) {
+
+            console.error(
+                "❌ Employee Enquiry View Error:",
+                error
+            );
+
+            res.status(500).json({
+                success: false,
+                message: "Failed to load enquiry.",
+                error: error.message
+            });
+        }
+    }
+);
 
 
 
