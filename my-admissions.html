@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee My Admissions Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+
+
+    /* =========================================================
+   EMPLOYEE - MY ADMISSIONS PAGE
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.crm-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.crm-page-header h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.crm-page-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.crm-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.crm-btn-primary {
+    background: #16a34a;
+    color: #ffffff;
+}
+
+.crm-btn-primary:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+}
+
+.crm-btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.crm-btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+   ========================================================= */
+
+.crm-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.crm-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 105px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.crm-summary-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #15803d;
+    font-size: 20px;
+}
+
+.crm-summary-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.crm-summary-card strong {
+    display: block;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.crm-card {
+    margin-bottom: 24px;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.crm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.crm-card-header h2 {
+    margin: 0 0 5px;
+    color: #172033;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.crm-card-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FILTER GRID
+   ========================================================= */
+
+.crm-filter-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(200px, 1.5fr)
+        minmax(160px, 1fr)
+        minmax(160px, 1fr)
+        minmax(160px, 1fr)
+        auto
+        auto;
+    gap: 15px;
+    align-items: end;
+}
+
+.crm-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.crm-form-group label {
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.crm-form-group input,
+.crm-form-group select {
+    width: 100%;
+    height: 44px;
+    padding: 0 13px;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    outline: none;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.crm-form-group input:focus,
+.crm-form-group select:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+.crm-input-icon {
+    position: relative;
+}
+
+.crm-input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    pointer-events: none;
+}
+
+.crm-input-icon input {
+    padding-left: 38px;
+}
+
+.crm-filter-button .crm-btn {
+    height: 44px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.crm-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+.crm-table {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.crm-table thead {
+    background: #f8fafc;
+}
+
+.crm-table th {
+    padding: 14px 15px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.crm-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eef2f7;
+    color: #374151;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.crm-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.crm-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.crm-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.crm-table td strong {
+    color: #172033;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   EMPTY / ERROR TABLE
+   ========================================================= */
+
+.crm-table-empty {
+    padding: 45px 20px !important;
+    color: #6b7280 !important;
+    text-align: center !important;
+    font-size: 14px !important;
+}
+
+.crm-table-empty i {
+    display: block;
+    margin-bottom: 10px;
+    color: #9ca3af;
+    font-size: 25px;
+}
+
+.crm-table-empty.error {
+    color: #dc2626 !important;
+}
+
+.crm-table-empty.error i {
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+   ========================================================= */
+
+.crm-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 85px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.crm-status.completed {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.crm-status.pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.crm-status.cancelled {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.crm-action-btn {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dbe2ea;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #2563eb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.crm-action-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+}
+
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.crm-pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.crm-pagination-info {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.crm-pagination {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.crm-pagination button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    border: 1px solid #dbe2ea;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.crm-pagination button:hover:not(:disabled) {
+    background: #f0fdf4;
+    border-color: #86efac;
+    color: #15803d;
+}
+
+.crm-pagination button.active {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #ffffff;
+}
+
+.crm-pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   SIDEBAR ACTIVE LINK
+   ========================================================= */
+
+#crmSidebar a.active {
+    background: #dcfce7;
+    color: #15803d;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" onclick="openNotifications()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="EMP-sidebar-container">
+
+            <aside class="EMP-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <a href="my-enquiries.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-graduate"></i>My Enquiries
+                </a>
+
+                <a href="my-follow-ups.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-phone"></i>My Follow-ups
+                </a>
+
+                <a href="my-admissions.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-check"></i>My Admissions
+                </a>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="my-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+
+
+                                                            
+
+            <!-- My Admissions -->
+            <main class="crm-main">
+
+                <div class="crm-page-header">
+
+                    <div>
+
+            <h1>
+                My Admissions
+            </h1>
+
+            <p>
+                View and manage admissions assigned to you.
+            </p>
+
+        </div>
+
+
+        <!-- Add Admission -->
+
+        <button
+            class="crm-btn crm-btn-primary"
+            onclick="window.location.href='new-admission-employee.html'">
+
+            <i class="fa-solid fa-plus"></i>
+
+            New Admission
+
+        </button>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- SUMMARY CARDS -->
+    <!-- ============================= -->
+
+    <section class="crm-summary-grid">
+
+        <!-- Total Admissions -->
+
+        <div class="crm-summary-card">
+
+            <div class="crm-summary-icon">
+
+                <i class="fa-solid fa-user-check"></i>
+
+            </div>
+
+            <div>
+
+                <span class="crm-summary-label">
+                    Total Admissions
+                </span>
+
+                <strong id="totalAdmissions">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Confirmed -->
+        <div class="crm-summary-card">
+
+            <div class="crm-summary-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <div>
+
+                <span class="crm-summary-label">
+                    Confirmed
+                </span>
+
+                <strong id="confirmedAdmissions">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending -->
+
+        <div class="crm-summary-card">
+
+            <div class="crm-summary-icon">
+
+                <i class="fa-solid fa-clock"></i>
+
+            </div>
+
+            <div>
+
+                <span class="crm-summary-label">
+                    Pending
+                </span>
+
+                <strong id="pendingAdmissions">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Balance Due -->
+
+        <div class="crm-summary-card">
+
+            <div class="crm-summary-icon">
+
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+            </div>
+
+            <div>
+
+                <span class="crm-summary-label">
+                    Balance Due
+                </span>
+
+                <strong id="totalBalance">
+                    ₹0
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- FILTER SECTION -->
+    <!-- ============================= -->
+
+    <section class="crm-card">
+
+        <div class="crm-card-header">
+
+            <div>
+
+                <h2>
+                    Admission Records
+                </h2>
+
+                <p>
+                    Search and filter your admissions.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="crm-filter-grid">
+
+            <!-- Search -->
+
+            <div class="crm-form-group">
+
+                <label for="admissionSearch">
+                    Search
+                </label>
+
+                <div class="crm-input-icon">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        id="admissionSearch"
+                        placeholder="Student name or mobile"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <!-- Course -->
+
+            <div class="crm-form-group">
+
+                <label for="courseFilter">
+                    Course
+                </label>
+
+                <select id="courseFilter">
+
+                    <option value="">
+                        All Courses
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="crm-form-group">
+
+                <label for="statusFilter">
+                    Admission Status
+                </label>
+
+                <select id="statusFilter">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="Confirmed">
+                        Confirmed
+                    </option>
+
+                    <option value="Pending">
+                        Pending
+                    </option>
+
+                    <option value="Cancelled">
+                        Cancelled
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div class="crm-form-group">
+
+                <label for="dateFilter">
+                    Joining Date
+                </label>
+
+                <input
+                    type="date"
+                    id="dateFilter"
+                >
+
+            </div>
+
+
+            <!-- Search Button -->
+
+            <div class="crm-form-group crm-filter-button">
+
+                <button
+                    type="button"
+                    class="crm-btn crm-btn-primary"
+                    id="searchBtn">
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    Apply Filter
+
+                </button>
+
+            </div>
+
+
+            <!-- Reset -->
+
+            <div class="crm-form-group crm-filter-button">
+
+                <button
+                    type="button"
+                    class="crm-btn crm-btn-secondary"
+                    id="resetBtn">
+
+                    <i class="fa-solid fa-rotate-left"></i>
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- ADMISSIONS TABLE -->
+    <!-- ============================= -->
+
+    <section class="crm-card">
+
+        <div class="crm-card-header">
+
+            <div>
+
+                <h2>
+                    My Admission List
+                </h2>
+
+                <p id="recordSummary">
+                    Showing 0 records
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="crm-table-wrapper">
+
+            <table class="crm-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Mobile
+                        </th>
+
+                        <th>
+                            Course
+                        </th>
+
+                        <th>
+                            Joining Date
+                        </th>
+
+                        <th>
+                            Final Fee
+                        </th>
+
+                        <th>
+                            Balance
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="admissionsTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="crm-table-empty">
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            Loading admissions...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ============================= -->
+        <!-- PAGINATION -->
+        <!-- ============================= -->
+
+        <div class="crm-pagination-container">
+
+            <div
+                class="crm-pagination-info"
+                id="paginationInfo">
+
+                Showing 0 records
+
+            </div>
+
+
+            <div class="crm-pagination"
+                 id="pagination">
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============================= -->
+<!-- JAVASCRIPT -->
+<!-- ============================= -->
+
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+const token = localStorage.getItem("crmToken");
+
+
+// ======================================
+// CHECK LOGIN
+// ======================================
+
+if (!token) {
+
+    window.location.href = "login.html";
+
+}
+
+
+// ======================================
+// LOAD EMPLOYEE INFORMATION
+// ======================================
+
+function loadEmployeeInfo() {
+
+    const storedUser =
+        localStorage.getItem("crmUser");
+
+    if (!storedUser) {
+
+        window.location.href =
+            "login.html";
+
+        return;
+
+    }
+
+    try {
+
+        const user =
+            JSON.parse(storedUser);
+
+        const name =
+            user.full_name ||
+            user.name ||
+            user.username ||
+            "Employee";
+
+        const role =
+            user.role ||
+            "Employee";
+
+
+        const employeeName =
+            document.getElementById(
+                "employeeName"
+            );
+
+        const employeeRole =
+            document.getElementById(
+                "employeeRole"
+            );
+
+        const profileAvatar =
+            document.getElementById(
+                "profileAvatar"
+            );
+
+        const sidebarAvatar =
+            document.getElementById(
+                "sidebarAvatar"
+            );
+
+        const sidebarName =
+            document.getElementById(
+                "sidebarEmployeeName"
+            );
+
+        const sidebarRole =
+            document.getElementById(
+                "sidebarEmployeeRole"
+            );
+
+
+        if (employeeName)
+            employeeName.textContent = name;
+
+        if (employeeRole)
+            employeeRole.textContent = role;
+
+        if (profileAvatar)
+            profileAvatar.textContent =
+                name.charAt(0).toUpperCase();
+
+        if (sidebarAvatar)
+            sidebarAvatar.textContent =
+                name.charAt(0).toUpperCase();
+
+        if (sidebarName)
+            sidebarName.textContent = name;
+
+        if (sidebarRole)
+            sidebarRole.textContent = role;
+
+    }
+    catch (error) {
+
+        console.error(
+            "Failed to load employee:",
+            error
+        );
+
+    }
+
+}
+
+
+// ======================================
+// LOAD MY ADMISSIONS
+// ======================================
+
+async function loadAdmissions() {
+
+    const tableBody =
+        document.getElementById(
+            "admissionsTableBody"
+        );
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/employee/admissions`,
+                {
+                    method: "GET",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok ||
+            !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load admissions."
+            );
+
+        }
+
+
+        renderAdmissions(
+            data.admissions || []
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Admissions Error:",
+            error
+        );
+
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="crm-table-empty error">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+// ======================================
+// RENDER ADMISSIONS
+// ======================================
+
+function renderAdmissions(admissions) {
+
+    const tableBody =
+        document.getElementById(
+            "admissionsTableBody"
+        );
+
+
+    document.getElementById(
+        "totalAdmissions"
+    ).textContent =
+        admissions.length;
+
+
+    const confirmed =
+        admissions.filter(
+            admission =>
+                admission.admission_status ===
+                "Confirmed"
+        ).length;
+
+
+    const pending =
+        admissions.filter(
+            admission =>
+                admission.admission_status ===
+                "Pending"
+        ).length;
+
+
+    const balance =
+        admissions.reduce(
+            (total, admission) =>
+                total +
+                Number(
+                    admission.balance_amount || 0
+                ),
+            0
+        );
+
+
+    document.getElementById(
+        "confirmedAdmissions"
+    ).textContent = confirmed;
+
+
+    document.getElementById(
+        "pendingAdmissions"
+    ).textContent = pending;
+
+
+    document.getElementById(
+        "totalBalance"
+    ).textContent =
+        `₹${balance.toLocaleString("en-IN")}`;
+
+
+    if (!admissions.length) {
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="9"
+                    class="crm-table-empty">
+
+                    <i class="fa-solid fa-user-check"></i>
+
+                    No admissions found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        document.getElementById(
+            "recordSummary"
+        ).textContent =
+            "Showing 0 records";
+
+        return;
+
+    }
+
+
+    tableBody.innerHTML =
+        admissions.map(
+            (admission, index) => `
+
+            <tr>
+
+                <td>
+                    ${index + 1}
+                </td>
+
+                <td>
+
+                    <strong>
+                        ${escapeHtml(
+                            admission.student_name || "-"
+                        )}
+                    </strong>
+
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.mobile || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        admission.course || "-"
+                    )}
+                </td>
+
+                <td>
+                    ${formatDate(
+                        admission.joining_date
+                    )}
+                </td>
+
+                <td>
+                    ₹${Number(
+                        admission.final_fee || 0
+                    ).toLocaleString("en-IN")}
+                </td>
+
+                <td>
+                    ₹${Number(
+                        admission.balance_amount || 0
+                    ).toLocaleString("en-IN")}
+                </td>
+
+                <td>
+
+                    <span class="crm-status ${getStatusClass(
+                        admission.admission_status
+                    )}">
+
+                        ${escapeHtml(
+                            admission.admission_status || "-"
+                        )}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    <button
+                        class="crm-action-btn"
+                        onclick="viewAdmission(${admission.id})"
+                        title="View Admission">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `
+        ).join("");
+
+
+    document.getElementById(
+        "recordSummary"
+    ).textContent =
+        `Showing ${admissions.length} records`;
+
+}
+
+
+// ======================================
+// VIEW ADMISSION
+// ======================================
+
+function viewAdmission(id) {
+
+    window.location.href =
+        `view-admission.html?id=${id}`;
+
+}
+
+
+// ======================================
+// STATUS CLASS
+// ======================================
+
+function getStatusClass(status) {
+
+    switch (status) {
+
+        case "Confirmed":
+            return "completed";
+
+        case "Pending":
+            return "pending";
+
+        case "Cancelled":
+            return "cancelled";
+
+        default:
+            return "pending";
+
+    }
+
+}
+
+
+// ======================================
+// FORMAT DATE
+// ======================================
+
+function formatDate(date) {
+
+    if (!date)
+        return "-";
+
+
+    const d =
+        new Date(date);
+
+
+    if (isNaN(d))
+        return date;
+
+
+    return d.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+// ======================================
+// ESCAPE HTML
+// ======================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+
+}
+
+
+// ======================================
+// NOTIFICATION COUNT
+// ======================================
+
+async function loadNotificationCount() {
+
+    const count =
+        document.getElementById(
+            "headerNotificationCount"
+        );
+
+    if (!count)
+        return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_BASE}/notifications/today`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+            count.textContent =
+                Number(
+                    data.summary?.total_notifications || 0
+                );
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Notification error:",
+            error
+        );
+
+    }
+
+}
+
+
+// ======================================
+// OPEN NOTIFICATIONS
+// ======================================
+
+function openNotifications() {
+
+    window.location.href =
+        "my-notifications.html";
+
+}
+
+
+// ======================================
+// LOGOUT
+// ======================================
+
+function logoutEmployee(event) {
+
+    if (event)
+        event.preventDefault();
+
+
+    localStorage.removeItem(
+        "crmToken"
+    );
+
+    localStorage.removeItem(
+        "crmUser"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+// ======================================
+// MOBILE SIDEBAR
+// ======================================
+
+function setupMobileMenu() {
+
+    const menuBtn =
+        document.getElementById(
+            "menuBtn"
+        );
+
+    const sidebar =
+        document.getElementById(
+            "crmSidebar"
+        );
+
+    const overlay =
+        document.getElementById(
+            "crmSidebarOverlay"
+        );
+
+
+    if (!menuBtn ||
+        !sidebar ||
+        !overlay) {
+
+        return;
+
+    }
+
+
+    menuBtn.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.toggle(
+                "active"
+            );
+
+            overlay.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        () => {
+
+            sidebar.classList.remove(
+                "active"
+            );
+
+            overlay.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+// ======================================
+// INITIALIZE
+// ======================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        loadEmployeeInfo();
+
+        loadAdmissions();
+
+        loadNotificationCount();
+
+        setupMobileMenu();
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>

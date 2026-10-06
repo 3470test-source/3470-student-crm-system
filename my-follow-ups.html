@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee My Follow-Ups Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+        /* =========================================
+           STATUS
+        ========================================= */
+
+        .EMP-followup-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .EMP-followup-status.pending {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .EMP-followup-status.scheduled {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .EMP-followup-status.completed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .EMP-followup-status.missed {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+
+        /* =========================================
+           ACTION BUTTONS
+        ========================================= */
+
+        .EMP-followup-actions {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .EMP-followup-action {
+            width: 34px;
+            height: 34px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+        }
+
+        .EMP-followup-action.view {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .EMP-followup-action.edit {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .EMP-followup-action.complete {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .EMP-followup-action:hover {
+            opacity: 0.8;
+        }
+
+
+        /* =========================================
+           EMPTY / ERROR
+        ========================================= */
+
+        .EMP-followup-empty {
+            text-align: center;
+            padding: 45px 20px !important;
+            color: #6b7280 !important;
+        }
+
+        .EMP-followup-empty i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .EMP-followup-error {
+            color: #b91c1c !important;
+        }
+
+
+        /* =========================================
+           PAGINATION
+        ========================================= */
+
+        .EMP-pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 7px;
+            margin-top: 20px;
+        }
+
+        .EMP-pagination button {
+            min-width: 35px;
+            height: 35px;
+            border: 1px solid #dbe2ea;
+            background: #ffffff;
+            border-radius: 7px;
+            cursor: pointer;
+            color: #374151;
+        }
+
+        .EMP-pagination button.active {
+            background: #16a34a;
+            color: #ffffff;
+            border-color: #16a34a;
+        }
+
+        .EMP-pagination button:hover {
+            border-color: #16a34a;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" onclick="openNotifications()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="EMP-sidebar-container">
+
+            <aside class="EMP-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <a href="my-enquiries.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-graduate"></i>My Enquiries
+                </a>
+
+                <a href="my-follow-ups.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-phone"></i>My Follow-ups
+                </a>
+
+                <a href="my-admissions.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-check"></i>My Admissions
+                </a>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="my-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- My Follow Ups -->
+            <main class="EMP-dashboard-main" id="crmMain">
+
+                <!-- PAGE TITLE -->
+                <div class="EMP-my-follow-ups">
+
+                    <h1>My Follow-ups</h1>
+                    <p>Manage and track your assigned student follow-ups.</p>
+
+                </div>
+
+
+                <!-- SUMMARY CARDS -->
+                <section class="EMP-followup-cards">
+
+                    <!-- Today Follow-ups -->
+                    <div class="EMP-my-followup-card">
+
+                        <div class="EMP-followup-card-icon">
+                            <i class="fa-solid fa-calendar-day"></i>
+                        </div>
+
+                        <div class="EMP-followup-card-content">
+
+                            <h3>Today's Follow-ups</h3>
+
+                            <div class="EMP-followup-card-number" id="todayFollowupsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Pending -->
+                    <div class="EMP-my-followup-card">
+
+                        <div class="EMP-followup-card-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+
+                        <div class="EMP-followup-card-content">
+
+                            <h3>Pending</h3>
+
+                            <div class="EMP-followup-card-number" id="pendingFollowupsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Completed -->
+                    <div class="EMP-my-followup-card">
+
+                        <div class="EMP-followup-card-icon">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+
+                        <div class="EMP-followup-card-content">
+
+                            <h3>Completed</h3>
+
+                            <div class="EMP-followup-card-number" id="completedFollowupsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Missed -->
+                    <div class="EMP-my-followup-card">
+
+                        <div class="EMP-followup-card-icon">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+
+                        <div class="EMP-followup-card-content">
+
+                            <h3>Missed</h3>
+
+                            <div class="EMP-followup-card-number" id="missedFollowupsCount">0</div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- FOLLOW-UP LIST -->
+                <section class="EMP-followup-section">
+
+                    <div class="EMP-followup-section-header">
+
+                        <h2 class="EMP-followup-section-title">My Follow-ups</h2>
+
+                        <button type="button" class="EMP-add-followup-btn" onclick="goToAddFollowUp()">
+                            <i class="fa-solid fa-plus"></i>Add Follow-up
+                        </button>
+
+                    </div>
+
+
+                    <!-- FILTERS -->
+                    <div class="EMP-followup-filters">
+
+                        <input type="text" id="searchFollowup" class="EMP-followup-filter" placeholder="Search student or mobile...">
+                        <select id="statusFilter" class="EMP-followup-filter">
+                            <option value="">-- All Status --</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Missed">Missed</option>
+                        </select>
+
+
+                        <input type="date" id="dateFilter" class="EMP-followup-filter">
+                        <select id="courseFilter" class="EMP-followup-filter">
+                            <option value="">-- All Courses --</option>
+                        </select>
+
+                        <button type="button" class="EMP-filter-btn" onclick="applyFilters()">
+                            <i class="fa-solid fa-filter"></i>Filter
+                        </button>
+
+                    </div>
+
+
+                    <!-- TABLE -->
+                    <div class="EMP-followup-table-wrapper">
+
+                        <table class="EMP-followup-table">
+
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Mobile</th>
+                                    <th>Course</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="followupsTableBody">
+                                <tr>
+                                    <td colspan="8" class="EMP-followup-empty">
+                                        <i class="fa-solid fa-spinner fa-spin"></i>
+                                        Loading follow-ups...
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- PAGINATION -->
+                    <div class="EMP-pagination" id="pagination"></div>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+const API_BASE = "http://localhost:3000/api";
+
+let currentUser = null;
+
+let allFollowUps = [];
+
+let filteredFollowUps = [];
+
+let currentPage = 1;
+
+const rowsPerPage = 10;
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+function getToken() {
+
+    return localStorage.getItem("crmToken");
+
+}
+
+
+function getStoredUser() {
+
+    const storedUser =
+        localStorage.getItem("crmUser");
+
+    if (!storedUser) {
+
+        return null;
+
+    }
+
+    try {
+
+        return JSON.parse(storedUser);
+
+    } catch (error) {
+
+        localStorage.removeItem("crmUser");
+        localStorage.removeItem("crmToken");
+
+        return null;
+
+    }
+
+}
+
+
+function redirectToLogin() {
+
+    localStorage.removeItem("crmUser");
+    localStorage.removeItem("crmToken");
+
+    window.location.href = "login.html";
+
+}
+
+
+/* =====================================================
+   API REQUEST
+===================================================== */
+
+async function apiRequest(url, options = {}) {
+
+    const token = getToken();
+
+    const headers = {
+
+        "Content-Type": "application/json",
+
+        ...(options.headers || {})
+
+    };
+
+
+    if (token) {
+
+        headers["Authorization"] =
+            `Bearer ${token}`;
+
+    }
+
+
+    const response = await fetch(url, {
+
+        ...options,
+
+        headers
+
+    });
+
+
+    let data = {};
+
+    try {
+
+        data = await response.json();
+
+    } catch (error) {
+
+        data = {};
+
+    }
+
+
+    if (response.status === 401) {
+
+        redirectToLogin();
+
+        throw new Error(
+            "Session expired. Please login again."
+        );
+
+    }
+
+
+    if (response.status === 403) {
+
+        throw new Error(
+            data.message ||
+            "You are not authorized."
+        );
+
+    }
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message ||
+            `Request failed: ${response.status}`
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =====================================================
+   EMPLOYEE INFORMATION
+===================================================== */
+
+function loadEmployeeInfo() {
+
+    const user = getStoredUser();
+
+    if (!user) {
+
+        redirectToLogin();
+
+        return false;
+
+    }
+
+
+    currentUser = user;
+
+
+    const name =
+        user.full_name ||
+        user.name ||
+        user.username ||
+        "Employee";
+
+
+    const role =
+        user.role ||
+        "Employee";
+
+
+    const nameElement =
+        document.getElementById("employeeName");
+
+    if (nameElement) {
+
+        nameElement.textContent = name;
+
+    }
+
+
+    const roleElement =
+        document.getElementById("employeeRole");
+
+    if (roleElement) {
+
+        roleElement.textContent = role;
+
+    }
+
+
+    const avatar =
+        document.getElementById("profileAvatar");
+
+    if (avatar) {
+
+        avatar.textContent =
+            name.trim().charAt(0).toUpperCase() ||
+            "E";
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   EMPLOYEE ACCESS
+===================================================== */
+
+function validateEmployeeAccess() {
+
+    const token = getToken();
+
+    const user = getStoredUser();
+
+
+    if (!token || !user) {
+
+        redirectToLogin();
+
+        return false;
+
+    }
+
+
+    if (
+        user.role !== "Counsellor" &&
+        user.role !== "Staff"
+    ) {
+
+        if (user.role === "Admin") {
+
+            window.location.href =
+                "dashboard-crm.html";
+
+        } else {
+
+            redirectToLogin();
+
+        }
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   LOAD FOLLOW-UPS
+===================================================== */
+
+async function loadMyFollowUps() {
+
+    const tableBody =
+        document.getElementById(
+            "followupsTableBody"
+        );
+
+
+    try {
+
+        /*
+         * Employee endpoint.
+         *
+         * Backend should identify the employee
+         * from the JWT token.
+         *
+         * Do NOT send employee_id from the browser.
+         */
+
+        const data =
+            await apiRequest(
+                `${API_BASE}/employee/follow-ups`,
+                {
+                    method: "GET"
+                }
+            );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load follow-ups."
+            );
+
+        }
+
+
+        allFollowUps =
+            data.follow_ups ||
+            data.followUps ||
+            data.data ||
+            [];
+
+
+        filteredFollowUps =
+            [...allFollowUps];
+
+
+        renderSummary(
+            data.summary ||
+            {}
+        );
+
+
+        loadCourseFilter();
+
+        renderFollowUps();
+
+    } catch (error) {
+
+        console.error(
+            "❌ Follow-up Error:",
+            error
+        );
+
+
+        if (tableBody) {
+
+            tableBody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="EMP-followup-empty EMP-followup-error">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                        ${escapeHtml(error.message)}
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+function renderSummary(summary) {
+
+    setText(
+
+        "todayFollowupsCount",
+
+        summary.today_followups ??
+        summary.todayFollowups ??
+        countTodayFollowUps()
+
+    );
+
+
+    setText(
+
+        "pendingFollowupsCount",
+
+        summary.pending_followups ??
+        summary.pendingFollowups ??
+        countStatus("Pending")
+
+    );
+
+
+    setText(
+
+        "completedFollowupsCount",
+
+        summary.completed_followups ??
+        summary.completedFollowups ??
+        countStatus("Completed")
+
+    );
+
+
+    setText(
+
+        "missedFollowupsCount",
+
+        summary.missed_followups ??
+        summary.missedFollowups ??
+        countStatus("Missed")
+
+    );
+
+}
+
+
+/* =====================================================
+   RENDER TABLE
+===================================================== */
+
+function renderFollowUps() {
+
+    const tableBody =
+        document.getElementById(
+            "followupsTableBody"
+        );
+
+
+    if (!tableBody) {
+
+        return;
+
+    }
+
+
+    if (
+        !Array.isArray(filteredFollowUps) ||
+        filteredFollowUps.length === 0
+    ) {
+
+        tableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="EMP-followup-empty">
+
+                    <i class="fa-solid fa-phone-slash"></i>
+
+                    No follow-ups found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+
+        renderPagination();
+
+        return;
+
+    }
+
+
+    const start =
+        (currentPage - 1) *
+        rowsPerPage;
+
+
+    const end =
+        start +
+        rowsPerPage;
+
+
+    const pageData =
+        filteredFollowUps.slice(
+            start,
+            end
+        );
+
+
+    tableBody.innerHTML = "";
+
+
+    pageData.forEach(function (followUp) {
+
+        const row =
+            document.createElement("tr");
+
+
+        const status =
+            followUp.status ||
+            "Pending";
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <strong>
+
+                    ${escapeHtml(
+                        followUp.student_name ||
+                        followUp.studentName ||
+                        "-"
+                    )}
+
+                </strong>
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    followUp.mobile_number ||
+                    followUp.mobile ||
+                    "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    followUp.course ||
+                    followUp.course_interested ||
+                    "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${formatDate(
+                    followUp.follow_up_date
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${formatTime(
+                    followUp.follow_up_time
+                )}
+
+            </td>
+
+
+            <td>
+
+                ${escapeHtml(
+                    followUp.follow_up_type ||
+                    followUp.type ||
+                    "-"
+                )}
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="EMP-followup-status ${getStatusClass(status)}">
+
+                    ${escapeHtml(status)}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <div class="EMP-followup-actions">
+
+                    <button
+                        class="EMP-followup-action view"
+                        title="View"
+                        onclick="viewFollowUp(${getId(followUp)})">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                    </button>
+
+
+                    <button
+                        class="EMP-followup-action edit"
+                        title="Edit"
+                        onclick="editFollowUp(${getId(followUp)})">
+
+                        <i class="fa-solid fa-pen"></i>
+
+                    </button>
+
+
+                    ${
+                        status.toLowerCase() !== "completed"
+                        ?
+                        `
+                        <button
+                            class="EMP-followup-action complete"
+                            title="Complete"
+                            onclick="completeFollowUp(${getId(followUp)})">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </button>
+                        `
+                        :
+                        ""
+                    }
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+
+    renderPagination();
+
+}
+
+
+/* =====================================================
+   FILTERS
+===================================================== */
+
+function applyFilters() {
+
+    const search =
+        document
+            .getElementById("searchFollowup")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const status =
+        document
+            .getElementById("statusFilter")
+            .value
+            .toLowerCase();
+
+
+    const date =
+        document
+            .getElementById("dateFilter")
+            .value;
+
+
+    const course =
+        document
+            .getElementById("courseFilter")
+            .value
+            .toLowerCase();
+
+
+    filteredFollowUps =
+        allFollowUps.filter(function (followUp) {
+
+
+            const student =
+                String(
+                    followUp.student_name ||
+                    followUp.studentName ||
+                    ""
+                ).toLowerCase();
+
+
+            const mobile =
+                String(
+                    followUp.mobile_number ||
+                    followUp.mobile ||
+                    ""
+                ).toLowerCase();
+
+
+            const followUpStatus =
+                String(
+                    followUp.status ||
+                    ""
+                ).toLowerCase();
+
+
+            const followUpCourse =
+                String(
+                    followUp.course ||
+                    followUp.course_interested ||
+                    ""
+                ).toLowerCase();
+
+
+            const followUpDate =
+                String(
+                    followUp.follow_up_date ||
+                    ""
+                );
+
+
+            const matchesSearch =
+                !search ||
+                student.includes(search) ||
+                mobile.includes(search);
+
+
+            const matchesStatus =
+                !status ||
+                followUpStatus === status;
+
+
+            const matchesDate =
+                !date ||
+                followUpDate.substring(0, 10) === date;
+
+
+            const matchesCourse =
+                !course ||
+                followUpCourse === course;
+
+
+            return (
+                matchesSearch &&
+                matchesStatus &&
+                matchesDate &&
+                matchesCourse
+            );
+
+        });
+
+
+    currentPage = 1;
+
+    renderFollowUps();
+
+}
+
+
+/* =====================================================
+   COURSE FILTER
+===================================================== */
+
+function loadCourseFilter() {
+
+    const select =
+        document.getElementById(
+            "courseFilter"
+        );
+
+
+    if (!select) {
+
+        return;
+
+    }
+
+
+    const courses = [];
+
+
+    allFollowUps.forEach(function (item) {
+
+        const course =
+            item.course ||
+            item.course_interested;
+
+
+        if (
+            course &&
+            !courses.includes(course)
+        ) {
+
+            courses.push(course);
+
+        }
+
+    });
+
+
+    courses.sort();
+
+
+    courses.forEach(function (course) {
+
+        const option =
+            document.createElement("option");
+
+
+        option.value = course;
+
+        option.textContent = course;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+document
+    .getElementById("searchFollowup")
+    ?.addEventListener(
+        "input",
+        applyFilters
+    );
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+function renderPagination() {
+
+    const container =
+        document.getElementById(
+            "pagination"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const totalPages =
+        Math.ceil(
+            filteredFollowUps.length /
+            rowsPerPage
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (totalPages <= 1) {
+
+        return;
+
+    }
+
+
+    for (
+        let page = 1;
+        page <= totalPages;
+        page++
+    ) {
+
+        const button =
+            document.createElement("button");
+
+
+        button.textContent = page;
+
+
+        if (page === currentPage) {
+
+            button.classList.add("active");
+
+        }
+
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                currentPage = page;
+
+                renderFollowUps();
+
+            }
+        );
+
+
+        container.appendChild(button);
+
+    }
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+function goToAddFollowUp() {
+
+    window.location.href =
+        "add-follow-up.html";
+
+}
+
+
+function viewFollowUp(id) {
+
+    if (!id) {
+
+        return;
+
+    }
+
+    window.location.href =
+        `follow-up-details.html?id=${encodeURIComponent(id)}`;
+
+}
+
+
+function editFollowUp(id) {
+
+    if (!id) {
+
+        return;
+
+    }
+
+    window.location.href =
+        `edit-follow-up.html?id=${encodeURIComponent(id)}`;
+
+}
+
+
+async function completeFollowUp(id) {
+
+    if (!id) {
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Mark this follow-up as completed?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await apiRequest(
+                `${API_BASE}/employee/follow-ups/${id}/complete`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to complete follow-up."
+            );
+
+        }
+
+
+        alert(
+            "Follow-up completed successfully."
+        );
+
+
+        await loadMyFollowUps();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(
+            error.message ||
+            "Unable to complete follow-up."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATION COUNT
+===================================================== */
+
+async function loadNotificationCount() {
+
+    const element =
+        document.getElementById(
+            "headerNotificationCount"
+        );
+
+
+    if (!element) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const data =
+            await apiRequest(
+                `${API_BASE}/notifications/today`,
+                {
+                    method: "GET"
+                }
+            );
+
+
+        const summary =
+            data.summary || {};
+
+
+        element.textContent =
+            Number(
+                summary.total_notifications
+            ) || 0;
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        element.textContent = "0";
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+function setupMobileMenu() {
+
+    const menuButton =
+        document.getElementById("menuBtn");
+
+
+    const sidebar =
+        document.getElementById(
+            "employeeSidebar"
+        );
+
+
+    const overlay =
+        document.getElementById(
+            "sidebarOverlay"
+        );
+
+
+    if (!menuButton || !sidebar) {
+
+        return;
+
+    }
+
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle(
+                "active"
+            );
+
+
+            if (overlay) {
+
+                overlay.classList.toggle(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    if (overlay) {
+
+        overlay.addEventListener(
+            "click",
+            function () {
+
+                sidebar.classList.remove(
+                    "active"
+                );
+
+                overlay.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutEmployee(event) {
+
+    if (event) {
+
+        event.preventDefault();
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "crmToken"
+    );
+
+
+    localStorage.removeItem(
+        "crmUser"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function openNotifications() {
+
+    window.location.href =
+        "my-notifications.html";
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function setText(id, value) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.textContent =
+            value ?? 0;
+
+    }
+
+}
+
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+function getId(item) {
+
+    return Number(
+        item.id ||
+        item.follow_up_id ||
+        item.followUpId ||
+        0
+    );
+
+}
+
+
+function getStatusClass(status) {
+
+    const value =
+        String(status)
+            .toLowerCase();
+
+
+    if (value === "completed") {
+
+        return "completed";
+
+    }
+
+
+    if (value === "missed") {
+
+        return "missed";
+
+    }
+
+
+    if (value === "scheduled") {
+
+        return "scheduled";
+
+    }
+
+
+    return "pending";
+
+}
+
+
+function formatDate(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (
+        Number.isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return "-";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+function formatTime(value) {
+
+    if (!value) {
+
+        return "-";
+
+    }
+
+
+    const parts =
+        String(value).split(":");
+
+
+    if (parts.length < 2) {
+
+        return escapeHtml(value);
+
+    }
+
+
+    let hours =
+        parseInt(
+            parts[0],
+            10
+        );
+
+
+    const minutes =
+        parts[1];
+
+
+    if (
+        Number.isNaN(hours)
+    ) {
+
+        return escapeHtml(value);
+
+    }
+
+
+    const ampm =
+        hours >= 12
+            ? "PM"
+            : "AM";
+
+
+    hours =
+        hours % 12 || 12;
+
+
+    return `${hours}:${minutes} ${ampm}`;
+
+}
+
+
+function countStatus(status) {
+
+    return allFollowUps.filter(
+        item =>
+            String(
+                item.status || ""
+            ).toLowerCase() ===
+            status.toLowerCase()
+    ).length;
+
+}
+
+
+function countTodayFollowUps() {
+
+    const today =
+        new Date()
+            .toISOString()
+            .substring(0, 10);
+
+
+    return allFollowUps.filter(
+        item =>
+            String(
+                item.follow_up_date || ""
+            ).substring(0, 10) ===
+            today
+    ).length;
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        console.log(
+            "🚀 My Follow-ups initializing..."
+        );
+
+
+        if (
+            !validateEmployeeAccess()
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            !loadEmployeeInfo()
+        ) {
+
+            return;
+
+        }
+
+
+        setupMobileMenu();
+
+
+        await loadMyFollowUps();
+
+
+        await loadNotificationCount();
+
+
+        console.log(
+            "✅ My Follow-ups ready."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   GLOBAL FUNCTIONS
+===================================================== */
+
+window.logoutEmployee =
+    logoutEmployee;
+
+window.openNotifications =
+    openNotifications;
+
+window.goToAddFollowUp =
+    goToAddFollowUp;
+
+window.viewFollowUp =
+    viewFollowUp;
+
+window.editFollowUp =
+    editFollowUp;
+
+window.completeFollowUp =
+    completeFollowUp;
+
+window.applyFilters =
+    applyFilters;
+
+</script>
+
+</body>
+</html>
+
