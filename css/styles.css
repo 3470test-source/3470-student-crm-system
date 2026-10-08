@@ -8360,6 +8360,461 @@
   background: #f9fafb;
 }
 
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+                            /* ==========================================
+                                        Employee - My Admissions
+                            ========================================== */
+
+/*--- PAGE HEADER ---*/
+.EMP-MyAdmissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.EMP-MyAdmissions-header h1 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.EMP-MyAdmissions-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
 
 
+/*--- BUTTONS ---*/
+.EMP-MyAdm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
 
+.EMP-MyAdm-btn-primary {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.EMP-MyAdm-btn-primary:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+
+.EMP-MyAdm-btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.EMP-MyAdm-btn-secondary:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+
+/*--- SUMMARY CARDS ---*/
+.EMP-summary-MyAdmissions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.EMP-MyAdm-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.EMP-MyAdm-summary-card:hover {
+  transform:translateY(-3px);
+}
+
+.EMP-MyAD-summary-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 21px;
+}
+
+.EMP-MyAD-summary-label {
+  font-size: 17px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.EMP-MyAdm-summary-card strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  color:#1e293b;
+  margin-top: 8px;
+}
+
+
+/*--- CARD ---*/
+.EMP-MyAD-card {
+  margin-bottom: 15px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.EMP-MyAD-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px; 
+}
+
+.EMP-MyAD-card-header h2 {
+  margin: 0 0 5px;
+  font-weight: 700;
+  font-size: 20px;
+  color:#1e3a8a;   
+}
+
+.EMP-MyAD-card-header p {
+  margin: 0;
+  color:#a05d05;
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+
+/*--- FILTER GRID ---*/
+.EMP-MyAD-filter-grid {
+  display: grid;
+  grid-template-columns:
+      minmax(200px, 1.5fr)
+      minmax(160px, 1fr)
+      minmax(160px, 1fr)
+      minmax(160px, 1fr)
+      auto
+      auto;
+  gap: 15px;
+  align-items: end;
+}
+
+.EMP-MyAD-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.EMP-MyAD-form-group label {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.EMP-MyAD-form-group input,
+.EMP-MyAD-form-group select {
+  width: 100%;
+  height: 34px;
+  padding: 0 13px;
+  border: 1px solid #dbe2ea;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 13px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.EMP-MyAD-form-group input:focus,
+.EMP-MyAD-form-group select:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+.EMP-MyAD-input-icon {
+  position: relative;
+}
+
+.EMP-MyAD-input-icon i {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  transform: translateY(-50%);
+  color: #5185df;
+  pointer-events: none;
+}
+
+.EMP-MyAD-input-icon input {
+  padding-left: 38px;
+}
+
+.crm-filter-button .crm-btn {
+  height: 44px;
+  white-space: nowrap;
+}
+
+
+/*--- TABLE ---*/
+.EMP-MyAD-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #d7dce6;
+  border-radius: 10px;
+}
+
+.EMP-MyAD-table {
+  width:100%;
+  border-collapse:collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.EMP-MyAD-table th {
+  background:#2563eb;
+  color:#ffffff; 
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  padding: 13px 15px;
+  border-bottom: 1px solid #ebebe5;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.EMP-MyAD-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #9cc3f3;
+  color: #374151;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.EMP-MyAD-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.EMP-MyAD-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.EMP-MyAD-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.EMP-MyAD-table td strong {
+  color: #172033;
+  font-weight: 600;
+}
+
+
+/*--- EMPTY / ERROR TABLE ---*/
+.EMP-MyAD-table-empty {
+  padding: 45px 20px !important;
+  color: #6b7280 !important;
+  text-align: center !important;
+  font-size: 14px !important;
+}
+
+.EMP-MyAD-table-empty i {
+  display: block;
+  margin-bottom: 10px;
+  color: #9ca3af;
+  font-size: 25px;
+}
+
+.EMP-MyAD-table-empty.error {
+  color: #dc2626 !important;
+}
+
+.EMP-MyAD-table-empty.error i {
+  color: #dc2626;
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------- */
+
+                /* ===========================================
+                          Employee My Notifications
+                =========================================== */
+
+/*--- PAGE HEADER ---*/
+.EMP-MyNoti-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.EMP-MyNoti-header h1 {
+  font-size:30px;
+  color:#1e3a8a;
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.EMP-MyNoti-header p {
+  color:#a05d05;
+  font-size:19px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}                
+
+
+/*--- MY NOTIFICATIONS ---*/
+.EMP-MyNotification-summary-grid {          
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.EMP-My-notification-summary-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.EMP-My-notification-summary-card:hover {
+  transform:translateY(-3px);
+}
+
+.EMP-My-notification-summary-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 21px;
+}
+
+.EMP-My-notification-summary-card.warning
+.EMP-My-notification-summary-icon {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.EMP-My-notification-summary-card.danger
+.EMP-My-notification-summary-icon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.EMP-My-notification-summary-card.info
+.EMP-My-notification-summary-icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.EMP-My-notification-summary-label {
+  display: block;
+  font-size: 17px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.EMP-My-notification-summary-card strong {           
+  font-size: 24px;
+  font-weight: 700;
+  color:#1e293b;
+}
+
+.EMP-MyNotifi-card {
+  margin-bottom: 15px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+.EMP-MyNotifi-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px; 
+}
+
+.EMP-MyNotifi-card-header h2 {
+  margin: 0 0 5px;
+  font-weight: 700;
+  font-size: 20px;
+  color:#1e3a8a;   
+}
+
+.EMP-MyNotifi-card-header p {
+  margin: 0;
+  color:#a05d05;
+  font-size: 13px;
+  margin-top: 8px;
+  font-weight:500;
+  letter-spacing: 0.8px;
+}
+
+.EMP-MyNotification-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 108px;
+}
+
+.EMP-MyNotification-filter-bar select {
+  min-width: 180px;
+  height: 34px;
+  padding: 0 18px;
+  border: 1px solid #a1bbda;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #374151;
+  outline: none;
+}
+
+.EMP-MyNotification-filter-bar select:focus {
+  border-color: #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------ */

@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee My Notifications Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+     
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+       
+/* Notification list */
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.employee-notification {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.employee-notification:hover {
+    background: #f8fafc;
+    border-color: #d1d5db;
+}
+
+.employee-notification-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.employee-notification.warning
+.employee-notification-icon {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.employee-notification.danger
+.employee-notification-icon {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.employee-notification.info
+.employee-notification-icon {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.employee-notification-content {
+    flex: 1;
+}
+
+.employee-notification-title {
+    margin: 0 0 5px;
+    color: #172033;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.employee-notification-message {
+    margin: 0 0 7px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.employee-notification-time {
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.employee-notification-action {
+    align-self: center;
+}
+
+.notification-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid #dbe2ea;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.notification-view-btn:hover {
+    background: #eff6ff;
+    border-color: #93c5fd;
+}
+
+.notification-empty {
+    padding: 55px 20px;
+    text-align: center;
+    color: #6b7280;
+}
+
+.notification-empty i {
+    display: block;
+    margin-bottom: 12px;
+    color: #9ca3af;
+    font-size: 35px;
+}
+
+.notification-error {
+    color: #dc2626;
+}
+
+.notification-error i {
+    color: #dc2626;
+}
+
+
+    </style>
+
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+  
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" onclick="openNotifications()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="EMP-sidebar-container">
+
+            <aside class="EMP-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <a href="my-enquiries.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-graduate"></i>My Enquiries
+                </a>
+
+                <a href="my-follow-ups.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-phone"></i>My Follow-ups
+                </a>
+
+                <a href="my-admissions.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user-check"></i>My Admissions
+                </a>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- My Notifications -->
+            <main class="EMP-dashboard-main">
+
+                <div class="EMP-MyNoti-header">
+
+                    <div>
+                        <h1>My Notifications</h1>
+                        <p>View your follow-ups, missed activities and CRM updates.</p>
+                    </div>
+
+                </div>
+
+
+                <!-- SUMMARY -->
+                <section class="EMP-MyNotification-summary-grid">
+
+                    <div class="EMP-My-notification-summary-card">
+
+                        <div class="EMP-My-notification-summary-icon">
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+
+                        <div>
+                            <span class="EMP-My-notification-summary-label">Total Notifications</span>
+                            <strong id="totalNotifications">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="EMP-My-notification-summary-card info">
+
+                        <div class="EMP-My-notification-summary-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div>
+                            <span class="EMP-My-notification-summary-label">Today's Follow-ups</span>
+                            <strong id="todayFollowups">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="EMP-My-notification-summary-card danger">
+
+                        <div class="EMP-My-notification-summary-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div>
+                            <span class="EMP-My-notification-summary-label">Missed Follow-ups</span>
+                            <strong id="missedFollowups">0</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="EMP-My-notification-summary-card warning">
+
+                        <div class="EMP-My-notification-summary-icon">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+
+                        <div>
+                            <span class="EMP-My-notification-summary-label">Upcoming Follow-ups</span>
+                            <strong id="upcomingFollowups">0</strong>
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- MY NOTIFICATION LIST -->
+                <section class="EMP-MyNotifi-card">
+
+                    <div class="EMP-MyNotifi-card-header">
+
+                        <div>
+                            <h2>Notifications</h2>
+                            <p>Your latest CRM activities and reminders.</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="EMP-MyNotification-filter-bar">
+
+                        <span id="notificationCountText" style="color:#6b7280;font-size:13px;">
+                            Loading notifications...
+                        </span>
+
+                        <select id="notificationTypeFilter">
+                            <option value="">-- All Notifications --</option>
+                            <option value="follow-up">Today's Follow-ups</option>
+                            <option value="missed-follow-up">Missed Follow-ups</option>
+                            <option value="upcoming-follow-up">Upcoming Follow-ups</option>
+                            <option value="enquiry">Enquiries</option>
+                            <option value="admission">Admissions</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="notification-list" id="notificationList">
+
+                        <div class="notification-empty">
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            Loading notifications...
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+    const API_BASE = "http://localhost:3000/api";
+
+const token = localStorage.getItem("crmToken");
+
+let allNotifications = [];
+
+
+// =====================================================
+// LOGIN CHECK
+// =====================================================
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+
+// =====================================================
+// EMPLOYEE INFORMATION
+// =====================================================
+
+function loadEmployeeInfo() {
+
+    const storedUser = localStorage.getItem("crmUser");
+
+    if (!storedUser) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    try {
+
+        const user = JSON.parse(storedUser);
+
+        const name =
+            user.full_name ||
+            user.name ||
+            user.username ||
+            "Employee";
+
+        const role =
+            user.role ||
+            "Employee";
+
+
+        const employeeName =
+            document.getElementById("employeeName");
+
+        const employeeRole =
+            document.getElementById("employeeRole");
+
+        const profileAvatar =
+            document.getElementById("profileAvatar");
+
+        const sidebarAvatar =
+            document.getElementById("sidebarAvatar");
+
+        const sidebarEmployeeName =
+            document.getElementById("sidebarEmployeeName");
+
+        const sidebarEmployeeRole =
+            document.getElementById("sidebarEmployeeRole");
+
+
+        if (employeeName) {
+            employeeName.textContent = name;
+        }
+
+        if (employeeRole) {
+            employeeRole.textContent = role;
+        }
+
+        if (profileAvatar) {
+            profileAvatar.textContent =
+                name.charAt(0).toUpperCase();
+        }
+
+        if (sidebarAvatar) {
+            sidebarAvatar.textContent =
+                name.charAt(0).toUpperCase();
+        }
+
+        if (sidebarEmployeeName) {
+            sidebarEmployeeName.textContent = name;
+        }
+
+        if (sidebarEmployeeRole) {
+            sidebarEmployeeRole.textContent = role;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee information error:",
+            error
+        );
+
+    }
+}
+
+
+// =====================================================
+// LOAD EMPLOYEE NOTIFICATIONS
+// =====================================================
+
+async function loadEmployeeNotifications() {
+
+    const list =
+        document.getElementById("notificationList");
+
+    try {
+
+        const response = await fetch(
+            `${API_BASE}/employee/notifications`,
+            {
+                method: "GET",
+
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+
+        const data = await response.json();
+
+
+        console.log(
+            "🔔 Employee Notifications:",
+            data
+        );
+
+
+        if (!response.ok || !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load notifications."
+            );
+
+        }
+
+
+        allNotifications =
+            data.notifications || [];
+
+
+        updateSummary(
+            data.summary || {}
+        );
+
+
+        renderNotifications(
+            allNotifications
+        );
+
+    } catch (error) {
+
+        console.error(
+            "❌ Notification Error:",
+            error
+        );
+
+
+        list.innerHTML = `
+
+            <div class="notification-empty notification-error">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                ${escapeHtml(error.message)}
+
+            </div>
+
+        `;
+
+        document.getElementById(
+            "notificationCountText"
+        ).textContent =
+            "Unable to load notifications.";
+
+    }
+}
+
+
+// =====================================================
+// UPDATE SUMMARY
+// =====================================================
+
+function updateSummary(summary) {
+
+    document.getElementById(
+        "totalNotifications"
+    ).textContent =
+        Number(summary.total_notifications || 0);
+
+
+    document.getElementById(
+        "todayFollowups"
+    ).textContent =
+        Number(summary.today_followups || 0);
+
+
+    document.getElementById(
+        "missedFollowups"
+    ).textContent =
+        Number(summary.missed_followups || 0);
+
+
+    document.getElementById(
+        "upcomingFollowups"
+    ).textContent =
+        Number(summary.upcoming_followups || 0);
+
+
+    document.getElementById(
+        "headerNotificationCount"
+    ).textContent =
+        Number(summary.total_notifications || 0);
+}
+
+
+// =====================================================
+// RENDER NOTIFICATIONS
+// =====================================================
+
+function renderNotifications(notifications) {
+
+    const list =
+        document.getElementById(
+            "notificationList"
+        );
+
+
+    document.getElementById(
+        "notificationCountText"
+    ).textContent =
+        `${notifications.length} notification(s)`;
+
+
+    if (!notifications.length) {
+
+        list.innerHTML = `
+
+            <div class="notification-empty">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <strong>
+                    All Clear
+                </strong>
+
+                <p>
+                    You currently have no notifications.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    list.innerHTML =
+        notifications.map(
+            notification =>
+                createNotificationHTML(
+                    notification
+                )
+        ).join("");
+}
+
+
+// =====================================================
+// CREATE NOTIFICATION HTML
+// =====================================================
+
+function createNotificationHTML(notification) {
+
+    const type =
+        notification.type || "info";
+
+
+    let icon =
+        "fa-circle-info";
+
+
+    if (type === "follow-up") {
+
+        icon = "fa-phone";
+
+    } else if (type === "missed-follow-up") {
+
+        icon = "fa-triangle-exclamation";
+
+    } else if (type === "upcoming-follow-up") {
+
+        icon = "fa-calendar-days";
+
+    } else if (type === "enquiry") {
+
+        icon = "fa-user-plus";
+
+    } else if (type === "admission") {
+
+        icon = "fa-user-check";
+
+    }
+
+
+    let action = "";
+
+
+    if (notification.link) {
+
+        action = `
+
+            <div class="employee-notification-action">
+
+                <button
+                    type="button"
+                    class="notification-view-btn"
+                    onclick="openNotification('${escapeAttribute(notification.link)}')">
+
+                    View
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="employee-notification ${escapeHtml(type)}">
+
+            <div class="employee-notification-icon">
+
+                <i class="fa-solid ${icon}"></i>
+
+            </div>
+
+
+            <div class="employee-notification-content">
+
+                <h3 class="employee-notification-title">
+
+                    ${escapeHtml(
+                        notification.title || "Notification"
+                    )}
+
+                </h3>
+
+
+                <p class="employee-notification-message">
+
+                    ${escapeHtml(
+                        notification.message || ""
+                    )}
+
+                </p>
+
+
+                <span class="employee-notification-time">
+
+                    ${escapeHtml(
+                        notification.time_text || ""
+                    )}
+
+                </span>
+
+            </div>
+
+
+            ${action}
+
+        </div>
+
+    `;
+}
+
+
+// =====================================================
+// FILTER
+// =====================================================
+
+document.addEventListener(
+    "change",
+    function (event) {
+
+        if (
+            event.target.id !==
+            "notificationTypeFilter"
+        ) {
+            return;
+        }
+
+
+        const selectedType =
+            event.target.value;
+
+
+        if (!selectedType) {
+
+            renderNotifications(
+                allNotifications
+            );
+
+            return;
+        }
+
+
+        const filtered =
+            allNotifications.filter(
+                notification =>
+                    notification.type ===
+                    selectedType
+            );
+
+
+        renderNotifications(filtered);
+
+    }
+);
+
+
+// =====================================================
+// OPEN NOTIFICATION
+// =====================================================
+
+function openNotification(link) {
+
+    if (!link) {
+        return;
+    }
+
+    window.location.href = link;
+}
+
+
+// =====================================================
+// OPEN NOTIFICATIONS
+// =====================================================
+
+function openNotifications() {
+
+    window.location.href =
+        "my-notifications.html";
+}
+
+
+// =====================================================
+// LOGOUT
+// =====================================================
+
+function logoutEmployee(event) {
+
+    if (event) {
+        event.preventDefault();
+    }
+
+    localStorage.removeItem("crmToken");
+    localStorage.removeItem("crmUser");
+
+    window.location.href =
+        "login.html";
+}
+
+
+// =====================================================
+// MOBILE SIDEBAR
+// =====================================================
+
+function setupMobileMenu() {
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const sidebar =
+        document.getElementById("crmSidebar");
+
+    const overlay =
+        document.getElementById(
+            "crmSidebarOverlay"
+        );
+
+
+    if (!menuBtn ||
+        !sidebar ||
+        !overlay) {
+
+        return;
+    }
+
+
+    menuBtn.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.toggle("active");
+
+            overlay.classList.toggle("active");
+
+        }
+    );
+
+
+    overlay.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.remove("active");
+
+            overlay.classList.remove("active");
+
+        }
+    );
+}
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+}
+
+
+// =====================================================
+// ESCAPE ATTRIBUTE
+// =====================================================
+
+function escapeAttribute(value) {
+
+    return String(value ?? "")
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+}
+
+
+// =====================================================
+// INITIALIZE
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadEmployeeInfo();
+
+        loadEmployeeNotifications();
+
+        setupMobileMenu();
+
+    }
+);
+</script>
+
+
+</body>
+</html>

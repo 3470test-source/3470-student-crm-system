@@ -5299,6 +5299,963 @@ app.get(
 
 
 
+
+
+
+
+
+app.get(
+    "/api/employee/notifications",
+    authenticateToken,
+    async (req, res) => {
+
+        try {
+
+            const employeeId = req.user.id;
+
+            const employeeRole = req.user.role;
+
+
+            // ---------------------------------------------
+            // Employee access check
+            // ---------------------------------------------
+
+            if (
+                employeeRole !== "Counsellor" &&
+                employeeRole !== "Staff"
+            ) {
+
+                return res.status(403).json({
+                    success: false,
+                    message: "Access denied. Employee notifications only."
+                });
+
+            }
+
+
+            // ---------------------------------------------
+            // Verify employee
+            // ---------------------------------------------
+
+            const [employees] = await db.execute(
+                `
+                SELECT
+                    id,
+                    full_name,
+                    role,
+                    status
+                FROM add_users
+                WHERE id = ?
+                LIMIT 1
+                `,
+                [employeeId]
+            );
+
+
+            if (!employees.length) {
+
+                return res.status(404).json({
+                    success: false,
+                    message: "Employee account not found."
+                });
+
+            }
+
+
+            const employee = employees[0];
+
+
+            if (employee.status !== "Active") {
+
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive."
+                });
+
+            }
+
+
+            // ---------------------------------------------
+            // Today's follow-ups
+            // ---------------------------------------------
+
+            const [todayFollowupsRows] =
+                await db.execute(
+                    `
+                    SELECT
+                        COUNT(*) AS total
+                    FROM follow_ups
+                    WHERE counsellor_id = ?
+                      AND DATE(follow_up_date) = CURDATE()
+                      AND status NOT IN (
+                          'Completed',
+                          'Not Interested'
+                      )
+                    `,
+                    [employeeId]
+                );
+
+
+            const todayFollowups =
+                Number(
+                    todayFollowupsRows[0].total
+                ) || 0;
+
+
+            // ---------------------------------------------
+            // Missed follow-ups
+            // ---------------------------------------------
+
+            const [missedRows] =
+                await db.execute(
+                    `
+                    SELECT
+                        COUNT(*) AS total
+                    FROM follow_ups
+                    WHERE counsellor_id = ?
+                      AND (
+                            DATE(follow_up_date) < CURDATE()
+                            OR (
+                                DATE(follow_up_date) = CURDATE()
+                                AND follow_up_time < CURTIME()
+                            )
+                          )
+                      AND status NOT IN (
+                          'Completed',
+                          'Not Interested'
+                      )
+                    `,
+                    [employeeId]
+                );
+
+
+            const missedFollowups =
+                Number(
+                    missedRows[0].total
+                ) || 0;
+
+
+            // ---------------------------------------------
+            // Upcoming follow-ups
+            // ---------------------------------------------
+
+            const [upcomingRows] =
+                await db.execute(
+                    `
+                    SELECT
+                        COUNT(*) AS total
+                    FROM follow_ups
+                    WHERE counsellor_id = ?
+                      AND DATE(follow_up_date) > CURDATE()
+                      AND status NOT IN (
+                          'Completed',
+                          'Not Interested'
+                      )
+                    `,
+                    [employeeId]
+                );
+
+
+            const upcomingFollowups =
+                Number(
+                    upcomingRows[0].total
+                ) || 0;
+
+
+            // ---------------------------------------------
+            // New enquiries
+            // ---------------------------------------------
+
+            const [newEnquiryRows] =
+                await db.execute(
+                    `
+                    SELECT
+                        COUNT(*) AS total
+                    FROM student_enquiries
+                    WHERE counsellor_id = ?
+                      AND DATE(enquiry_date) = CURDATE()
+                    `,
+                    [employeeId]
+                );
+
+
+            const newEnquiries =
+                Number(
+                    newEnquiryRows[0].total
+                ) || 0;
+
+
+            // ---------------------------------------------
+            // Today's admissions
+            // ---------------------------------------------
+
+            const [admissionRows] =
+                await db.execute(
+                    `
+                    SELECT
+                        COUNT(*) AS total
+                    FROM admissions
+                    WHERE counsellor_id = ?
+                      AND (
+                            DATE(created_at) = CURDATE()
+                            OR DATE(joining_date) = CURDATE()
+                          )
+                    `,
+                    [employeeId]
+                );
+
+
+            const admissionsToday =
+                Number(
+                    admissionRows[0].total
+                ) || 0;
+
+
+            // ---------------------------------------------
+            // Notification list
+            // ---------------------------------------------
+
+            const notifications = [];
+
+
+            // Today's Follow-ups
+
+            if (todayFollowups > 0) {
+
+                notifications.push({
+
+                    type: "follow-up",
+
+                    title: "Today's Follow-ups",
+
+                    message:
+                        `You have ${todayFollowups} follow-up(s) scheduled today.`,
+
+                    time_text:
+                        "Today",
+
+                    link:
+                        "my-follow-ups.html"
+
+                });
+
+            }
+
+
+            // Missed Follow-ups
+
+            if (missedFollowups > 0) {
+
+                notifications.push({
+
+                    type: "missed-follow-up",
+
+                    title: "Missed Follow-ups",
+
+                    message:
+                        `You have ${missedFollowups} missed follow-up(s) requiring attention.`,
+
+                    time_text:
+                        "Needs attention",
+
+                    link:
+                        "my-follow-ups.html"
+
+                });
+
+            }
+
+
+            // Upcoming Follow-ups
+
+            if (upcomingFollowups > 0) {
+
+                notifications.push({
+
+                    type: "upcoming-follow-up",
+
+                    title: "Upcoming Follow-ups",
+
+                    message:
+                        `You have ${upcomingFollowups} upcoming follow-up(s).`,
+
+                    time_text:
+                        "Upcoming",
+
+                    link:
+                        "my-follow-ups.html"
+
+                });
+
+            }
+
+
+            // New Enquiries
+
+            if (newEnquiries > 0) {
+
+                notifications.push({
+
+                    type: "enquiry",
+
+                    title: "New Enquiry Activity",
+
+                    message:
+                        `${newEnquiries} student enquiry/enquiries were created today.`,
+
+                    time_text:
+                        "Today",
+
+                    link:
+                        "my-enquiries.html"
+
+                });
+
+            }
+
+
+            // Admissions
+
+            if (admissionsToday > 0) {
+
+                notifications.push({
+
+                    type: "admission",
+
+                    title: "Admission Activity",
+
+                    message:
+                        `${admissionsToday} admission(s) were recorded today.`,
+
+                    time_text:
+                        "Today",
+
+                    link:
+                        "my-admissions.html"
+
+                });
+
+            }
+
+
+            // ---------------------------------------------
+            // Summary
+            // ---------------------------------------------
+
+            const totalNotifications =
+                notifications.length;
+
+
+            // ---------------------------------------------
+            // Response
+            // ---------------------------------------------
+
+            res.json({
+
+                success: true,
+
+                employee: {
+
+                    id: employee.id,
+
+                    full_name: employee.full_name,
+
+                    role: employee.role
+
+                },
+
+                summary: {
+
+                    total_notifications:
+                        totalNotifications,
+
+                    today_followups:
+                        todayFollowups,
+
+                    missed_followups:
+                        missedFollowups,
+
+                    upcoming_followups:
+                        upcomingFollowups,
+
+                    new_enquiries:
+                        newEnquiries,
+
+                    admissions_today:
+                        admissionsToday
+
+                },
+
+                notifications
+
+            });
+
+        } catch (error) {
+
+            console.error(
+                "❌ Employee Notifications Error:",
+                error
+            );
+
+            res.status(500).json({
+
+                success: false,
+
+                message:
+                    "Failed to load employee notifications.",
+
+                error:
+                    error.message
+
+            });
+
+        }
+
+    }
+);
+
+
+
+
+
+
+
+
+app.get("/api/employee/profile", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+
+        // Employee only
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee profile only."
+            });
+
+        }
+
+
+        const [employees] = await db.execute(`
+            SELECT
+                id,
+                full_name,
+                email,
+                mobile,
+                username,
+                role,
+                status,
+                department,
+                joining_date,
+                address,
+                created_at,
+                updated_at
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employees.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+
+        }
+
+
+        const employee = employees[0];
+
+
+        if (employee.status !== "Active") {
+
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive."
+            });
+
+        }
+
+
+        res.json({
+            success: true,
+            employee
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Profile Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load employee profile.",
+            error: error.message
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+app.get("/api/employee/profile", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+
+        // Employee only
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee profile only."
+            });
+
+        }
+
+
+        const [employees] = await db.execute(`
+            SELECT
+                id,
+                full_name,
+                email,
+                mobile,
+                username,
+                role,
+                status,
+                department,
+                joining_date,
+                address,
+                created_at,
+                updated_at
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employees.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+
+        }
+
+
+        const employee = employees[0];
+
+
+        if (employee.status !== "Active") {
+
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive."
+            });
+
+        }
+
+
+        res.json({
+            success: true,
+            employee
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Profile Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load employee profile.",
+            error: error.message
+        });
+
+    }
+
+});
+
+
+
+
+
+
+
+app.put("/api/employee/profile", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+        const {
+            full_name,
+            email,
+            mobile,
+            department,
+            address
+        } = req.body;
+
+
+        // Employee only
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee profile only."
+            });
+
+        }
+
+
+        // Required fields
+        if (
+            !full_name ||
+            !email ||
+            !mobile
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Full name, email and mobile number are required."
+            });
+
+        }
+
+
+        // Mobile validation
+        if (!/^\d{10}$/.test(mobile)) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Mobile number must be exactly 10 digits."
+            });
+
+        }
+
+
+        // Check account
+        const [employees] = await db.execute(`
+            SELECT id, status
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employees.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+
+        }
+
+
+        if (employees[0].status !== "Active") {
+
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive."
+            });
+
+        }
+
+
+        // Check whether email belongs to another user
+        const [existingEmail] = await db.execute(`
+            SELECT id
+            FROM add_users
+            WHERE email = ?
+              AND id != ?
+            LIMIT 1
+        `, [email, employeeId]);
+
+
+        if (existingEmail.length) {
+
+            return res.status(409).json({
+                success: false,
+                message: "This email address is already used by another account."
+            });
+
+        }
+
+
+        // Update
+        await db.execute(`
+            UPDATE add_users
+            SET
+                full_name = ?,
+                email = ?,
+                mobile = ?,
+                department = ?,
+                address = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+        `, [
+            full_name,
+            email,
+            mobile,
+            department || null,
+            address || null,
+            employeeId
+        ]);
+
+
+        res.json({
+            success: true,
+            message: "Profile updated successfully."
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Update Employee Profile Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to update employee profile.",
+            error: error.message
+        });
+
+    }
+
+});
+
+
+
+app.put("/api/employee/change-password", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+        const {
+            currentPassword,
+            newPassword,
+            confirmPassword
+        } = req.body;
+
+
+        // Employee only
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee password change only."
+            });
+
+        }
+
+
+        // Required fields
+        if (
+            !currentPassword ||
+            !newPassword ||
+            !confirmPassword
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Current password, new password and confirmation are required."
+            });
+
+        }
+
+
+        // Minimum password length
+        if (newPassword.length < 6) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "New password must be at least 6 characters."
+            });
+
+        }
+
+
+        // Password match
+        if (newPassword !== confirmPassword) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "New password and confirm password do not match."
+            });
+
+        }
+
+
+        // Get current password
+        const [employees] = await db.execute(`
+            SELECT
+                id,
+                password,
+                status
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employees.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+
+        }
+
+
+        const employee = employees[0];
+
+
+        if (employee.status !== "Active") {
+
+            return res.status(403).json({
+                success: false,
+                message: "Your account is inactive."
+            });
+
+        }
+
+
+        // Compare old password
+        const passwordMatch =
+            await bcrypt.compare(
+                currentPassword,
+                employee.password
+            );
+
+
+        if (!passwordMatch) {
+
+            return res.status(401).json({
+                success: false,
+                message:
+                    "Current password is incorrect."
+            });
+
+        }
+
+
+        // Prevent same password
+        const samePassword =
+            await bcrypt.compare(
+                newPassword,
+                employee.password
+            );
+
+
+        if (samePassword) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "New password must be different from the current password."
+            });
+
+        }
+
+
+        // Hash new password
+        const hashedPassword =
+            await bcrypt.hash(
+                newPassword,
+                10
+            );
+
+
+        // Update password
+        await db.execute(`
+            UPDATE add_users
+            SET
+                password = ?,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = ?
+        `, [
+            hashedPassword,
+            employeeId
+        ]);
+
+
+        res.json({
+            success: true,
+            message:
+                "Password changed successfully. Please login again."
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Change Password Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to change password.",
+            error: error.message
+        });
+
+    }
+
+});
+
+
+
+
 /*==== Start server ====*/
 app.listen(PORT, () => {
 
