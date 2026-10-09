@@ -22,323 +22,6 @@
       box-sizing: border-box;
     }
 
-
-
-
-
-
-
-
-        /* =========================================
-   MY PROFILE PAGE
-========================================= */
-
-.crm-profile-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
-    gap: 24px;
-    margin-top: 24px;
-}
-
-
-/* =========================================
-   PROFILE CARD
-========================================= */
-
-.crm-profile-card,
-.crm-password-card {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
-    overflow: hidden;
-}
-
-.crm-profile-card-header {
-    padding: 20px 24px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.crm-profile-card-header h2 {
-    margin: 0;
-    font-size: 19px;
-    color: #17202a;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.crm-profile-card-header h2 i {
-    color: #16a34a;
-}
-
-
-/* =========================================
-   PROFILE TOP
-========================================= */
-
-.crm-profile-top {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 24px;
-    background: #f8fafc;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.crm-large-avatar {
-    width: 82px;
-    height: 82px;
-    min-width: 82px;
-    border-radius: 50%;
-    background: #dcfce7;
-    color: #15803d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-}
-
-.crm-profile-heading h2 {
-    margin: 0 0 5px;
-    font-size: 24px;
-    color: #17202a;
-}
-
-.crm-profile-heading p {
-    margin: 0 0 10px;
-    color: #64748b;
-    font-size: 14px;
-}
-
-.crm-profile-status {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 11px;
-    border-radius: 20px;
-    background: #dcfce7;
-    color: #15803d;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-
-/* =========================================
-   PROFILE FORM
-========================================= */
-
-#profileForm {
-    padding: 24px;
-}
-
-.crm-form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-}
-
-.crm-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.crm-form-group label {
-    font-size: 14px;
-    font-weight: 600;
-    color: #334155;
-}
-
-.crm-form-full {
-    grid-column: 1 / -1;
-}
-
-.crm-input-icon {
-    position: relative;
-}
-
-.crm-input-icon i {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #94a3b8;
-    pointer-events: none;
-}
-
-.crm-input-icon input {
-    width: 100%;
-    height: 46px;
-    padding: 0 14px 0 42px;
-    border: 1px solid #dbe2ea;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #1e293b;
-    background: #ffffff;
-    box-sizing: border-box;
-    outline: none;
-    transition: 0.2s ease;
-}
-
-.crm-input-icon input:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
-}
-
-.crm-input-icon input[readonly] {
-    background: #f1f5f9;
-    color: #64748b;
-    cursor: not-allowed;
-}
-
-.crm-form-group textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid #dbe2ea;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #1e293b;
-    resize: vertical;
-    box-sizing: border-box;
-    outline: none;
-    font-family: inherit;
-}
-
-.crm-form-group textarea:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
-}
-
-
-/* =========================================
-   FORM ACTION
-========================================= */
-
-.crm-form-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
-}
-
-.crm-btn {
-    border: none;
-    border-radius: 8px;
-    padding: 11px 18px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: 0.2s ease;
-}
-
-.crm-btn-primary {
-    background: #16a34a;
-    color: #ffffff;
-}
-
-.crm-btn-primary:hover {
-    background: #15803d;
-}
-
-.crm-btn:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-
-/* =========================================
-   PASSWORD CARD
-========================================= */
-
-.crm-password-card {
-    padding-bottom: 24px;
-}
-
-.crm-password-description {
-    margin: 20px 24px;
-    padding: 13px 15px;
-    background: #f8fafc;
-    border-radius: 8px;
-    color: #64748b;
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-#changePasswordForm {
-    padding: 0 24px;
-}
-
-.crm-password-input {
-    position: relative;
-}
-
-.crm-password-input input {
-    width: 100%;
-    height: 46px;
-    padding: 0 46px 0 14px;
-    border: 1px solid #dbe2ea;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #1e293b;
-    box-sizing: border-box;
-    outline: none;
-}
-
-.crm-password-input input:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
-}
-
-.crm-password-toggle {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 46px;
-    height: 46px;
-    border: none;
-    background: transparent;
-    color: #64748b;
-    cursor: pointer;
-}
-
-.crm-password-toggle:hover {
-    color: #16a34a;
-}
-
-
-/* =========================================
-   PASSWORD RULES
-========================================= */
-
-.crm-password-rules {
-    margin: 20px 0;
-    padding: 14px 16px;
-    background: #f8fafc;
-    border-radius: 8px;
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.6;
-}
-
-.crm-password-rules strong {
-    color: #334155;
-}
-
-.crm-password-rules ul {
-    margin: 7px 0 0;
-    padding-left: 20px;
-}
-
-.crm-change-password-btn {
-    width: 100%;
-}
-
-
     </style>
 
 </head>
@@ -438,516 +121,273 @@
             </aside>
 
 
+            <!-- Employee Profile -->
+            <main class="EMP-dashboard-main">
 
+                <div class="EMP-My-Profile">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- ================= MAIN CONTENT ================= -->
-    <main class="crm-main">
-
-        <div class="crm-page-header">
-
-            <div>
-                <h1>
-                    <i class="fa-solid fa-user"></i>
-                    My Profile
-                </h1>
-
-                <p>
-                    View and manage your employee profile information.
-                </p>
-            </div>
-
-        </div>
-
-
-        <!-- ================= PROFILE LAYOUT ================= -->
-        <div class="crm-profile-layout">
-
-
-            <!-- ================= PROFILE CARD ================= -->
-            <section class="crm-profile-card">
-
-                <div class="crm-profile-card-header">
-
-                    <h2>
-                        <i class="fa-solid fa-id-card"></i>
-                        Profile Information
-                    </h2>
+                    <div>
+                        <h1>My Profile</h1>
+                        <p>View and manage your employee profile information.</p>
+                    </div>
 
                 </div>
 
 
-                <div class="crm-profile-top">
+                <!-- PROFILE LAYOUT -->
+                <div class="EMP-MyProfile-layout">
 
-                    <div class="crm-large-avatar"
-                         id="largeProfileAvatar">
+                    <!-- PROFILE CARD -->
+                    <section class="EMP-MyProfile-card">
 
-                        <i class="fa-solid fa-user"></i>
+                        <div class="EMP-MyProfile-card-header">
+                            <h2><i class="fa-solid fa-id-card"></i>Profile Information</h2>
+                        </div>
 
-                    </div>
+                        <div class="EMP-MyProfile-top">
 
-                    <div class="crm-profile-heading">
+                            <div class="EMP-MyProfile-large-avatar" id="largeProfileAvatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
 
-                        <h2 id="profileFullName">
-                            Employee
-                        </h2>
+                            <div class="EMP-MyProfile-heading">
+                                <h2 id="profileFullName">Employee</h2>
+                                <p id="profileRole">Employee</p>
 
-                        <p id="profileRole">
-                            Employee
+                                <span class="EMP-MyProfile-status" id="profileStatus">Active</span>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Profile Form -->
+                        <form id="profileForm" class="EMP-MyprofileForm">
+
+                            <div class="EMP-Myprofile-form-grid">
+
+                                <!-- Full Name -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="full_name">Full Name</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-user"></i>
+                                        <input type="text" id="full_name" name="full_name" required>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Email -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="email">Email Address</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-envelope"></i>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Mobile -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="mobile">Mobile Number</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-phone"></i>
+                                        <input type="text" id="mobile" name="mobile" maxlength="10" required>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Username -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="username">Username</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-at"></i>
+                                        <input type="text" id="username" name="username" readonly>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Role -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="role">Role</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-user-shield"></i>
+                                        <input type="text" id="role" name="role" readonly>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Department -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="department">Department</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-building"></i>
+                                        <input type="text" id="department" name="department">
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Joining Date -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="joining_date">Joining Date</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-calendar"></i>
+                                        <input type="date" id="joining_date" name="joining_date" readonly>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Status -->
+                                <div class="EMP-Myprofile-form-group">
+
+                                    <label for="status">Account Status</label>
+                                    <div class="EMP-MyPro-input-icon">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        <input type="text" id="status" name="status" readonly>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- Address -->
+                                <div class="EMP-Myprofile-form-group EMP-Myprofile-form-full">
+
+                                    <label for="address">Address</label>
+                                    <textarea id="address" name="address" rows="4" placeholder="Enter your address"></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="EMP-Myprofile-form-actions">
+
+                                <button type="submit" class="EMP-MyPro-btn EMP-MyPro-btn-primary" id="saveProfileBtn">
+                                    <i class="fa-solid fa-floppy-disk"></i>Save Changes
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </section>
+
+
+                    <!-- PASSWORD CARD -->
+                    <section class="EMP-MyProfile-password-card">
+
+                        <div class="EMP-MyProfile-card-header">
+                            <h2><i class="fa-solid fa-lock"></i>Change Password</h2>
+                        </div>
+
+                        <p class="crm-password-description">
+                            Update your account password regularly to keep
+                            your CRM account secure.
                         </p>
 
-                        <span class="crm-profile-status"
-                              id="profileStatus">
-                            Active
-                        </span>
 
-                    </div>
+                        <form id="changePasswordForm" class="EMP-MyPr-changePasswordForm">
+
+                            <!-- Current Password -->
+                            <div class="EMP-Myprofile-form-group">
+
+                                <label for="currentPassword">Current Password</label>
+                                <div class="EMP-Mypro-password-input">
+                                    <input type="password" id="currentPassword" name="currentPassword" 
+                                        placeholder="Enter current password" required>
+
+                                    <button type="button" class="EMP-Mypro-password-toggle" data-target="currentPassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- New Password -->
+                            <div class="EMP-Myprofile-form-group">
+
+                                <label for="newPassword">New Password</label>
+                                <div class="EMP-Mypro-password-input">
+                                    <input type="password" id="newPassword" name="newPassword"
+                                        placeholder="Enter new password" minlength="6" required>
+
+                                    <button type="button" class="EMP-Mypro-password-toggle" data-target="newPassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Confirm Password -->
+                            <div class="EMP-Myprofile-form-group">
+
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <div class="EMP-Mypro-password-input">
+                                    <input type="password" id="confirmPassword" name="confirmPassword"
+                                        placeholder="Confirm new password" minlength="6" required>
+
+                                    <button type="button" class="EMP-Mypro-password-toggle" data-target="confirmPassword">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="EMP-MyPro-password-rules">
+
+                                <strong>Password requirements:</strong>
+
+                                    <ul>
+                                        <li>Minimum 6 characters</li>
+                                        <li>Do not reuse your old password</li>
+                                        <li>Keep your password private</li>
+                                    </ul>
+
+                            </div>
+
+
+                            <button type="submit" class="EMP-MyPro-btn EMP-MyPro-btn-primary EMPpro-change-password-btn" 
+                                id="changePasswordBtn"><i class="fa-solid fa-key"></i>Change Password
+                            </button>
+
+                        </form>
+
+                    </section>
 
                 </div>
 
-
-                <!-- Profile Form -->
-                <form id="profileForm">
-
-                    <div class="crm-form-grid">
-
-                        <!-- Full Name -->
-                        <div class="crm-form-group">
-
-                            <label for="full_name">
-                                Full Name
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-user"></i>
-
-                                <input
-                                    type="text"
-                                    id="full_name"
-                                    name="full_name"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Email -->
-                        <div class="crm-form-group">
-
-                            <label for="email">
-                                Email Address
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-envelope"></i>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Mobile -->
-                        <div class="crm-form-group">
-
-                            <label for="mobile">
-                                Mobile Number
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-phone"></i>
-
-                                <input
-                                    type="text"
-                                    id="mobile"
-                                    name="mobile"
-                                    maxlength="10"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Username -->
-                        <div class="crm-form-group">
-
-                            <label for="username">
-                                Username
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-at"></i>
-
-                                <input
-                                    type="text"
-                                    id="username"
-                                    name="username"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Role -->
-                        <div class="crm-form-group">
-
-                            <label for="role">
-                                Role
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-user-shield"></i>
-
-                                <input
-                                    type="text"
-                                    id="role"
-                                    name="role"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Department -->
-                        <div class="crm-form-group">
-
-                            <label for="department">
-                                Department
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-building"></i>
-
-                                <input
-                                    type="text"
-                                    id="department"
-                                    name="department"
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Joining Date -->
-                        <div class="crm-form-group">
-
-                            <label for="joining_date">
-                                Joining Date
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-calendar"></i>
-
-                                <input
-                                    type="date"
-                                    id="joining_date"
-                                    name="joining_date"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Status -->
-                        <div class="crm-form-group">
-
-                            <label for="status">
-                                Account Status
-                            </label>
-
-                            <div class="crm-input-icon">
-
-                                <i class="fa-solid fa-circle-check"></i>
-
-                                <input
-                                    type="text"
-                                    id="status"
-                                    name="status"
-                                    readonly
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Address -->
-                        <div class="crm-form-group crm-form-full">
-
-                            <label for="address">
-                                Address
-                            </label>
-
-                            <textarea
-                                id="address"
-                                name="address"
-                                rows="4"
-                                placeholder="Enter your address">
-                            </textarea>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="crm-form-actions">
-
-                        <button
-                            type="submit"
-                            class="crm-btn crm-btn-primary"
-                            id="saveProfileBtn">
-
-                            <i class="fa-solid fa-floppy-disk"></i>
-
-                            Save Changes
-
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </section>
-
-
-            <!-- ================= PASSWORD CARD ================= -->
-            <section class="crm-password-card">
-
-                <div class="crm-profile-card-header">
-
-                    <h2>
-                        <i class="fa-solid fa-lock"></i>
-                        Change Password
-                    </h2>
-
-                </div>
-
-                <p class="crm-password-description">
-                    Update your account password regularly to keep
-                    your CRM account secure.
-                </p>
-
-
-                <form id="changePasswordForm">
-
-                    <!-- Current Password -->
-                    <div class="crm-form-group">
-
-                        <label for="currentPassword">
-                            Current Password
-                        </label>
-
-                        <div class="crm-password-input">
-
-                            <input
-                                type="password"
-                                id="currentPassword"
-                                name="currentPassword"
-                                placeholder="Enter current password"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="crm-password-toggle"
-                                data-target="currentPassword">
-
-                                <i class="fa-solid fa-eye"></i>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- New Password -->
-                    <div class="crm-form-group">
-
-                        <label for="newPassword">
-                            New Password
-                        </label>
-
-                        <div class="crm-password-input">
-
-                            <input
-                                type="password"
-                                id="newPassword"
-                                name="newPassword"
-                                placeholder="Enter new password"
-                                minlength="6"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="crm-password-toggle"
-                                data-target="newPassword">
-
-                                <i class="fa-solid fa-eye"></i>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Confirm Password -->
-                    <div class="crm-form-group">
-
-                        <label for="confirmPassword">
-                            Confirm New Password
-                        </label>
-
-                        <div class="crm-password-input">
-
-                            <input
-                                type="password"
-                                id="confirmPassword"
-                                name="confirmPassword"
-                                placeholder="Confirm new password"
-                                minlength="6"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="crm-password-toggle"
-                                data-target="confirmPassword">
-
-                                <i class="fa-solid fa-eye"></i>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="crm-password-rules">
-
-                        <strong>Password requirements:</strong>
-
-                        <ul>
-                            <li>Minimum 6 characters</li>
-                            <li>Do not reuse your old password</li>
-                            <li>Keep your password private</li>
-                        </ul>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="crm-btn crm-btn-primary crm-change-password-btn"
-                        id="changePasswordBtn">
-
-                        <i class="fa-solid fa-key"></i>
-
-                        Change Password
-
-                    </button>
-
-                </form>
-
-            </section>
+            </main>
 
         </div>
 
-    </main>
-
-</div>
 
 
 
-
-
-
-
-
-
-<!-- Profile JavaScript -->
-<script src="js/my-profile.js"></script>
-
-
-
-
-
-
+<!-- Employee - My Profile - JS -->
 <script>
-    const API_BASE = "http://localhost:3000/api";
+
+const API_BASE = "http://localhost:3000/api";
 
 
-// =========================================
-// AUTH TOKEN
-// =========================================
-
+/*--- AUTH TOKEN ---*/
 function getToken() {
     return localStorage.getItem("crmToken");
 }
@@ -962,10 +402,7 @@ function getStoredUser() {
 }
 
 
-// =========================================
-// CHECK LOGIN
-// =========================================
-
+/*--- CHECK LOGIN ---*/
 function checkAuthentication() {
 
     const token = getToken();
@@ -979,18 +416,14 @@ function checkAuthentication() {
 }
 
 
-// =========================================
-// LOAD EMPLOYEE PROFILE
-// =========================================
-
+/*--- LOAD EMPLOYEE PROFILE ---*/
 async function loadEmployeeProfile() {
 
     if (!checkAuthentication()) return;
 
     try {
 
-        const response = await fetch(
-            `${API_BASE}/employee/profile`,
+        const response = await fetch(`${API_BASE}/employee/profile`,
             {
                 method: "GET",
                 headers: {
@@ -1015,20 +448,20 @@ async function loadEmployeeProfile() {
 
         const employee = data.employee;
 
-        // Header
+        /*-- Header --*/
         setText("employeeName", employee.full_name);
         setText("employeeRole", employee.role);
 
-        // Sidebar
+        /*-- Sidebar --*/
         setText("sidebarEmployeeName", employee.full_name);
         setText("sidebarEmployeeRole", employee.role);
 
-        // Profile card
+        /*-- Profile card --*/
         setText("profileFullName", employee.full_name);
         setText("profileRole", employee.role);
         setText("profileStatus", employee.status);
 
-        // Form
+        /*-- Form --*/
         setValue("full_name", employee.full_name);
         setValue("email", employee.email);
         setValue("mobile", employee.mobile);
@@ -1042,7 +475,7 @@ async function loadEmployeeProfile() {
         setValue("status", employee.status);
         setValue("address", employee.address || "");
 
-        // Avatar
+        /*-- Avatar --*/
         const firstLetter = employee.full_name
             ? employee.full_name.charAt(0).toUpperCase()
             : "U";
@@ -1053,15 +486,13 @@ async function loadEmployeeProfile() {
             avatar.innerHTML = `<strong>${escapeHtml(firstLetter)}</strong>`;
         }
 
-        const largeAvatar =
-            document.getElementById("largeProfileAvatar");
+        const largeAvatar = document.getElementById("largeProfileAvatar");
 
         if (largeAvatar) {
-            largeAvatar.innerHTML =
-                `<strong>${escapeHtml(firstLetter)}</strong>`;
+            largeAvatar.innerHTML = `<strong>${escapeHtml(firstLetter)}</strong>`;
         }
 
-        // Keep localStorage updated
+        /*-- Keep localStorage updated --*/
         const currentUser = getStoredUser() || {};
 
         localStorage.setItem(
@@ -1096,39 +527,28 @@ async function loadEmployeeProfile() {
 }
 
 
-// =========================================
-// SAVE PROFILE
-// =========================================
-
+/*--- SAVE PROFILE ---*/
 async function saveProfile(event) {
 
     event.preventDefault();
 
-    const saveButton =
-        document.getElementById("saveProfileBtn");
+    const saveButton = document.getElementById("saveProfileBtn");
 
-    const full_name =
-        document.getElementById("full_name").value.trim();
+    const full_name = document.getElementById("full_name").value.trim();
 
-    const email =
-        document.getElementById("email").value.trim();
+    const email = document.getElementById("email").value.trim();
 
-    const mobile =
-        document.getElementById("mobile").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
 
-    const department =
-        document.getElementById("department").value.trim();
+    const department = document.getElementById("department").value.trim();
 
-    const address =
-        document.getElementById("address").value.trim();
+    const address = document.getElementById("address").value.trim();
 
 
-    // Validation
+    /*-- Validation --*/
     if (!full_name || !email || !mobile) {
 
-        alert(
-            "Full name, email and mobile number are required."
-        );
+        alert("Full name, email and mobile number are required.");
 
         return;
     }
@@ -1136,9 +556,7 @@ async function saveProfile(event) {
 
     if (!/^\d{10}$/.test(mobile)) {
 
-        alert(
-            "Mobile number must be exactly 10 digits."
-        );
+        alert("Mobile number must be exactly 10 digits.");
 
         return;
     }
@@ -1153,8 +571,7 @@ async function saveProfile(event) {
              Saving...`;
 
 
-        const response = await fetch(
-            `${API_BASE}/employee/profile`,
+        const response = await fetch(`${API_BASE}/employee/profile`,
             {
                 method: "PUT",
 
@@ -1193,12 +610,10 @@ async function saveProfile(event) {
         }
 
 
-        alert(
-            "Profile updated successfully."
-        );
+        alert("✅ Profile updated successfully.");
 
 
-        // Reload latest profile
+        /*-- Reload latest profile --*/
         await loadEmployeeProfile();
 
 
@@ -1225,34 +640,24 @@ async function saveProfile(event) {
 }
 
 
-// =========================================
-// CHANGE PASSWORD
-// =========================================
-
+/*--- CHANGE PASSWORD ---*/
 async function changePassword(event) {
 
     event.preventDefault();
 
-    const currentPassword =
-        document.getElementById("currentPassword").value;
+    const currentPassword = document.getElementById("currentPassword").value;
 
-    const newPassword =
-        document.getElementById("newPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
 
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
 
-    const button =
-        document.getElementById("changePasswordBtn");
-
+    const button = document.getElementById("changePasswordBtn");
 
     if (!currentPassword ||
         !newPassword ||
         !confirmPassword) {
 
-        alert(
-            "Please fill all password fields."
-        );
+        alert("Please fill all password fields.");
 
         return;
     }
@@ -1260,9 +665,7 @@ async function changePassword(event) {
 
     if (newPassword.length < 6) {
 
-        alert(
-            "New password must be at least 6 characters."
-        );
+        alert("New password must be at least 6 characters.");
 
         return;
     }
@@ -1270,9 +673,7 @@ async function changePassword(event) {
 
     if (newPassword !== confirmPassword) {
 
-        alert(
-            "New password and confirm password do not match."
-        );
+        alert("New password and confirm password do not match.");
 
         return;
     }
@@ -1280,9 +681,7 @@ async function changePassword(event) {
 
     if (currentPassword === newPassword) {
 
-        alert(
-            "New password must be different from the current password."
-        );
+        alert("New password must be different from the current password.");
 
         return;
     }
@@ -1297,8 +696,7 @@ async function changePassword(event) {
              Updating...`;
 
 
-        const response = await fetch(
-            `${API_BASE}/employee/change-password`,
+        const response = await fetch(`${API_BASE}/employee/change-password`,
             {
                 method: "PUT",
 
@@ -1322,9 +720,7 @@ async function changePassword(event) {
             return;
         }
 
-
         const data = await response.json();
-
 
         if (!data.success) {
 
@@ -1335,9 +731,7 @@ async function changePassword(event) {
         }
 
 
-        alert(
-            "Password changed successfully. Please login again."
-        );
+        alert("✅ Password changed successfully. Please login again.");
 
 
         /*
@@ -1373,35 +767,23 @@ async function changePassword(event) {
 }
 
 
-// =========================================
-// PASSWORD SHOW / HIDE
-// =========================================
-
+/*--- PASSWORD SHOW / HIDE ---*/
 function setupPasswordToggles() {
 
-    const buttons =
-        document.querySelectorAll(
-            ".crm-password-toggle"
-        );
-
+    const buttons = document.querySelectorAll(".EMP-Mypro-password-toggle");
 
     buttons.forEach(button => {
 
-        button.addEventListener(
-            "click",
-            function () {
+        button.addEventListener("click", function () {
 
-                const targetId =
-                    this.dataset.target;
+                const targetId = this.dataset.target;
 
-                const input =
-                    document.getElementById(targetId);
+                const input = document.getElementById(targetId);
 
                 if (!input) return;
 
 
-                const icon =
-                    this.querySelector("i");
+                const icon = this.querySelector("i");
 
 
                 if (input.type === "password") {
@@ -1436,32 +818,20 @@ function setupPasswordToggles() {
 }
 
 
-// =========================================
-// MOBILE SIDEBAR
-// =========================================
-
+/*--- MOBILE SIDEBAR ---*/
 function setupSidebar() {
 
-    const menuBtn =
-        document.getElementById("menuBtn");
+    const menuBtn = document.getElementById("menuBtn");
 
-    const sidebar =
-        document.getElementById("crmSidebar");
+    const sidebar = document.getElementById("crmSidebar");
 
-    const overlay =
-        document.getElementById(
-            "crmSidebarOverlay"
-        );
-
+    const overlay = document.getElementById("crmSidebarOverlay");
 
     if (!menuBtn || !sidebar || !overlay) {
         return;
     }
 
-
-    menuBtn.addEventListener(
-        "click",
-        () => {
+    menuBtn.addEventListener("click", () => {
 
             sidebar.classList.toggle("active");
             overlay.classList.toggle("active");
@@ -1470,9 +840,7 @@ function setupSidebar() {
     );
 
 
-    overlay.addEventListener(
-        "click",
-        () => {
+    overlay.addEventListener("click", () => {
 
             sidebar.classList.remove("active");
             overlay.classList.remove("active");
@@ -1481,15 +849,11 @@ function setupSidebar() {
     );
 
 
-    const sidebarLinks =
-        sidebar.querySelectorAll("a");
-
+    const sidebarLinks = sidebar.querySelectorAll("a");
 
     sidebarLinks.forEach(link => {
 
-        link.addEventListener(
-            "click",
-            () => {
+        link.addEventListener("click", () => {
 
                 sidebar.classList.remove("active");
                 overlay.classList.remove("active");
@@ -1501,14 +865,10 @@ function setupSidebar() {
 }
 
 
-// =========================================
-// NOTIFICATION
-// =========================================
-
+/*--- NOTIFICATION ---*/
 async function loadNotificationCount() {
 
-    const countElement =
-        document.getElementById(
+    const countElement = document.getElementById(
             "headerNotificationCount"
         );
 
@@ -1517,8 +877,7 @@ async function loadNotificationCount() {
 
     try {
 
-        const response = await fetch(
-            `${API_BASE}/employee/notifications`,
+        const response = await fetch(`${API_BASE}/employee/notifications`,
             {
                 method: "GET",
                 headers: {
@@ -1536,8 +895,7 @@ async function loadNotificationCount() {
         }
 
 
-        const data =
-            await response.json();
+        const data = await response.json();
 
 
         if (data.success) {
@@ -1562,16 +920,16 @@ async function loadNotificationCount() {
 
 function openNotifications() {
 
-    window.location.href =
-        "my-notifications.html";
+    window.location.href = "my-notifications.html";
 }
 
 
-// =========================================
-// LOGOUT
-// =========================================
+/*--- LOGOUT ---*/
+function logoutEmployee(event) {
 
-function logout() {
+    if (event) {
+        event.preventDefault();
+    }
 
     localStorage.removeItem("crmToken");
     localStorage.removeItem("crmUser");
@@ -1581,14 +939,10 @@ function logout() {
 }
 
 
-// =========================================
-// HELPERS
-// =========================================
-
+/*--- HELPERS ---*/
 function setText(id, value) {
 
-    const element =
-        document.getElementById(id);
+    const element = document.getElementById(id);
 
     if (element) {
         element.textContent =
@@ -1599,8 +953,7 @@ function setText(id, value) {
 
 function setValue(id, value) {
 
-    const element =
-        document.getElementById(id);
+    const element = document.getElementById(id);
 
     if (element) {
         element.value =
@@ -1615,15 +968,13 @@ function formatDateForInput(dateValue) {
         return "";
     }
 
-    const date =
-        new Date(dateValue);
+    const date = new Date(dateValue);
 
     if (Number.isNaN(date.getTime())) {
         return "";
     }
 
-    const year =
-        date.getFullYear();
+    const year = date.getFullYear();
 
     const month =
         String(
@@ -1650,13 +1001,8 @@ function escapeHtml(value) {
 }
 
 
-// =========================================
-// INITIALIZE
-// =========================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+/*--- INITIALIZE ---*/
+document.addEventListener("DOMContentLoaded", () => {
 
         if (!checkAuthentication()) {
             return;
@@ -1672,46 +1018,30 @@ document.addEventListener(
         setupSidebar();
 
 
-        const profileForm =
-            document.getElementById(
-                "profileForm"
-            );
+        const profileForm = document.getElementById("profileForm");
 
         if (profileForm) {
 
-            profileForm.addEventListener(
-                "submit",
+            profileForm.addEventListener("submit",
                 saveProfile
             );
 
         }
 
-
-        const passwordForm =
-            document.getElementById(
-                "changePasswordForm"
-            );
+        const passwordForm = document.getElementById("changePasswordForm");
 
         if (passwordForm) {
 
-            passwordForm.addEventListener(
-                "submit",
-                changePassword
-            );
+            passwordForm.addEventListener("submit", changePassword);
 
         }
 
 
-        const logoutBtn =
-            document.getElementById(
-                "logoutBtn"
-            );
+        const logoutBtn = document.getElementById("logoutBtn");
 
         if (logoutBtn) {
 
-            logoutBtn.addEventListener(
-                "click",
-                function (event) {
+            logoutBtn.addEventListener("click", function (event) {
 
                     event.preventDefault();
 
@@ -1725,7 +1055,6 @@ document.addEventListener(
     }
 );
 </script>
-
 
 
 </body>
