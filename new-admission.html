@@ -28,102 +28,83 @@
 <body>
 
 
-    <!-- CRM dashboard Header -->
-    <header class="crm-dashboard-header">
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
 
         <!-- LEFT -->
-        <div class="crm-header-left">
+        <div class="EMP-header-left">
 
-            <div class="crm-header-logo">
+            <div class="EMP-header-logo">
                 <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
             </div>
 
-            <div class="crm-header-menu-btn" id="menuBtn">
+            <div class="EMP-header-menu-btn" id="menuBtn">
                 <i class="fa fa-bars"></i>
             </div>
 
         </div>
-
+        
         <!-- CENTER -->
-        <div class="crm-header-center">
+        <div class="EMP-header-center">
             STUDENT CRM SYSTEM
         </div>
-
+  
         <!-- RIGHT -->
-        <div class="crm-header-right">
+        <div class="EMP-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification" onclick="openNotifications()">
+            <div class="EMP-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count" id="headerNotificationCount">0</span>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
         <!-- Profile -->
-        <div class="crm-profile-dropdown">
+        <div class="EMP-profile">
 
-            <div class="crm-profile-btn" onclick="toggleDropdown()">
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
 
-                <div class="crm-avatar">
-                    <i class="fa fa-user"></i>
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
                 </div>
-                <span>Admin</span>
-                <i class="fa-solid fa-angle-down"></i>
 
             </div>
 
-            <!-- Profile Dropdown -->
-            <div class="crm-dropdown-menu" id="dropdownMenu">
-
-                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
-                <a href="crm-settings.html"><i class="fa fa-cog"></i>Settings</a>
-                <a href="login.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
-
-            </div>
-            
         </div>
 
-    </div>
-
-</header>
+    </header>
 
 
-    <!-- CRM Sidebar Overlay -->
+    <!-- EMP Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
 
-        <div class="crm-sidebar-container">
+        <div class="EMP-sidebar-container">
 
-            <aside class="crm-sidebar" id="crmSidebar">
+            <aside class="EMP-sidebar" id="crmSidebar">
 
-                <a href="dashboard-crm.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
-
-                <!-- Course Management -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-book"></i>Course Management
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="add-course.html" class="active"><i class="fa fa-plus"></i>Add Course</a>
-                        <a href="manage-courses.html" class="active"><i class="fa fa-list"></i>Manage Courses</a>
-                    </div>
-
-                </div>
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
 
                 <!-- Student Enquiries -->
                 <div class="crm-dropdown">
 
                     <div class="crm-dropdown-btn">
-                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-user-graduate"></i>My Enquiries
                         <i class="fa fa-angle-down icon-color"></i>
                     </div>
 
                     <div class="crm-dropdown-content">
                         <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
-                        <a href="manage-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
-                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
                     </div>
 
                 </div>
@@ -132,15 +113,13 @@
                 <div class="crm-dropdown">
 
                     <div class="crm-dropdown-btn">
-                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-phone"></i>My Follow-ups
                         <i class="fa fa-angle-down icon-color"></i>
                     </div>
 
                     <div class="crm-dropdown-content">
-                        <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
-                        <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
-                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
-                        <a href="calendar-view.html"><i class="fa fa-calendar-alt"></i>Calendar View</a>
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
                     </div>
 
                 </div>
@@ -155,56 +134,22 @@
 
                     <div class="crm-dropdown-content">
                         <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
-                        <a href="manage-admissions.html"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                        <a href="my-admissions.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-user-check"></i>My Admissions</a>
                     </div>
 
                 </div>
 
-                <!-- Notifications -->
-                <div class="crm-dropdown">
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
 
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-bullhorn"></i>Notifications
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
 
-                    <div class="crm-dropdown-content">
-                        <a href="today-notifications.html"><i class="fa fa-bell"></i>Today's Notifications</a>
-                        <a href="upcoming-follow-ups.html"><i class="fa fa-calendar-check"></i>Upcoming Follow-ups</a>
-                        <a href="missed-followups.html"><i class="fa fa-calendar-xmark"></i>Missed Follow-ups</a>
-                    </div>
-
-                </div>
-
-                <!-- Reports -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-chart-bar"></i>Reports
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="enquiry-reports.html"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
-                        <a href="admission-reports.html"><i class="fa fa-chart-line"></i>Admission Reports</a>
-                    </div>
-
-                </div>
-
-                <!-- Users -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-user-shield"></i>Users
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
-                        <a href="manage-user.html"><i class="fa fa-users-cog"></i>Manage Users</a>
-                    </div>
-
-                </div>
+                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
 
             </aside>
 

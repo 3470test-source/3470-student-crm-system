@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Add Enquiry Page</title>
+    <title>3470 Healthcare & Student CRM System - Employee Add Enquiry Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -21,109 +21,90 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     </style>
 
 </head>
 <body>
 
 
-    <!-- CRM dashboard Header -->
-    <header class="crm-dashboard-header">
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
 
         <!-- LEFT -->
-        <div class="crm-header-left">
+        <div class="EMP-header-left">
 
-            <div class="crm-header-logo">
+            <div class="EMP-header-logo">
                 <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
             </div>
 
-            <div class="crm-header-menu-btn" id="menuBtn">
+            <div class="EMP-header-menu-btn" id="menuBtn">
                 <i class="fa fa-bars"></i>
             </div>
 
         </div>
-
+        
         <!-- CENTER -->
-        <div class="crm-header-center">
+        <div class="EMP-header-center">
             STUDENT CRM SYSTEM
         </div>
 
         <!-- RIGHT -->
-        <div class="crm-header-right">
+        <div class="EMP-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification" onclick="openNotifications()">
+            <div class="EMP-notification" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count" id="headerNotificationCount">0</span>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
         <!-- Profile -->
-        <div class="crm-profile-dropdown">
+        <div class="EMP-profile">
 
-            <div class="crm-profile-btn" onclick="toggleDropdown()">
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
 
-                <div class="crm-avatar">
-                    <i class="fa fa-user"></i>
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
                 </div>
-                <span>Admin</span>
-                <i class="fa-solid fa-angle-down"></i>
 
             </div>
 
-            <!-- Profile Dropdown -->
-            <div class="crm-dropdown-menu" id="dropdownMenu">
-
-                <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
-                <a href="crm-settings.html"><i class="fa fa-cog"></i>Settings</a>
-                <a href="login.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
-
-            </div>
-            
         </div>
 
-    </div>
-
-</header>
+    </header>
 
 
-    <!-- CRM Sidebar Overlay -->
+    <!-- EMP Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
 
-        <div class="crm-sidebar-container">
+        <div class="EMP-sidebar-container">
 
-            <aside class="crm-sidebar" id="crmSidebar">
+            <aside class="EMP-sidebar" id="crmSidebar">
 
-                <a href="dashboard-crm.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
-
-                <!-- Course Management -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-book"></i>Course Management
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="add-course.html" class="active"><i class="fa fa-plus"></i>Add Course</a>
-                        <a href="manage-courses.html" class="active"><i class="fa fa-list"></i>Manage Courses</a>
-                    </div>
-
-                </div>
+                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
 
                 <!-- Student Enquiries -->
                 <div class="crm-dropdown">
 
                     <div class="crm-dropdown-btn">
-                        <i class="fa fa-user-graduate"></i>Student Enquiries
+                        <i class="fa fa-user-graduate"></i>My Enquiries
                         <i class="fa fa-angle-down icon-color"></i>
                     </div>
 
                     <div class="crm-dropdown-content">
                         <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
-                        <a href="manage-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
-                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
                     </div>
 
                 </div>
@@ -132,15 +113,13 @@
                 <div class="crm-dropdown">
 
                     <div class="crm-dropdown-btn">
-                        <i class="fa fa-phone"></i>Follow Ups
+                        <i class="fa fa-phone"></i>My Follow-ups
                         <i class="fa fa-angle-down icon-color"></i>
                     </div>
 
                     <div class="crm-dropdown-content">
-                        <a href="today-followups.html"><i class="fa fa-calendar-day"></i>Today's Follow-ups</a>
-                        <a href="scheduled-follow-ups.html"><i class="fa fa-calendar-check"></i>Scheduled Follow-ups</a>
-                        <a href="follow-up-history.html"><i class="fa fa-history"></i>Follow-up History</a>
-                        <a href="calendar-view.html"><i class="fa fa-calendar-alt"></i>Calendar View</a>
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
                     </div>
 
                 </div>
@@ -155,56 +134,22 @@
 
                     <div class="crm-dropdown-content">
                         <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
-                        <a href="manage-admissions.html"><i class="fa fa-address-card"></i>Manage Admissions</a>
+                        <a href="my-admissions.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-user-check"></i>My Admissions</a>
                     </div>
 
                 </div>
 
-                <!-- Notifications -->
-                <div class="crm-dropdown">
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
 
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-bullhorn"></i>Notifications
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
 
-                    <div class="crm-dropdown-content">
-                        <a href="today-notifications.html"><i class="fa fa-bell"></i>Today's Notifications</a>
-                        <a href="upcoming-follow-ups.html"><i class="fa fa-calendar-check"></i>Upcoming Follow-ups</a>
-                        <a href="missed-followups.html"><i class="fa fa-calendar-xmark"></i>Missed Follow-ups</a>
-                    </div>
-
-                </div>
-
-                <!-- Reports -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-chart-bar"></i>Reports
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="enquiry-reports.html"><i class="fa fa-file-alt"></i>Enquiry Reports</a>
-                        <a href="admission-reports.html"><i class="fa fa-chart-line"></i>Admission Reports</a>
-                    </div>
-
-                </div>
-
-                <!-- Users -->
-                <div class="crm-dropdown">
-
-                    <div class="crm-dropdown-btn">
-                        <i class="fa fa-user-shield"></i>Users
-                        <i class="fa fa-angle-down icon-color"></i>
-                    </div>
-
-                    <div class="crm-dropdown-content">
-                        <a href="add-user.html"><i class="fa fa-user-plus"></i>Add User</a>
-                        <a href="manage-user.html"><i class="fa fa-users-cog"></i>Manage Users</a>
-                    </div>
-
-                </div>
+                <a href="#" class="crm-nav-link logout" id="logoutButton">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
 
             </aside>
 
@@ -227,25 +172,25 @@
                             <!-- Student Name -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Student Name <span>*</span></label>
-                                <input type="text" name="studentName" placeholder="Enter student name" required>
+                                <input type="text" id="studentName" name="studentName" placeholder="Enter student name" required>
                             </div>
 
                             <!-- Mobile -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Mobile Number <span>*</span></label>
-                                <input type="tel" name="mobile" placeholder="Enter mobile number" required>
+                                <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" required>
                             </div>
 
                             <!-- Email -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Email Address</label>
-                                <input type="email" name="email" placeholder="Enter email address">
+                                <input type="email" id="email" name="email" placeholder="Enter email address">
                             </div>
 
                             <!-- Gender -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Gender</label>
-                                <select name="gender">
+                                <select id="gender" name="gender">
                                     <option value="">-- Select Gender --</option>
                                     <option value="male">Male</option>
                                     <option value="Female">Female</option>
@@ -255,13 +200,13 @@
                             <!-- Date of Birth -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Date of Birth</label>
-                                <input type="date" name="dateOfBirth">
+                                <input type="date" id="dateOfBirth" name="dateOfBirth">
                             </div>
 
                             <!-- Course -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Course Interested <span>*</span></label>
-                                <select name="courseInterested" required>
+                                <select id="courseInterested" name="courseInterested" required>
                                     <option value="">-- Select Course --</option>
                                     <option value="BMCT">BMCT - Basic Medical Coding Training</option>
                                     <option value="AMCT">AMCT - Advanced Medical Coding Training</option>
@@ -280,7 +225,7 @@
                             <!-- Source -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Enquiry Source</label>
-                                <select name="enquirySource">
+                                <select id="enquirySource" name="enquirySource">
                                     <option value="">-- Select Source --</option>   
                                     <option value="phone call">Phone Call</option>
                                     <option value="Walk-in">Walk-in</option>
@@ -294,34 +239,34 @@
 
                             <!-- Counsellor -->
                             <div class="crm-form-group-addEnquiry">
-                                <label>Counsellor</label>
-                                <select id="counsellor" name="counsellor">
-                                    <option value="">-- Select Counsellor --</option>
-                                </select>
+                                <label>Assigned Employee</label>
+                                <div class="crm-assigned-employee"><i class="fa-solid fa-user-check"></i>
+                                    Automatically assigned to your account
+                                </div>
                             </div>
 
                             <!-- Enquiry Date -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Enquiry Date</label>
-                                <input type="date" name="enquiryDate">
+                                <input type="date" id="enquiryDate" name="enquiryDate">
                             </div>
 
                             <!-- Follow-up Date -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Next Follow-up Date</label>
-                                <input type="date" name="followUpDate">
+                                <input type="date" id="followUpDate" name="followUpDate">
                             </div>
 
                             <!-- Follow-up Time -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Follow-up Time</label>
-                                <input type="time" name="followUpTime">
+                                <input type="time" id="followUpTime" name="followUpTime">
                             </div>
 
                             <!-- Status -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Status</label>
-                                <select name="status">
+                                <select id="status" name="status">
                                     <option value="">-- Status --</option>
                                     <option>New</option>
                                     <option>Interested</option>
@@ -334,13 +279,13 @@
                             <!-- Address -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Address</label>
-                                <textarea rows="3" name="address" placeholder="Enter address"></textarea>
+                                <textarea rows="3" id="address" name="address" placeholder="Enter address"></textarea>
                             </div>
 
                             <!-- Comments -->
                             <div class="crm-form-group-addEnquiry">
                                 <label>Comments</label>
-                                <textarea rows="3" name="comments" placeholder="Enter enquiry comments"></textarea>
+                                <textarea rows="3" id="comments" name="comments" placeholder="Enter enquiry comments"></textarea>
                             </div>
 
                             <!-- Buttons -->
@@ -360,258 +305,242 @@
         </div>
 
 
-
-<!-- Javascript -->
-<script src="js/crm-notifications.js"></script>        
-
     
-<!-- Profile dropdown JS - Script -->
+<!-- Add Students Enquiry - JS -->
 <script>
-    function toggleDropdown(){
+        const API_BASE_URL = "http://localhost:3000";
 
-    document.getElementById("dropdownMenu").classList.toggle("show");
+        const form = document.getElementById("studentEnquiryForm");
+        const saveButton = form.querySelector(".crm-btn-AddEnq-save");
 
-}
-
-window.onclick = function(e){
-
-    if(!e.target.closest(".crm-profile-dropdown")){
-
-        document.getElementById("dropdownMenu").classList.remove("show");
-
-    }
-
-}
-</script> 
-
-
-<!-- Side bar dropdown JS - Script -->
-<script>
-    const dropdowns = document.querySelectorAll(".crm-dropdown");
-
-dropdowns.forEach(dropdown => {
-
-    const button = dropdown.querySelector(".crm-dropdown-btn");
-
-    button.addEventListener("click", () => {
-
-        dropdown.classList.toggle("active");
-
-    });
-
-});
-</script>
-
-
-
-<!-- Add Students Enquiry - JS  -->
-<script>
-
-const studentEnquiryForm = document.getElementById("studentEnquiryForm");
-
-studentEnquiryForm.addEventListener("submit", async function(event) {
-
-        event.preventDefault();
-
-        /*-- GET FORM VALUES --*/
-        const studentName = studentEnquiryForm.elements["studentName"].value.trim();
-
-        const mobile = studentEnquiryForm.elements["mobile"].value.trim();
-
-        const email = studentEnquiryForm.elements["email"].value.trim();
-
-        const gender = studentEnquiryForm.elements["gender"].value;
-
-        const dateOfBirth = studentEnquiryForm.elements["dateOfBirth"].value;
-
-        const courseInterested = studentEnquiryForm.elements["courseInterested"].value;
-
-        const enquirySource = studentEnquiryForm.elements["enquirySource"].value;
-
-        const counsellor = studentEnquiryForm.elements["counsellor"].value;
-
-        const enquiryDate = studentEnquiryForm.elements["enquiryDate"].value;
-
-        const followUpDate = studentEnquiryForm.elements["followUpDate"].value;
-
-        const followUpTime = studentEnquiryForm.elements["followUpTime"].value;
-
-        const status = studentEnquiryForm.elements["status"].value;
-
-        const address = studentEnquiryForm.elements["address"].value.trim();
-
-        const comments = studentEnquiryForm.elements["comments"].value.trim();
-
-
-        /*-- BASIC VALIDATION --*/
-        if (!studentName) {
-
-            alert("Please enter the student name.");
-            return;
-
+        function getToken() {
+            return localStorage.getItem("crmToken");
         }
 
-        if (!mobile) {
-
-            alert("Please enter the mobile number.");
-            return;
-
-        }
-
-        if (!courseInterested) {
-
-            alert("Please select the course interested.");
-            return;
-
-        }
-
-
-        /*-- SAVE BUTTON --*/
-        const saveButton =
-            studentEnquiryForm.querySelector(
-                ".crm-btn-AddEnq-save"
-            );
-
-        const originalText = saveButton.innerHTML;
-
-        saveButton.disabled = true;
-
-        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
-
-        try {
-
-            /*-- API REQUEST --*/
-            const response = await fetch(
-
-                "http://localhost:3000/api/enquiries",
-
-                {
-
-                    method: "POST",
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body: JSON.stringify({
-
-                        studentName: studentName,
-                        mobile: mobile,
-                        email: email,
-                        gender: gender,
-                        dateOfBirth: dateOfBirth,
-                        courseInterested: courseInterested,
-                        enquirySource: enquirySource,
-                        counsellor: counsellor,
-                        enquiryDate: enquiryDate,
-                        followUpDate: followUpDate,
-                        followUpTime: followUpTime,
-                        status: status,
-                        address: address,
-                        comments: comments
-
-                    })
-
-                }
-
-            );
-
-
-            /*-- RESPONSE --*/
-            const data = await response.json();
-
-            if (!response.ok) {
-
-                alert(
-                    data.message ||
-                    "Unable to add enquiry."
-                );
-
-                return;
-
+        function getLoggedInUser() {
+            try {
+                return JSON.parse(localStorage.getItem("crmUser") || "null");
+            } catch {
+                return null;
             }
+        }
 
+        function redirectToLogin() {
+            localStorage.removeItem("crmToken");
+            localStorage.removeItem("crmUser");
+            window.location.href = "login.html";
+        }
 
-            /*-- SUCCESS --*/
-            alert(data.message);
+       
+        function setEmployeeHeader() {
+        const user = getLoggedInUser();
 
-            /*-- Reset form --*/
-            studentEnquiryForm.reset();
+        console.log("Logged-in user from localStorage:", user);
 
-            /*-- Go to Manage Enquiries --*/
-            window.location.href = "manage-enquiries.html";
+        const nameElement = document.getElementById("employeeName");
+        const roleElement = document.getElementById("employeeRole");
+        const avatarElement = document.getElementById("profileAvatar");
 
+        if (!nameElement || !roleElement || !avatarElement) {
+            console.error("Employee header elements were not found.");
+            return;
+        }
 
-        } catch (error) {
+        if (!user) {
+            nameElement.textContent = "Employee";
+            roleElement.textContent = "Employee";
+            avatarElement.textContent = "E";
 
             console.error(
-                "❌ Enquiry API Error:",
-                error
+                "No user object found in localStorage key crmUser."
             );
-
-
-            alert(
-                "❌ Unable to connect to the CRM server."
-            );
-
-
-        } finally {
-
-            saveButton.disabled = false;
-
-            saveButton.innerHTML = originalText;
-
+            return;
         }
 
-    }
+        const name =
+            user.full_name ||
+            user.fullName ||
+            user.name ||
+            user.username ||
+            "Employee";
 
-);
+        const role =
+            user.role ||
+            user.user_role ||
+            user.designation ||
+            "Employee";
 
-</script>
-
-
-
-<!-- Counsellor - JS -->
-<script>
-
-async function loadCounsellors() {
-
-    const counsellorSelect = document.getElementById("counsellor");
-
-    if (!counsellorSelect) return;
-
-    try {
-        const response = await fetch(
-            "http://localhost:3000/api/users/counsellors"
-        );
-
-        const data = await response.json();
-
-        if (!data.success) {
-            throw new Error(data.message || "Failed to load counsellors");
+            nameElement.textContent = name;
+            roleElement.textContent = role;
+            avatarElement.textContent = name.charAt(0).toUpperCase();
         }
 
-        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
 
-        data.counsellors.forEach(counsellor => {
+        function setDefaultDates() {
+            const today = new Date();
+            const localDate = new Date(
+                today.getTime() - today.getTimezoneOffset() * 60000
+            ).toISOString().slice(0, 10);
 
-            const option = document.createElement("option");
+            document.getElementById("enquiryDate").value = localDate;
+            document.getElementById("enquiryDate").max = localDate;
+            document.getElementById("dateOfBirth").max = localDate;
+            document.getElementById("followUpDate").min = localDate;
+        }
 
-            option.value = counsellor.full_name;
-            option.textContent = counsellor.full_name;
+        async function checkEmployeeSession() {
+            const token = getToken();
+            const user = getLoggedInUser();
 
-            counsellorSelect.appendChild(option);
+            if (!token || !user) {
+                redirectToLogin();
+                return false;
+            }
+
+            if (user.role === "Admin") {
+                alert("Please use the Admin Add Enquiry page for admin entries.");
+                window.location.href = "dashboard-crm.html";
+                return false;
+            }
+
+            return true;
+        }
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const token = getToken();
+
+            if (!token) {
+                alert("Your session has expired. Please log in again.");
+                redirectToLogin();
+                return;
+            }
+
+            const studentName = form.elements["studentName"].value.trim();
+            const mobile = form.elements["mobile"].value.trim();
+            const email = form.elements["email"].value.trim();
+            const gender = form.elements["gender"].value;
+            const dateOfBirth = form.elements["dateOfBirth"].value;
+            const courseInterested = form.elements["courseInterested"].value;
+            const enquirySource = form.elements["enquirySource"].value;
+            const enquiryDate = form.elements["enquiryDate"].value;
+            const followUpDate = form.elements["followUpDate"].value;
+            const followUpTime = form.elements["followUpTime"].value;
+            const status = form.elements["status"].value;
+            const address = form.elements["address"].value.trim();
+            const comments = form.elements["comments"].value.trim();
+
+            if (!studentName) {
+                alert("Please enter the student name.");
+                form.elements["studentName"].focus();
+                return;
+            }
+
+            if (!/^[0-9+\-\s()]{7,15}$/.test(mobile)) {
+                alert("Please enter a valid mobile number.");
+                form.elements["mobile"].focus();
+                return;
+            }
+
+            if (!courseInterested) {
+                alert("Please select the course interested.");
+                form.elements["courseInterested"].focus();
+                return;
+            }
+
+            if (followUpDate && enquiryDate && followUpDate < enquiryDate) {
+                alert("The follow-up date cannot be earlier than the enquiry date.");
+                return;
+            }
+
+            const originalButtonHTML = saveButton.innerHTML;
+            saveButton.disabled = true;
+            saveButton.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            try {
+                const response = await fetch(
+                    `${API_BASE_URL}/api/employee/enquiries`,
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            studentName,
+                            mobile,
+                            email,
+                            gender,
+                            dateOfBirth,
+                            courseInterested,
+                            enquirySource,
+                            enquiryDate,
+                            followUpDate,
+                            followUpTime,
+                            status,
+                            address,
+                            comments
+                        })
+                    }
+                );
+
+                const data = await response.json().catch(() => ({}));
+
+                if (response.status === 401) {
+                    alert("Your session has expired. Please log in again.");
+                    redirectToLogin();
+                    return;
+                }
+
+                if (!response.ok || data.success === false) {
+                    throw new Error(data.message || "Unable to save enquiry.");
+                }
+
+                alert(data.message || "Enquiry saved successfully.");
+                window.location.href = "my-enquiries.html";
+
+            } catch (error) {
+                console.error("Add Enquiry Error:", error);
+                alert(error.message || "Unable to connect to the CRM server.");
+            } finally {
+                saveButton.disabled = false;
+                saveButton.innerHTML = originalButtonHTML;
+            }
         });
 
-    } catch (error) {
-        console.error("❌ Counsellor Load Error:", error);
-    }
-}
+        document.getElementById("logoutButton").addEventListener("click", function (event) {
+            event.preventDefault();
+            redirectToLogin();
+        });
 
-document.addEventListener("DOMContentLoaded", loadCounsellors);
+        document.querySelectorAll(".crm-dropdown-btn").forEach(function (button) {
+            button.addEventListener("click", function () {
+                button.closest(".crm-dropdown").classList.toggle("active");
+            });
+        });
+
+        document.getElementById("menuBtn").addEventListener("click", function () {
+            document.getElementById("crmSidebar").classList.toggle("active");
+            document.getElementById("crmSidebarOverlay").classList.toggle("active");
+        });
+
+        document.getElementById("crmSidebarOverlay").addEventListener("click", function () {
+            document.getElementById("crmSidebar").classList.remove("active");
+            this.classList.remove("active");
+        });
+
+        document.addEventListener("DOMContentLoaded", async function () {
+            setEmployeeHeader();
+            setDefaultDates();
+
+            const allowed = await checkEmployeeSession();
+            if (!allowed) {
+                form.querySelectorAll("input, select, textarea, button")
+                    .forEach(element => element.disabled = true);
+            }
+        });
 
 </script>
 

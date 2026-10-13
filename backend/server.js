@@ -5030,271 +5030,271 @@ app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
    EMPLOYEE - MY ENQUIRIES
 ========================================================= */
 
-app.get("/api/employee/enquiries", authenticateToken, async (req, res) => {
-    try {
-        const employeeId = req.user.id;
+// app.get("/api/employee/enquiries", authenticateToken, async (req, res) => {
+//     try {
+//         const employeeId = req.user.id;
 
-        const {
-            search = "",
-            course = "",
-            status = "",
-            page = 1,
-            limit = 10
-        } = req.query;
+//         const {
+//             search = "",
+//             course = "",
+//             status = "",
+//             page = 1,
+//             limit = 10
+//         } = req.query;
 
-        const currentPage = Math.max(parseInt(page, 10) || 1, 1);
-        const perPage = Math.min(
-            Math.max(parseInt(limit, 10) || 10, 1),
-            100
-        );
+//         const currentPage = Math.max(parseInt(page, 10) || 1, 1);
+//         const perPage = Math.min(
+//             Math.max(parseInt(limit, 10) || 10, 1),
+//             100
+//         );
 
-        const offset = (currentPage - 1) * perPage;
+//         const offset = (currentPage - 1) * perPage;
 
-        const conditions = ["se.counsellor_id = ?"];
-        const params = [employeeId];
+//         const conditions = ["se.counsellor_id = ?"];
+//         const params = [employeeId];
 
-        /* Search */
-        if (search.trim()) {
-            conditions.push(`
-                (
-                    se.student_name LIKE ?
-                    OR se.mobile LIKE ?
-                    OR se.email LIKE ?
-                )
-            `);
+//         /* Search */
+//         if (search.trim()) {
+//             conditions.push(`
+//                 (
+//                     se.student_name LIKE ?
+//                     OR se.mobile LIKE ?
+//                     OR se.email LIKE ?
+//                 )
+//             `);
 
-            const searchValue = `%${search.trim()}%`;
+//             const searchValue = `%${search.trim()}%`;
 
-            params.push(
-                searchValue,
-                searchValue,
-                searchValue
-            );
-        }
+//             params.push(
+//                 searchValue,
+//                 searchValue,
+//                 searchValue
+//             );
+//         }
 
-        /* Course */
-        if (course.trim()) {
-            conditions.push(
-                "se.course_interested = ?"
-            );
+//         /* Course */
+//         if (course.trim()) {
+//             conditions.push(
+//                 "se.course_interested = ?"
+//             );
 
-            params.push(course.trim());
-        }
+//             params.push(course.trim());
+//         }
 
-        /* Status */
-        if (status.trim()) {
-            conditions.push(
-                "se.status = ?"
-            );
+//         /* Status */
+//         if (status.trim()) {
+//             conditions.push(
+//                 "se.status = ?"
+//             );
 
-            params.push(status.trim());
-        }
+//             params.push(status.trim());
+//         }
 
-        const whereClause =
-            conditions.length
-                ? `WHERE ${conditions.join(" AND ")}`
-                : "";
+//         const whereClause =
+//             conditions.length
+//                 ? `WHERE ${conditions.join(" AND ")}`
+//                 : "";
 
-        /* =========================================
-           TOTAL COUNT
-        ========================================= */
+//         /* =========================================
+//            TOTAL COUNT
+//         ========================================= */
 
-        const [countRows] = await db.execute(
-            `
-            SELECT COUNT(*) AS total
-            FROM student_enquiries se
-            ${whereClause}
-            `,
-            params
-        );
+//         const [countRows] = await db.execute(
+//             `
+//             SELECT COUNT(*) AS total
+//             FROM student_enquiries se
+//             ${whereClause}
+//             `,
+//             params
+//         );
 
-        const total =
-            Number(countRows[0]?.total) || 0;
+//         const total =
+//             Number(countRows[0]?.total) || 0;
 
-        const totalPages =
-            Math.ceil(total / perPage);
-
-
-        /* =========================================
-           ENQUIRIES
-        ========================================= */
-
-        const [enquiries] = await db.execute(
-            `
-            SELECT
-                se.id,
-                se.student_name,
-                se.mobile,
-                se.email,
-                se.gender,
-                se.date_of_birth,
-                se.course_interested,
-                se.enquiry_source,
-                se.counsellor,
-                se.counsellor_id,
-                se.enquiry_date,
-                se.follow_up_date,
-                se.follow_up_time,
-                se.status,
-                se.address,
-                se.comments,
-                se.created_at,
-                se.updated_at
-
-            FROM student_enquiries se
-
-            ${whereClause}
-
-            ORDER BY se.id DESC
-
-            LIMIT ${perPage}
-            OFFSET ${offset}
-            `,
-            params
-        );
+//         const totalPages =
+//             Math.ceil(total / perPage);
 
 
-        /* =========================================
-           COURSES
-        ========================================= */
+//         /* =========================================
+//            ENQUIRIES
+//         ========================================= */
 
-        const [courses] = await db.execute(`
-            SELECT DISTINCT course_interested
-            FROM student_enquiries
-            WHERE counsellor_id = ?
-              AND course_interested IS NOT NULL
-              AND course_interested <> ''
-            ORDER BY course_interested ASC
-        `, [employeeId]);
+//         const [enquiries] = await db.execute(
+//             `
+//             SELECT
+//                 se.id,
+//                 se.student_name,
+//                 se.mobile,
+//                 se.email,
+//                 se.gender,
+//                 se.date_of_birth,
+//                 se.course_interested,
+//                 se.enquiry_source,
+//                 se.counsellor,
+//                 se.counsellor_id,
+//                 se.enquiry_date,
+//                 se.follow_up_date,
+//                 se.follow_up_time,
+//                 se.status,
+//                 se.address,
+//                 se.comments,
+//                 se.created_at,
+//                 se.updated_at
 
+//             FROM student_enquiries se
 
-        /* =========================================
-           STATUSES
-        ========================================= */
+//             ${whereClause}
 
-        const [statuses] = await db.execute(`
-            SELECT DISTINCT status
-            FROM student_enquiries
-            WHERE counsellor_id = ?
-              AND status IS NOT NULL
-              AND status <> ''
-            ORDER BY status ASC
-        `, [employeeId]);
+//             ORDER BY se.id DESC
 
-
-        res.json({
-            success: true,
-
-            enquiries,
-
-            pagination: {
-                page: currentPage,
-                limit: perPage,
-                total,
-                totalPages
-            },
-
-            filters: {
-                courses: courses.map(
-                    row => row.course_interested
-                ),
-
-                statuses: statuses.map(
-                    row => row.status
-                )
-            }
-        });
-
-    } catch (error) {
-
-        console.error(
-            "❌ Employee Enquiries Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to load employee enquiries.",
-            error: error.message
-        });
-    }
-});
+//             LIMIT ${perPage}
+//             OFFSET ${offset}
+//             `,
+//             params
+//         );
 
 
+//         /* =========================================
+//            COURSES
+//         ========================================= */
+
+//         const [courses] = await db.execute(`
+//             SELECT DISTINCT course_interested
+//             FROM student_enquiries
+//             WHERE counsellor_id = ?
+//               AND course_interested IS NOT NULL
+//               AND course_interested <> ''
+//             ORDER BY course_interested ASC
+//         `, [employeeId]);
+
+
+//         /* =========================================
+//            STATUSES
+//         ========================================= */
+
+//         const [statuses] = await db.execute(`
+//             SELECT DISTINCT status
+//             FROM student_enquiries
+//             WHERE counsellor_id = ?
+//               AND status IS NOT NULL
+//               AND status <> ''
+//             ORDER BY status ASC
+//         `, [employeeId]);
+
+
+//         res.json({
+//             success: true,
+
+//             enquiries,
+
+//             pagination: {
+//                 page: currentPage,
+//                 limit: perPage,
+//                 total,
+//                 totalPages
+//             },
+
+//             filters: {
+//                 courses: courses.map(
+//                     row => row.course_interested
+//                 ),
+
+//                 statuses: statuses.map(
+//                     row => row.status
+//                 )
+//             }
+//         });
+
+//     } catch (error) {
+
+//         console.error(
+//             "❌ Employee Enquiries Error:",
+//             error
+//         );
+
+//         res.status(500).json({
+//             success: false,
+//             message: "Failed to load employee enquiries.",
+//             error: error.message
+//         });
+//     }
+// });
 
 
 
-app.get(
-    "/api/employee/enquiries/:id",
-    authenticateToken,
-    async (req, res) => {
 
-        try {
 
-            const employeeId = req.user.id;
-            const enquiryId = req.params.id;
+// app.get(
+//     "/api/employee/enquiries/:id",
+//     authenticateToken,
+//     async (req, res) => {
 
-            const [rows] = await db.execute(`
-                SELECT
-                    se.id,
-                    se.student_name,
-                    se.mobile,
-                    se.email,
-                    se.gender,
-                    se.date_of_birth,
-                    se.course_interested,
-                    se.enquiry_source,
-                    se.counsellor,
-                    se.counsellor_id,
-                    se.enquiry_date,
-                    se.follow_up_date,
-                    se.follow_up_time,
-                    se.status,
-                    se.address,
-                    se.comments,
-                    se.created_at,
-                    se.updated_at
+//         try {
 
-                FROM student_enquiries se
+//             const employeeId = req.user.id;
+//             const enquiryId = req.params.id;
 
-                WHERE se.id = ?
-                  AND se.counsellor_id = ?
+//             const [rows] = await db.execute(`
+//                 SELECT
+//                     se.id,
+//                     se.student_name,
+//                     se.mobile,
+//                     se.email,
+//                     se.gender,
+//                     se.date_of_birth,
+//                     se.course_interested,
+//                     se.enquiry_source,
+//                     se.counsellor,
+//                     se.counsellor_id,
+//                     se.enquiry_date,
+//                     se.follow_up_date,
+//                     se.follow_up_time,
+//                     se.status,
+//                     se.address,
+//                     se.comments,
+//                     se.created_at,
+//                     se.updated_at
 
-                LIMIT 1
-            `, [
-                enquiryId,
-                employeeId
-            ]);
+//                 FROM student_enquiries se
 
-            if (!rows.length) {
+//                 WHERE se.id = ?
+//                   AND se.counsellor_id = ?
 
-                return res.status(404).json({
-                    success: false,
-                    message:
-                        "Enquiry not found or you are not authorized to view it."
-                });
-            }
+//                 LIMIT 1
+//             `, [
+//                 enquiryId,
+//                 employeeId
+//             ]);
 
-            res.json({
-                success: true,
-                enquiry: rows[0]
-            });
+//             if (!rows.length) {
 
-        } catch (error) {
+//                 return res.status(404).json({
+//                     success: false,
+//                     message:
+//                         "Enquiry not found or you are not authorized to view it."
+//                 });
+//             }
 
-            console.error(
-                "❌ Employee Enquiry View Error:",
-                error
-            );
+//             res.json({
+//                 success: true,
+//                 enquiry: rows[0]
+//             });
 
-            res.status(500).json({
-                success: false,
-                message: "Failed to load enquiry.",
-                error: error.message
-            });
-        }
-    }
-);
+//         } catch (error) {
+
+//             console.error(
+//                 "❌ Employee Enquiry View Error:",
+//                 error
+//             );
+
+//             res.status(500).json({
+//                 success: false,
+//                 message: "Failed to load enquiry.",
+//                 error: error.message
+//             });
+//         }
+//     }
+// );
 
 
 
@@ -6252,6 +6252,276 @@ app.put("/api/employee/change-password", authenticateToken, async (req, res) => 
     }
 
 });
+
+
+
+
+
+
+
+
+
+
+/*--------------------------------------- Employee Side Backend Code --------------------------------------*/    
+
+
+/*==== Employee - Add enquiry ====*/
+app.post("/api/employee/enquiries", authenticateToken,
+    async (req, res) => {
+        try {
+            const userId = req.user.id;
+
+            /*-- Only employee roles can use this endpoint. --*/
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only employees can add enquiries through this page."
+                });
+            }
+
+            const {
+                studentName, mobile, email, gender, dateOfBirth, courseInterested, enquirySource, enquiryDate,
+                followUpDate, followUpTime, status, address, comments
+            } = req.body;
+
+            /*-- Required-field validation. --*/
+            if (
+                typeof studentName !== "string" ||
+                !studentName.trim() ||
+                typeof mobile !== "string" ||
+                !mobile.trim() ||
+                typeof courseInterested !== "string" ||
+                !courseInterested.trim()
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Student name, mobile number and course are required."
+                });
+            }
+
+            if (!/^[0-9+\-\s()]{7,15}$/.test(mobile.trim())) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a valid mobile number."
+                });
+            }
+
+            /*-- Confirm the logged-in account still exists and is active. --*/
+            const [users] = await db.execute(
+                `SELECT id, full_name, role, status
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                users.length === 0 ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or not authorized."
+                });
+            }
+
+            const employee = users[0];
+            const savedEnquiryDate = enquiryDate || new Date().toISOString().slice(0, 10);
+
+            const [result] = await db.execute(
+                `INSERT INTO student_enquiries (
+                    student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source, counsellor,
+                    counsellor_id, enquiry_date, follow_up_date, follow_up_time, status, address, comments
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    studentName.trim(),
+                    mobile.trim(),
+                    email?.trim() || null,
+                    gender || null,
+                    dateOfBirth || null,
+                    courseInterested,
+                    enquirySource || null,
+                    employee.full_name,
+                    employee.id,
+                    savedEnquiryDate,
+                    followUpDate || null,
+                    followUpTime || null,
+                    status || "New",
+                    address?.trim() || null,
+                    comments?.trim() || null
+                ]
+            );
+
+            return res.status(201).json({
+                success: true,
+                message: "✅ Enquiry saved successfully.",
+                enquiryId: result.insertId
+            });
+
+        } catch (error) {
+            console.error("Employee Add Enquiry Error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to save enquiry. Please try again."
+            });
+        }
+    }
+);
+
+
+
+
+
+/*==== Get Employee - My Enquiries ====*/
+app.get("/api/employee/enquiries", authenticateToken,
+    async (req, res) => {
+        try {
+
+            /*-- Allow employee roles only. --*/
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only employees can access their enquiries."
+                });
+            }
+
+            const userId = req.user.id;
+
+            /*-- Verify that the account is active. --*/
+            const [users] = await db.execute(
+                `SELECT id, role, status
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                users.length === 0 ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or not authorized."
+                });
+            }
+
+            /*-- Pagination. --*/
+            const page = Math.max(
+                1,
+                parseInt(req.query.page, 10) || 1
+            );
+
+            const limit = Math.min(
+                100,
+                Math.max(1, parseInt(req.query.limit, 10) || 10)
+            );
+
+            const offset = (page - 1) * limit;
+
+            /*-- Filters. --*/
+            const search = String(req.query.search || "").trim();
+            const course = String(req.query.course || "").trim();
+            const status = String(req.query.status || "").trim();
+
+            const conditions = ["counsellor_id = ?"];
+            const values = [userId];
+
+            if (search) {
+                conditions.push(
+                    "(student_name LIKE ? OR mobile LIKE ? OR email LIKE ?)"
+                );
+
+                const searchValue = `%${search}%`;
+                values.push(searchValue, searchValue, searchValue);
+            }
+
+            if (course) {
+                conditions.push("course_interested = ?");
+                values.push(course);
+            }
+
+            if (status) {
+                conditions.push("status = ?");
+                values.push(status);
+            }
+
+            const whereClause = conditions.join(" AND ");
+
+            /*-- Count matching records. --*/
+            const [countRows] = await db.execute(
+                `SELECT COUNT(*) AS total
+                 FROM student_enquiries
+                 WHERE ${whereClause}`,
+                values
+            );
+
+            const total = Number(countRows[0].total);
+            const totalPages = Math.ceil(total / limit);
+
+            /*-- Fetch this page of enquiries --*/
+            const [enquiries] = await db.execute(
+            `SELECT
+                id, student_name, mobile, email, course_interested, counsellor, enquiry_date, follow_up_date, status
+            FROM student_enquiries
+            WHERE ${whereClause}
+            ORDER BY id DESC
+            LIMIT ${limit} OFFSET ${offset}`,
+            values
+        );
+
+        /*-- Load available course filters for this employee --*/
+        const [courseRows] = await db.execute(
+        `SELECT DISTINCT course_interested
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+                AND course_interested IS NOT NULL
+                AND course_interested <> ''
+            ORDER BY course_interested`,
+            [Number(req.user.id)]
+        );
+
+        /*-- Load available status filters for this employee --*/
+        const [statusRows] = await db.execute(
+        `SELECT DISTINCT status
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+                AND status IS NOT NULL
+                AND status <> ''
+            ORDER BY status`,
+            [Number(req.user.id)]
+        );
+
+        return res.json({
+            success: true,
+            enquiries,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages
+            },
+        filters: {
+            courses: courseRows.map(row => row.course_interested),
+            statuses: statusRows.map(row => row.status)
+        }
+    });
+
+        } catch (error) {
+            console.error("Employee My Enquiries Error:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load enquiries."
+            });
+        }
+    }
+);
+
+
 
 
 
