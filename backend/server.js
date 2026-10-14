@@ -6525,6 +6525,455 @@ app.get("/api/employee/enquiries", authenticateToken,
 
 
 
+/*==== EMPLOYEE ADD FOLLOW-UP ====*/
+app.post("/api/employee/follow-ups", authenticateToken,
+    async (req, res) => {
+        try {
+
+            /*-- 1. Verify role from the authenticated token. --*/
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only employees can add follow-ups."
+                });
+            }
+
+            const userId = Number(req.user.id);
+
+            if (!Number.isSafeInteger(userId) || userId <= 0) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid login session. Please log in again."
+                });
+            }
+
+            /*-- 2. Read the fields sent by add-follow-up.html. --*/
+            const {
+                enquiry_id, follow_up_date, follow_up_time, follow_up_type, outcome, follow_up_status, next_follow_up_date,
+                next_follow_up_time, comments
+            } = req.body || {};
+
+            const enquiryId = Number(enquiry_id);
+
+            const allowedTypes = [
+                "Phone Call", "WhatsApp", "Email", "Walk-in"
+            ];
+
+            const allowedOutcomes = [
+                "Interested", "Not Interested", "Call Back", "Admission Confirmed"
+            ];
+
+            const allowedFollowUpStatuses = [
+                "Pending", "Scheduled", "Completed", "Missed"
+            ];
+
+            /*-- 3. Validate required fields and dropdown values. --*/
+            if (
+                !Number.isSafeInteger(enquiryId) ||
+                enquiryId <= 0
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please select a valid student enquiry."
+                });
+            }
+
+            if (
+                typeof follow_up_date !== "string" ||
+                !isValidFollowUpDate_(follow_up_date)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a valid follow-up date."
+                });
+            }
+
+            if (
+                typeof follow_up_time !== "string" ||
+                !/^([01]\d|2[0-3]):[0-5]\d$/.test(follow_up_time)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a valid follow-up time."
+                });
+            }
+
+            if (!allowedTypes.includes(follow_up_type)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please select a valid follow-up type."
+                });
+            }
+
+            if (!allowedOutcomes.includes(outcome)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please select a valid student outcome."
+                });
+            }
+
+            if (!allowedFollowUpStatuses.includes(follow_up_status)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please select a valid follow-up status."
+                });
+            }
+
+            if (
+                next_follow_up_date != null &&
+                next_follow_up_date !== "" &&
+                !isValidFollowUpDate_(next_follow_up_date)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a valid next follow-up date."
+                });
+            }
+
+            if (
+                next_follow_up_time != null &&
+                next_follow_up_time !== "" &&
+                !/^([01]\d|2[0-3]):[0-5]\d$/.test(next_follow_up_time)
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please provide a valid next follow-up time."
+                });
+            }
+
+            if (
+                next_follow_up_date &&
+                next_follow_up_date < follow_up_date
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Next follow-up date cannot be earlier than the current follow-up date."
+                });
+            }
+
+            /*-- 4. Confirm that the logged-in employee is active. --*/
+            const [users] = await db.execute(
+                `SELECT id, full_name, role, status
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                !users.length ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            const employee = users[0];
+
+            /*-- 5. Verify ownership of the selected enquiry. --*/
+            const [enquiries] = await db.execute(
+                `SELECT
+                    id, student_name, mobile, course_interested, counsellor_id
+                 FROM student_enquiries
+                 WHERE id = ?
+                   AND counsellor_id = ?
+                 LIMIT 1`,
+                [enquiryId, employee.id]
+            );
+
+            if (!enquiries.length) {
+                return res.status(403).json({
+                    success: false,
+                    message: "This enquiry is not assigned to your account."
+                });
+            }
+
+            const enquiry = enquiries[0];
+
+            /*-- 6. Insert the follow-up using verified student and employee data. --*/
+            const [insertResult] = await db.execute(
+                `INSERT INTO follow_ups (
+                    enquiry_id, student_name, mobile_number, course, counsellor, counsellor_id, follow_up_date, follow_up_time,
+                    follow_up_type, status, follow_up_status, next_follow_up_date, next_follow_up_time, comments
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    enquiry.id, enquiry.student_name, enquiry.mobile, enquiry.course_interested, employee.full_name, employee.id,
+                    follow_up_date, follow_up_time, follow_up_type, outcome, follow_up_status,
+                    next_follow_up_date || null,
+                    next_follow_up_time || null,
+                    comments ? String(comments).trim() : null
+                ]
+            );
+
+            /*-- 7. Send success response. --*/
+            return res.status(201).json({
+                success: true,
+                message: "✅ Follow-up saved successfully.",
+                follow_up_id: insertResult.insertId
+            });
+
+        } catch (error) {
+            console.error("Employee Add Follow-up Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to save follow-up. Please check the backend error log."
+            });
+        }
+    }
+);
+
+
+/*--- DATE VALIDATION HELPER ---*/
+function isValidFollowUpDate_(value) {
+    if (
+        typeof value !== "string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(value)
+    ) {
+        return false;
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    return (
+        date.getUTCFullYear() === year &&
+        date.getUTCMonth() === month - 1 &&
+        date.getUTCDate() === day
+    );
+}
+
+
+
+
+
+/*==== EMPLOYEE MY FOLLOW-UPS  -  GET /api/employee/follow-ups ====*/
+app.get("/api/employee/follow-ups", authenticateToken,
+    async (req, res) => {
+        try {
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "You are not authorized to view these follow-ups."
+                });
+            }
+
+            const userId = Number(req.user.id);
+
+            if (!Number.isSafeInteger(userId) || userId <= 0) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid login session."
+                });
+            }
+
+            /*--- Verify that the employee account is still active. ---*/
+            const [users] = await db.execute(
+                `SELECT id, status, role
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                !users.length ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            const [rows] = await db.execute(
+                `SELECT
+                    f.id, f.enquiry_id, f.student_name, f.mobile_number, f.course,
+                    COALESCE(NULLIF(f.counsellor, ''), e.counsellor) AS counsellor,
+                    f.follow_up_date, f.follow_up_time, f.follow_up_type, f.follow_up_status AS status, f.status AS outcome,
+                    f.next_follow_up_date, f.next_follow_up_time, f.comments, f.created_at, f.updated_at
+                 FROM follow_ups AS f
+                 INNER JOIN student_enquiries AS e
+                    ON e.id = f.enquiry_id
+                 WHERE e.counsellor_id = ?
+                 ORDER BY f.follow_up_date ASC,
+                          f.follow_up_time ASC,
+                          f.id DESC`,
+                [userId]
+            );
+
+            /*--- Summary counts are calculated from the same employee's records. ---*/
+            const [summaryRows] = await db.execute(
+                `SELECT
+                    COUNT(*) AS total_followups,
+                    COALESCE(SUM(f.follow_up_date = CURDATE()), 0)
+                        AS today_followups,
+                    COALESCE(SUM(f.follow_up_status = 'Pending'), 0)
+                        AS pending_followups,
+                    COALESCE(SUM(f.follow_up_status = 'Completed'), 0)
+                        AS completed_followups,
+                    COALESCE(SUM(
+                        f.follow_up_status = 'Missed'
+                    ), 0) AS missed_followups
+                 FROM follow_ups AS f
+                 INNER JOIN student_enquiries AS e
+                    ON e.id = f.enquiry_id
+                 WHERE e.counsellor_id = ?`,
+                [userId]
+            );
+
+            return res.json({
+                success: true,
+                follow_ups: rows,
+                summary: summaryRows[0]
+            });
+
+        } catch (error) {
+            console.error("Employee My Follow-ups Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load your follow-ups."
+            });
+        }
+    }
+);
+
+
+
+
+
+/*==== COMPLETE EMPLOYEE FOLLOW-UP  -  PUT /api/employee/follow-ups/:id/complete ====*/
+app.put("/api/employee/follow-ups/:id/complete", authenticateToken,
+    async (req, res) => {
+        try {
+
+            /*--- Allow employees only. ---*/
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "You are not authorized to complete follow-ups."
+                });
+            }
+
+            const userId = Number(req.user.id);
+            const followUpId = Number(req.params.id);
+
+            if (
+                !Number.isSafeInteger(userId) ||
+                userId <= 0 ||
+                !Number.isSafeInteger(followUpId) ||
+                followUpId <= 0
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid employee or follow-up ID."
+                });
+            }
+
+            /*--- Verify the employee account is active. ---*/
+            const [users] = await db.execute(
+                `SELECT id, role, status
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                !users.length ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            /*--- Verify that this follow-up belongs to one of ---*/
+            const [followUps] = await db.execute(
+                `SELECT f.id, f.follow_up_status
+                 FROM follow_ups AS f
+                 INNER JOIN student_enquiries AS e
+                     ON e.id = f.enquiry_id
+                 WHERE f.id = ?
+                   AND e.counsellor_id = ?
+                 LIMIT 1`,
+                [followUpId, userId]
+            );
+
+            if (!followUps.length) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Follow-up not found or not assigned to you."
+                });
+            }
+
+            if (followUps[0].follow_up_status === "Completed") {
+                return res.json({
+                    success: true,
+                    message: "This follow-up is already completed."
+                });
+            }
+
+            /*--- Update the task status, NOT the student outcome. ---*/
+            const [updateResult] = await db.execute(
+                `UPDATE follow_ups
+                 SET follow_up_status = 'Completed'
+                 WHERE id = ?`,
+                [followUpId]
+            );
+
+            if (updateResult.affectedRows === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Follow-up could not be updated."
+                });
+            }
+
+            return res.json({
+                success: true,
+                message: "Follow-up completed successfully.",
+                follow_up_id: followUpId,
+                follow_up_status: "Completed"
+            });
+
+        } catch (error) {
+            console.error("Complete Employee Follow-up Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to complete follow-up."
+            });
+        }
+    }
+);
+
+
+
+
+
+
+
 
 /*==== Start server ====*/
 app.listen(PORT, () => {

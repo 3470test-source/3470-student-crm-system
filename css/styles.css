@@ -7712,7 +7712,7 @@
 }
 
 .EMP-active {
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-top:1px solid rgba(255,255,255,.08);
   width:100%;
 }
 
@@ -8396,10 +8396,132 @@
   color: #374151;
   font-size: 14px;
   vertical-align: middle;
+  text-align: center;
 }
 
 .EMP-followup-table tbody tr:hover {
   background: #f9fafb;
+}
+
+
+/*--- STATUS ---*/
+.EMP-followup-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.EMP-followup-status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.EMP-followup-status.scheduled {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.EMP-followup-status.completed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.EMP-followup-status.missed {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+
+/*--- ACTION BUTTONS ---*/
+.EMP-followup-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  justify-content: center; 
+  width: 100%;
+}
+
+.EMP-followup-action {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.EMP-followup-action.view {
+  background: #e0e8f3;
+  color: #2563eb;
+}
+
+.EMP-followup-action.edit {
+  background: #f7ebbd;
+  color: #b45309;
+}
+
+.EMP-followup-action.complete {
+  background: #d0f3dc;
+  color: #15803d;
+}
+
+.EMP-followup-action:hover {
+  opacity: 0.8;
+}
+
+
+/*--- EMPTY / ERROR ---*/
+.EMP-followup-empty {
+  text-align: center;
+  padding: 45px 20px !important;
+  color: #6b7280 !important;
+}
+
+.EMP-followup-empty i {
+  font-size: 30px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.EMP-followup-error {
+  color: #b91c1c !important;
+}
+
+
+/*--- PAGINATION ---*/
+.EMP-pagination-follow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.EMP-pagination-follow button {
+  min-width: 35px;
+  height: 35px;
+  border: 1px solid #dbe2ea;
+  background: #ffffff;
+  border-radius: 7px;
+  cursor: pointer;
+  color: #374151;
+}
+
+.EMP-pagination-follow button.active {
+  background: #16a34a;
+  color: #ffffff;
+  border-color: #16a34a;
+}
+
+.EMP-pagination-follow button:hover {
+  border-color: #16a34a;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */

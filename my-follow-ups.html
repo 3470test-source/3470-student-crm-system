@@ -22,137 +22,6 @@
       box-sizing: border-box;
     }
 
-
-        /* =========================================
-           STATUS
-        ========================================= */
-
-        .EMP-followup-status {
-            display: inline-flex;
-            align-items: center;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .EMP-followup-status.pending {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .EMP-followup-status.scheduled {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .EMP-followup-status.completed {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .EMP-followup-status.missed {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-
-        /* =========================================
-           ACTION BUTTONS
-        ========================================= */
-
-        .EMP-followup-actions {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .EMP-followup-action {
-            width: 34px;
-            height: 34px;
-            border: none;
-            border-radius: 7px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-        }
-
-        .EMP-followup-action.view {
-            background: #eff6ff;
-            color: #2563eb;
-        }
-
-        .EMP-followup-action.edit {
-            background: #fef3c7;
-            color: #b45309;
-        }
-
-        .EMP-followup-action.complete {
-            background: #dcfce7;
-            color: #15803d;
-        }
-
-        .EMP-followup-action:hover {
-            opacity: 0.8;
-        }
-
-
-        /* =========================================
-           EMPTY / ERROR
-        ========================================= */
-
-        .EMP-followup-empty {
-            text-align: center;
-            padding: 45px 20px !important;
-            color: #6b7280 !important;
-        }
-
-        .EMP-followup-empty i {
-            font-size: 30px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .EMP-followup-error {
-            color: #b91c1c !important;
-        }
-
-
-        /* =========================================
-           PAGINATION
-        ========================================= */
-
-        .EMP-pagination {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 7px;
-            margin-top: 20px;
-        }
-
-        .EMP-pagination button {
-            min-width: 35px;
-            height: 35px;
-            border: 1px solid #dbe2ea;
-            background: #ffffff;
-            border-radius: 7px;
-            cursor: pointer;
-            color: #374151;
-        }
-
-        .EMP-pagination button.active {
-            background: #16a34a;
-            color: #ffffff;
-            border-color: #16a34a;
-        }
-
-        .EMP-pagination button:hover {
-            border-color: #16a34a;
-        }
-
     </style>
 
 
@@ -218,13 +87,11 @@
     <!-- EMP Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
 
-        <div class="EMP-sidebar-container">
+        <div class="crm-sidebar-container">
 
-            <aside class="EMP-sidebar" id="crmSidebar">
+            <aside class="crm-sidebar" id="crmSidebar">
 
-                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
-                    <i class="fa fa-home"></i>Dashboard
-                </a>
+                <a href="employee-dashboard.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
 
                 <!-- Student Enquiries -->
                 <div class="crm-dropdown">
@@ -251,7 +118,7 @@
 
                     <div class="crm-dropdown-content">
                         <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
-                        <a href="my-follow-ups.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+                        <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
                     </div>
 
                 </div>
@@ -266,7 +133,7 @@
 
                     <div class="crm-dropdown-content">
                         <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
-                        <a href="my-admissions.html" class="crm-nav-link EMP-active"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+                        <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
                     </div>
 
                 </div>
@@ -279,7 +146,7 @@
                     <i class="fa-solid fa-user"></i>My Profile
                 </a>
 
-                <a href="#" class="crm-nav-link logout" onclick="logoutEmployee(event)">
+                <a href="#" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
                     <i class="fa-solid fa-right-from-bracket"></i>Logout
                 </a>
 
@@ -447,7 +314,7 @@
 
 
                     <!-- PAGINATION -->
-                    <div class="EMP-pagination" id="pagination"></div>
+                    <div class="EMP-pagination-follow" id="pagination"></div>
 
                 </section>
 
@@ -456,31 +323,6 @@
         </main>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -503,24 +345,7 @@ dropdowns.forEach(dropdown => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
-
+<!-- My Follow upd - JS-->
 <script>
 
 const API_BASE = "http://localhost:3000/api";
@@ -536,21 +361,16 @@ let currentPage = 1;
 const rowsPerPage = 10;
 
 
-/* =====================================================
-   AUTH
-===================================================== */
-
+/*--- AUTH ---*/
 function getToken() {
 
     return localStorage.getItem("crmToken");
 
 }
 
-
 function getStoredUser() {
 
-    const storedUser =
-        localStorage.getItem("crmUser");
+    const storedUser = localStorage.getItem("crmUser");
 
     if (!storedUser) {
 
@@ -573,7 +393,6 @@ function getStoredUser() {
 
 }
 
-
 function redirectToLogin() {
 
     localStorage.removeItem("crmUser");
@@ -583,11 +402,7 @@ function redirectToLogin() {
 
 }
 
-
-/* =====================================================
-   API REQUEST
-===================================================== */
-
+/*--- API REQUEST ---*/
 async function apiRequest(url, options = {}) {
 
     const token = getToken();
@@ -603,8 +418,7 @@ async function apiRequest(url, options = {}) {
 
     if (token) {
 
-        headers["Authorization"] =
-            `Bearer ${token}`;
+        headers["Authorization"] = `Bearer ${token}`;
 
     }
 
@@ -667,10 +481,7 @@ async function apiRequest(url, options = {}) {
 }
 
 
-/* =====================================================
-   EMPLOYEE INFORMATION
-===================================================== */
-
+/*--- EMPLOYEE INFORMATION ---*/
 function loadEmployeeInfo() {
 
     const user = getStoredUser();
@@ -683,9 +494,7 @@ function loadEmployeeInfo() {
 
     }
 
-
     currentUser = user;
-
 
     const name =
         user.full_name ||
@@ -693,14 +502,11 @@ function loadEmployeeInfo() {
         user.username ||
         "Employee";
 
-
     const role =
         user.role ||
         "Employee";
 
-
-    const nameElement =
-        document.getElementById("employeeName");
+    const nameElement = document.getElementById("employeeName");
 
     if (nameElement) {
 
@@ -708,9 +514,7 @@ function loadEmployeeInfo() {
 
     }
 
-
-    const roleElement =
-        document.getElementById("employeeRole");
+    const roleElement = document.getElementById("employeeRole");
 
     if (roleElement) {
 
@@ -718,9 +522,7 @@ function loadEmployeeInfo() {
 
     }
 
-
-    const avatar =
-        document.getElementById("profileAvatar");
+    const avatar = document.getElementById("profileAvatar");
 
     if (avatar) {
 
@@ -730,22 +532,17 @@ function loadEmployeeInfo() {
 
     }
 
-
     return true;
 
 }
 
 
-/* =====================================================
-   EMPLOYEE ACCESS
-===================================================== */
-
+/*--- EMPLOYEE ACCESS ---*/
 function validateEmployeeAccess() {
 
     const token = getToken();
 
     const user = getStoredUser();
-
 
     if (!token || !user) {
 
@@ -754,7 +551,6 @@ function validateEmployeeAccess() {
         return false;
 
     }
-
 
     if (
         user.role !== "Counsellor" &&
@@ -776,23 +572,15 @@ function validateEmployeeAccess() {
 
     }
 
-
     return true;
 
 }
 
 
-/* =====================================================
-   LOAD FOLLOW-UPS
-===================================================== */
-
+/*--- LOAD FOLLOW-UPS ---*/
 async function loadMyFollowUps() {
 
-    const tableBody =
-        document.getElementById(
-            "followupsTableBody"
-        );
-
+    const tableBody = document.getElementById("followupsTableBody");
 
     try {
 
@@ -805,10 +593,7 @@ async function loadMyFollowUps() {
          * Do NOT send employee_id from the browser.
          */
 
-        const data =
-            await apiRequest(
-                `${API_BASE}/employee/follow-ups`,
-                {
+        const data = await apiRequest(`${API_BASE}/employee/follow-ups`,{
                     method: "GET"
                 }
             );
@@ -830,16 +615,13 @@ async function loadMyFollowUps() {
             data.data ||
             [];
 
-
         filteredFollowUps =
             [...allFollowUps];
-
 
         renderSummary(
             data.summary ||
             {}
         );
-
 
         loadCourseFilter();
 
@@ -858,15 +640,11 @@ async function loadMyFollowUps() {
             tableBody.innerHTML = `
 
                 <tr>
-
                     <td
                         colspan="8"
                         class="EMP-followup-empty EMP-followup-error">
-
                         <i class="fa-solid fa-triangle-exclamation"></i>
-
                         ${escapeHtml(error.message)}
-
                     </td>
 
                 </tr>
@@ -880,10 +658,7 @@ async function loadMyFollowUps() {
 }
 
 
-/* =====================================================
-   SUMMARY
-===================================================== */
-
+/*--- SUMMARY ---*/
 function renderSummary(summary) {
 
     setText(
@@ -896,7 +671,6 @@ function renderSummary(summary) {
 
     );
 
-
     setText(
 
         "pendingFollowupsCount",
@@ -907,7 +681,6 @@ function renderSummary(summary) {
 
     );
 
-
     setText(
 
         "completedFollowupsCount",
@@ -917,7 +690,6 @@ function renderSummary(summary) {
         countStatus("Completed")
 
     );
-
 
     setText(
 
@@ -932,24 +704,16 @@ function renderSummary(summary) {
 }
 
 
-/* =====================================================
-   RENDER TABLE
-===================================================== */
-
+/*--- RENDER TABLE ---*/
 function renderFollowUps() {
 
-    const tableBody =
-        document.getElementById(
-            "followupsTableBody"
-        );
-
+    const tableBody = document.getElementById("followupsTableBody");
 
     if (!tableBody) {
 
         return;
 
     }
-
 
     if (
         !Array.isArray(filteredFollowUps) ||
@@ -959,21 +723,16 @@ function renderFollowUps() {
         tableBody.innerHTML = `
 
             <tr>
-
                 <td
                     colspan="8"
                     class="EMP-followup-empty">
-
                     <i class="fa-solid fa-phone-slash"></i>
-
                     No follow-ups found.
-
                 </td>
 
             </tr>
 
         `;
-
 
         renderPagination();
 
@@ -981,16 +740,13 @@ function renderFollowUps() {
 
     }
 
-
     const start =
         (currentPage - 1) *
         rowsPerPage;
 
-
     const end =
         start +
         rowsPerPage;
-
 
     const pageData =
         filteredFollowUps.slice(
@@ -998,122 +754,87 @@ function renderFollowUps() {
             end
         );
 
-
     tableBody.innerHTML = "";
-
 
     pageData.forEach(function (followUp) {
 
-        const row =
-            document.createElement("tr");
-
+        const row = document.createElement("tr");
 
         const status =
             followUp.status ||
             "Pending";
 
-
         row.innerHTML = `
 
             <td>
-
                 <strong>
-
                     ${escapeHtml(
                         followUp.student_name ||
                         followUp.studentName ||
                         "-"
                     )}
-
                 </strong>
 
             </td>
 
 
             <td>
-
                 ${escapeHtml(
                     followUp.mobile_number ||
                     followUp.mobile ||
                     "-"
                 )}
-
             </td>
 
 
             <td>
-
                 ${escapeHtml(
                     followUp.course ||
                     followUp.course_interested ||
                     "-"
                 )}
-
             </td>
 
 
             <td>
-
                 ${formatDate(
                     followUp.follow_up_date
                 )}
-
             </td>
 
 
             <td>
-
                 ${formatTime(
                     followUp.follow_up_time
                 )}
-
             </td>
 
 
             <td>
-
                 ${escapeHtml(
                     followUp.follow_up_type ||
                     followUp.type ||
                     "-"
                 )}
-
             </td>
 
 
             <td>
-
                 <span
                     class="EMP-followup-status ${getStatusClass(status)}">
-
                     ${escapeHtml(status)}
-
                 </span>
-
             </td>
 
 
             <td>
-
                 <div class="EMP-followup-actions">
-
-                    <button
-                        class="EMP-followup-action view"
-                        title="View"
-                        onclick="viewFollowUp(${getId(followUp)})">
-
+                    <button class="EMP-followup-action view" title="View" onclick="viewFollowUp(${getId(followUp)})">
                         <i class="fa-solid fa-eye"></i>
-
                     </button>
 
-
-                    <button
-                        class="EMP-followup-action edit"
-                        title="Edit"
-                        onclick="editFollowUp(${getId(followUp)})">
-
+                    <button class="EMP-followup-action edit" title="Edit" onclick="editFollowUp(${getId(followUp)})">
                         <i class="fa-solid fa-pen"></i>
-
                     </button>
 
 
@@ -1121,21 +842,14 @@ function renderFollowUps() {
                         status.toLowerCase() !== "completed"
                         ?
                         `
-                        <button
-                            class="EMP-followup-action complete"
-                            title="Complete"
-                            onclick="completeFollowUp(${getId(followUp)})">
-
+                        <button class="EMP-followup-action complete" title="Complete" onclick="completeFollowUp(${getId(followUp)})">
                             <i class="fa-solid fa-check"></i>
-
                         </button>
                         `
                         :
                         ""
                     }
-
                 </div>
-
             </td>
 
         `;
@@ -1151,43 +865,30 @@ function renderFollowUps() {
 }
 
 
-/* =====================================================
-   FILTERS
-===================================================== */
-
+/*--- FILTERS ---*/
 function applyFilters() {
 
-    const search =
-        document
+    const search = document
             .getElementById("searchFollowup")
             .value
             .trim()
             .toLowerCase();
 
-
-    const status =
-        document
+    const status = document
             .getElementById("statusFilter")
             .value
             .toLowerCase();
 
-
-    const date =
-        document
+    const date = document
             .getElementById("dateFilter")
             .value;
 
-
-    const course =
-        document
+    const course = document
             .getElementById("courseFilter")
             .value
             .toLowerCase();
 
-
-    filteredFollowUps =
-        allFollowUps.filter(function (followUp) {
-
+    filteredFollowUps = allFollowUps.filter(function (followUp) {
 
             const student =
                 String(
@@ -1196,7 +897,6 @@ function applyFilters() {
                     ""
                 ).toLowerCase();
 
-
             const mobile =
                 String(
                     followUp.mobile_number ||
@@ -1204,13 +904,11 @@ function applyFilters() {
                     ""
                 ).toLowerCase();
 
-
             const followUpStatus =
                 String(
                     followUp.status ||
                     ""
                 ).toLowerCase();
-
 
             const followUpCourse =
                 String(
@@ -1219,34 +917,28 @@ function applyFilters() {
                     ""
                 ).toLowerCase();
 
-
             const followUpDate =
                 String(
                     followUp.follow_up_date ||
                     ""
                 );
 
-
             const matchesSearch =
                 !search ||
                 student.includes(search) ||
                 mobile.includes(search);
 
-
             const matchesStatus =
                 !status ||
                 followUpStatus === status;
-
 
             const matchesDate =
                 !date ||
                 followUpDate.substring(0, 10) === date;
 
-
             const matchesCourse =
                 !course ||
                 followUpCourse === course;
-
 
             return (
                 matchesSearch &&
@@ -1257,7 +949,6 @@ function applyFilters() {
 
         });
 
-
     currentPage = 1;
 
     renderFollowUps();
@@ -1265,17 +956,10 @@ function applyFilters() {
 }
 
 
-/* =====================================================
-   COURSE FILTER
-===================================================== */
-
+/*--- COURSE FILTER ---*/
 function loadCourseFilter() {
 
-    const select =
-        document.getElementById(
-            "courseFilter"
-        );
-
+    const select = document.getElementById("courseFilter");
 
     if (!select) {
 
@@ -1283,16 +967,13 @@ function loadCourseFilter() {
 
     }
 
-
     const courses = [];
-
 
     allFollowUps.forEach(function (item) {
 
         const course =
             item.course ||
             item.course_interested;
-
 
         if (
             course &&
@@ -1305,15 +986,11 @@ function loadCourseFilter() {
 
     });
 
-
     courses.sort();
-
 
     courses.forEach(function (course) {
 
-        const option =
-            document.createElement("option");
-
+        const option = document.createElement("option");
 
         option.value = course;
 
@@ -1326,10 +1003,7 @@ function loadCourseFilter() {
 }
 
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
+/*--- SEARCH ---*/
 document
     .getElementById("searchFollowup")
     ?.addEventListener(
@@ -1338,17 +1012,10 @@ document
     );
 
 
-/* =====================================================
-   PAGINATION
-===================================================== */
-
+/*--- PAGINATION ---*/
 function renderPagination() {
 
-    const container =
-        document.getElementById(
-            "pagination"
-        );
-
+    const container = document.getElementById("pagination");
 
     if (!container) {
 
@@ -1356,16 +1023,13 @@ function renderPagination() {
 
     }
 
-
     const totalPages =
         Math.ceil(
             filteredFollowUps.length /
             rowsPerPage
         );
 
-
     container.innerHTML = "";
-
 
     if (totalPages <= 1) {
 
@@ -1373,26 +1037,21 @@ function renderPagination() {
 
     }
 
-
     for (
         let page = 1;
         page <= totalPages;
         page++
     ) {
 
-        const button =
-            document.createElement("button");
-
+        const button = document.createElement("button");
 
         button.textContent = page;
-
 
         if (page === currentPage) {
 
             button.classList.add("active");
 
         }
-
 
         button.addEventListener(
             "click",
@@ -1405,7 +1064,6 @@ function renderPagination() {
             }
         );
 
-
         container.appendChild(button);
 
     }
@@ -1413,14 +1071,10 @@ function renderPagination() {
 }
 
 
-/* =====================================================
-   ACTIONS
-===================================================== */
-
+/*--- ACTIONS ---*/
 function goToAddFollowUp() {
 
-    window.location.href =
-        "add-follow-up.html";
+    window.location.href = "add-follow-up.html";
 
 }
 
@@ -1433,8 +1087,7 @@ function viewFollowUp(id) {
 
     }
 
-    window.location.href =
-        `follow-up-details.html?id=${encodeURIComponent(id)}`;
+    window.location.href = `follow-up-details.html?id=${encodeURIComponent(id)}`;
 
 }
 
@@ -1447,8 +1100,7 @@ function editFollowUp(id) {
 
     }
 
-    window.location.href =
-        `edit-follow-up.html?id=${encodeURIComponent(id)}`;
+    window.location.href = `edit-follow-up.html?id=${encodeURIComponent(id)}`;
 
 }
 
@@ -1461,12 +1113,7 @@ async function completeFollowUp(id) {
 
     }
 
-
-    const confirmed =
-        confirm(
-            "Mark this follow-up as completed?"
-        );
-
+    const confirmed = confirm("Mark this follow-up as completed?");
 
     if (!confirmed) {
 
@@ -1474,12 +1121,9 @@ async function completeFollowUp(id) {
 
     }
 
-
     try {
 
-        const data =
-            await apiRequest(
-                `${API_BASE}/employee/follow-ups/${id}/complete`,
+        const data = await apiRequest(`${API_BASE}/employee/follow-ups/${id}/complete`,
                 {
                     method: "PUT"
                 }
@@ -1495,14 +1139,9 @@ async function completeFollowUp(id) {
 
         }
 
-
-        alert(
-            "Follow-up completed successfully."
-        );
-
+        alert("Follow-up completed successfully.");
 
         await loadMyFollowUps();
-
 
     } catch (error) {
 
@@ -1518,17 +1157,10 @@ async function completeFollowUp(id) {
 }
 
 
-/* =====================================================
-   NOTIFICATION COUNT
-===================================================== */
-
+/*--- NOTIFICATION COUNT ---*/
 async function loadNotificationCount() {
 
-    const element =
-        document.getElementById(
-            "headerNotificationCount"
-        );
-
+    const element = document.getElementById("headerNotificationCount");
 
     if (!element) {
 
@@ -1536,32 +1168,23 @@ async function loadNotificationCount() {
 
     }
 
-
     try {
 
-        const data =
-            await apiRequest(
-                `${API_BASE}/notifications/today`,
+        const data = await apiRequest(`${API_BASE}/notifications/today`,
                 {
                     method: "GET"
                 }
             );
 
+        const summary = data.summary || {};
 
-        const summary =
-            data.summary || {};
-
-
-        element.textContent =
-            Number(
+        element.textContent = Number(
                 summary.total_notifications
             ) || 0;
-
 
     } catch (error) {
 
         console.error(error);
-
         element.textContent = "0";
 
     }
@@ -1569,34 +1192,20 @@ async function loadNotificationCount() {
 }
 
 
-/* =====================================================
-   MOBILE SIDEBAR
-===================================================== */
-
+/*--- MOBILE SIDEBAR ---*/
 function setupMobileMenu() {
 
-    const menuButton =
-        document.getElementById("menuBtn");
+    const menuButton = document.getElementById("menuBtn");
 
+    const sidebar = document.getElementById("employeeSidebar");
 
-    const sidebar =
-        document.getElementById(
-            "employeeSidebar"
-        );
-
-
-    const overlay =
-        document.getElementById(
-            "sidebarOverlay"
-        );
-
+    const overlay = document.getElementById("sidebarOverlay");
 
     if (!menuButton || !sidebar) {
 
         return;
 
     }
-
 
     menuButton.addEventListener(
         "click",
@@ -1605,7 +1214,6 @@ function setupMobileMenu() {
             sidebar.classList.toggle(
                 "active"
             );
-
 
             if (overlay) {
 
@@ -1617,7 +1225,6 @@ function setupMobileMenu() {
 
         }
     );
-
 
     if (overlay) {
 
@@ -1641,31 +1248,20 @@ function setupMobileMenu() {
 }
 
 
-/* =====================================================
-   LOGOUT
-===================================================== */
-
+/*--- LOGOUT ---*/
 function logoutEmployee(event) {
 
     if (event) {
-
         event.preventDefault();
-
     }
 
-
-    const confirmed =
-        confirm(
-            "Are you sure you want to logout?"
-        );
-
+    const confirmed = confirm("Are you sure you want to logout?");
 
     if (!confirmed) {
 
         return;
 
     }
-
 
     localStorage.removeItem(
         "crmToken"
@@ -1676,39 +1272,27 @@ function logoutEmployee(event) {
         "crmUser"
     );
 
-
-    window.location.href =
-        "login.html";
+    window.location.href = "login.html";
 
 }
 
 
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
+/*--- NOTIFICATIONS ---*/
 function openNotifications() {
 
-    window.location.href =
-        "my-notifications.html";
+    window.location.href = "my-notifications.html";
 
 }
 
 
-/* =====================================================
-   HELPERS
-===================================================== */
-
+/*--- HELPERS ---*/
 function setText(id, value) {
 
-    const element =
-        document.getElementById(id);
-
+    const element = document.getElementById(id);
 
     if (element) {
 
-        element.textContent =
-            value ?? 0;
+        element.textContent = value ?? 0;
 
     }
 
@@ -1725,7 +1309,6 @@ function escapeHtml(value) {
         return "";
 
     }
-
 
     return String(value)
 
@@ -1768,13 +1351,11 @@ function getId(item) {
 
 }
 
-
 function getStatusClass(status) {
 
     const value =
         String(status)
             .toLowerCase();
-
 
     if (value === "completed") {
 
@@ -1782,13 +1363,11 @@ function getStatusClass(status) {
 
     }
 
-
     if (value === "missed") {
 
         return "missed";
 
     }
-
 
     if (value === "scheduled") {
 
@@ -1796,11 +1375,9 @@ function getStatusClass(status) {
 
     }
 
-
     return "pending";
 
 }
-
 
 function formatDate(value) {
 
@@ -1810,10 +1387,8 @@ function formatDate(value) {
 
     }
 
-
     const date =
         new Date(value);
-
 
     if (
         Number.isNaN(
@@ -1824,7 +1399,6 @@ function formatDate(value) {
         return "-";
 
     }
-
 
     return date.toLocaleDateString(
         "en-IN",
@@ -1846,10 +1420,7 @@ function formatTime(value) {
 
     }
 
-
-    const parts =
-        String(value).split(":");
-
+    const parts = String(value).split(":");
 
     if (parts.length < 2) {
 
@@ -1857,17 +1428,14 @@ function formatTime(value) {
 
     }
 
-
     let hours =
         parseInt(
             parts[0],
             10
         );
 
-
     const minutes =
         parts[1];
-
 
     if (
         Number.isNaN(hours)
@@ -1877,21 +1445,17 @@ function formatTime(value) {
 
     }
 
-
     const ampm =
         hours >= 12
             ? "PM"
             : "AM";
 
-
     hours =
         hours % 12 || 12;
-
 
     return `${hours}:${minutes} ${ampm}`;
 
 }
-
 
 function countStatus(status) {
 
@@ -1905,14 +1469,12 @@ function countStatus(status) {
 
 }
 
-
 function countTodayFollowUps() {
 
     const today =
         new Date()
             .toISOString()
             .substring(0, 10);
-
 
     return allFollowUps.filter(
         item =>
@@ -1925,10 +1487,7 @@ function countTodayFollowUps() {
 }
 
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
+/*--- INITIALIZE ---*/
 document.addEventListener(
     "DOMContentLoaded",
     async function () {
@@ -1936,7 +1495,6 @@ document.addEventListener(
         console.log(
             "🚀 My Follow-ups initializing..."
         );
-
 
         if (
             !validateEmployeeAccess()
@@ -1946,7 +1504,6 @@ document.addEventListener(
 
         }
 
-
         if (
             !loadEmployeeInfo()
         ) {
@@ -1955,15 +1512,11 @@ document.addEventListener(
 
         }
 
-
         setupMobileMenu();
-
 
         await loadMyFollowUps();
 
-
         await loadNotificationCount();
-
 
         console.log(
             "✅ My Follow-ups ready."
@@ -1973,32 +1526,23 @@ document.addEventListener(
 );
 
 
-/* =====================================================
-   GLOBAL FUNCTIONS
-===================================================== */
+/*--- GLOBAL FUNCTIONS ---*/
+window.logoutEmployee = logoutEmployee;
 
-window.logoutEmployee =
-    logoutEmployee;
+window.openNotifications = openNotifications;
 
-window.openNotifications =
-    openNotifications;
+window.goToAddFollowUp = goToAddFollowUp;
 
-window.goToAddFollowUp =
-    goToAddFollowUp;
+window.viewFollowUp = viewFollowUp;
 
-window.viewFollowUp =
-    viewFollowUp;
+window.editFollowUp = editFollowUp;
 
-window.editFollowUp =
-    editFollowUp;
+window.completeFollowUp = completeFollowUp;
 
-window.completeFollowUp =
-    completeFollowUp;
-
-window.applyFilters =
-    applyFilters;
+window.applyFilters = applyFilters;
 
 </script>
+
 
 </body>
 </html>

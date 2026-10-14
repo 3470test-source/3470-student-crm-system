@@ -1,1678 +1,863 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3470 Healthcare & Student CRM System - Add Follow-up</title>
+  <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/png">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; }
+    .addfu-page { max-width: 1100px; margin: 0 auto; }
+    .addfu-heading { margin: 8px 0 22px; }
+    .addfu-heading h1 { font-size: 26px; margin-bottom: 6px; }
+    .addfu-heading p { color: #64748b; }
+    .addfu-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 26px; box-shadow: 0 4px 18px rgba(15, 23, 42, .05); }
+    .addfu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px 22px; }
+    .addfu-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+    .addfu-field.full { grid-column: 1 / -1; }
+    .addfu-field label { font-size: 14px; font-weight: 600; color: #334155; }
+    .addfu-field label span { color: #dc2626; }
+    .addfu-field input, .addfu-field select, .addfu-field textarea { width: 100%; padding: 12px 13px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #0f172a; font: inherit; min-height: 44px; }
+    .addfu-field input:focus, .addfu-field select:focus, .addfu-field textarea:focus { outline: 2px solid #bbf7d0; border-color: #16a34a; }
+    .addfu-field input[readonly] { background: #f8fafc; color: #475569; }
+    .addfu-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
+    .addfu-btn { border: 0; border-radius: 8px; padding: 12px 20px; font-weight: 600; cursor: pointer; }
+    .addfu-btn:disabled { opacity: .65; cursor: wait; }
+    .addfu-reset { background: #e2e8f0; color: #334155; }
+    .addfu-save { background: #16a34a; color: #fff; }
+    .addfu-message { display: none; margin-bottom: 18px; border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+    .addfu-message.show { display: block; }
+    .addfu-message.success { color: #166534; background: #dcfce7; }
+    .addfu-message.error { color: #991b1b; background: #fee2e2; }
+    .addfu-hint { font-size: 12px; color: #64748b; }
+    @media (max-width: 700px) { .addfu-grid { grid-template-columns: 1fr; } .addfu-field.full { grid-column: auto; } .addfu-card { padding: 18px; } .addfu-actions { flex-direction: column-reverse; } .addfu-btn { width: 100%; } }
+  </style>
+</head>
+<body>
+
+
+  <header class="EMP-dashboard-header">
+    <div class="EMP-header-left">
+      <div class="EMP-header-logo"><img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo"></div>
+      <button type="button" class="EMP-header-menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa fa-bars"></i></button>
+    </div>
+    <div class="EMP-header-center">STUDENT CRM SYSTEM</div>
+    <div class="EMP-header-right">
+      <button type="button" class="EMP-notification" id="notificationButton" aria-label="Notifications">
+        <i class="fa-solid fa-bell"></i><span class="EMP-notification-count" id="headerNotificationCount">0</span>
+      </button>
+      <div class="EMP-profile">
+        <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+        <div class="EMP-profile-info"><div class="EMP-profile-name" id="employeeName">Employee</div><div class="EMP-profile-role" id="employeeRole">Employee</div></div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+  <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+  <div class="EMP-sidebar-container">
+    <aside class="EMP-sidebar" id="crmSidebar">
+      <a href="employee-dashboard.html" class="crm-nav-link"><i class="fa fa-home"></i>Dashboard</a>
+      <div class="crm-dropdown">
+        <button type="button" class="crm-dropdown-btn"><i class="fa fa-user-graduate"></i>My Enquiries<i class="fa fa-angle-down icon-color"></i></button>
+        <div class="crm-dropdown-content">
+          <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+          <a href="my-enquiries.html"><i class="fa fa-users"></i>My Enquiries</a>
+        </div>
+      </div>
+      <div class="crm-dropdown active">
+        <button type="button" class="crm-dropdown-btn"><i class="fa fa-phone"></i>My Follow-ups<i class="fa fa-angle-down icon-color"></i></button>
+        <div class="crm-dropdown-content">
+          <a href="add-follow-up.html" class="crm-nav-link EMP-active"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+          <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+        </div>
+      </div>
+      <div class="crm-dropdown">
+        <button type="button" class="crm-dropdown-btn"><i class="fa fa-user-check"></i>Admissions<i class="fa fa-angle-down icon-color"></i></button>
+        <div class="crm-dropdown-content">
+          <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+          <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+        </div>
+      </div>
+      <a href="my-notifications.html" class="crm-nav-link"><i class="fa-solid fa-bell"></i>Notifications</a>
+      <a href="employee-profile.html" class="crm-nav-link"><i class="fa-solid fa-user"></i>My Profile</a>
+      <a href="#" class="crm-nav-link logout" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i>Logout</a>
+    </aside>
+
+    <main class="crm-dashboard-main">
+      <div class="addfu-page">
+        <div class="addfu-heading"><h1>Add Follow-up</h1><p>Schedule a follow-up for one of your student enquiries.</p></div>
+        <div class="addfu-card">
+          <div id="formMessage" class="addfu-message" role="status" aria-live="polite"></div>
+          <form id="AddFollow-Up">
+            <div class="addfu-grid">
+              <div class="addfu-field">
+                <label for="enquiry_id">Student Enquiry <span>*</span></label>
+                <select id="enquiry_id" name="enquiry_id" required>
+                  <option value="">-- Loading your enquiries... --</option>
+                </select>
+                <small class="addfu-hint">Only enquiries assigned to your account are listed.</small>
+              </div>
+              <div class="addfu-field"><label for="student_name">Student Name</label><input id="student_name" name="student_name" readonly placeholder="Selected student name"></div>
+              <div class="addfu-field"><label for="mobile_number">Mobile Number</label><input id="mobile_number" name="mobile_number" readonly placeholder="Selected mobile number"></div>
+              <div class="addfu-field"><label for="course">Course</label><input id="course" name="course" readonly placeholder="Selected course"></div>
+              <div class="addfu-field"><label for="counsellor">Counsellor</label><input id="counsellor" name="counsellor" readonly placeholder="Assigned counsellor"></div>
+              <div class="addfu-field"><label for="follow_up_date">Follow-up Date <span>*</span></label><input type="date" id="follow_up_date" name="follow_up_date" required></div>
+              <div class="addfu-field"><label for="follow_up_time">Follow-up Time <span>*</span></label><input type="time" id="follow_up_time" name="follow_up_time" required></div>
+              <div class="addfu-field"><label for="follow_up_type">Follow-up Type <span>*</span></label>
+                <select id="follow_up_type" name="follow_up_type" required>
+                  <option value="">-- Select Type --</option><option value="Phone Call">Phone Call</option><option value="WhatsApp">WhatsApp</option><option value="Email">Email</option><option value="Walk-in">Walk-in</option>
+                </select>
+              </div>
+              <div class="addfu-field"><label for="follow_up_status">Follow-up Status <span>*</span></label>
+                <select id="follow_up_status" name="follow_up_status" required><option value="Scheduled" selected>Scheduled</option><option value="Pending">Pending</option></select>
+                <small class="addfu-hint">Complete or mark missed later from My Follow-ups.</small>
+              </div>
+              <div class="addfu-field"><label for="outcome">Student Outcome</label>
+                <select id="outcome" name="outcome">
+                  <option value="">-- Not recorded yet --</option>
+                  <option value="Interested">Interested</option>
+                  <option value="Not Interested">Not Interested</option>
+                  <option value="Call Back">Call Back</option>
+                  <option value="Admission Confirmed">Admission Confirmed</option>
+                </select>
+              </div>
+              <div class="addfu-field"><label for="next_follow_up_date">Next Follow-up Date</label><input type="date" id="next_follow_up_date" name="next_follow_up_date"></div>
+              <div class="addfu-field"><label for="next_follow_up_time">Next Follow-up Time</label><input type="time" id="next_follow_up_time" name="next_follow_up_time"></div>
+              <div class="addfu-field full"><label for="comments">Comments</label><textarea id="comments" name="comments" rows="4" maxlength="5000" placeholder="Add call notes or follow-up remarks"></textarea></div>
+            </div>
+            <div class="addfu-actions">
+              <button type="reset" id="resetButton" class="addfu-btn addfu-reset">Reset</button>
+              <button type="submit" id="saveButton" class="addfu-btn addfu-save"><i class="fa-solid fa-floppy-disk"></i> Save Follow-up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+
+    const API_BASE = "http://localhost:3000/api";
+    const form = document.getElementById("AddFollow-Up");
+    const enquirySelect = document.getElementById("enquiry_id");
+    const studentNameInput = document.getElementById("student_name");
+    const mobileNumberInput = document.getElementById("mobile_number");
+    const courseInput = document.getElementById("course");
+    const counsellorInput = document.getElementById("counsellor");
+    const saveButton = document.getElementById("saveButton");
+    const messageBox = document.getElementById("formMessage");
+    const enquiriesById = new Map();
+
+    function getToken() { return localStorage.getItem("crmToken"); }
+
+    function getStoredUser() {
+      try { return JSON.parse(localStorage.getItem("crmUser") || "null"); }
+      catch { return null; }
+    }
+
+    function redirectToLogin() {
+      localStorage.removeItem("crmToken");
+      localStorage.removeItem("crmUser");
+      window.location.href = "login.html";
+    }
+
+    function showMessage(message, type = "error") {
+      messageBox.textContent = message;
+      messageBox.className = `addfu-message show ${type}`;
+      messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function clearMessage() {
+      messageBox.textContent = "";
+      messageBox.className = "addfu-message";
+    }
+
+    async function apiRequest(path, options = {}) {
+      const token = getToken();
+      if (!token) {
+        redirectToLogin();
+        throw new Error("Please log in again.");
+      }
+
+      let response;
+      try {
+        response = await fetch(`${API_BASE}${path}`, {
+          ...options,
+          headers: {
+            Accept: "application/json",
+            ...(options.body ? { "Content-Type": "application/json" } : {}),
+            ...(options.headers || {}),
+            Authorization: `Bearer ${token}`
+          }
+        });
+      } catch (error) {
+        throw new Error("Cannot connect to the backend at http://localhost:3000. Check that the server is running.");
+      }
+
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        redirectToLogin();
+        throw new Error("Your session has expired. Please log in again.");
+      }
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || `Request failed (HTTP ${response.status}).`);
+      }
+      return data;
+    }
+
+    function validateEmployee() {
+      const user = getStoredUser();
+      if (!getToken() || !user) {
+        redirectToLogin();
+        return false;
+      }
+      if (!["Counsellor", "Staff"].includes(user.role)) {
+        if (user.role === "Admin") window.location.href = "dashboard-crm.html";
+        else redirectToLogin();
+        return false;
+      }
+
+      const name = user.full_name || user.fullName || user.name || user.username || "Employee";
+      document.getElementById("employeeName").textContent = name;
+      document.getElementById("employeeRole").textContent = user.role || "Employee";
+      document.getElementById("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
+      return true;
+    }
+
+    async function loadEnquiries() {
+      enquirySelect.replaceChildren(new Option("-- Loading your enquiries... --", ""));
+      try {
+        const result = await apiRequest("/employee/enquiries?page=1&limit=100");
+        const enquiries = Array.isArray(result.enquiries) ? result.enquiries : [];
+        enquiriesById.clear();
+        enquirySelect.replaceChildren(new Option("-- Select Student Enquiry --", ""));
+
+        for (const enquiry of enquiries) {
+          enquiriesById.set(String(enquiry.id), enquiry);
+          const courseName = enquiry.course_interested || enquiry.course || "No course";
+          const option = new Option(`${enquiry.student_name || "Student"} - ${enquiry.mobile || "No mobile"} - ${courseName}`, String(enquiry.id));
+          enquirySelect.appendChild(option);
+        }
+
+        if (!enquiries.length) {
+          enquirySelect.replaceChildren(new Option("-- No enquiries assigned to you --", ""));
+          showMessage("No enquiries are assigned to your account yet. Add an enquiry first.", "error");
+        }
+      } catch (error) {
+        console.error("Load Employee Enquiries Error:", error);
+        enquirySelect.replaceChildren(new Option("-- Unable to load enquiries --", ""));
+        showMessage(error.message);
+      }
+    }
+
+    function loadSelectedEnquiry(id) {
+      const enquiry = enquiriesById.get(String(id));
+      studentNameInput.value = enquiry?.student_name || "";
+      mobileNumberInput.value = enquiry?.mobile || enquiry?.mobile_number || "";
+      courseInput.value = enquiry?.course_interested || enquiry?.course || "";
+      counsellorInput.value = enquiry?.counsellor || getStoredUser()?.full_name || "";
+    }
+
+    function resetFormFields() {
+      studentNameInput.value = "";
+      mobileNumberInput.value = "";
+      courseInput.value = "";
+      counsellorInput.value = "";
+      clearMessage();
+    }
+
+    form.addEventListener("reset", () => setTimeout(resetFormFields, 0));
+    enquirySelect.addEventListener("change", () => {
+      clearMessage();
+      loadSelectedEnquiry(enquirySelect.value);
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      clearMessage();
+
+      if (!enquirySelect.value) {
+        showMessage("Please select a student enquiry.");
+        return;
+      }
+
+      const payload = {
+        enquiry_id: Number(enquirySelect.value),
+        follow_up_date: document.getElementById("follow_up_date").value,
+        follow_up_time: document.getElementById("follow_up_time").value,
+        follow_up_type: document.getElementById("follow_up_type").value,
+        follow_up_status: document.getElementById("follow_up_status").value,
+        outcome: document.getElementById("outcome").value || null,
+        next_follow_up_date: document.getElementById("next_follow_up_date").value || null,
+        next_follow_up_time: document.getElementById("next_follow_up_time").value || null,
+        comments: document.getElementById("comments").value.trim() || null
+      };
+
+      if (!payload.follow_up_date || !payload.follow_up_time || !payload.follow_up_type || !payload.follow_up_status) {
+        showMessage("Please complete all required fields.");
+        return;
+      }
+
+      saveButton.disabled = true;
+      saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+      try {
+        const result = await apiRequest("/employee/follow-ups", {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+
+        showMessage(result.message || "Follow-up saved successfully.", "success");
+        form.reset();
+        document.getElementById("follow_up_status").value = "Scheduled";
+      } catch (error) {
+        console.error("Save Employee Follow-up Error:", error);
+        showMessage(error.message || "Unable to save follow-up.");
+      } finally {
+        saveButton.disabled = false;
+        saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Follow-up';
+      }
+    });
+
+    document.getElementById("logoutButton").addEventListener("click", event => {
+      event.preventDefault();
+      if (!confirm("Are you sure you want to log out?")) return;
+      localStorage.removeItem("crmToken");
+      localStorage.removeItem("crmUser");
+      window.location.href = "login.html";
+    });
+
+    document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
+      button.addEventListener("click", () => button.closest(".crm-dropdown")?.classList.toggle("active"));
+    });
+
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("crmSidebar");
+    const overlay = document.getElementById("crmSidebarOverlay");
+    menuBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+    document.getElementById("notificationButton").addEventListener("click", () => {
+      window.location.href = "my-notifications.html";
+    });
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      if (!validateEmployee()) return;
+      const date = new Date();
+      const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      document.getElementById("follow_up_date").min = today;
+      document.getElementById("next_follow_up_date").min = today;
+      await loadEnquiries();
+      try {
+        const notificationData = await apiRequest("/notifications/today");
+        const notificationSummary = notificationData.summary || {};
+        document.getElementById("headerNotificationCount").textContent =
+          Number(notificationSummary.total_notifications) || 0;
+      } catch (error) {
+        console.warn("Could not load notification count:", error.message);
+      }
+    });
+  </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>3470 Healthcare & Student CRM System - Add Enquiry</title>
-
-    <!-- Favicon -->
-    <link
-        rel="icon"
-        href="/image/Logo3470-health3-removebg-preview.png"
-        type="image/x-icon"
-    >
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="/css/styles.css">
-
-    <!-- Font Awesome -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    >
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .EMP-form-page {
-            padding: 30px;
-        }
-
-        .EMP-form-header {
-            margin-bottom: 25px;
-        }
-
-        .EMP-form-header h1 {
-            font-size: 28px;
-            color: #1f2937;
-            margin-bottom: 8px;
-        }
-
-        .EMP-form-header p {
-            color: #6b7280;
-            font-size: 15px;
-        }
-
-        .EMP-form-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .EMP-form-section {
-            margin-bottom: 30px;
-        }
-
-        .EMP-form-section-title {
-            font-size: 19px;
-            color: #1f2937;
-            font-weight: 600;
-            padding-bottom: 12px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .EMP-form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .EMP-form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .EMP-form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .EMP-form-group label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-
-        .EMP-form-group label span {
-            color: #dc2626;
-        }
-
-        .EMP-form-group input,
-        .EMP-form-group select,
-        .EMP-form-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #374151;
-            background: #ffffff;
-            outline: none;
-            transition: 0.2s ease;
-        }
-
-        .EMP-form-group input:focus,
-        .EMP-form-group select:focus,
-        .EMP-form-group textarea:focus {
-            border-color: #16a34a;
-            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
-        }
-
-        .EMP-form-group textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .EMP-form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            padding-top: 10px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .EMP-btn {
-            border: none;
-            border-radius: 8px;
-            padding: 12px 22px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s ease;
-        }
-
-        .EMP-btn-cancel {
-            background: #f3f4f6;
-            color: #374151;
-        }
-
-        .EMP-btn-cancel:hover {
-            background: #e5e7eb;
-        }
-
-        .EMP-btn-save {
-            background: #16a34a;
-            color: #ffffff;
-        }
-
-        .EMP-btn-save:hover {
-            background: #15803d;
-        }
-
-        .EMP-btn-save:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .EMP-alert {
-            display: none;
-            padding: 13px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .EMP-alert.success {
-            display: block;
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #bbf7d0;
-        }
-
-        .EMP-alert.error {
-            display: block;
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
-
-        .EMP-info-box {
-            background: #eff6ff;
-            border: 1px solid #bfdbfe;
-            color: #1e40af;
-            border-radius: 8px;
-            padding: 12px 15px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-
-        .EMP-info-box i {
-            margin-top: 2px;
-        }
-
-        @media (max-width: 768px) {
-
-            .EMP-form-page {
-                padding: 20px 15px;
-            }
-
-            .EMP-form-card {
-                padding: 20px;
-            }
-
-            .EMP-form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .EMP-form-group.full-width {
-                grid-column: auto;
-            }
-
-            .EMP-form-actions {
-                flex-direction: column;
-            }
-
-            .EMP-btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3470 Healthcare & Student CRM System - Employee Add Follow-up</title>
+  <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/png" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { box-sizing: border-box; }
+    .addfu-message { display: none; margin: 0 0 18px; padding: 12px 14px; border-radius: 8px; font-size: 14px; }
+    .addfu-message.show { display: block; }
+    .addfu-message.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .addfu-message.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .addfu-message.info { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .crm-form-group-AddFollowUP select:disabled,
+    .crm-form-group-AddFollowUP input:disabled,
+    .crm-save-btn:disabled { opacity: .65; cursor: not-allowed; }
+    .EMP-notification { cursor: pointer; }
+    .addfu-help { display: block; margin-top: 5px; color: #6b7280; font-size: 12px; }
+  </style>
 </head>
-
 <body>
-
-<!-- =========================================================
-     EMPLOYEE HEADER
-========================================================= -->
-
-<header class="EMP-dashboard-header">
-
+  <!-- Employee Header -->
+  <header class="EMP-dashboard-header">
     <div class="EMP-header-left">
-
-        <div class="EMP-header-logo">
-            <img
-                src="/image/Logo3470-health3-removebg-preview.png"
-                alt="3470 Healthcare Logo"
-            >
-        </div>
-
-        <div class="EMP-header-menu-btn" id="menuBtn">
-            <i class="fa fa-bars"></i>
-        </div>
-
+      <div class="EMP-header-logo">
+        <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo" />
+      </div>
+      <button class="EMP-header-menu-btn" id="menuBtn" type="button" aria-label="Toggle sidebar">
+        <i class="fa fa-bars"></i>
+      </button>
     </div>
-
-    <div class="EMP-header-center">
-        STUDENT CRM SYSTEM
-    </div>
-
+    <div class="EMP-header-center">STUDENT CRM SYSTEM</div>
     <div class="EMP-header-right">
-
-        <div
-            class="EMP-notification"
-            onclick="openNotifications()"
-        >
-            <i class="fa-solid fa-bell"></i>
-
-            <span
-                class="EMP-notification-count"
-                id="headerNotificationCount"
-            >0</span>
+      <button type="button" class="EMP-notification" id="notificationButton" aria-label="Open notifications">
+        <i class="fa-solid fa-bell"></i>
+        <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+      </button>
+      <div class="EMP-profile">
+        <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+        <div class="EMP-profile-info">
+          <div class="EMP-profile-name" id="employeeName">Employee</div>
+          <div class="EMP-profile-role" id="employeeRole">Employee</div>
         </div>
-
-        <div class="EMP-profile">
-
-            <div
-                class="EMP-profile-avatar"
-                id="profileAvatar"
-            >
-                E
-            </div>
-
-            <div class="EMP-profile-info">
-
-                <div
-                    class="EMP-profile-name"
-                    id="employeeName"
-                >
-                    Employee
-                </div>
-
-                <div
-                    class="EMP-profile-role"
-                    id="employeeRole"
-                >
-                    Employee
-                </div>
-
-            </div>
-
-        </div>
-
+      </div>
     </div>
+  </header>
 
-</header>
-
-
-<!-- =========================================================
-     SIDEBAR OVERLAY
-========================================================= -->
-
-<div
-    id="crmSidebarOverlay"
-    class="crm-siderbar-overlay"
-></div>
-
-
-<!-- =========================================================
-     SIDEBAR
-========================================================= -->
-
-<div class="EMP-sidebar-container">
-
-    <aside
-        class="EMP-sidebar"
-        id="crmSidebar"
-    >
-
-        <a
-            href="employee-dashboard.html"
-            class="crm-nav-link"
-        >
-            <i class="fa fa-home"></i>
-            Dashboard
-        </a>
-
-        <a
-            href="my-enquiries.html"
-            class="crm-nav-link EMP-active"
-        >
-            <i class="fa-solid fa-user-graduate"></i>
-            My Enquiries
-        </a>
-
-        <a
-            href="my-follow-ups.html"
-            class="crm-nav-link"
-        >
-            <i class="fa-solid fa-phone"></i>
-            My Follow-ups
-        </a>
-
-        <a
-            href="my-admissions.html"
-            class="crm-nav-link"
-        >
-            <i class="fa-solid fa-user-check"></i>
-            My Admissions
-        </a>
-
-        <a
-            href="my-notifications.html"
-            class="crm-nav-link"
-        >
-            <i class="fa-solid fa-bell"></i>
-            Notifications
-        </a>
-
-        <a
-            href="my-profile.html"
-            class="crm-nav-link"
-        >
-            <i class="fa-solid fa-user"></i>
-            My Profile
-        </a>
-
-        <a
-            href="#"
-            class="crm-nav-link logout"
-            onclick="logoutEmployee(event)"
-        >
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </a>
-
+  <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+  <div class="EMP-sidebar-container">
+    <aside class="EMP-sidebar" id="crmSidebar">
+      <a href="employee-dashboard.html" class="crm-nav-link">
+        <i class="fa fa-home"></i> Dashboard
+      </a>
+      <div class="crm-dropdown">
+        <div class="crm-dropdown-btn" role="button" tabindex="0">
+          <i class="fa fa-user-graduate"></i> My Enquiries
+          <i class="fa fa-angle-down icon-color"></i>
+        </div>
+        <div class="crm-dropdown-content">
+          <a href="add-enquiry.html"><i class="fa fa-user-plus"></i> Add Enquiry</a>
+          <a href="my-enquiries.html"><i class="fa fa-users"></i> Manage Enquiries</a>
+        </div>
+      </div>
+      <div class="crm-dropdown active">
+        <div class="crm-dropdown-btn" role="button" tabindex="0">
+          <i class="fa fa-phone"></i> My Follow-ups
+          <i class="fa fa-angle-down icon-color"></i>
+        </div>
+        <div class="crm-dropdown-content">
+          <a href="add-follow-up.html" class="crm-nav-link EMP-active"><i class="fa fa-calendar-check"></i> Add Follow-up</a>
+          <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i> My Follow-ups</a>
+        </div>
+      </div>
+      <div class="crm-dropdown">
+        <div class="crm-dropdown-btn" role="button" tabindex="0">
+          <i class="fa fa-user-check"></i> Admissions
+          <i class="fa fa-angle-down icon-color"></i>
+        </div>
+        <div class="crm-dropdown-content">
+          <a href="new-admission.html"><i class="fa fa-plus-circle"></i> New Admission</a>
+          <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i> My Admissions</a>
+        </div>
+      </div>
+      <a href="my-notifications.html" class="crm-nav-link"><i class="fa-solid fa-bell"></i> Notifications</a>
+      <a href="employee-profile.html" class="crm-nav-link"><i class="fa-solid fa-user"></i> My Profile</a>
+      <a href="#" class="crm-nav-link logout" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </aside>
 
 
-    <!-- =====================================================
-         MAIN CONTENT
-    ====================================================== -->
 
-    <main
-        class="EMP-dashboard-main"
-        id="crmMain"
-    >
+    
+    <main class="crm-dashboard-main">
+      <div class="crm-AddFollow-up-header">
+        <h2>Add Follow-up</h2>
+        <p>Record a follow-up for a student enquiry assigned to your account.</p>
+      </div>
 
-        <div class="EMP-form-page">
-
-            <div class="EMP-form-header">
-
-                <h1>
-                    <i class="fa-solid fa-user-plus"></i>
-                    Add Student Enquiry
-                </h1>
-
-                <p>
-                    Enter the student enquiry details below.
-                </p>
-
+      <div class="crm-form-Add-FollowUP">
+        <div id="formMessage" class="addfu-message" role="status" aria-live="polite"></div>
+        <form id="AddFollow-Up" class="AddFollow-Up-From" action="#" novalidate>
+          <div class="crm-form-grid-AddFollowUP">
+            <div class="crm-form-group-AddFollowUP">
+              <label for="enquiry_id">Student Enquiry <span>*</span></label>
+              <select id="enquiry_id" name="enquiry_id" required>
+                <option value="">-- Loading your enquiries... --</option>
+              </select>
+              <small class="addfu-help">Only enquiries assigned to your employee account are listed.</small>
             </div>
 
-
-            <!-- =================================================
-                 INFO
-            ================================================== -->
-
-            <div class="EMP-info-box">
-
-                <i class="fa-solid fa-circle-info"></i>
-
-                <div>
-                    This enquiry will automatically be assigned
-                    to your employee account. You do not need to
-                    select a counsellor.
-                </div>
-
+            <div class="crm-form-group-AddFollowUP">
+              <label for="student_name">Student Name</label>
+              <input type="text" id="student_name" name="student_name" placeholder="Student name" readonly />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="mobile_number">Mobile Number</label>
+              <input type="text" id="mobile_number" name="mobile_number" placeholder="Mobile number" readonly />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="course">Course</label>
+              <input type="text" id="course" name="course" placeholder="Course" readonly />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="counsellor">Counsellor</label>
+              <input type="text" id="counsellor" name="counsellor" placeholder="Counsellor" readonly />
             </div>
 
-
-            <!-- =================================================
-                 ALERT
-            ================================================== -->
-
-            <div
-                id="formAlert"
-                class="EMP-alert"
-            ></div>
-
-
-            <!-- =================================================
-                 FORM
-            ================================================== -->
-
-            <div class="EMP-form-card">
-
-                <form
-                    id="employeeEnquiryForm"
-                    novalidate
-                >
-
-                    <!-- =========================================
-                         STUDENT INFORMATION
-                    ========================================== -->
-
-                    <div class="EMP-form-section">
-
-                        <h2 class="EMP-form-section-title">
-                            Student Information
-                        </h2>
-
-                        <div class="EMP-form-grid">
-
-                            <!-- Student Name -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="student_name">
-                                    Student Name
-                                    <span>*</span>
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="student_name"
-                                    name="student_name"
-                                    placeholder="Enter student name"
-                                    maxlength="150"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <!-- Mobile -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="mobile">
-                                    Mobile Number
-                                    <span>*</span>
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="mobile"
-                                    name="mobile"
-                                    placeholder="Enter 10-digit mobile number"
-                                    maxlength="10"
-                                    inputmode="numeric"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <!-- Email -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="email">
-                                    Email Address
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    placeholder="Enter email address"
-                                    maxlength="150"
-                                >
-
-                            </div>
-
-
-                            <!-- Gender -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="gender">
-                                    Gender
-                                </label>
-
-                                <select
-                                    id="gender"
-                                    name="gender"
-                                >
-
-                                    <option value="">
-                                        -- Select Gender --
-                                    </option>
-
-                                    <option value="Male">
-                                        Male
-                                    </option>
-
-                                    <option value="Female">
-                                        Female
-                                    </option>
-
-                                    <option value="Other">
-                                        Other
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <!-- Date of Birth -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="date_of_birth">
-                                    Date of Birth
-                                </label>
-
-                                <input
-                                    type="date"
-                                    id="date_of_birth"
-                                    name="date_of_birth"
-                                >
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =========================================
-                         ENQUIRY INFORMATION
-                    ========================================== -->
-
-                    <div class="EMP-form-section">
-
-                        <h2 class="EMP-form-section-title">
-                            Enquiry Information
-                        </h2>
-
-                        <div class="EMP-form-grid">
-
-                            <!-- Course -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="course_interested">
-                                    Course Interested
-                                    <span>*</span>
-                                </label>
-
-                                <select
-                                    id="course_interested"
-                                    name="course_interested"
-                                    required
-                                >
-
-                                    <option value="">
-                                        -- Select Course --
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <!-- Enquiry Source -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="enquiry_source">
-                                    Enquiry Source
-                                </label>
-
-                                <select
-                                    id="enquiry_source"
-                                    name="enquiry_source"
-                                >
-
-                                    <option value="">
-                                        -- Select Source --
-                                    </option>
-
-                                    <option value="Phone Call">
-                                        Phone Call
-                                    </option>
-
-                                    <option value="WhatsApp">
-                                        WhatsApp
-                                    </option>
-
-                                    <option value="Website">
-                                        Website
-                                    </option>
-
-                                    <option value="Walk-in">
-                                        Walk-in
-                                    </option>
-
-                                    <option value="Referral">
-                                        Referral
-                                    </option>
-
-                                    <option value="Social Media">
-                                        Social Media
-                                    </option>
-
-                                    <option value="Other">
-                                        Other
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <!-- Enquiry Date -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="enquiry_date">
-                                    Enquiry Date
-                                    <span>*</span>
-                                </label>
-
-                                <input
-                                    type="date"
-                                    id="enquiry_date"
-                                    name="enquiry_date"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <!-- Status -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="status">
-                                    Status
-                                    <span>*</span>
-                                </label>
-
-                                <select
-                                    id="status"
-                                    name="status"
-                                    required
-                                >
-
-                                    <option value="">
-                                        -- Select Status --
-                                    </option>
-
-                                    <option value="Interested">
-                                        Interested
-                                    </option>
-
-                                    <option value="Not Interested">
-                                        Not Interested
-                                    </option>
-
-                                    <option value="Call Back">
-                                        Call Back
-                                    </option>
-
-                                    <option value="Admission Confirmed">
-                                        Admission Confirmed
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =========================================
-                         FOLLOW-UP
-                    ========================================== -->
-
-                    <div class="EMP-form-section">
-
-                        <h2 class="EMP-form-section-title">
-                            Follow-up Details
-                        </h2>
-
-                        <div class="EMP-form-grid">
-
-                            <!-- Follow-up Date -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="follow_up_date">
-                                    Follow-up Date
-                                </label>
-
-                                <input
-                                    type="date"
-                                    id="follow_up_date"
-                                    name="follow_up_date"
-                                >
-
-                            </div>
-
-
-                            <!-- Follow-up Time -->
-
-                            <div class="EMP-form-group">
-
-                                <label for="follow_up_time">
-                                    Follow-up Time
-                                </label>
-
-                                <input
-                                    type="time"
-                                    id="follow_up_time"
-                                    name="follow_up_time"
-                                >
-
-                            </div>
-
-
-                            <!-- Address -->
-
-                            <div class="EMP-form-group full-width">
-
-                                <label for="address">
-                                    Address
-                                </label>
-
-                                <textarea
-                                    id="address"
-                                    name="address"
-                                    placeholder="Enter student address"
-                                ></textarea>
-
-                            </div>
-
-
-                            <!-- Comments -->
-
-                            <div class="EMP-form-group full-width">
-
-                                <label for="comments">
-                                    Comments
-                                </label>
-
-                                <textarea
-                                    id="comments"
-                                    name="comments"
-                                    placeholder="Enter enquiry comments"
-                                ></textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =========================================
-                         ACTIONS
-                    ========================================== -->
-
-                    <div class="EMP-form-actions">
-
-                        <button
-                            type="button"
-                            class="EMP-btn EMP-btn-cancel"
-                            onclick="window.location.href='my-enquiries.html'"
-                        >
-                            <i class="fa-solid fa-xmark"></i>
-                            Cancel
-                        </button>
-
-                        <button
-                            type="submit"
-                            class="EMP-btn EMP-btn-save"
-                            id="saveEnquiryBtn"
-                        >
-                            <i class="fa-solid fa-floppy-disk"></i>
-                            Save Enquiry
-                        </button>
-
-                    </div>
-
-                </form>
-
+            <div class="crm-form-group-AddFollowUP">
+              <label for="follow_up_date">Follow-up Date <span>*</span></label>
+              <input type="date" id="follow_up_date" name="follow_up_date" required />
             </div>
-
-        </div>
-
+            <div class="crm-form-group-AddFollowUP">
+              <label for="follow_up_time">Follow-up Time <span>*</span></label>
+              <input type="time" id="follow_up_time" name="follow_up_time" required />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="follow_up_type">Follow-up Type <span>*</span></label>
+              <select id="follow_up_type" name="follow_up_type" required>
+                <option value="" selected disabled>-- Select Type --</option>
+                <option value="Phone Call">Phone Call</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Email">Email</option>
+                <option value="Walk-in">Walk-in</option>
+              </select>
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="outcome">Student Outcome <span>*</span></label>
+              <select id="outcome" name="outcome" required>
+                <option value="" selected disabled>-- Select Outcome --</option>
+                <option value="Interested">Interested</option>
+                <option value="Not Interested">Not Interested</option>
+                <option value="Call Back">Call Back</option>
+                <option value="Admission Confirmed">Admission Confirmed</option>
+              </select>
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="follow_up_status">Follow-up Status <span>*</span></label>
+              <select id="follow_up_status" name="follow_up_status" required>
+                <option value="Scheduled" selected>Scheduled</option>
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Missed">Missed</option>
+              </select>
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="next_follow_up_date">Next Follow-up Date</label>
+              <input type="date" id="next_follow_up_date" name="next_follow_up_date" />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="next_follow_up_time">Next Follow-up Time</label>
+              <input type="time" id="next_follow_up_time" name="next_follow_up_time" />
+            </div>
+            <div class="crm-form-group-AddFollowUP">
+              <label for="comments">Comments</label>
+              <textarea id="comments" name="comments" rows="3" placeholder="Enter follow-up remarks"></textarea>
+            </div>
+          </div>
+          <div class="crm-form-buttons-AddFollowUP">
+            <button type="reset" id="resetButton" class="crm-reset-btn">Reset</button>
+            <button type="submit" id="saveButton" class="crm-save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Follow-up</button>
+          </div>
+        </form>
+      </div>
     </main>
+  </div>
 
-</div>
+  <script src="js/crm-notifications.js"></script>
+  <script>
+    "use strict";
 
+    (() => {
+      const API_BASE = "http://localhost:3000/api";
+      const form = document.getElementById("AddFollow-Up");
+      const enquirySelect = document.getElementById("enquiry_id");
+      const studentNameInput = document.getElementById("student_name");
+      const mobileNumberInput = document.getElementById("mobile_number");
+      const courseInput = document.getElementById("course");
+      const counsellorInput = document.getElementById("counsellor");
+      const saveButton = document.getElementById("saveButton");
+      const messageBox = document.getElementById("formMessage");
+      const enquiriesById = new Map();
 
-<script>
-/* =========================================================
-   CONFIG
-========================================================= */
+      const getToken = () => localStorage.getItem("crmToken");
 
-const API_BASE = "http://localhost:3000/api";
+      function getStoredUser() {
+        try {
+          return JSON.parse(localStorage.getItem("crmUser") || "null");
+        } catch (error) {
+          console.error("Unable to parse crmUser:", error);
+          return null;
+        }
+      }
 
-
-/* =========================================================
-   AUTH
-========================================================= */
-
-function getToken() {
-    return localStorage.getItem("crmToken");
-}
-
-
-function getStoredUser() {
-
-    const storedUser = localStorage.getItem("crmUser");
-
-    if (!storedUser) {
-        return null;
-    }
-
-    try {
-        return JSON.parse(storedUser);
-    } catch (error) {
-
-        console.error("❌ Invalid crmUser:", error);
-
-        localStorage.removeItem("crmUser");
+      function redirectToLogin() {
         localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
+        window.location.href = "login.html";
+      }
 
-        return null;
-    }
-}
+      function showMessage(message, type = "error") {
+        messageBox.textContent = String(message || "Something went wrong.");
+        messageBox.className = `addfu-message show ${type}`;
+        messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
 
+      function clearMessage() {
+        messageBox.textContent = "";
+        messageBox.className = "addfu-message";
+      }
 
-function redirectToLogin() {
-
-    localStorage.removeItem("crmUser");
-    localStorage.removeItem("crmToken");
-
-    window.location.href = "login.html";
-}
-
-
-function validateEmployeeAccess() {
-
-    const token = getToken();
-    const user = getStoredUser();
-
-    if (!token || !user) {
-
-        redirectToLogin();
-
-        return false;
-    }
-
-    if (
-        user.role !== "Counsellor" &&
-        user.role !== "Staff"
-    ) {
-
-        if (user.role === "Admin") {
+      function validateEmployee() {
+        const token = getToken();
+        const user = getStoredUser();
+        if (!token || !user) {
+          redirectToLogin();
+          return false;
+        }
+        if (!["Counsellor", "Staff"].includes(user.role)) {
+          if (user.role === "Admin") {
             window.location.href = "dashboard-crm.html";
-        } else {
+          } else {
             redirectToLogin();
+          }
+          return false;
         }
 
-        return false;
-    }
+        const name = user.full_name || user.fullName || user.name || user.username || "Employee";
+        document.getElementById("employeeName").textContent = name;
+        document.getElementById("employeeRole").textContent = user.role || "Employee";
+        document.getElementById("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
+        return true;
+      }
 
-    return true;
-}
+      async function apiRequest(path, options = {}) {
+        const token = getToken();
+        if (!token) {
+          redirectToLogin();
+          throw new Error("Please log in again.");
+        }
 
-
-/* =========================================================
-   API REQUEST
-========================================================= */
-
-async function apiRequest(url, options = {}) {
-
-    const token = getToken();
-
-    const headers = {
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-    };
-
-    if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    const response = await fetch(url, {
-        ...options,
-        headers
-    });
-
-    let data = {};
-
-    try {
-        data = await response.json();
-    } catch (error) {
-        data = {};
-    }
-
-    if (response.status === 401) {
-
-        redirectToLogin();
-
-        throw new Error(
-            "Your session has expired. Please login again."
-        );
-    }
-
-    if (response.status === 403) {
-
-        throw new Error(
-            data.message ||
-            "You are not authorized to perform this action."
-        );
-    }
-
-    if (!response.ok) {
-
-        throw new Error(
-            data.message ||
-            `Request failed with status ${response.status}`
-        );
-    }
-
-    return data;
-}
-
-
-/* =========================================================
-   EMPLOYEE INFORMATION
-========================================================= */
-
-function loadEmployeeInfo() {
-
-    const user = getStoredUser();
-
-    if (!user) {
-        return;
-    }
-
-    const name =
-        user.full_name ||
-        user.name ||
-        user.username ||
-        "Employee";
-
-    const role =
-        user.role ||
-        "Employee";
-
-    const employeeName =
-        document.getElementById("employeeName");
-
-    const employeeRole =
-        document.getElementById("employeeRole");
-
-    const profileAvatar =
-        document.getElementById("profileAvatar");
-
-    if (employeeName) {
-        employeeName.textContent = name;
-    }
-
-    if (employeeRole) {
-        employeeRole.textContent = role;
-    }
-
-    if (profileAvatar) {
-
-        profileAvatar.textContent =
-            name.trim().charAt(0).toUpperCase() || "E";
-    }
-}
-
-
-/* =========================================================
-   LOAD COURSES
-========================================================= */
-
-async function loadCourses() {
-
-    const courseSelect =
-        document.getElementById("course_interested");
-
-    if (!courseSelect) {
-        return;
-    }
-
-    try {
-
-        const data = await apiRequest(
-            `${API_BASE}/courses`,
-            {
-                method: "GET"
+        let response;
+        try {
+          response = await fetch(`${API_BASE}${path}`, {
+            ...options,
+            headers: {
+              Accept: "application/json",
+              ...(options.body ? { "Content-Type": "application/json" } : {}),
+              ...(options.headers || {}),
+              Authorization: `Bearer ${token}`
             }
-        );
-
-        if (!data.success) {
-            throw new Error(
-                data.message ||
-                "Failed to load courses."
-            );
+          });
+        } catch (error) {
+          throw new Error("Cannot connect to the backend at http://localhost:3000. Check that your Node.js server is running.");
         }
 
-        const courses =
-            data.courses || [];
-
-        courseSelect.innerHTML =
-            `<option value="">-- Select Course --</option>`;
-
-        courses.forEach(function (course) {
-
-            const option =
-                document.createElement("option");
-
-            option.value =
-                course.course_name;
-
-            option.textContent =
-                course.course_name;
-
-            courseSelect.appendChild(option);
-        });
-
-    } catch (error) {
-
-        console.error(
-            "❌ Course Load Error:",
-            error
-        );
-
-        showAlert(
-            error.message ||
-            "Unable to load courses.",
-            "error"
-        );
-    }
-}
-
-
-/* =========================================================
-   DEFAULT DATE
-========================================================= */
-
-function setDefaultEnquiryDate() {
-
-    const enquiryDate =
-        document.getElementById("enquiry_date");
-
-    if (!enquiryDate) {
-        return;
-    }
-
-    const today =
-        new Date();
-
-    const year =
-        today.getFullYear();
-
-    const month =
-        String(today.getMonth() + 1)
-            .padStart(2, "0");
-
-    const day =
-        String(today.getDate())
-            .padStart(2, "0");
-
-    enquiryDate.value =
-        `${year}-${month}-${day}`;
-}
-
-
-/* =========================================================
-   ALERT
-========================================================= */
-
-function showAlert(message, type) {
-
-    const alertBox =
-        document.getElementById("formAlert");
-
-    if (!alertBox) {
-        return;
-    }
-
-    alertBox.className =
-        `EMP-alert ${type}`;
-
-    alertBox.textContent =
-        message;
-
-    alertBox.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-}
-
-
-/* =========================================================
-   MOBILE MENU
-========================================================= */
-
-function setupMobileMenu() {
-
-    const menuButton =
-        document.getElementById("menuBtn");
-
-    const sidebar =
-        document.getElementById("crmSidebar");
-
-    const overlay =
-        document.getElementById("crmSidebarOverlay");
-
-    if (!menuButton || !sidebar) {
-        return;
-    }
-
-    menuButton.addEventListener(
-        "click",
-        function () {
-
-            sidebar.classList.toggle("active");
-
-            if (overlay) {
-                overlay.classList.toggle("active");
-            }
+        const data = await response.json().catch(() => ({}));
+        if (response.status === 401) {
+          redirectToLogin();
+          throw new Error("Your session has expired. Please log in again.");
         }
-    );
-
-    if (overlay) {
-
-        overlay.addEventListener(
-            "click",
-            function () {
-
-                sidebar.classList.remove("active");
-                overlay.classList.remove("active");
-
-            }
-        );
-    }
-}
-
-
-/* =========================================================
-   NOTIFICATIONS
-========================================================= */
-
-async function loadNotificationCount() {
-
-    const countElement =
-        document.getElementById(
-            "headerNotificationCount"
-        );
-
-    if (!countElement) {
-        return;
-    }
-
-    try {
-
-        const data =
-            await apiRequest(
-                `${API_BASE}/notifications/today`,
-                {
-                    method: "GET"
-                }
-            );
-
-        if (!data.success) {
-            throw new Error(
-                data.message ||
-                "Failed to load notifications."
-            );
+        if (response.status === 403) {
+          throw new Error(data.message || "You are not authorized to perform this action.");
         }
+        if (!response.ok || data.success === false) {
+          throw new Error(data.message || `Request failed (HTTP ${response.status}).`);
+        }
+        return data;
+      }
 
-        const summary =
-            data.summary || {};
+      function clearEnquiryDetails() {
+        studentNameInput.value = "";
+        mobileNumberInput.value = "";
+        courseInput.value = "";
+        counsellorInput.value = "";
+      }
 
-        countElement.textContent =
-            Number(
-                summary.total_notifications
-            ) || 0;
+      async function loadEnquiries() {
+        enquirySelect.replaceChildren(new Option("-- Loading your enquiries... --", ""));
+        enquirySelect.disabled = true;
+        try {
+          const result = await apiRequest("/employee/enquiries?page=1&limit=100");
+          const enquiries = Array.isArray(result.enquiries) ? result.enquiries : [];
+          enquiriesById.clear();
+          enquirySelect.replaceChildren(new Option("-- Select Student Enquiry --", ""));
 
-    } catch (error) {
+          for (const enquiry of enquiries) {
+            enquiriesById.set(String(enquiry.id), enquiry);
+            const courseName = enquiry.course_interested || enquiry.course || "No course";
+            const studentName = enquiry.student_name || "Student";
+            const mobile = enquiry.mobile || enquiry.mobile_number || "No mobile";
+            enquirySelect.appendChild(new Option(`${studentName} - ${mobile} - ${courseName}`, String(enquiry.id)));
+          }
 
-        console.error(
-            "❌ Notification Error:",
-            error
-        );
+          if (!enquiries.length) {
+            enquirySelect.replaceChildren(new Option("-- No enquiries assigned to you --", ""));
+            showMessage("No enquiries are assigned to your account yet. Add an enquiry first.", "info");
+          } else {
+            clearMessage();
+          }
+        } catch (error) {
+          console.error("Load Employee Enquiries Error:", error);
+          enquirySelect.replaceChildren(new Option("-- Unable to load enquiries --", ""));
+          showMessage(error.message);
+        } finally {
+          enquirySelect.disabled = false;
+        }
+      }
 
-        countElement.textContent = "0";
-    }
-}
+      function loadSelectedEnquiry(id) {
+        const enquiry = enquiriesById.get(String(id));
+        if (!enquiry) {
+          clearEnquiryDetails();
+          return;
+        }
+        studentNameInput.value = enquiry.student_name || "";
+        mobileNumberInput.value = enquiry.mobile || enquiry.mobile_number || "";
+        courseInput.value = enquiry.course_interested || enquiry.course || "";
+        counsellorInput.value = enquiry.counsellor || getStoredUser()?.full_name || getStoredUser()?.name || "";
+      }
 
+      form.addEventListener("reset", () => {
+        setTimeout(() => {
+          clearEnquiryDetails();
+          clearMessage();
+          document.getElementById("follow_up_status").value = "Scheduled";
+        }, 0);
+      });
 
-function openNotifications() {
+      enquirySelect.addEventListener("change", () => {
+        clearMessage();
+        loadSelectedEnquiry(enquirySelect.value);
+      });
 
-    window.location.href =
-        "my-notifications.html";
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function logoutEmployee(event) {
-
-    if (event) {
+      form.addEventListener("submit", async event => {
         event.preventDefault();
-    }
+        clearMessage();
 
-    const confirmed =
-        confirm(
-            "Are you sure you want to logout?"
-        );
+        if (!form.reportValidity()) return;
+        if (!enquirySelect.value) {
+          showMessage("Please select a student enquiry.");
+          return;
+        }
 
-    if (!confirmed) {
-        return;
-    }
+        const followUpDate = document.getElementById("follow_up_date").value;
+        const nextFollowUpDate = document.getElementById("next_follow_up_date").value;
+        if (nextFollowUpDate && nextFollowUpDate < followUpDate) {
+          showMessage("Next follow-up date cannot be earlier than the current follow-up date.");
+          return;
+        }
 
-    localStorage.removeItem("crmToken");
-    localStorage.removeItem("crmUser");
+        const payload = {
+          enquiry_id: Number(enquirySelect.value),
+          follow_up_date: followUpDate,
+          follow_up_time: document.getElementById("follow_up_time").value,
+          follow_up_type: document.getElementById("follow_up_type").value,
+          follow_up_status: document.getElementById("follow_up_status").value,
+          outcome: document.getElementById("outcome").value,
+          next_follow_up_date: nextFollowUpDate || null,
+          next_follow_up_time: document.getElementById("next_follow_up_time").value || null,
+          comments: document.getElementById("comments").value.trim() || null
+        };
 
-    window.location.href =
-        "login.html";
-}
-
-
-/* =========================================================
-   MOBILE SIDEBAR LINK
-========================================================= */
-
-function setupSidebarLinks() {
-
-    const sidebar =
-        document.getElementById("crmSidebar");
-
-    if (!sidebar) {
-        return;
-    }
-
-    const links =
-        sidebar.querySelectorAll("a");
-
-    links.forEach(function (link) {
-
-        link.addEventListener(
-            "click",
-            function () {
-
-                sidebar.classList.remove(
-                    "active"
-                );
-
-                const overlay =
-                    document.getElementById(
-                        "crmSidebarOverlay"
-                    );
-
-                if (overlay) {
-                    overlay.classList.remove(
-                        "active"
-                    );
-                }
-            }
-        );
-    });
-}
-
-
-/* =========================================================
-   SUBMIT ENQUIRY
-========================================================= */
-
-async function submitEmployeeEnquiry(event) {
-
-    event.preventDefault();
-
-    const saveButton =
-        document.getElementById(
-            "saveEnquiryBtn"
-        );
-
-    const form =
-        document.getElementById(
-            "employeeEnquiryForm"
-        );
-
-    if (!form) {
-        return;
-    }
-
-    const studentName =
-        document.getElementById(
-            "student_name"
-        ).value.trim();
-
-    const mobile =
-        document.getElementById(
-            "mobile"
-        ).value.trim();
-
-    const email =
-        document.getElementById(
-            "email"
-        ).value.trim();
-
-    const gender =
-        document.getElementById(
-            "gender"
-        ).value;
-
-    const dateOfBirth =
-        document.getElementById(
-            "date_of_birth"
-        ).value;
-
-    const courseInterested =
-        document.getElementById(
-            "course_interested"
-        ).value;
-
-    const enquirySource =
-        document.getElementById(
-            "enquiry_source"
-        ).value;
-
-    const enquiryDate =
-        document.getElementById(
-            "enquiry_date"
-        ).value;
-
-    const followUpDate =
-        document.getElementById(
-            "follow_up_date"
-        ).value;
-
-    const followUpTime =
-        document.getElementById(
-            "follow_up_time"
-        ).value;
-
-    const status =
-        document.getElementById(
-            "status"
-        ).value;
-
-    const address =
-        document.getElementById(
-            "address"
-        ).value.trim();
-
-    const comments =
-        document.getElementById(
-            "comments"
-        ).value.trim();
-
-
-    /* =============================================
-       VALIDATION
-    ============================================== */
-
-    if (!studentName) {
-
-        showAlert(
-            "Student name is required.",
-            "error"
-        );
-
-        document.getElementById(
-            "student_name"
-        ).focus();
-
-        return;
-    }
-
-
-    if (!/^\d{10}$/.test(mobile)) {
-
-        showAlert(
-            "Mobile number must be exactly 10 digits.",
-            "error"
-        );
-
-        document.getElementById(
-            "mobile"
-        ).focus();
-
-        return;
-    }
-
-
-    if (!courseInterested) {
-
-        showAlert(
-            "Please select a course.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (!enquiryDate) {
-
-        showAlert(
-            "Enquiry date is required.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (!status) {
-
-        showAlert(
-            "Please select enquiry status.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    /* =============================================
-       DISABLE BUTTON
-    ============================================== */
-
-    if (saveButton) {
+        if (!payload.outcome) {
+          showMessage("Please select a student outcome.");
+          return;
+        }
 
         saveButton.disabled = true;
-
-        saveButton.innerHTML =
-            `<i class="fa-solid fa-spinner fa-spin"></i>
-             Saving...`;
-    }
-
-
-    try {
-
-        const data =
-            await apiRequest(
-                `${API_BASE}/employee/enquiries`,
-                {
-                    method: "POST",
-
-                    body: JSON.stringify({
-
-                        student_name:
-                            studentName,
-
-                        mobile:
-                            mobile,
-
-                        email:
-                            email || null,
-
-                        gender:
-                            gender || null,
-
-                        date_of_birth:
-                            dateOfBirth || null,
-
-                        course_interested:
-                            courseInterested,
-
-                        enquiry_source:
-                            enquirySource || null,
-
-                        enquiry_date:
-                            enquiryDate,
-
-                        follow_up_date:
-                            followUpDate || null,
-
-                        follow_up_time:
-                            followUpTime || null,
-
-                        status:
-                            status,
-
-                        address:
-                            address || null,
-
-                        comments:
-                            comments || null
-                    })
-                }
-            );
-
-
-        if (!data.success) {
-
-            throw new Error(
-                data.message ||
-                "Failed to save enquiry."
-            );
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+        try {
+          const result = await apiRequest("/employee/follow-ups", {
+            method: "POST",
+            body: JSON.stringify(payload)
+          });
+          showMessage(result.message || "Follow-up saved successfully.", "success");
+          form.reset();
+          document.getElementById("follow_up_status").value = "Scheduled";
+          await loadEnquiries();
+        } catch (error) {
+          console.error("Save Employee Follow-up Error:", error);
+          showMessage(error.message || "Unable to save follow-up.");
+        } finally {
+          saveButton.disabled = false;
+          saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Follow-up';
         }
+      });
 
+      document.getElementById("logoutButton").addEventListener("click", event => {
+        event.preventDefault();
+        if (!confirm("Are you sure you want to log out?")) return;
+        redirectToLogin();
+      });
 
-        showAlert(
-            "Student enquiry saved successfully.",
-            "success"
-        );
+      document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
+        const toggle = () => button.closest(".crm-dropdown")?.classList.toggle("active");
+        button.addEventListener("click", toggle);
+        button.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            toggle();
+          }
+        });
+      });
 
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.getElementById("crmSidebar");
+      const overlay = document.getElementById("crmSidebarOverlay");
+      menuBtn?.addEventListener("click", () => {
+        sidebar?.classList.toggle("active");
+        overlay?.classList.toggle("active");
+      });
+      overlay?.addEventListener("click", () => {
+        sidebar?.classList.remove("active");
+        overlay?.classList.remove("active");
+      });
 
-        /*
-         * Redirect to My Enquiries
-         * after successful save.
-         */
+      document.getElementById("notificationButton").addEventListener("click", () => {
+        window.location.href = "my-notifications.html";
+      });
 
-        setTimeout(
-            function () {
-
-                window.location.href =
-                    "my-enquiries.html";
-
-            },
-            800
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "❌ Save Enquiry Error:",
-            error
-        );
-
-        showAlert(
-            error.message ||
-            "Unable to save enquiry.",
-            "error"
-        );
-
-        if (saveButton) {
-
-            saveButton.disabled = false;
-
-            saveButton.innerHTML =
-                `<i class="fa-solid fa-floppy-disk"></i>
-                 Save Enquiry`;
+      async function loadNotificationCount() {
+        try {
+          const result = await apiRequest("/notifications/today");
+          document.getElementById("headerNotificationCount").textContent =
+            Number(result.summary?.total_notifications) || 0;
+        } catch (error) {
+          console.warn("Could not load notification count:", error.message);
         }
-    }
-}
+      }
 
+      function setDateMinimums() {
+        const now = new Date();
+        const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+        document.getElementById("follow_up_date").min = today;
+        document.getElementById("next_follow_up_date").min = today;
+      }
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+      window.openNotifications = () => {
+        window.location.href = "my-notifications.html";
+      };
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+      async function init() {
+        if (!validateEmployee()) return;
+        setDateMinimums();
+        await loadEnquiries();
+        await loadNotificationCount();
+      }
 
-        console.log(
-            "🚀 Employee Add Enquiry Initializing..."
-        );
-
-
-        if (!validateEmployeeAccess()) {
-            return;
-        }
-
-
-        loadEmployeeInfo();
-
-        setupMobileMenu();
-
-        setupSidebarLinks();
-
-        setDefaultEnquiryDate();
-
-        loadCourses();
-
-        loadNotificationCount();
-
-
-        const form =
-            document.getElementById(
-                "employeeEnquiryForm"
-            );
-
-        if (form) {
-
-            form.addEventListener(
-                "submit",
-                submitEmployeeEnquiry
-            );
-        }
-
-
-        console.log(
-            "✅ Employee Add Enquiry Ready."
-        );
-    }
-);
-
-
-/* =========================================================
-   GLOBAL FUNCTIONS
-========================================================= */
-
-window.openNotifications =
-    openNotifications;
-
-window.logoutEmployee =
-    logoutEmployee;
-
-</script>
-
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init, { once: true });
+      } else {
+        init();
+      }
+    })();
+  </script>
 </body>
 </html>
