@@ -21,6 +21,17 @@
       padding: 0;
       box-sizing: border-box;
     }
+
+    * { box-sizing: border-box; }
+    .admission-message { display:none; margin:0 0 18px; padding:12px 14px; border-radius:8px; font-size:14px; }
+    .admission-message.show { display:block; }
+    .admission-message.error { background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
+    .admission-message.success { background:#dcfce7; color:#166534; border:1px solid #bbf7d0; }
+    .admission-message.info { background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; }
+    .admission-readonly { background:#f3f4f6; }
+    #saveAdmissionBtn:disabled { opacity:.65; cursor:not-allowed; }
+    .admission-help { display:block; margin-top:5px; color:#6b7280; font-size:12px; }
+    .admission-documents-list { margin-top:6px; color:#6b7280; font-size:12px; }
     
     </style>
  
@@ -145,7 +156,7 @@
                     <i class="fa-solid fa-user"></i>My Profile
                 </a>
 
-                <a href="#" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
+                <a href="#" class="EMP-active crm-nav-link logout" id="logoutButton">
                     <i class="fa-solid fa-right-from-bracket"></i>Logout
                 </a>
 
@@ -166,6 +177,8 @@
 
                 <!-- Admission Form -->
                 <div class="crm-form-NewAdmission">
+
+                    <div id="formMessage" class="admission-message" role="status" aria-live="polite"></div>
 
                     <form id="newAdmissionForm" enctype="multipart/form-data">
 
@@ -193,9 +206,9 @@
                             <div class="crm-input-group-NewAdmission">
                                 <label>Gender</label>
                                 <select id="gender" name="gender">
-                                    <option>-- Select Gender --</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
                                 </select>
                             </div>
 
@@ -277,15 +290,16 @@
 
                             <!-- Counsellor -->
                             <div class="crm-input-group-NewAdmission">
-                                <label>Counsellor</label>
-                                <select id="counsellor" name="counsellor">
-                                    <option value="">-- Select Counsellor --</option>
-                                </select>
+                                <label for="counsellor">Assigned Employee</label>
+                                <input type="text" id="counsellor" name="counsellor_display" readonly class="admission-readonly"
+                                    placeholder="Assigned from your login"/>
+
+                                <small class="admission-help">Your account will be assigned automatically.</small>
                             </div>
 
                             <!-- Admission Status -->
                             <div class="crm-input-group-NewAdmission">
-                                <label>Admission Status</label>
+                                <label for="admissionStatus">Admission Status</label>
                                 <select id="admissionStatus" name="admission_status">
                                     <option>-- Admission Status --</option>
                                     <option value="Confirmed">Confirmed</option>
@@ -298,6 +312,7 @@
                             <div class="crm-input-group-NewAdmission">
                                 <label>Upload Documents</label>
                                 <input type="file" id="documents" name="documents" multiple accept=".pdf,.jpg,.jpeg,.png">
+                                <small class="admission-help">PDF/JPG/PNG, up to 5 files; maximum 5 MB each.</small>
                             </div>
 
                             <!-- Remarks -->
@@ -332,631 +347,484 @@
 <script src="js/crm-notifications.js"></script>     
 
 
-<!-- Profile dropdown JS - Script -->
+<!-- New Admission - JS -->
 <script>
-    function toggleDropdown(){
 
-    document.getElementById("dropdownMenu").classList.toggle("show");
+    (() => {
 
-}
+    "use strict";
 
-window.onclick = function(e){
+    const API_BASE = "http://localhost:3000/api";
 
-    if(!e.target.closest(".crm-profile-dropdown")){
+    const form = document.getElementById("newAdmissionForm");
+    const courseSelect = document.getElementById("course");
+    const courseFee = document.getElementById("courseFee");
+    const discount = document.getElementById("discount");
+    const finalFee = document.getElementById("finalFee");
+    const registrationAmount = document.getElementById("registrationAmount");
+    const balanceAmount = document.getElementById("balanceAmount");
+    const saveButton = document.getElementById("saveAdmissionBtn");
+    const messageBox = document.getElementById("formMessage");
+    const counsellorDisplay = document.getElementById("counsellor");
+    const documentsInput = document.getElementById("documents");
+    const documentsList = document.getElementById("documentsList");
 
-        document.getElementById("dropdownMenu").classList.remove("show");
+    let coursesByName = new Map();
 
+    function getToken() {
+        return localStorage.getItem("crmToken");
     }
 
-}
-</script> 
+    function getUser() {
+        try {
+            return JSON.parse(localStorage.getItem("crmUser") || "null");
+        } catch {
+            return null;
+        }
+    }
 
+    function getUserName(user) {
+        return String(
+            user?.full_name ||
+            user?.fullName ||
+            user?.name ||
+            user?.username ||
+            "Employee"
+        ).trim();
+    }
 
-<!-- Side bar dropdown JS - Script -->
-<script>
-    const dropdowns = document.querySelectorAll(".crm-dropdown");
+    function redirectToLogin() {
+        localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
+        window.location.href = "login.html";
+    }
 
-dropdowns.forEach(dropdown => {
+    function showMessage(message, type = "error") {
+        messageBox.textContent = String(message || "Something went wrong.");
+        messageBox.className = `admission-message show ${type}`;
+        messageBox.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
 
-    const button = dropdown.querySelector(".crm-dropdown-btn");
+    function clearMessage() {
+        messageBox.textContent = "";
+        messageBox.className = "admission-message";
+    }
 
-    button.addEventListener("click", () => {
+    function validateEmployee() {
+        const token = getToken();
+        const user = getUser();
 
-        dropdown.classList.toggle("active");
-
-    });
-
-});
-</script>
-
-
-<!-- New Admission - JS  -->
- <script>
-
-    document.addEventListener("DOMContentLoaded", function () {
-     
-        /*--- ELEMENTS ---*/
-        const form = document.getElementById("newAdmissionForm");
-
-        const courseSelect = document.getElementById("course");
-        const counsellorSelect = document.getElementById("counsellor");
-
-        const courseFee = document.getElementById("courseFee");
-        const discount = document.getElementById("discount");
-        const finalFee = document.getElementById("finalFee");
-
-        const registrationAmount = document.getElementById("registrationAmount");
-
-        const balanceAmount = document.getElementById("balanceAmount");
-
-        const saveButton = document.getElementById("saveAdmissionBtn");
-
-        const cancelButton = document.getElementById("cancelAdmissionBtn");
-
-        /*--- API URLS ---*/
-        const API_BASE_URL = "http://localhost:3000/api/admissions";
-
-
-        /*--- POPUP MESSAGE ---*/
-        function showMessage(message, type = "error") {
-
-            alert(message);
-
+        if (!token || !user) {
+            redirectToLogin();
+            return false;
         }
 
- 
-        /*--- LOAD COURSES ---*/
-        async function loadCourses() {
-
-            try {
-
-                courseSelect.innerHTML = `<option value="">-- Loading Courses... --</option>`;
-
-                const response = await fetch(`${API_BASE_URL}/courses`);
-
-                const result = await response.json();
-
-                console.log("Courses API:", result);
-
-
-            if (!response.ok || !result.success) {
-
-                throw new Error(
-                    result.message ||
-                    "Unable to load courses."
-                );
-
+        if (!["Counsellor", "Staff"].includes(user.role)) {
+            if (user.role === "Admin") {
+                window.location.href = "dashboard-crm.html";
+            } else {
+                redirectToLogin();
             }
+            return false;
+        }
 
+        const name = getUserName(user);
 
-            courseSelect.innerHTML = `<option value="">-- Select Course --</option>`;
+        document.getElementById("employeeName").textContent = name;
+        document.getElementById("employeeRole").textContent = user.role;
+        document.getElementById("profileAvatar").textContent =
+            name.charAt(0).toUpperCase() || "E";
 
+        counsellorDisplay.value = name;
+
+        return true;
+    }
+
+    async function apiRequest(path, options = {}) {
+        const token = getToken();
+
+        if (!token) {
+            redirectToLogin();
+            throw new Error("Please log in again.");
+        }
+
+        const headers = {
+            Accept: "application/json",
+            ...(options.headers || {}),
+            Authorization: `Bearer ${token}`
+        };
+
+        if (
+            options.body &&
+            !(options.body instanceof FormData) &&
+            !headers["Content-Type"]
+        ) {
+            headers["Content-Type"] = "application/json";
+        }
+
+        let response;
+
+        try {
+            response = await fetch(`${API_BASE}${path}`, {
+                ...options,
+                headers
+            });
+        } catch (error) {
+            console.error("API connection error:", error);
+
+            throw new Error(
+                "Cannot connect to http://localhost:3000. " +
+                "Check that your backend server is running."
+            );
+        }
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401) {
+            redirectToLogin();
+            throw new Error("Session expired. Please log in again.");
+        }
+
+        if (!response.ok || data.success === false) {
+            throw new Error(
+                data.message || `Request failed (HTTP ${response.status}).`
+            );
+        }
+
+        return data;
+    }
+
+    function calculateFees() {
+        const fee = Number(courseFee.value) || 0;
+        const discountValue = Number(discount.value) || 0;
+        const paid = Number(registrationAmount.value) || 0;
+
+        const final = Math.max(0, fee - discountValue);
+        const balance = Math.max(0, final - paid);
+
+        finalFee.value = final.toFixed(2);
+        balanceAmount.value = balance.toFixed(2);
+    }
+
+    async function loadCourses() {
+        courseSelect.replaceChildren(
+            new Option("-- Loading Courses --", "")
+        );
+
+        courseSelect.disabled = true;
+
+        try {
+            const result = await apiRequest("/employee/admissions/courses");
 
             const courses = Array.isArray(result.courses)
                 ? result.courses
                 : [];
 
+            coursesByName = new Map();
+
+            courseSelect.replaceChildren(
+                new Option("-- Select Course --", "")
+            );
 
             courses.forEach(course => {
+                const name = String(course.course_name || "").trim();
 
-                const option = document.createElement("option");
+                if (!name) return;
 
-                /*
-                 * IMPORTANT:
-                 * Send course name to admissions API.
-                 */
+                coursesByName.set(name, course);
 
-                option.value = course.course_name;
+                const label = course.course_category
+                    ? `${name} - ${course.course_category}`
+                    : name;
 
-                option.textContent = course.course_category
-                        ? `${course.course_name} - ${course.course_category}`
-                        : course.course_name;
-
-
-                /*
-                 * Store course ID and fee
-                 * for frontend use.
-                 */
-
-                option.dataset.courseId = course.id;
-
-                option.dataset.courseFee = course.course_fee || 0;
-
-                courseSelect.appendChild(option);
-
+                courseSelect.add(new Option(label, name));
             });
 
-
             if (courses.length === 0) {
+                courseSelect.replaceChildren(
+                    new Option("-- No active courses found --", "")
+                );
 
-                courseSelect.innerHTML = `<option value="">-- No Active Courses Found --</option>
-                `;
-
+                showMessage(
+                    "No courses were returned by the backend. " +
+                    "Check your course table and courses API.",
+                    "info"
+                );
             }
-
         } catch (error) {
+            console.error("Load courses error:", error);
 
-            console.error("Course loading error:", error);
-
-            courseSelect.innerHTML = `<option value="">-- Unable to Load Courses --</option>`;
-
-            showMessage(
-                error.message ||
-                "Unable to load courses.",
-                "error"
+            courseSelect.replaceChildren(
+                new Option("-- Unable to load courses --", "")
             );
 
+            showMessage(error.message);
+        } finally {
+            courseSelect.disabled = false;
         }
-
     }
 
+    courseSelect.addEventListener("change", () => {
+        const course = coursesByName.get(courseSelect.value);
 
-    
-    /*--- COURSE CHANGE - AUTOMATICALLY LOAD COURSE FEE ---*/
-    courseSelect.addEventListener("change", function () {
+        courseFee.value = course
+            ? (Number(course.course_fee) || 0).toFixed(2)
+            : "";
 
-            const selectedOption = courseSelect.options[courseSelect.selectedIndex];
+        calculateFees();
+        clearMessage();
+    });
 
-            if (!selectedOption ||
-                !selectedOption.value) {
+    [discount, registrationAmount].forEach(input => {
+        input.addEventListener("input", calculateFees);
+    });
 
-                courseFee.value = "";
-                calculateFees();
+    documentsInput.addEventListener("change", () => {
+        const files = Array.from(documentsInput.files || []);
+        documentsList.textContent = "";
 
+        if (files.length > 5) {
+            documentsInput.value = "";
+            showMessage("You can upload a maximum of 5 documents.");
+            return;
+        }
+
+        const maxSize = 5 * 1024 * 1024;
+        const allowedExtensions = /\.(pdf|jpe?g|png)$/i;
+
+        for (const file of files) {
+            if (!allowedExtensions.test(file.name)) {
+                documentsInput.value = "";
+                showMessage(
+                    `Unsupported file type: ${file.name}. ` +
+                    "Use PDF, JPG, JPEG, or PNG."
+                );
+                documentsList.textContent = "";
                 return;
-
             }
 
+            if (file.size > maxSize) {
+                documentsInput.value = "";
+                showMessage(`${file.name} exceeds the 5 MB limit.`);
+                documentsList.textContent = "";
+                return;
+            }
+        }
 
-            const selectedFee = Number(selectedOption.dataset.courseFee) || 0;
+        documentsList.textContent = files.length
+            ? files.map(file => file.name).join(", ")
+            : "";
+    });
 
-            courseFee.value = selectedFee.toFixed(2);
+    form.addEventListener("reset", () => {
+        setTimeout(() => {
+            clearMessage();
+
+            courseFee.value = "";
+            finalFee.value = "0.00";
+            balanceAmount.value = "0.00";
+            discount.value = "0";
+            registrationAmount.value = "0";
+            documentsList.textContent = "";
+
+            const user = getUser();
+            counsellorDisplay.value = getUserName(user);
 
             calculateFees();
+        }, 0);
+    });
 
+    form.addEventListener("submit", async event => {
+        event.preventDefault();
+        clearMessage();
+
+        if (!form.reportValidity()) return;
+
+        const mobile = document.getElementById("mobile").value.trim();
+
+        if (!/^\d{10}$/.test(mobile)) {
+            showMessage("Please enter a valid 10-digit mobile number.");
+            return;
         }
-    );
 
+        const selectedCourse = courseSelect.value;
 
-    
-    /*--- LOAD COUNSELLORS ---*/
-    async function loadCounsellors() {
+        if (
+            !selectedCourse ||
+            !coursesByName.has(selectedCourse)
+        ) {
+            showMessage("Please select a valid course.");
+            return;
+        }
+
+        const fee = Number(courseFee.value);
+        const discountValue = Number(discount.value) || 0;
+        const paid = Number(registrationAmount.value) || 0;
+
+        if (
+            !Number.isFinite(fee) ||
+            fee < 0 ||
+            discountValue < 0 ||
+            discountValue > fee
+        ) {
+            showMessage(
+                "Discount must be between zero and the course fee."
+            );
+            return;
+        }
+
+        if (paid < 0 || paid > fee - discountValue) {
+            showMessage(
+                "Registration amount cannot exceed the final fee."
+            );
+            return;
+        }
+
+        const files = Array.from(documentsInput.files || []);
+
+        if (files.length > 5) {
+            showMessage("You can upload a maximum of 5 documents.");
+            return;
+        }
+
+        if (files.some(file => file.size > 5 * 1024 * 1024)) {
+            showMessage("Each uploaded document must be 5 MB or smaller.");
+            return;
+        }
+
+        calculateFees();
+
+        saveButton.disabled = true;
+        saveButton.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
         try {
+            const formData = new FormData(form);
 
-            counsellorSelect.innerHTML = `<option value="">-- Loading Counsellors... --</option>`;
+            formData.delete("counsellor_display");
 
-            const response = await fetch(`${API_BASE_URL}/counsellors`);
-
-            const result = await response.json();
-
-            console.log("Counsellors API:", result);
-
-
-            if (!response.ok ||
-                !result.success) {
-
-                throw new Error(
-                    result.message ||
-                    "Unable to load counsellors."
-                );
-
-            }
-
-
-            counsellorSelect.innerHTML = `<option value="">-- Select Counsellor --</option>`;
-
-            const counsellors = Array.isArray(result.counsellors)
-                    ? result.counsellors
-                    : [];
-
-
-            counsellors.forEach(
-                counsellor => {
-
-                    const option = document.createElement("option");
-
-                    /*
-                     * Backend returns:
-                     *
-                     * {
-                     *   name: "Ramesh"
-                     * }
-                     */
-
-                    option.value = counsellor.name;
-
-                    option.textContent = counsellor.name;
-
-                    counsellorSelect.appendChild(option);
-
+            const result = await apiRequest("/employee/admissions",
+                {
+                    method: "POST",
+                    body: formData
                 }
             );
 
 
-            if (counsellors.length === 0) {
+            /*--- Reset the form after a successful save. ---*/
+            form.reset();
 
-                counsellorSelect.innerHTML = `<option value="">-- No Counsellors Found --</option>`;
+            /*--- Show the browser popup. ---*/
+            alert(result.message || "✅ Admission saved successfully.");
 
-            }
+            /*--- Redirect after the user clicks OK. ---*/
+            window.location.href = "my-admissions.html?created=1";
 
             } catch (error) {
-
-                console.error(
-                    "Counsellor loading error:",
-                error
-            );
-
-
-            counsellorSelect.innerHTML = `<option value="">-- Unable to Load Counsellors --</option>`;
+                console.error("Save admission error:", error);
 
             showMessage(
-                error.message ||
-                "Unable to load counsellors.",
+                error.message || "Unable to save admission.",
                 "error"
             );
-
-        }
-
-    }
-
-
-    /*--- CALCULATE FEES ---*/
-    function calculateFees() {
-
-        const fee = parseFloat(courseFee.value) || 0;
-
-        const discountValue = parseFloat(discount.value) || 0;
-
-        const paid = parseFloat(registrationAmount.value) || 0;
-
-        let final = fee - discountValue;
-
-        if (final < 0) {
-
-            final = 0;
-
-        }
-
-        let balance = final - paid;
-
-        if (balance < 0) {
-
-            balance = 0;
-
-        }
-
-
-        finalFee.value = final.toFixed(2);
-
-        balanceAmount.value = balance.toFixed(2);
-
-    }
-
-    
-    /*--- FEE EVENTS ---*/
-    courseFee.addEventListener("input", calculateFees);
-
-    discount.addEventListener("input", calculateFees);
-
-    registrationAmount.addEventListener("input", calculateFees);
-
-
-    /*--- SUBMIT ADMISSION ---*/
-    form.addEventListener("submit", async function (event) {
-
-            event.preventDefault();
-
-            /*--- GET VALUES ---*/
-            
-            const studentName = document.getElementById("studentName").value.trim();
-
-            const mobile = document.getElementById("mobile").value.trim();
-
-            const email = document.getElementById("email").value.trim();
-
-            const gender = document.getElementById("gender").value;
-
-            const dateOfBirth = document.getElementById("dateOfBirth").value;
-
-            const course = courseSelect.value;
-
-            const batch = document.getElementById("batch").value;
-
-            const joiningDate = document.getElementById("joiningDate").value;
-
-            const courseFeeValue = parseFloat(courseFee.value) || 0;
-
-            const discountValue = parseFloat(discount.value) || 0;
-
-            const finalFeeValue = parseFloat(finalFee.value) || 0;
-
-            const registrationAmountValue = parseFloat(registrationAmount.value) || 0;
-
-            const balanceAmountValue = parseFloat(balanceAmount.value) || 0;
-
-            const paymentMode = document.getElementById("paymentMode").value;
-
-            const counsellor = counsellorSelect.value;
-
-            const admissionStatus = document.getElementById("admissionStatus").value;
-
-            const remarks = document.getElementById("remarks").value.trim();
-
-
-            /*--- VALIDATION ---*/
-            if (!studentName) {
-
-                showMessage("Please enter Student Name.");
-
-                return;
-
-            }
-
-
-            if (
-                !/^[0-9]{10}$/.test(
-                    mobile
-                )
-            ) {
-
-                showMessage("Please enter a valid 10-digit Mobile Number.");
-
-                return;
-
-            }
-
-
-            if (!course) {
-
-                showMessage("Please select a Course.");
-
-                return;
-
-            }
-
-
-            if (
-                discountValue >
-                courseFeeValue
-            ) {
-
-                showMessage("Discount cannot be greater than Course Fee.");
-
-                return;
-
-            }
-
-
-            if (
-                registrationAmountValue >
-                finalFeeValue
-            ) {
-
-                showMessage("Registration Amount cannot be greater than Final Fee.");
-
-                return;
-
-            }
-
-
-            /*--- DISABLE BUTTON ---*/
-        
-            saveButton.disabled = true;
-
-            saveButton.innerHTML = `<i class="fa fa-spinner fa-spin"></i>Saving...`;
-
-
-            try {
-                
-                /*--- JSON DATA ---*/
-                const admissionData = {
-
-                    student_name: studentName,
-
-                    mobile: mobile,
-
-                    email: email || null,
-
-                    gender:
-                        gender &&
-                        !gender.includes("Select")
-                            ? gender
-                            : null,
-
-                    date_of_birth: dateOfBirth || null,
-
-                    course: course,
-
-                    batch:
-                        batch &&
-                        !batch.includes("Select")
-                            ? batch
-                            : null,
-
-                    joining_date: joiningDate || null,
-
-                    course_fee: courseFeeValue,
-
-                    discount: discountValue,
-
-                    final_fee: finalFeeValue,
-
-                    registration_amount: registrationAmountValue,
-
-                    balance_amount: balanceAmountValue,
-
-                    payment_mode:
-                        paymentMode &&
-                        !paymentMode.includes("Select")
-                            ? paymentMode
-                            : null,
-
-                    counsellor: counsellor || null,
-
-                    admission_status:
-                        admissionStatus &&
-                        !admissionStatus.includes("Admission Status")
-                            ? admissionStatus
-                            : "Pending",
-
-                    remarks: remarks || null
-
-                };
-
-
-                console.log("Admission Data:", admissionData);
-
-
-                /*--- API REQUEST ---*/
-                const response = await fetch(API_BASE_URL,{
-
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-
-                                "Accept": "application/json"
-
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    admissionData
-                                )
-
-                        }
-                    );
-
-
-                const result = await response.json();
-
-
-                console.log(
-                    "Admission API Response:",
-                    result
-                );
-
-                
-                /*--- API ERROR ---*/
-
-                if (
-                    !response.ok ||
-                    !result.success
-                ) {
-
-                    throw new Error(
-                        result.message ||
-                        "Unable to save admission."
-                    );
-
-                }
-
-
-                /*--- SUCCESS ---*/
-                alert(`✅ Admission saved successfully.`);
-
-
-                /*--- RESET ---*/
-                form.reset();
-
-
-                courseFee.value = "";
-                finalFee.value = "";
-                balanceAmount.value = "";
-
-
-                /*--- REDIRECT ---*/
-                window.location.href = "manage-admissions.html";
-
-            } catch (error) {
-
-                console.error("Admission save error:", error);
-
-                alert(
-                    error.message ||
-                    "Unable to save admission."
-                );
-
 
             } finally {
 
-                saveButton.disabled = false;
+            saveButton.disabled = false;
 
-                saveButton.innerHTML = `<i class="fa fa-save"></i>Save Admission`;
-
-            }
-
-        }
-    );
-
-    
-    /*--- CANCEL ---*/
-    cancelButton.addEventListener("click", function () {
-
-            const confirmCancel = confirm("Are you sure you want to cancel?");
-
-            if (confirmCancel) {
-
-                window.location.href = "manage-admissions.html";
+            saveButton.innerHTML = '<i class="fa fa-save"></i> Save Admission';
 
             }
-
-        }
-    );
-
-    
-    /*--- INITIAL LOAD ---*/
-    loadCourses();
-
-    loadCounsellors();
-
-    calculateFees();
-
-});
-
-</script>
-
-
-
-<!-- Counsellor - JS -->
-<script>
-
-async function loadCounsellors() {
-
-    const counsellorSelect = document.getElementById("counsellor");
-
-    if (!counsellorSelect) return;
-
-    try {
-        const response = await fetch(
-            "http://localhost:3000/api/users/counsellors"
-        );
-
-        const data = await response.json();
-
-        if (!data.success) {
-            throw new Error(data.message || "Failed to load counsellors");
-        }
-
-        counsellorSelect.innerHTML = '<option value="">-- Select Counsellor --</option>';
-
-        data.counsellors.forEach(counsellor => {
-
-            const option = document.createElement("option");
-
-            option.value = counsellor.full_name;
-            option.textContent = counsellor.full_name;
-
-            counsellorSelect.appendChild(option);
         });
 
-    } catch (error) {
-        console.error("❌ Counsellor Load Error:", error);
+    document.getElementById("cancelAdmissionBtn")
+        .addEventListener("click", () => {
+            if (confirm("Cancel and return to My Admissions?")) {
+                window.location.href = "my-admissions.html";
+            }
+        });
+
+    document.getElementById("logoutButton")
+        .addEventListener("click", event => {
+            event.preventDefault();
+
+            if (confirm("Are you sure you want to log out?")) {
+                redirectToLogin();
+            }
+        });
+
+    /*--- Register this listener only once. ---*/
+    document.querySelectorAll(".crm-dropdown-btn")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                button.closest(".crm-dropdown")
+                    ?.classList.toggle("active");
+            });
+        });
+
+    const sidebar = document.getElementById("crmSidebar");
+    const overlay = document.getElementById("crmSidebarOverlay");
+    const menuBtn = document.getElementById("menuBtn");
+
+    menuBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+    });
+
+    async function loadNotificationCount() {
+        try {
+            const result = await apiRequest("/notifications/today");
+
+            document.getElementById("headerNotificationCount")
+                .textContent =
+                Number(result.summary?.total_notifications) || 0;
+        } catch (error) {
+            console.warn("Notification count error:", error.message);
+        }
     }
-}
 
-document.addEventListener("DOMContentLoaded", loadCounsellors);
+    async function init() {
+        if (!validateEmployee()) return;
 
+        const today = new Date();
+
+        const todayLocal = [
+            today.getFullYear(),
+            String(today.getMonth() + 1).padStart(2, "0"),
+            String(today.getDate()).padStart(2, "0")
+        ].join("-");
+
+        document.getElementById("joiningDate").min = todayLocal;
+        document.getElementById("dateOfBirth").max = todayLocal;
+
+        calculateFees();
+
+        await Promise.allSettled([
+            loadCourses(),
+            loadNotificationCount()
+        ]);
+    }
+
+    window.openNotifications = function () {
+        window.location.href = "my-notifications.html";
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init, {
+            once: true
+        });
+    } else {
+        init();
+    }
+})();
 </script>
 
 

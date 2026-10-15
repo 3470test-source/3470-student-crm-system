@@ -1,51 +1,34 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3470 Healthcare & Student CRM System - Add Follow-up</title>
-  <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/png">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3470 Healthcare & Student CRM System - Employee New Admission</title>
+  <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon" />
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * { box-sizing: border-box; }
-    .addfu-page { max-width: 1100px; margin: 0 auto; }
-    .addfu-heading { margin: 8px 0 22px; }
-    .addfu-heading h1 { font-size: 26px; margin-bottom: 6px; }
-    .addfu-heading p { color: #64748b; }
-    .addfu-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 26px; box-shadow: 0 4px 18px rgba(15, 23, 42, .05); }
-    .addfu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 19px 22px; }
-    .addfu-field { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
-    .addfu-field.full { grid-column: 1 / -1; }
-    .addfu-field label { font-size: 14px; font-weight: 600; color: #334155; }
-    .addfu-field label span { color: #dc2626; }
-    .addfu-field input, .addfu-field select, .addfu-field textarea { width: 100%; padding: 12px 13px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #0f172a; font: inherit; min-height: 44px; }
-    .addfu-field input:focus, .addfu-field select:focus, .addfu-field textarea:focus { outline: 2px solid #bbf7d0; border-color: #16a34a; }
-    .addfu-field input[readonly] { background: #f8fafc; color: #475569; }
-    .addfu-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 25px; }
-    .addfu-btn { border: 0; border-radius: 8px; padding: 12px 20px; font-weight: 600; cursor: pointer; }
-    .addfu-btn:disabled { opacity: .65; cursor: wait; }
-    .addfu-reset { background: #e2e8f0; color: #334155; }
-    .addfu-save { background: #16a34a; color: #fff; }
-    .addfu-message { display: none; margin-bottom: 18px; border-radius: 8px; padding: 12px 14px; font-size: 14px; }
-    .addfu-message.show { display: block; }
-    .addfu-message.success { color: #166534; background: #dcfce7; }
-    .addfu-message.error { color: #991b1b; background: #fee2e2; }
-    .addfu-hint { font-size: 12px; color: #64748b; }
-    @media (max-width: 700px) { .addfu-grid { grid-template-columns: 1fr; } .addfu-field.full { grid-column: auto; } .addfu-card { padding: 18px; } .addfu-actions { flex-direction: column-reverse; } .addfu-btn { width: 100%; } }
+    .admission-message { display:none; margin:0 0 18px; padding:12px 14px; border-radius:8px; font-size:14px; }
+    .admission-message.show { display:block; }
+    .admission-message.error { background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
+    .admission-message.success { background:#dcfce7; color:#166534; border:1px solid #bbf7d0; }
+    .admission-message.info { background:#dbeafe; color:#1e40af; border:1px solid #bfdbfe; }
+    .admission-readonly { background:#f3f4f6; }
+    #saveAdmissionBtn:disabled { opacity:.65; cursor:not-allowed; }
+    .admission-help { display:block; margin-top:5px; color:#6b7280; font-size:12px; }
+    .admission-documents-list { margin-top:6px; color:#6b7280; font-size:12px; }
   </style>
 </head>
 <body>
-
-
   <header class="EMP-dashboard-header">
     <div class="EMP-header-left">
       <div class="EMP-header-logo"><img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo"></div>
-      <button type="button" class="EMP-header-menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa fa-bars"></i></button>
+      <button type="button" class="EMP-header-menu-btn" id="menuBtn" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
     </div>
     <div class="EMP-header-center">STUDENT CRM SYSTEM</div>
     <div class="EMP-header-right">
-      <button type="button" class="EMP-notification" id="notificationButton" aria-label="Notifications">
+      <button type="button" class="EMP-notification" id="notificationButton" aria-label="Open notifications">
         <i class="fa-solid fa-bell"></i><span class="EMP-notification-count" id="headerNotificationCount">0</span>
       </button>
       <div class="EMP-profile">
@@ -55,33 +38,21 @@
     </div>
   </header>
 
-
-
-
   <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
   <div class="EMP-sidebar-container">
     <aside class="EMP-sidebar" id="crmSidebar">
       <a href="employee-dashboard.html" class="crm-nav-link"><i class="fa fa-home"></i>Dashboard</a>
       <div class="crm-dropdown">
-        <button type="button" class="crm-dropdown-btn"><i class="fa fa-user-graduate"></i>My Enquiries<i class="fa fa-angle-down icon-color"></i></button>
-        <div class="crm-dropdown-content">
-          <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
-          <a href="my-enquiries.html"><i class="fa fa-users"></i>My Enquiries</a>
-        </div>
-      </div>
-      <div class="crm-dropdown active">
-        <button type="button" class="crm-dropdown-btn"><i class="fa fa-phone"></i>My Follow-ups<i class="fa fa-angle-down icon-color"></i></button>
-        <div class="crm-dropdown-content">
-          <a href="add-follow-up.html" class="crm-nav-link EMP-active"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
-          <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
-        </div>
+        <div class="crm-dropdown-btn" role="button" tabindex="0"><i class="fa fa-user-graduate"></i>My Enquiries <i class="fa fa-angle-down icon-color"></i></div>
+        <div class="crm-dropdown-content"><a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a><a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a></div>
       </div>
       <div class="crm-dropdown">
-        <button type="button" class="crm-dropdown-btn"><i class="fa fa-user-check"></i>Admissions<i class="fa fa-angle-down icon-color"></i></button>
-        <div class="crm-dropdown-content">
-          <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
-          <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
-        </div>
+        <div class="crm-dropdown-btn" role="button" tabindex="0"><i class="fa fa-phone"></i>My Follow-ups <i class="fa fa-angle-down icon-color"></i></div>
+        <div class="crm-dropdown-content"><a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a><a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a></div>
+      </div>
+      <div class="crm-dropdown active">
+        <div class="crm-dropdown-btn" role="button" tabindex="0"><i class="fa fa-user-check"></i>Admissions <i class="fa fa-angle-down icon-color"></i></div>
+        <div class="crm-dropdown-content"><a href="new-admission.html" class="EMP-active"><i class="fa fa-plus-circle"></i>New Admission</a><a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a></div>
       </div>
       <a href="my-notifications.html" class="crm-nav-link"><i class="fa-solid fa-bell"></i>Notifications</a>
       <a href="employee-profile.html" class="crm-nav-link"><i class="fa-solid fa-user"></i>My Profile</a>
@@ -89,775 +60,240 @@
     </aside>
 
     <main class="crm-dashboard-main">
-      <div class="addfu-page">
-        <div class="addfu-heading"><h1>Add Follow-up</h1><p>Schedule a follow-up for one of your student enquiries.</p></div>
-        <div class="addfu-card">
-          <div id="formMessage" class="addfu-message" role="status" aria-live="polite"></div>
-          <form id="AddFollow-Up">
-            <div class="addfu-grid">
-              <div class="addfu-field">
-                <label for="enquiry_id">Student Enquiry <span>*</span></label>
-                <select id="enquiry_id" name="enquiry_id" required>
-                  <option value="">-- Loading your enquiries... --</option>
-                </select>
-                <small class="addfu-hint">Only enquiries assigned to your account are listed.</small>
-              </div>
-              <div class="addfu-field"><label for="student_name">Student Name</label><input id="student_name" name="student_name" readonly placeholder="Selected student name"></div>
-              <div class="addfu-field"><label for="mobile_number">Mobile Number</label><input id="mobile_number" name="mobile_number" readonly placeholder="Selected mobile number"></div>
-              <div class="addfu-field"><label for="course">Course</label><input id="course" name="course" readonly placeholder="Selected course"></div>
-              <div class="addfu-field"><label for="counsellor">Counsellor</label><input id="counsellor" name="counsellor" readonly placeholder="Assigned counsellor"></div>
-              <div class="addfu-field"><label for="follow_up_date">Follow-up Date <span>*</span></label><input type="date" id="follow_up_date" name="follow_up_date" required></div>
-              <div class="addfu-field"><label for="follow_up_time">Follow-up Time <span>*</span></label><input type="time" id="follow_up_time" name="follow_up_time" required></div>
-              <div class="addfu-field"><label for="follow_up_type">Follow-up Type <span>*</span></label>
-                <select id="follow_up_type" name="follow_up_type" required>
-                  <option value="">-- Select Type --</option><option value="Phone Call">Phone Call</option><option value="WhatsApp">WhatsApp</option><option value="Email">Email</option><option value="Walk-in">Walk-in</option>
-                </select>
-              </div>
-              <div class="addfu-field"><label for="follow_up_status">Follow-up Status <span>*</span></label>
-                <select id="follow_up_status" name="follow_up_status" required><option value="Scheduled" selected>Scheduled</option><option value="Pending">Pending</option></select>
-                <small class="addfu-hint">Complete or mark missed later from My Follow-ups.</small>
-              </div>
-              <div class="addfu-field"><label for="outcome">Student Outcome</label>
-                <select id="outcome" name="outcome">
-                  <option value="">-- Not recorded yet --</option>
-                  <option value="Interested">Interested</option>
-                  <option value="Not Interested">Not Interested</option>
-                  <option value="Call Back">Call Back</option>
-                  <option value="Admission Confirmed">Admission Confirmed</option>
-                </select>
-              </div>
-              <div class="addfu-field"><label for="next_follow_up_date">Next Follow-up Date</label><input type="date" id="next_follow_up_date" name="next_follow_up_date"></div>
-              <div class="addfu-field"><label for="next_follow_up_time">Next Follow-up Time</label><input type="time" id="next_follow_up_time" name="next_follow_up_time"></div>
-              <div class="addfu-field full"><label for="comments">Comments</label><textarea id="comments" name="comments" rows="4" maxlength="5000" placeholder="Add call notes or follow-up remarks"></textarea></div>
-            </div>
-            <div class="addfu-actions">
-              <button type="reset" id="resetButton" class="addfu-btn addfu-reset">Reset</button>
-              <button type="submit" id="saveButton" class="addfu-btn addfu-save"><i class="fa-solid fa-floppy-disk"></i> Save Follow-up</button>
-            </div>
-          </form>
-        </div>
+      <div class="crm-new-Admission-header">
+        <div><h2>New Admission</h2><p>Create an admission for a student assigned to your employee account.</p></div>
       </div>
-    </main>
-  </div>
+      <div class="crm-form-NewAdmission">
 
-  <script>
-    "use strict";
-
-    const API_BASE = "http://localhost:3000/api";
-    const form = document.getElementById("AddFollow-Up");
-    const enquirySelect = document.getElementById("enquiry_id");
-    const studentNameInput = document.getElementById("student_name");
-    const mobileNumberInput = document.getElementById("mobile_number");
-    const courseInput = document.getElementById("course");
-    const counsellorInput = document.getElementById("counsellor");
-    const saveButton = document.getElementById("saveButton");
-    const messageBox = document.getElementById("formMessage");
-    const enquiriesById = new Map();
-
-    function getToken() { return localStorage.getItem("crmToken"); }
-
-    function getStoredUser() {
-      try { return JSON.parse(localStorage.getItem("crmUser") || "null"); }
-      catch { return null; }
-    }
-
-    function redirectToLogin() {
-      localStorage.removeItem("crmToken");
-      localStorage.removeItem("crmUser");
-      window.location.href = "login.html";
-    }
-
-    function showMessage(message, type = "error") {
-      messageBox.textContent = message;
-      messageBox.className = `addfu-message show ${type}`;
-      messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-
-    function clearMessage() {
-      messageBox.textContent = "";
-      messageBox.className = "addfu-message";
-    }
-
-    async function apiRequest(path, options = {}) {
-      const token = getToken();
-      if (!token) {
-        redirectToLogin();
-        throw new Error("Please log in again.");
-      }
-
-      let response;
-      try {
-        response = await fetch(`${API_BASE}${path}`, {
-          ...options,
-          headers: {
-            Accept: "application/json",
-            ...(options.body ? { "Content-Type": "application/json" } : {}),
-            ...(options.headers || {}),
-            Authorization: `Bearer ${token}`
-          }
-        });
-      } catch (error) {
-        throw new Error("Cannot connect to the backend at http://localhost:3000. Check that the server is running.");
-      }
-
-      const data = await response.json().catch(() => ({}));
-      if (response.status === 401) {
-        redirectToLogin();
-        throw new Error("Your session has expired. Please log in again.");
-      }
-      if (!response.ok || data.success === false) {
-        throw new Error(data.message || `Request failed (HTTP ${response.status}).`);
-      }
-      return data;
-    }
-
-    function validateEmployee() {
-      const user = getStoredUser();
-      if (!getToken() || !user) {
-        redirectToLogin();
-        return false;
-      }
-      if (!["Counsellor", "Staff"].includes(user.role)) {
-        if (user.role === "Admin") window.location.href = "dashboard-crm.html";
-        else redirectToLogin();
-        return false;
-      }
-
-      const name = user.full_name || user.fullName || user.name || user.username || "Employee";
-      document.getElementById("employeeName").textContent = name;
-      document.getElementById("employeeRole").textContent = user.role || "Employee";
-      document.getElementById("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
-      return true;
-    }
-
-    async function loadEnquiries() {
-      enquirySelect.replaceChildren(new Option("-- Loading your enquiries... --", ""));
-      try {
-        const result = await apiRequest("/employee/enquiries?page=1&limit=100");
-        const enquiries = Array.isArray(result.enquiries) ? result.enquiries : [];
-        enquiriesById.clear();
-        enquirySelect.replaceChildren(new Option("-- Select Student Enquiry --", ""));
-
-        for (const enquiry of enquiries) {
-          enquiriesById.set(String(enquiry.id), enquiry);
-          const courseName = enquiry.course_interested || enquiry.course || "No course";
-          const option = new Option(`${enquiry.student_name || "Student"} - ${enquiry.mobile || "No mobile"} - ${courseName}`, String(enquiry.id));
-          enquirySelect.appendChild(option);
-        }
-
-        if (!enquiries.length) {
-          enquirySelect.replaceChildren(new Option("-- No enquiries assigned to you --", ""));
-          showMessage("No enquiries are assigned to your account yet. Add an enquiry first.", "error");
-        }
-      } catch (error) {
-        console.error("Load Employee Enquiries Error:", error);
-        enquirySelect.replaceChildren(new Option("-- Unable to load enquiries --", ""));
-        showMessage(error.message);
-      }
-    }
-
-    function loadSelectedEnquiry(id) {
-      const enquiry = enquiriesById.get(String(id));
-      studentNameInput.value = enquiry?.student_name || "";
-      mobileNumberInput.value = enquiry?.mobile || enquiry?.mobile_number || "";
-      courseInput.value = enquiry?.course_interested || enquiry?.course || "";
-      counsellorInput.value = enquiry?.counsellor || getStoredUser()?.full_name || "";
-    }
-
-    function resetFormFields() {
-      studentNameInput.value = "";
-      mobileNumberInput.value = "";
-      courseInput.value = "";
-      counsellorInput.value = "";
-      clearMessage();
-    }
-
-    form.addEventListener("reset", () => setTimeout(resetFormFields, 0));
-    enquirySelect.addEventListener("change", () => {
-      clearMessage();
-      loadSelectedEnquiry(enquirySelect.value);
-    });
-
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
-      clearMessage();
-
-      if (!enquirySelect.value) {
-        showMessage("Please select a student enquiry.");
-        return;
-      }
-
-      const payload = {
-        enquiry_id: Number(enquirySelect.value),
-        follow_up_date: document.getElementById("follow_up_date").value,
-        follow_up_time: document.getElementById("follow_up_time").value,
-        follow_up_type: document.getElementById("follow_up_type").value,
-        follow_up_status: document.getElementById("follow_up_status").value,
-        outcome: document.getElementById("outcome").value || null,
-        next_follow_up_date: document.getElementById("next_follow_up_date").value || null,
-        next_follow_up_time: document.getElementById("next_follow_up_time").value || null,
-        comments: document.getElementById("comments").value.trim() || null
-      };
-
-      if (!payload.follow_up_date || !payload.follow_up_time || !payload.follow_up_type || !payload.follow_up_status) {
-        showMessage("Please complete all required fields.");
-        return;
-      }
-
-      saveButton.disabled = true;
-      saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-      try {
-        const result = await apiRequest("/employee/follow-ups", {
-          method: "POST",
-          body: JSON.stringify(payload)
-        });
-
-        showMessage(result.message || "Follow-up saved successfully.", "success");
-        form.reset();
-        document.getElementById("follow_up_status").value = "Scheduled";
-      } catch (error) {
-        console.error("Save Employee Follow-up Error:", error);
-        showMessage(error.message || "Unable to save follow-up.");
-      } finally {
-        saveButton.disabled = false;
-        saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Follow-up';
-      }
-    });
-
-    document.getElementById("logoutButton").addEventListener("click", event => {
-      event.preventDefault();
-      if (!confirm("Are you sure you want to log out?")) return;
-      localStorage.removeItem("crmToken");
-      localStorage.removeItem("crmUser");
-      window.location.href = "login.html";
-    });
-
-    document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
-      button.addEventListener("click", () => button.closest(".crm-dropdown")?.classList.toggle("active"));
-    });
-
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("crmSidebar");
-    const overlay = document.getElementById("crmSidebarOverlay");
-    menuBtn.addEventListener("click", () => {
-      sidebar.classList.toggle("active");
-      overlay.classList.toggle("active");
-    });
-    overlay.addEventListener("click", () => {
-      sidebar.classList.remove("active");
-      overlay.classList.remove("active");
-    });
-    document.getElementById("notificationButton").addEventListener("click", () => {
-      window.location.href = "my-notifications.html";
-    });
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      if (!validateEmployee()) return;
-      const date = new Date();
-      const today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-      document.getElementById("follow_up_date").min = today;
-      document.getElementById("next_follow_up_date").min = today;
-      await loadEnquiries();
-      try {
-        const notificationData = await apiRequest("/notifications/today");
-        const notificationSummary = notificationData.summary || {};
-        document.getElementById("headerNotificationCount").textContent =
-          Number(notificationSummary.total_notifications) || 0;
-      } catch (error) {
-        console.warn("Could not load notification count:", error.message);
-      }
-    });
-  </script>
-</body>
-</html> -->
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3470 Healthcare & Student CRM System - Employee Add Follow-up</title>
-  <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/png" />
-  <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    * { box-sizing: border-box; }
-    .addfu-message { display: none; margin: 0 0 18px; padding: 12px 14px; border-radius: 8px; font-size: 14px; }
-    .addfu-message.show { display: block; }
-    .addfu-message.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-    .addfu-message.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-    .addfu-message.info { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
-    .crm-form-group-AddFollowUP select:disabled,
-    .crm-form-group-AddFollowUP input:disabled,
-    .crm-save-btn:disabled { opacity: .65; cursor: not-allowed; }
-    .EMP-notification { cursor: pointer; }
-    .addfu-help { display: block; margin-top: 5px; color: #6b7280; font-size: 12px; }
-  </style>
-</head>
-<body>
-  <!-- Employee Header -->
-  <header class="EMP-dashboard-header">
-    <div class="EMP-header-left">
-      <div class="EMP-header-logo">
-        <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo" />
-      </div>
-      <button class="EMP-header-menu-btn" id="menuBtn" type="button" aria-label="Toggle sidebar">
-        <i class="fa fa-bars"></i>
-      </button>
-    </div>
-    <div class="EMP-header-center">STUDENT CRM SYSTEM</div>
-    <div class="EMP-header-right">
-      <button type="button" class="EMP-notification" id="notificationButton" aria-label="Open notifications">
-        <i class="fa-solid fa-bell"></i>
-        <span class="EMP-notification-count" id="headerNotificationCount">0</span>
-      </button>
-      <div class="EMP-profile">
-        <div class="EMP-profile-avatar" id="profileAvatar">E</div>
-        <div class="EMP-profile-info">
-          <div class="EMP-profile-name" id="employeeName">Employee</div>
-          <div class="EMP-profile-role" id="employeeRole">Employee</div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
-  <div class="EMP-sidebar-container">
-    <aside class="EMP-sidebar" id="crmSidebar">
-      <a href="employee-dashboard.html" class="crm-nav-link">
-        <i class="fa fa-home"></i> Dashboard
-      </a>
-      <div class="crm-dropdown">
-        <div class="crm-dropdown-btn" role="button" tabindex="0">
-          <i class="fa fa-user-graduate"></i> My Enquiries
-          <i class="fa fa-angle-down icon-color"></i>
-        </div>
-        <div class="crm-dropdown-content">
-          <a href="add-enquiry.html"><i class="fa fa-user-plus"></i> Add Enquiry</a>
-          <a href="my-enquiries.html"><i class="fa fa-users"></i> Manage Enquiries</a>
-        </div>
-      </div>
-      <div class="crm-dropdown active">
-        <div class="crm-dropdown-btn" role="button" tabindex="0">
-          <i class="fa fa-phone"></i> My Follow-ups
-          <i class="fa fa-angle-down icon-color"></i>
-        </div>
-        <div class="crm-dropdown-content">
-          <a href="add-follow-up.html" class="crm-nav-link EMP-active"><i class="fa fa-calendar-check"></i> Add Follow-up</a>
-          <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i> My Follow-ups</a>
-        </div>
-      </div>
-      <div class="crm-dropdown">
-        <div class="crm-dropdown-btn" role="button" tabindex="0">
-          <i class="fa fa-user-check"></i> Admissions
-          <i class="fa fa-angle-down icon-color"></i>
-        </div>
-        <div class="crm-dropdown-content">
-          <a href="new-admission.html"><i class="fa fa-plus-circle"></i> New Admission</a>
-          <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i> My Admissions</a>
-        </div>
-      </div>
-      <a href="my-notifications.html" class="crm-nav-link"><i class="fa-solid fa-bell"></i> Notifications</a>
-      <a href="employee-profile.html" class="crm-nav-link"><i class="fa-solid fa-user"></i> My Profile</a>
-      <a href="#" class="crm-nav-link logout" id="logoutButton"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-    </aside>
-
-
-
-    
-    <main class="crm-dashboard-main">
-      <div class="crm-AddFollow-up-header">
-        <h2>Add Follow-up</h2>
-        <p>Record a follow-up for a student enquiry assigned to your account.</p>
-      </div>
-
-      <div class="crm-form-Add-FollowUP">
-        <div id="formMessage" class="addfu-message" role="status" aria-live="polite"></div>
-        <form id="AddFollow-Up" class="AddFollow-Up-From" action="#" novalidate>
-          <div class="crm-form-grid-AddFollowUP">
-            <div class="crm-form-group-AddFollowUP">
-              <label for="enquiry_id">Student Enquiry <span>*</span></label>
-              <select id="enquiry_id" name="enquiry_id" required>
-                <option value="">-- Loading your enquiries... --</option>
-              </select>
-              <small class="addfu-help">Only enquiries assigned to your employee account are listed.</small>
-            </div>
-
-            <div class="crm-form-group-AddFollowUP">
-              <label for="student_name">Student Name</label>
-              <input type="text" id="student_name" name="student_name" placeholder="Student name" readonly />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="mobile_number">Mobile Number</label>
-              <input type="text" id="mobile_number" name="mobile_number" placeholder="Mobile number" readonly />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="course">Course</label>
-              <input type="text" id="course" name="course" placeholder="Course" readonly />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="counsellor">Counsellor</label>
-              <input type="text" id="counsellor" name="counsellor" placeholder="Counsellor" readonly />
-            </div>
-
-            <div class="crm-form-group-AddFollowUP">
-              <label for="follow_up_date">Follow-up Date <span>*</span></label>
-              <input type="date" id="follow_up_date" name="follow_up_date" required />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="follow_up_time">Follow-up Time <span>*</span></label>
-              <input type="time" id="follow_up_time" name="follow_up_time" required />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="follow_up_type">Follow-up Type <span>*</span></label>
-              <select id="follow_up_type" name="follow_up_type" required>
-                <option value="" selected disabled>-- Select Type --</option>
-                <option value="Phone Call">Phone Call</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="Email">Email</option>
-                <option value="Walk-in">Walk-in</option>
-              </select>
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="outcome">Student Outcome <span>*</span></label>
-              <select id="outcome" name="outcome" required>
-                <option value="" selected disabled>-- Select Outcome --</option>
-                <option value="Interested">Interested</option>
-                <option value="Not Interested">Not Interested</option>
-                <option value="Call Back">Call Back</option>
-                <option value="Admission Confirmed">Admission Confirmed</option>
-              </select>
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="follow_up_status">Follow-up Status <span>*</span></label>
-              <select id="follow_up_status" name="follow_up_status" required>
-                <option value="Scheduled" selected>Scheduled</option>
-                <option value="Pending">Pending</option>
-                <option value="Completed">Completed</option>
-                <option value="Missed">Missed</option>
-              </select>
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="next_follow_up_date">Next Follow-up Date</label>
-              <input type="date" id="next_follow_up_date" name="next_follow_up_date" />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="next_follow_up_time">Next Follow-up Time</label>
-              <input type="time" id="next_follow_up_time" name="next_follow_up_time" />
-            </div>
-            <div class="crm-form-group-AddFollowUP">
-              <label for="comments">Comments</label>
-              <textarea id="comments" name="comments" rows="3" placeholder="Enter follow-up remarks"></textarea>
-            </div>
+        <div id="formMessage" class="admission-message" role="status" aria-live="polite"></div>
+        <form id="newAdmissionForm" enctype="multipart/form-data" novalidate>
+          <div class="crm-form-grid-NewAdmission">
+            
+            <div class="crm-input-group-NewAdmission"><label for="studentName">Student Name <span>*</span></label><input type="text" id="studentName" name="student_name" placeholder="Enter Student Name" maxlength="150" required /></div>
+            <div class="crm-input-group-NewAdmission"><label for="mobile">Mobile Number <span>*</span></label><input type="tel" id="mobile" name="mobile" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric" required /></div>
+            <div class="crm-input-group-NewAdmission"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="Enter Email Address" maxlength="150" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="gender">Gender</label><select id="gender" name="gender"><option value="">-- Select Gender --</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
+            <div class="crm-input-group-NewAdmission"><label for="dateOfBirth">Date of Birth</label><input type="date" id="dateOfBirth" name="date_of_birth" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="course">Course <span>*</span></label><select id="course" name="course" required><option value="">-- Loading Courses --</option></select></div>
+            <div class="crm-input-group-NewAdmission"><label for="batch">Batch</label><select id="batch" name="batch"><option value="">-- Select Batch --</option><option value="Morning">Morning</option><option value="Afternoon">Afternoon</option><option value="Evening">Evening</option><option value="Weekend">Weekend</option></select></div>
+            <div class="crm-input-group-NewAdmission"><label for="joiningDate">Joining Date</label><input type="date" id="joiningDate" name="joining_date" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="courseFee">Course Fee</label><input type="number" id="courseFee" name="course_fee" min="0" step="0.01" placeholder="Auto-filled from course" readonly class="admission-readonly" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="discount">Discount</label><input type="number" id="discount" name="discount" min="0" step="0.01" value="0" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="finalFee">Final Fee</label><input type="number" id="finalFee" name="final_fee" min="0" step="0.01" readonly class="admission-readonly" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="registrationAmount">Registration Amount</label><input type="number" id="registrationAmount" name="registration_amount" min="0" step="0.01" value="0" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="balanceAmount">Balance Amount</label><input type="number" id="balanceAmount" name="balance_amount" min="0" step="0.01" readonly class="admission-readonly" /></div>
+            <div class="crm-input-group-NewAdmission"><label for="paymentMode">Payment Mode</label><select id="paymentMode" name="payment_mode"><option value="">-- Select Payment Mode --</option><option value="Cash">Cash</option><option value="UPI">UPI</option><option value="Credit Card">Credit Card</option><option value="Debit Card">Debit Card</option><option value="Bank Transfer">Bank Transfer</option></select></div>
+            <div class="crm-input-group-NewAdmission"><label for="counsellor">Assigned Employee</label><input type="text" id="counsellor" name="counsellor_display" readonly class="admission-readonly" placeholder="Assigned from your login" /><small class="admission-help">Your account will be assigned automatically.</small></div>
+            <div class="crm-input-group-NewAdmission"><label for="admissionStatus">Admission Status</label><select id="admissionStatus" name="admission_status"><option value="Pending" selected>Pending</option><option value="Confirmed">Confirmed</option><option value="Cancelled">Cancelled</option></select></div>
+            <div class="crm-input-group-NewAdmission"><label for="documents">Upload Documents</label><input type="file" id="documents" name="documents" multiple accept=".pdf,.jpg,.jpeg,.png" /><small class="admission-help">PDF/JPG/PNG, up to 5 files; maximum 5 MB each.</small></div>
+            <div class="crm-input-group-NewAdmission"><label for="remarks">Remarks</label><textarea id="remarks" name="remarks" rows="3" maxlength="5000" placeholder="Enter remarks"></textarea></div>
           </div>
-          <div class="crm-form-buttons-AddFollowUP">
-            <button type="reset" id="resetButton" class="crm-reset-btn">Reset</button>
-            <button type="submit" id="saveButton" class="crm-save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Follow-up</button>
+          <div class="crm-form-NewAdmission-buttons">
+            <button type="submit" class="crm-save-NA-btn" id="saveAdmissionBtn"><i class="fa fa-save"></i> Save Admission</button>
+            <button type="reset" class="crm-reset-NA-btn" id="resetAdmissionBtn"><i class="fa fa-rotate-left"></i> Reset</button>
+            <button type="button" class="crm-cancel-NA-btn" id="cancelAdmissionBtn"><i class="fa fa-times"></i> Cancel</button>
           </div>
         </form>
       </div>
     </main>
   </div>
 
-  <script src="js/crm-notifications.js"></script>
   <script>
+  (() => {
     "use strict";
+    const API_BASE = "http://localhost:3000/api";
+    const form = document.getElementById("newAdmissionForm");
+    const courseSelect = document.getElementById("course");
+    const courseFee = document.getElementById("courseFee");
+    const discount = document.getElementById("discount");
+    const finalFee = document.getElementById("finalFee");
+    const registrationAmount = document.getElementById("registrationAmount");
+    const balanceAmount = document.getElementById("balanceAmount");
+    const saveButton = document.getElementById("saveAdmissionBtn");
+    const messageBox = document.getElementById("formMessage");
+    const counsellorDisplay = document.getElementById("counsellor");
+    let coursesByName = new Map();
 
-    (() => {
-      const API_BASE = "http://localhost:3000/api";
-      const form = document.getElementById("AddFollow-Up");
-      const enquirySelect = document.getElementById("enquiry_id");
-      const studentNameInput = document.getElementById("student_name");
-      const mobileNumberInput = document.getElementById("mobile_number");
-      const courseInput = document.getElementById("course");
-      const counsellorInput = document.getElementById("counsellor");
-      const saveButton = document.getElementById("saveButton");
-      const messageBox = document.getElementById("formMessage");
-      const enquiriesById = new Map();
-
-      const getToken = () => localStorage.getItem("crmToken");
-
-      function getStoredUser() {
-        try {
-          return JSON.parse(localStorage.getItem("crmUser") || "null");
-        } catch (error) {
-          console.error("Unable to parse crmUser:", error);
-          return null;
-        }
+    const getToken = () => localStorage.getItem("crmToken");
+    function getUser() {
+      try { return JSON.parse(localStorage.getItem("crmUser") || "null"); }
+      catch { return null; }
+    }
+    function redirectToLogin() {
+      localStorage.removeItem("crmToken");
+      localStorage.removeItem("crmUser");
+      window.location.href = "login.html";
+    }
+    function showMessage(message, type = "error") {
+      messageBox.textContent = String(message || "Something went wrong.");
+      messageBox.className = `admission-message show ${type}`;
+      messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    function clearMessage() {
+      messageBox.textContent = "";
+      messageBox.className = "admission-message";
+    }
+    function validateEmployee() {
+      const token = getToken();
+      const user = getUser();
+      if (!token || !user) { redirectToLogin(); return false; }
+      if (!["Counsellor", "Staff"].includes(user.role)) {
+        if (user.role === "Admin") window.location.href = "dashboard-crm.html";
+        else redirectToLogin();
+        return false;
       }
-
-      function redirectToLogin() {
-        localStorage.removeItem("crmToken");
-        localStorage.removeItem("crmUser");
-        window.location.href = "login.html";
-      }
-
-      function showMessage(message, type = "error") {
-        messageBox.textContent = String(message || "Something went wrong.");
-        messageBox.className = `addfu-message show ${type}`;
-        messageBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      }
-
-      function clearMessage() {
-        messageBox.textContent = "";
-        messageBox.className = "addfu-message";
-      }
-
-      function validateEmployee() {
-        const token = getToken();
-        const user = getStoredUser();
-        if (!token || !user) {
-          redirectToLogin();
-          return false;
-        }
-        if (!["Counsellor", "Staff"].includes(user.role)) {
-          if (user.role === "Admin") {
-            window.location.href = "dashboard-crm.html";
-          } else {
-            redirectToLogin();
-          }
-          return false;
-        }
-
-        const name = user.full_name || user.fullName || user.name || user.username || "Employee";
-        document.getElementById("employeeName").textContent = name;
-        document.getElementById("employeeRole").textContent = user.role || "Employee";
-        document.getElementById("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
-        return true;
-      }
-
-      async function apiRequest(path, options = {}) {
-        const token = getToken();
-        if (!token) {
-          redirectToLogin();
-          throw new Error("Please log in again.");
-        }
-
-        let response;
-        try {
-          response = await fetch(`${API_BASE}${path}`, {
-            ...options,
-            headers: {
-              Accept: "application/json",
-              ...(options.body ? { "Content-Type": "application/json" } : {}),
-              ...(options.headers || {}),
-              Authorization: `Bearer ${token}`
-            }
-          });
-        } catch (error) {
-          throw new Error("Cannot connect to the backend at http://localhost:3000. Check that your Node.js server is running.");
-        }
-
-        const data = await response.json().catch(() => ({}));
-        if (response.status === 401) {
-          redirectToLogin();
-          throw new Error("Your session has expired. Please log in again.");
-        }
-        if (response.status === 403) {
-          throw new Error(data.message || "You are not authorized to perform this action.");
-        }
-        if (!response.ok || data.success === false) {
-          throw new Error(data.message || `Request failed (HTTP ${response.status}).`);
-        }
-        return data;
-      }
-
-      function clearEnquiryDetails() {
-        studentNameInput.value = "";
-        mobileNumberInput.value = "";
-        courseInput.value = "";
-        counsellorInput.value = "";
-      }
-
-      async function loadEnquiries() {
-        enquirySelect.replaceChildren(new Option("-- Loading your enquiries... --", ""));
-        enquirySelect.disabled = true;
-        try {
-          const result = await apiRequest("/employee/enquiries?page=1&limit=100");
-          const enquiries = Array.isArray(result.enquiries) ? result.enquiries : [];
-          enquiriesById.clear();
-          enquirySelect.replaceChildren(new Option("-- Select Student Enquiry --", ""));
-
-          for (const enquiry of enquiries) {
-            enquiriesById.set(String(enquiry.id), enquiry);
-            const courseName = enquiry.course_interested || enquiry.course || "No course";
-            const studentName = enquiry.student_name || "Student";
-            const mobile = enquiry.mobile || enquiry.mobile_number || "No mobile";
-            enquirySelect.appendChild(new Option(`${studentName} - ${mobile} - ${courseName}`, String(enquiry.id)));
-          }
-
-          if (!enquiries.length) {
-            enquirySelect.replaceChildren(new Option("-- No enquiries assigned to you --", ""));
-            showMessage("No enquiries are assigned to your account yet. Add an enquiry first.", "info");
-          } else {
-            clearMessage();
-          }
-        } catch (error) {
-          console.error("Load Employee Enquiries Error:", error);
-          enquirySelect.replaceChildren(new Option("-- Unable to load enquiries --", ""));
-          showMessage(error.message);
-        } finally {
-          enquirySelect.disabled = false;
-        }
-      }
-
-      function loadSelectedEnquiry(id) {
-        const enquiry = enquiriesById.get(String(id));
-        if (!enquiry) {
-          clearEnquiryDetails();
-          return;
-        }
-        studentNameInput.value = enquiry.student_name || "";
-        mobileNumberInput.value = enquiry.mobile || enquiry.mobile_number || "";
-        courseInput.value = enquiry.course_interested || enquiry.course || "";
-        counsellorInput.value = enquiry.counsellor || getStoredUser()?.full_name || getStoredUser()?.name || "";
-      }
-
-      form.addEventListener("reset", () => {
-        setTimeout(() => {
-          clearEnquiryDetails();
-          clearMessage();
-          document.getElementById("follow_up_status").value = "Scheduled";
-        }, 0);
-      });
-
-      enquirySelect.addEventListener("change", () => {
-        clearMessage();
-        loadSelectedEnquiry(enquirySelect.value);
-      });
-
-      form.addEventListener("submit", async event => {
-        event.preventDefault();
-        clearMessage();
-
-        if (!form.reportValidity()) return;
-        if (!enquirySelect.value) {
-          showMessage("Please select a student enquiry.");
-          return;
-        }
-
-        const followUpDate = document.getElementById("follow_up_date").value;
-        const nextFollowUpDate = document.getElementById("next_follow_up_date").value;
-        if (nextFollowUpDate && nextFollowUpDate < followUpDate) {
-          showMessage("Next follow-up date cannot be earlier than the current follow-up date.");
-          return;
-        }
-
-        const payload = {
-          enquiry_id: Number(enquirySelect.value),
-          follow_up_date: followUpDate,
-          follow_up_time: document.getElementById("follow_up_time").value,
-          follow_up_type: document.getElementById("follow_up_type").value,
-          follow_up_status: document.getElementById("follow_up_status").value,
-          outcome: document.getElementById("outcome").value,
-          next_follow_up_date: nextFollowUpDate || null,
-          next_follow_up_time: document.getElementById("next_follow_up_time").value || null,
-          comments: document.getElementById("comments").value.trim() || null
-        };
-
-        if (!payload.outcome) {
-          showMessage("Please select a student outcome.");
-          return;
-        }
-
-        saveButton.disabled = true;
-        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-        try {
-          const result = await apiRequest("/employee/follow-ups", {
-            method: "POST",
-            body: JSON.stringify(payload)
-          });
-          showMessage(result.message || "Follow-up saved successfully.", "success");
-          form.reset();
-          document.getElementById("follow_up_status").value = "Scheduled";
-          await loadEnquiries();
-        } catch (error) {
-          console.error("Save Employee Follow-up Error:", error);
-          showMessage(error.message || "Unable to save follow-up.");
-        } finally {
-          saveButton.disabled = false;
-          saveButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Follow-up';
-        }
-      });
-
-      document.getElementById("logoutButton").addEventListener("click", event => {
-        event.preventDefault();
-        if (!confirm("Are you sure you want to log out?")) return;
-        redirectToLogin();
-      });
-
-      document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
-        const toggle = () => button.closest(".crm-dropdown")?.classList.toggle("active");
-        button.addEventListener("click", toggle);
-        button.addEventListener("keydown", event => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            toggle();
+      const name = user.full_name || user.fullName || user.name || user.username || "Employee";
+      document.getElementById("employeeName").textContent = name;
+      document.getElementById("employeeRole").textContent = user.role;
+      document.getElementById("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
+      counsellorDisplay.value = name;
+      return true;
+    }
+    async function apiRequest(path, options = {}) {
+      const token = getToken();
+      if (!token) { redirectToLogin(); throw new Error("Please log in again."); }
+      let response;
+      try {
+        response = await fetch(`${API_BASE}${path}`, {
+          ...options,
+          headers: {
+            Accept: "application/json",
+            ...(options.body && !(options.body instanceof FormData) ? { "Content-Type": "application/json" } : {}),
+            ...(options.headers || {}),
+            Authorization: `Bearer ${token}`
           }
         });
-      });
-
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.getElementById("crmSidebar");
-      const overlay = document.getElementById("crmSidebarOverlay");
-      menuBtn?.addEventListener("click", () => {
-        sidebar?.classList.toggle("active");
-        overlay?.classList.toggle("active");
-      });
-      overlay?.addEventListener("click", () => {
-        sidebar?.classList.remove("active");
-        overlay?.classList.remove("active");
-      });
-
-      document.getElementById("notificationButton").addEventListener("click", () => {
-        window.location.href = "my-notifications.html";
-      });
-
-      async function loadNotificationCount() {
-        try {
-          const result = await apiRequest("/notifications/today");
-          document.getElementById("headerNotificationCount").textContent =
-            Number(result.summary?.total_notifications) || 0;
-        } catch (error) {
-          console.warn("Could not load notification count:", error.message);
+      } catch {
+        throw new Error("Cannot connect to backend at http://localhost:3000. Confirm the Node.js server is running.");
+      }
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) { redirectToLogin(); throw new Error("Session expired. Please log in again."); }
+      if (!response.ok || data.success === false) throw new Error(data.message || `Request failed (HTTP ${response.status}).`);
+      return data;
+    }
+    function calculateFees() {
+      const fee = Number(courseFee.value) || 0;
+      const discountValue = Number(discount.value) || 0;
+      const paid = Number(registrationAmount.value) || 0;
+      const final = Math.max(0, fee - discountValue);
+      finalFee.value = final.toFixed(2);
+      balanceAmount.value = Math.max(0, final - paid).toFixed(2);
+    }
+    async function loadCourses() {
+      courseSelect.replaceChildren(new Option("-- Loading Courses --", ""));
+      courseSelect.disabled = true;
+      try {
+        const result = await apiRequest("/employee/admissions/courses");
+        const courses = Array.isArray(result.courses) ? result.courses : [];
+        coursesByName = new Map(courses.map(c => [String(c.course_name), c]));
+        courseSelect.replaceChildren(new Option("-- Select Course --", ""));
+        courses.forEach(c => {
+          const name = String(c.course_name || "");
+          if (!name) return;
+          const label = c.course_category ? `${name} - ${c.course_category}` : name;
+          courseSelect.add(new Option(label, name));
+        });
+        if (!courses.length) {
+          courseSelect.replaceChildren(new Option("-- No active courses found --", ""));
+          showMessage("No active courses were returned by the backend. Check your courses table.", "info");
         }
+      } catch (error) {
+        console.error("Load courses error:", error);
+        courseSelect.replaceChildren(new Option("-- Unable to load courses --", ""));
+        showMessage(error.message);
+      } finally {
+        courseSelect.disabled = false;
       }
+    }
+    courseSelect.addEventListener("change", () => {
+      const course = coursesByName.get(courseSelect.value);
+      courseFee.value = course ? (Number(course.course_fee) || 0).toFixed(2) : "";
+      calculateFees();
+      clearMessage();
+    });
+    [discount, registrationAmount].forEach(input => input.addEventListener("input", calculateFees));
 
-      function setDateMinimums() {
-        const now = new Date();
-        const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-        document.getElementById("follow_up_date").min = today;
-        document.getElementById("next_follow_up_date").min = today;
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        courseFee.value = "";
+        finalFee.value = "";
+        balanceAmount.value = "0.00";
+        clearMessage();
+        counsellorDisplay.value = getUser()?.full_name || getUser()?.name || getUser()?.username || "Employee";
+      }, 0);
+    });
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      clearMessage();
+      if (!form.reportValidity()) return;
+      const mobile = document.getElementById("mobile").value.trim();
+      if (!/^\d{10}$/.test(mobile)) { showMessage("Please enter a valid 10-digit mobile number."); return; }
+      if (!courseSelect.value || !coursesByName.has(courseSelect.value)) { showMessage("Please select a valid course."); return; }
+      const fee = Number(courseFee.value) || 0;
+      const discountValue = Number(discount.value) || 0;
+      const paid = Number(registrationAmount.value) || 0;
+      if (discountValue < 0 || discountValue > fee) { showMessage("Discount must be between 0 and the course fee."); return; }
+      if (paid < 0 || paid > fee - discountValue) { showMessage("Registration amount cannot exceed the final fee."); return; }
+
+      saveButton.disabled = true;
+      saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+      try {
+        const formData = new FormData(form);
+        // The backend derives counsellor and counsellor_id from the token; do not trust the browser field.
+        formData.delete("counsellor_display");
+        const result = await apiRequest("/employee/admissions", { method: "POST", body: formData });
+        showMessage(result.message || "Admission saved successfully.", "success");
+        form.reset();
+        courseFee.value = "";
+        finalFee.value = "";
+        balanceAmount.value = "0.00";
+        setTimeout(() => { window.location.href = "my-admissions.html?created=1"; }, 700);
+      } catch (error) {
+        console.error("Save admission error:", error);
+        showMessage(error.message || "Unable to save admission.");
+      } finally {
+        saveButton.disabled = false;
+        saveButton.innerHTML = '<i class="fa fa-save"></i> Save Admission';
       }
+    });
 
-      window.openNotifications = () => {
-        window.location.href = "my-notifications.html";
-      };
-
-      async function init() {
-        if (!validateEmployee()) return;
-        setDateMinimums();
-        await loadEnquiries();
-        await loadNotificationCount();
-      }
-
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", init, { once: true });
-      } else {
-        init();
-      }
-    })();
+    document.getElementById("cancelAdmissionBtn").addEventListener("click", () => {
+      if (confirm("Cancel and return to My Admissions?")) window.location.href = "my-admissions.html";
+    });
+    document.getElementById("logoutButton").addEventListener("click", event => {
+      event.preventDefault();
+      if (confirm("Are you sure you want to log out?")) redirectToLogin();
+    });
+    document.getElementById("notificationButton").addEventListener("click", () => { window.location.href = "my-notifications.html"; });
+    document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
+      const toggle = () => button.closest(".crm-dropdown")?.classList.toggle("active");
+      button.addEventListener("click", toggle);
+      button.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggle(); } });
+    });
+    const sidebar = document.getElementById("crmSidebar");
+    const overlay = document.getElementById("crmSidebarOverlay");
+    document.getElementById("menuBtn").addEventListener("click", () => { sidebar.classList.toggle("active"); overlay.classList.toggle("active"); });
+    overlay.addEventListener("click", () => { sidebar.classList.remove("active"); overlay.classList.remove("active"); });
+    async function loadNotificationCount() {
+      try {
+        const result = await apiRequest("/notifications/today");
+        document.getElementById("headerNotificationCount").textContent = Number(result.summary?.total_notifications) || 0;
+      } catch (error) { console.warn("Notification count:", error.message); }
+    }
+    async function init() {
+      if (!validateEmployee()) return;
+      const today = new Date();
+      const todayLocal = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+      document.getElementById("joiningDate").min = todayLocal;
+      document.getElementById("dateOfBirth").max = todayLocal;
+      await loadCourses();
+      calculateFees();
+      await loadNotificationCount();
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true }); else init();
+    window.openNotifications = () => { window.location.href = "my-notifications.html"; };
+  })();
   </script>
 </body>
 </html>

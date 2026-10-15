@@ -7,6 +7,11 @@ const jwt = require("jsonwebtoken");
 
 const db = require("./db");
 
+const path = require("path");
+const fs = require("fs");
+const crypto = require("crypto");
+const multer = require("multer");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -4663,6 +4668,22 @@ function authenticateToken(req, res, next) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
 
     try {
@@ -6970,6 +6991,607 @@ app.put("/api/employee/follow-ups/:id/complete", authenticateToken,
 
 
 
+
+
+/*==== DOCUMENT UPLOAD CONFIGURATION ====*/
+const admissionDocumentsDir = path.join(
+    __dirname,
+    "uploads",
+    "admissions"
+);
+
+fs.mkdirSync(admissionDocumentsDir, { recursive: true });
+
+const admissionStorage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, admissionDocumentsDir);
+    },
+
+    filename: (req, file, callback) => {
+        const extension = path.extname(file.originalname).toLowerCase();
+        callback(null, `${crypto.randomUUID()}${extension}`);
+    }
+});
+
+const admissionUpload = multer({storage: admissionStorage,
+
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5 MB per file
+        files: 5
+    },
+
+    fileFilter: (req, file, callback) => {
+        const allowedExtensions = [
+            ".pdf", ".jpg", ".jpeg", ".png"
+        ];
+
+        const extension = path.extname(file.originalname).toLowerCase();
+
+        const allowedMimeTypes = [
+            "application/pdf", "image/jpeg", "image/png"
+        ];
+
+        if (
+            !allowedExtensions.includes(extension) ||
+            !allowedMimeTypes.includes(file.mimetype)
+        ) {
+            return callback(
+                new Error("Only PDF, JPG, JPEG and PNG files are allowed.")
+            );
+        }
+
+        callback(null, true);
+    }
+});
+
+
+
+/*==== HELPER FUNCTIONS ====*/
+function isValidAdmissionDate(value) {
+    if (
+        typeof value !== "string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(value)
+    ) {
+        return false;
+    }
+
+    const [year, month, day] = value.split("-").map(Number);
+
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    return (
+        date.getUTCFullYear() === year &&
+        date.getUTCMonth() === month - 1 &&
+        date.getUTCDate() === day
+    );
+}
+
+function normalizeAdmissionOptional(value) {
+    if (value == null) {
+        return null;
+    }
+
+    const text = String(value).trim();
+
+    if (!text || text.startsWith("--")) {
+        return null;
+    }
+
+    return text;
+}
+
+function removeAdmissionUploads(files = []) {
+    for (const file of files) {
+        try {
+            if (file.path && fs.existsSync(file.path)) {
+                fs.unlinkSync(file.path);
+            }
+        } catch (error) {
+            console.error(
+                "Could not remove failed admission upload:",
+                error.message
+            );
+        }
+    }
+}
+
+function handleAdmissionUpload(req, res, next) {
+    admissionUpload.array("documents", 5)(req, res, error => {
+        if (!error) {
+            return next();
+        }
+
+        const statusCode = error instanceof multer.MulterError ? 400 : 400;
+
+        return res.status(statusCode).json({
+            success: false,
+            message: error.message || "Document upload failed."
+        });
+    });
+}
+
+
+
+/*==== EMPLOYEE ACCESS CHECK ====*/
+async function getActiveAdmissionEmployee(userId) {
+    const [rows] = await db.execute(
+        `SELECT id, full_name, role, status
+         FROM add_users
+         WHERE id = ?
+         LIMIT 1`,
+        [userId]
+    );
+
+    if (
+        !rows.length ||
+        rows[0].status !== "Active" ||
+        !["Counsellor", "Staff"].includes(rows[0].role)
+    ) {
+        return null;
+    }
+
+    return rows[0];
+}
+
+
+
+
+
+/*==== GET ACTIVE COURSES  -  GET /api/employee/admissions/courses ====*/
+app.get("/api/employee/admissions/courses", authenticateToken,
+    async (req, res) => {
+        try {
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only employees can access this endpoint."
+                });
+            }
+
+            const userId = Number(req.user.id);
+
+            if (!Number.isSafeInteger(userId) || userId <= 0) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid login session."
+                });
+            }
+
+            const employee = await getActiveAdmissionEmployee(userId);
+
+            if (!employee) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            const [courses] = await db.execute(
+                `SELECT
+                    id,
+                    course_name, course_category, course_fee
+                 FROM courses
+                 WHERE status = 'Active'
+                 ORDER BY course_name ASC`
+            );
+
+            return res.json({
+                success: true,
+                courses
+            });
+
+        } catch (error) {
+            console.error("Employee Admission Courses Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load courses."
+            });
+        }
+    }
+);
+
+
+
+
+
+/*==== POST NEW ADMISSION  -  POST /api/employee/admissions ====*/
+app.post("/api/employee/admissions", authenticateToken,
+
+    /*-- Reject unauthorized roles before accepting uploads. --*/
+    (req, res, next) => {
+        if (!["Counsellor", "Staff"].includes(req.user.role)) {
+            return res.status(403).json({
+                success: false,
+                message: "Only employees can create admissions."
+            });
+        }
+
+        next();
+    },
+
+    handleAdmissionUpload,
+
+    async (req, res) => {
+        try {
+            const userId = Number(req.user.id);
+
+            if (!Number.isSafeInteger(userId) || userId <= 0) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid login session."
+                });
+            }
+
+            const employee = await getActiveAdmissionEmployee(userId);
+
+            if (!employee) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            /*--- Read submitted form fields. ---*/
+            const studentName = String(
+                req.body.student_name || ""
+            ).trim();
+
+            const mobile = String(
+                req.body.mobile || ""
+            ).trim();
+
+            const email = normalizeAdmissionOptional(req.body.email);
+            const gender = normalizeAdmissionOptional(req.body.gender);
+            const dateOfBirth = normalizeAdmissionOptional(req.body.date_of_birth);
+            const courseName = String(req.body.course || "").trim();
+            const batch = normalizeAdmissionOptional(req.body.batch);
+            const joiningDate = normalizeAdmissionOptional(req.body.joining_date);
+            const paymentMode = normalizeAdmissionOptional(req.body.payment_mode);
+            const admissionStatus = normalizeAdmissionOptional(req.body.admission_status) || "Pending";
+            const remarks = normalizeAdmissionOptional(req.body.remarks);
+
+            /*--- Basic validation. ---*/
+            if (!studentName) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Student name is required."
+                });
+            }
+
+            if (!/^\d{10}$/.test(mobile)) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Enter a valid 10-digit mobile number."
+                });
+            }
+
+            if (!courseName) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Please select a course."
+                });
+            }
+
+            if (
+                gender &&
+                !["Male", "Female", "Other"].includes(gender)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid gender selection."
+                });
+            }
+
+            if (
+                dateOfBirth &&
+                !isValidAdmissionDate(dateOfBirth)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid date of birth."
+                });
+            }
+
+            if (
+                joiningDate &&
+                !isValidAdmissionDate(joiningDate)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid joining date."
+                });
+            }
+
+            if (
+                batch &&
+                !["Morning", "Afternoon", "Evening", "Weekend"].includes(batch)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid batch selection."
+                });
+            }
+
+            if (
+                paymentMode &&
+                !["Cash", "UPI", "Credit Card", "Debit Card", "Bank Transfer"]
+                    .includes(paymentMode)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid payment mode."
+                });
+            }
+
+            if (
+                !["Confirmed", "Pending", "Cancelled"].includes(admissionStatus)
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid admission status."
+                });
+            }
+
+            
+            
+            const [courseRows] = await db.execute(
+                `SELECT id, course_name, course_fee, status
+                 FROM courses
+                 WHERE course_name = ?
+                   AND status = 'Active'
+                 LIMIT 1`,
+                [courseName]
+            );
+
+            if (!courseRows.length) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "The selected course is not active or does not exist."
+                });
+            }
+
+            const selectedCourse = courseRows[0];
+            const courseFee = Number(selectedCourse.course_fee) || 0;
+
+            
+            const discount = Number(req.body.discount || 0);
+            const registrationAmount = Number(req.body.registration_amount || 0);
+
+            if (
+                !Number.isFinite(discount) ||
+                !Number.isFinite(registrationAmount) ||
+                discount < 0 ||
+                registrationAmount < 0
+            ) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Discount and registration amount must be valid non-negative numbers."
+                });
+            }
+
+            const finalFee = Math.max(0, courseFee - discount);
+
+            if (discount > courseFee) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Discount cannot exceed the course fee."
+                });
+            }
+
+            if (registrationAmount > finalFee) {
+                removeAdmissionUploads(req.files);
+
+                return res.status(400).json({
+                    success: false,
+                    message: "Registration amount cannot exceed the final fee."
+                });
+            }
+
+            const balanceAmount = finalFee - registrationAmount;
+
+            const files = Array.isArray(req.files) ? req.files : [];
+
+            const documents = files.length
+                ? JSON.stringify(
+                    files.map(file => ({
+                        filename: file.filename,
+                        originalName: file.originalname,
+                        mimeType: file.mimetype,
+                        size: file.size
+                    }))
+                )
+                : null;
+
+            
+            const [insertResult] = await db.execute(
+                `INSERT INTO admissions (
+                    student_name, mobile, email, gender, date_of_birth, course, batch, joining_date, course_fee, discount,
+                    final_fee, registration_amount, balance_amount, payment_mode, counsellor, counsellor_id, admission_status,
+                    documents, remarks
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    studentName, mobile, email, gender, dateOfBirth, selectedCourse.course_name, batch, joiningDate, courseFee,
+                    discount, finalFee, registrationAmount, balanceAmount, paymentMode, employee.full_name, employee.id,
+                    admissionStatus, documents, remarks
+                ]
+            );
+
+            return res.status(201).json({
+                success: true,
+                message: "Admission saved successfully.",
+                admission_id: insertResult.insertId
+            });
+
+        } catch (error) {
+            
+            removeAdmissionUploads(req.files);
+
+            console.error("Employee Save Admission Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to save admission. Check the backend error log."
+            });
+        }
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   EMPLOYEE MY ADMISSIONS
+   GET /api/employee/admissions
+
+   Counsellor/Staff: only their own admissions
+========================================================= */
+
+app.get(
+    "/api/employee/admissions",
+    authenticateToken,
+    async (req, res) => {
+        try {
+            if (!["Counsellor", "Staff"].includes(req.user.role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Only employees can access My Admissions."
+                });
+            }
+
+            const userId = Number(req.user.id);
+
+            if (!Number.isSafeInteger(userId) || userId <= 0) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Invalid login session."
+                });
+            }
+
+            // Verify that the employee is still active.
+            const [users] = await db.execute(
+                `SELECT id, full_name, role, status
+                 FROM add_users
+                 WHERE id = ?
+                 LIMIT 1`,
+                [userId]
+            );
+
+            if (
+                !users.length ||
+                users[0].status !== "Active" ||
+                !["Counsellor", "Staff"].includes(users[0].role)
+            ) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Your account is inactive or unauthorized."
+                });
+            }
+
+            // Return only admissions assigned to this logged-in employee.
+            const [admissions] = await db.execute(
+                `SELECT
+                    id,
+                    student_name,
+                    mobile,
+                    email,
+                    gender,
+                    date_of_birth,
+                    course,
+                    batch,
+                    joining_date,
+                    course_fee,
+                    discount,
+                    final_fee,
+                    registration_amount,
+                    balance_amount,
+                    payment_mode,
+                    counsellor,
+                    counsellor_name,
+                    counsellor_id,
+                    admission_status,
+                    documents,
+                    remarks,
+                    created_at,
+                    updated_at
+                 FROM admissions
+                 WHERE counsellor_id = ?
+                 ORDER BY id DESC`,
+                [userId]
+            );
+
+            return res.status(200).json({
+                success: true,
+                admissions
+            });
+
+        } catch (error) {
+            console.error("Employee My Admissions Error:", {
+                message: error.message,
+                code: error.code,
+                sqlMessage: error.sqlMessage
+            });
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load your admissions."
+            });
+        }
+    }
+);
 
 
 
