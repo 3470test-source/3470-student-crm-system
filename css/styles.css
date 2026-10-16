@@ -8784,6 +8784,7 @@
   color: #374151;
   font-size: 14px;
   vertical-align: middle;
+  text-align: center;
 }
 
 .EMP-MyAD-table tbody tr {
@@ -8825,6 +8826,93 @@
 
 .EMP-MyAD-table-empty.error i {
   color: #dc2626;
+}
+
+
+/*--- ADMISSION STATUS BADGES ---*/
+.Emp-my-admission-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;   
+}
+
+/*--- Pending - Orange ---*/
+.Emp-my-admission-status.pending {
+  background-color: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
+/*--- Confirmed - Green ---*/
+.Emp-my-admission-status.confirmed {
+  background-color: #DCFCE7;
+  color: #15803D;
+  border: 1px solid #BBF7D0;
+}
+
+/*--- Cancelled - Red ---*/
+.Emp-my-admission-status.cancelled {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+}
+
+.Emp-my-admissions-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/*--- Action Btn ---*/
+.emp-myadmissions-btn-view {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  background: #eff6ff;
+  color: #2563eb;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.emp-myadmissions-btn-edit {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fae593;
+  border-radius: 6px;
+  background: #eee9d6;
+  color: #b45309;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.emp-myadmissions-btn-edit:hover {
+  background: #b45309;
+  color: #ffffff;
+}
+
+.emp-myadmissions-btn-view:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.emp-myadmissions-btn-view i,
+.emp-myadmissions-btn-edit i {
+  font-size: 14px;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------- */
@@ -8961,8 +9049,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 108px;
+  gap: 15px;  
+  flex-wrap: wrap;
+  margin: 0 0 15px !important;
+  padding: 0;
 }
 
 .EMP-MyNotification-filter-bar select {
@@ -8979,6 +9069,142 @@
 .EMP-MyNotification-filter-bar select:focus {
   border-color: #16a34a;
   box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.10);
+}
+
+
+/*--- Notification list ---*/
+.EMP-MyNotification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.EMP-MyNotification {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.EMP-MyNotification:hover {
+  background: #f8fafc;
+  border-color: #d1d5db;
+}
+
+/*-- Today's follow-ups --*/
+.EMP-MyNotification.follow-up .Emp-MyNotification-icon {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+/*-- Missed follow-ups --*/
+.EMP-MyNotification.missed-follow-up .Emp-MyNotification-icon {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+/*-- Upcoming follow-ups --*/
+.EMP-MyNotification.upcoming-follow-up .Emp-MyNotification-icon {
+    background: #FEF3C7;
+    color: #B45309;
+}
+
+/*-- Enquiries --*/
+.EMP-MyNotification.enquiry .Emp-MyNotification-icon {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+/*-- Admissions --*/
+.EMP-MyNotification.admission .Emp-MyNotification-icon {
+    background: #DCFCE7;
+    color: #15803D;
+}
+
+/*-- Other notification types --*/
+.EMP-MyNotification.info .Emp-MyNotification-icon {
+    background: #E5E7EB;
+    color: #374151;
+}
+
+.Emp-MyNotification-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.EMP-MyNotification.warning
+.Emp-MyNotification-icon {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.EMP-MyNotification.danger
+.Emp-MyNotification-icon {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.EMP-MyNotification.info
+.Emp-MyNotification-icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.EMP-MyNotification-content {
+  flex: 1;
+}
+
+.EMP-MyNotification-title {
+  margin: 0 0 5px;
+  color: #172033;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.EMP-MyNotification-message {
+  margin: 0 0 7px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.EMP-MyNotification-time {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.EMP-MyNotification-action {
+  align-self: center;
+}
+
+.EMP-MyNotification-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid #dbe2ea;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.EMP-MyNotification-view-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
 }
 
 /* ------------------------------------------------------------------------------------------------------------------------------ */

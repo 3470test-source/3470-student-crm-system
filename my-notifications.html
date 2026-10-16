@@ -22,131 +22,28 @@
       box-sizing: border-box;
     }
 
+    .notification-empty {
+      padding: 10px 20px;
+      text-align: center;
+      color: #6b7280;
+    }
 
-       
-/* Notification list */
-.notification-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+    .notification-empty i {
+      display: block;
+      margin-bottom: 12px;
+      color: #9ca3af;
+      font-size: 35px;
+    }
 
-.employee-notification {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    padding: 18px;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    background: #ffffff;
-    transition: all 0.2s ease;
-}
+    .notification-error {
+      color: #dc2626;
+    }
 
-.employee-notification:hover {
-    background: #f8fafc;
-    border-color: #d1d5db;
-}
-
-.employee-notification-icon {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #dcfce7;
-    color: #15803d;
-}
-
-.employee-notification.warning
-.employee-notification-icon {
-    background: #fef3c7;
-    color: #b45309;
-}
-
-.employee-notification.danger
-.employee-notification-icon {
-    background: #fee2e2;
-    color: #dc2626;
-}
-
-.employee-notification.info
-.employee-notification-icon {
-    background: #dbeafe;
-    color: #2563eb;
-}
-
-.employee-notification-content {
-    flex: 1;
-}
-
-.employee-notification-title {
-    margin: 0 0 5px;
-    color: #172033;
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.employee-notification-message {
-    margin: 0 0 7px;
-    color: #6b7280;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.employee-notification-time {
-    color: #9ca3af;
-    font-size: 12px;
-}
-
-.employee-notification-action {
-    align-self: center;
-}
-
-.notification-view-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    border: 1px solid #dbe2ea;
-    border-radius: 7px;
-    background: #ffffff;
-    color: #2563eb;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.notification-view-btn:hover {
-    background: #eff6ff;
-    border-color: #93c5fd;
-}
-
-.notification-empty {
-    padding: 55px 20px;
-    text-align: center;
-    color: #6b7280;
-}
-
-.notification-empty i {
-    display: block;
-    margin-bottom: 12px;
-    color: #9ca3af;
-    font-size: 35px;
-}
-
-.notification-error {
-    color: #dc2626;
-}
-
-.notification-error i {
-    color: #dc2626;
-}
-
+    .notification-error i {
+      color: #dc2626;
+    }
 
     </style>
-
 
 </head>
 <body>
@@ -384,7 +281,7 @@
                     </div>
 
 
-                    <div class="notification-list" id="notificationList">
+                    <div class="EMP-MyNotification-list" id="notificationList">
 
                         <div class="notification-empty">
                             <i class="fa-solid fa-spinner fa-spin"></i>
@@ -695,6 +592,7 @@ function renderNotifications(notifications) {
                     All Clear
                 </strong>
 
+
                 <p>
                     You currently have no notifications.
                 </p>
@@ -761,11 +659,11 @@ function createNotificationHTML(notification) {
 
         action = `
 
-            <div class="employee-notification-action">
+            <div class="EMP-MyNotification-action">
 
                 <button
                     type="button"
-                    class="notification-view-btn"
+                    class="EMP-MyNotification-view-btn"
                     onclick="openNotification('${escapeAttribute(notification.link)}')">
 
                     View
@@ -783,18 +681,18 @@ function createNotificationHTML(notification) {
 
     return `
 
-        <div class="employee-notification ${escapeHtml(type)}">
+        <div class="EMP-MyNotification ${escapeHtml(type)}">
 
-            <div class="employee-notification-icon">
+            <div class="Emp-MyNotification-icon">
 
                 <i class="fa-solid ${icon}"></i>
 
             </div>
 
 
-            <div class="employee-notification-content">
+            <div class="EMP-MyNotification-content">
 
-                <h3 class="employee-notification-title">
+                <h3 class="EMP-MyNotification-title">
 
                     ${escapeHtml(
                         notification.title || "Notification"
@@ -803,7 +701,7 @@ function createNotificationHTML(notification) {
                 </h3>
 
 
-                <p class="employee-notification-message">
+                <p class="EMP-MyNotification-message">
 
                     ${escapeHtml(
                         notification.message || ""
@@ -812,7 +710,7 @@ function createNotificationHTML(notification) {
                 </p>
 
 
-                <span class="employee-notification-time">
+                <span class="EMP-MyNotification-time">
 
                     ${escapeHtml(
                         notification.time_text || ""

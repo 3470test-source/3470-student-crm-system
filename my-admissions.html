@@ -22,130 +22,63 @@
       box-sizing: border-box;
     }
 
+    /*-- PAGINATION --*/
+    .EMP-pagination-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-top: 18px;
+    }
 
-/* =========================================================
-   STATUS BADGES
-   ========================================================= */
+    .EMP-pagination-info {
+      color: #6b7280;
+      font-size: 13px;
+    }
 
-.crm-status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 85px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-}
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-.crm-status.completed {
-    background: #dcfce7;
-    color: #15803d;
-}
+    .crm-pagination button {
+      min-width: 36px;
+      height: 36px;
+      padding: 0 10px;
+      border: 1px solid #dbe2ea;
+      border-radius: 7px;
+      background: #ffffff;
+      color: #374151;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
 
-.crm-status.pending {
-    background: #fef3c7;
-    color: #b45309;
-}
+    .crm-pagination button:hover:not(:disabled) {
+      background: #f0fdf4;
+      border-color: #86efac;
+      color: #15803d;
+    }
 
-.crm-status.cancelled {
-    background: #fee2e2;
-    color: #dc2626;
-}
+    .crm-pagination button.active {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #ffffff;
+    }
 
+    .crm-pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
-
-/* =========================================================
-   ACTION BUTTON
-   ========================================================= */
-
-.crm-action-btn {
-    width: 36px;
-    height: 36px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #dbe2ea;
-    border-radius: 7px;
-    background: #ffffff;
-    color: #2563eb;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.crm-action-btn:hover {
-    background: #eff6ff;
-    border-color: #93c5fd;
-    color: #1d4ed8;
-}
-
-
-/* =========================================================
-   PAGINATION
-   ========================================================= */
-
-.crm-pagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-top: 18px;
-}
-
-.crm-pagination-info {
-    color: #6b7280;
-    font-size: 13px;
-}
-
-.crm-pagination {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.crm-pagination button {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 10px;
-    border: 1px solid #dbe2ea;
-    border-radius: 7px;
-    background: #ffffff;
-    color: #374151;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.crm-pagination button:hover:not(:disabled) {
-    background: #f0fdf4;
-    border-color: #86efac;
-    color: #15803d;
-}
-
-.crm-pagination button.active {
-    background: #16a34a;
-    border-color: #16a34a;
-    color: #ffffff;
-}
-
-.crm-pagination button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   SIDEBAR ACTIVE LINK
-   ========================================================= */
-
-#crmSidebar a.active {
-    background: #dcfce7;
-    color: #15803d;
-    font-weight: 600;
-}
-
+    /*--- SIDEBAR ACTIVE LINK ---*/
+    /* #crmSidebar a.active {
+      background: #dcfce7;
+      color: #15803d;
+      font-weight: 600;
+    } */
 
     </style>
 
@@ -178,7 +111,7 @@
         <div class="EMP-header-right">
 
             <!-- Notification -->
-            <div class="EMP-notification" onclick="openNotifications()">
+            <div class="EMP-notification" id="notificationButton">
                 <i class="fa-solid fa-bell"></i>
                 <span class="EMP-notification-count" id="headerNotificationCount">0</span>
 
@@ -215,7 +148,7 @@
 
             <aside class="crm-sidebar" id="crmSidebar">
 
-                <a href="employee-dashboard.html" class="crm-nav-link EMP-active">
+                <a href="employee-dashboard.html" class="active">
                     <i class="fa fa-home"></i>Dashboard
                 </a>
 
@@ -272,7 +205,7 @@
                     <i class="fa-solid fa-user"></i>My Profile
                 </a>
 
-                <a href="#" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
                     <i class="fa-solid fa-right-from-bracket"></i>Logout
                 </a>
 
@@ -384,7 +317,7 @@
 
                             <div class="EMP-MyAD-input-icon">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="admissionSearch" placeholder="Student name or mobile">
+                                <input type="search" id="admissionSearch" placeholder="Search student, mobile or course">
                             </div>
 
                         </div>
@@ -408,7 +341,7 @@
                             <label for="statusFilter">Admission Status</label>
 
                             <select id="statusFilter">
-                                <option value="">-- All Status --</option>
+                                <option value="">-- All admission statuses --</option>
                                 <option value="Confirmed">Confirmed</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Cancelled">Cancelled</option>
@@ -489,10 +422,9 @@
 
 
                     <!-- PAGINATION -->
-                    <div class="crm-pagination-container">
+                    <div class="EMP-pagination-container">
 
-                        <div class="crm-pagination-info" id="paginationInfo"></div>
-                        
+                        <div class="EMP-pagination-info" id="paginationInfo"></div>
                         <div class="crm-pagination" id="pagination"></div>
 
                     </div>
@@ -504,82 +436,181 @@
         </div>
 
 
-
-
-
-
-
-
-
-
-
-<!-- Side bar dropdown JS - Script -->
-<script>
-    const dropdowns = document.querySelectorAll(".crm-dropdown");
-
-dropdowns.forEach(dropdown => {
-
-    const button = dropdown.querySelector(".crm-dropdown-btn");
-
-    button.addEventListener("click", () => {
-
-        dropdown.classList.toggle("active");
-
-    });
-
-});
-</script>
-
-
-
-
-
-
-
-<!-- ============================= -->
-<!-- JAVASCRIPT -->
-<!-- ============================= -->
-
+        
+<!-- My admissions - JS  -->
 <script>
 
-const API_BASE = "http://localhost:3000/api";
+(() => {
+    "use strict";
 
-const token = localStorage.getItem("crmToken");
+    /*--- CONFIGURATION ---*/
+    const API_BASE = "http://localhost:3000/api";
+    const API_ORIGIN = new URL(API_BASE).origin;
+
+    let allAdmissions = [];
+    let filteredAdmissions = [];
+    let currentPage = 1;
+
+    const rowsPerPage = 10;
+
+    const $ = (id) => document.getElementById(id);
+
+    /*--- Supports either naming convention. ---*/ 
+    const getElement = (...ids) => {
+        for (const id of ids) {
+            const element = $(id);
+            if (element) return element;
+        }
+        return null;
+    };
+
+    const tableBody = getElement("admissionsTableBody", "admissionsBody");
+
+    const searchInput = getElement("admissionSearch", "searchInput");
+
+    const courseFilter = $("courseFilter");
+    const statusFilter = $("statusFilter");
+    const dateFilter = $("dateFilter");
+
+    const searchButton = getElement("searchBtn", "applyFilterBtn", "filterBtn");
+
+    const resetButton = getElement("resetBtn", "resetFilterBtn", "clearFiltersBtn");
+
+    const refreshButton = $("refreshButton");
 
 
-// ======================================
-// CHECK LOGIN
-// ======================================
-
-if (!token) {
-
-    window.location.href = "login.html";
-
-}
-
-
-// ======================================
-// LOAD EMPLOYEE INFORMATION
-// ======================================
-
-function loadEmployeeInfo() {
-
-    const storedUser =
-        localStorage.getItem("crmUser");
-
-    if (!storedUser) {
-
-        window.location.href =
-            "login.html";
-
-        return;
-
+    /*--- USER / AUTHENTICATION ---*/
+    function getCurrentUser() {
+        try {
+            return JSON.parse(
+                localStorage.getItem("crmUser") || "null"
+            );
+        } catch (error) {
+            console.error("Unable to read CRM user:", error);
+            return null;
+        }
     }
 
-    try {
+    function logout() {
+        localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
 
-        const user =
-            JSON.parse(storedUser);
+        window.location.href = "login.html";
+    }
+
+    async function apiRequest(endpoint) {
+        const token = localStorage.getItem("crmToken");
+
+        if (!token) {
+            logout();
+            throw new Error("Please log in again.");
+        }
+
+        let response;
+
+        try {
+            response = await fetch(API_BASE + endpoint, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+        } catch (error) {
+            throw new Error(
+                "Cannot connect to the backend. Check that your Node.js server is running."
+            );
+        }
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.status === 401) {
+            logout();
+            throw new Error("Your session has expired. Please log in again.");
+        }
+
+        if (!response.ok || data.success === false) {
+            throw new Error(
+                data.message || `Request failed with status ${response.status}.`
+            );
+        }
+
+        return data;
+    }
+
+
+    /*--- SAFE TEXT AND FORMATTING ---*/
+    function textValue(value) {
+        return String(value ?? "").trim();
+    }
+
+    function dateKey(value) {
+        if (!value) return "";
+
+        /*--- Handles YYYY-MM-DD and ISO datetime strings from MySQL/API. ---*/
+        const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
+
+        if (match) {
+            return `${match[1]}-${match[2]}-${match[3]}`;
+        }
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return "";
+        }
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function formatDate(value) {
+        const key = dateKey(value);
+
+        if (!key) return "-";
+
+        const [year, month, day] = key.split("-").map(Number);
+
+        const date = new Date(year, month - 1, day);
+
+        return date.toLocaleDateString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
+    }
+
+    function formatMoney(value) {
+        return Number(value || 0).toLocaleString("en-IN", {
+            style: "currency",
+            currency: "INR",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function normalize(value) {
+        return textValue(value).toLowerCase();
+    }
+
+    function statusClass(status) {
+        const normalized = normalize(status);
+
+        if (normalized === "confirmed") return "confirmed";
+        if (normalized === "cancelled") return "cancelled";
+
+        return "pending";
+    }
+
+
+    /*--- EMPLOYEE HEADER ---*/
+    function loadEmployeeInfo() {
+        const user = getCurrentUser();
+
+        if (!user) return;
 
         const name =
             user.full_name ||
@@ -587,594 +618,701 @@ function loadEmployeeInfo() {
             user.username ||
             "Employee";
 
-        const role =
-            user.role ||
-            "Employee";
+        const nameElement = $("employeeName");
+        const roleElement = $("employeeRole");
+        const avatarElement = $("profileAvatar");
 
-
-        const employeeName =
-            document.getElementById(
-                "employeeName"
-            );
-
-        const employeeRole =
-            document.getElementById(
-                "employeeRole"
-            );
-
-        const profileAvatar =
-            document.getElementById(
-                "profileAvatar"
-            );
-
-        const sidebarAvatar =
-            document.getElementById(
-                "sidebarAvatar"
-            );
-
-        const sidebarName =
-            document.getElementById(
-                "sidebarEmployeeName"
-            );
-
-        const sidebarRole =
-            document.getElementById(
-                "sidebarEmployeeRole"
-            );
-
-
-        if (employeeName)
-            employeeName.textContent = name;
-
-        if (employeeRole)
-            employeeRole.textContent = role;
-
-        if (profileAvatar)
-            profileAvatar.textContent =
-                name.charAt(0).toUpperCase();
-
-        if (sidebarAvatar)
-            sidebarAvatar.textContent =
-                name.charAt(0).toUpperCase();
-
-        if (sidebarName)
-            sidebarName.textContent = name;
-
-        if (sidebarRole)
-            sidebarRole.textContent = role;
-
-    }
-    catch (error) {
-
-        console.error(
-            "Failed to load employee:",
-            error
-        );
-
-    }
-
-}
-
-
-// ======================================
-// LOAD MY ADMISSIONS
-// ======================================
-
-async function loadAdmissions() {
-
-    const tableBody =
-        document.getElementById(
-            "admissionsTableBody"
-        );
-
-    try {
-
-        const response =
-            await fetch(
-                `${API_BASE}/employee/admissions`,
-                {
-                    method: "GET",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json",
-
-                        "Authorization":
-                            `Bearer ${token}`
-
-                    }
-
-                }
-            );
-
-
-        const data =
-            await response.json();
-
-
-        if (!response.ok ||
-            !data.success) {
-
-            throw new Error(
-                data.message ||
-                "Failed to load admissions."
-            );
-
+        if (nameElement) {
+            nameElement.textContent = name;
         }
 
+        if (roleElement) {
+            roleElement.textContent = user.role || "Employee";
+        }
 
-        renderAdmissions(
-            data.admissions || []
-        );
-
-    }
-    catch (error) {
-
-        console.error(
-            "❌ Admissions Error:",
-            error
-        );
-
-
-        tableBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="9"
-                    class="EMP-MyAD-table-empty error">
-
-                    <i class="fa-solid fa-triangle-exclamation"></i>
-
-                    ${error.message}
-
-                </td>
-
-            </tr>
-
-        `;
-
+        if (avatarElement) {
+            avatarElement.textContent = name.trim().charAt(0).toUpperCase() || "E";
+        }
     }
 
-}
+
+    /*--- COURSE FILTER OPTIONS ---*/
+    function populateCourseFilter() {
+        if (!courseFilter) return;
+
+        const selectedCourse = courseFilter.value;
+
+        const courses = [
+            ...new Set(
+                allAdmissions
+                    .map(admission => textValue(admission.course))
+                    .filter(Boolean)
+            )
+        ].sort((a, b) => a.localeCompare(b));
+
+        courseFilter.replaceChildren();
+
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "-- All Courses --";
+
+        courseFilter.appendChild(defaultOption);
+
+        courses.forEach(course => {
+            const option = document.createElement("option");
+
+            option.value = course;
+            option.textContent = course;
+
+            courseFilter.appendChild(option);
+        });
+
+        /*--- Keep the selected course if it still exists. ---*/
+        if (courses.includes(selectedCourse)) {
+            courseFilter.value = selectedCourse;
+        }
+    }
 
 
-// ======================================
-// RENDER ADMISSIONS
-// ======================================
+    /*--- SUMMARY CARDS - These show totals for all loaded records. ---*/
+    function updateAdmissionSummary() {
+        const total = allAdmissions.length;
 
-function renderAdmissions(admissions) {
-
-    const tableBody =
-        document.getElementById(
-            "admissionsTableBody"
-        );
-
-
-    document.getElementById(
-        "totalAdmissions"
-    ).textContent =
-        admissions.length;
-
-
-    const confirmed =
-        admissions.filter(
+        const confirmed = allAdmissions.filter(
             admission =>
-                admission.admission_status ===
-                "Confirmed"
+                normalize(admission.admission_status) === "confirmed"
         ).length;
 
-
-    const pending =
-        admissions.filter(
+        const pending = allAdmissions.filter(
             admission =>
-                admission.admission_status ===
-                "Pending"
+                normalize(admission.admission_status) === "pending"
         ).length;
 
-
-    const balance =
-        admissions.reduce(
-            (total, admission) =>
-                total +
-                Number(
-                    admission.balance_amount || 0
-                ),
+        const totalBalance = allAdmissions.reduce(
+            (sum, admission) =>
+                sum + (Number(admission.balance_amount) || 0),
             0
         );
 
+        const totalElement = $("totalAdmissions");
+        const confirmedElement = $("confirmedAdmissions");
+        const pendingElement = $("pendingAdmissions");
+        const balanceElement = $("totalBalance");
 
-    document.getElementById(
-        "confirmedAdmissions"
-    ).textContent = confirmed;
+        if (totalElement) {
+            totalElement.textContent = total;
+        }
+
+        if (confirmedElement) {
+            confirmedElement.textContent = confirmed;
+        }
+
+        if (pendingElement) {
+            pendingElement.textContent = pending;
+        }
+
+        if (balanceElement) {
+            balanceElement.textContent = formatMoney(totalBalance);
+        }
+    }
 
 
-    document.getElementById(
-        "pendingAdmissions"
-    ).textContent = pending;
+    /*--- LOAD ADMISSIONS FROM BACKEND ---*/
+    async function loadAdmissions() {
+        if (!tableBody) {
+            console.error(
+                "Admissions table body not found. Expected admissionsTableBody or admissionsBody."
+            );
+            return;
+        }
+
+        showTableMessage("Loading admissions...");
+
+        try {
+            const data = await apiRequest("/employee/admissions");
+
+            allAdmissions = Array.isArray(data.admissions)
+                ? data.admissions
+                : [];
+
+            currentPage = 1;
+
+            populateCourseFilter();
+            updateAdmissionSummary();
+            applyFilters();
+
+            showCreatedMessage();
+
+        } catch (error) {
+            console.error("Failed to load admissions:", error);
+
+            showTableMessage(error.message, true);
+            updateRecordSummary(0, 0);
+
+            const pagination = $("pagination");
+
+            if (pagination) {
+                pagination.replaceChildren();
+            }
+
+            const paginationInfo = $("paginationInfo");
+
+            if (paginationInfo) {
+                paginationInfo.textContent = "Unable to load admissions.";
+            }
+        }
+    }
 
 
-    document.getElementById(
-        "totalBalance"
-    ).textContent =
-        `₹${balance.toLocaleString("en-IN")}`;
+    /*--- FILTER ADMISSIONS ---*/
+    function applyFilters(resetPage = true) {
+        if (resetPage) {
+            currentPage = 1;
+        }
+
+        const searchTerm = normalize(searchInput?.value || "");
+        const selectedCourse = normalize(courseFilter?.value || "");
+        const selectedStatus = normalize(statusFilter?.value || "");
+        const selectedDate = dateFilter?.value || "";
+
+        filteredAdmissions = allAdmissions.filter(admission => {
+            const studentName = normalize(admission.student_name);
+            const mobile = normalize(admission.mobile);
+            const course = normalize(admission.course);
+            const status = normalize(admission.admission_status);
+            const joiningDate = dateKey(admission.joining_date);
+
+            const matchesSearch =
+                !searchTerm ||
+                studentName.includes(searchTerm) ||
+                mobile.includes(searchTerm) ||
+                course.includes(searchTerm);
+
+            const matchesCourse =
+                !selectedCourse ||
+                course === selectedCourse;
+
+            const matchesStatus =
+                !selectedStatus ||
+                status === selectedStatus;
+
+            const matchesDate =
+                !selectedDate ||
+                joiningDate === selectedDate;
+
+            return (
+                matchesSearch &&
+                matchesCourse &&
+                matchesStatus &&
+                matchesDate
+            );
+        });
+
+        const totalPages = Math.max(
+            1,
+            Math.ceil(filteredAdmissions.length / rowsPerPage)
+        );
+
+        if (currentPage > totalPages) {
+            currentPage = totalPages;
+        }
+
+        renderAdmissions();
+    }
 
 
-    if (!admissions.length) {
+    /*--- RENDER TABLE ---*/
+    function renderAdmissions() {
+    if (!tableBody) return;
 
-        tableBody.innerHTML = `
+    tableBody.replaceChildren();
 
-            <tr>
+    const total = filteredAdmissions.length;
 
-                <td
-                    colspan="9"
-                    class="EMP-MyAD-table-empty">
+    if (total === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
 
-                    <i class="fa-solid fa-user-check"></i>
+        cell.colSpan = 9;
+        cell.className = "admissions-empty";
 
-                    No admissions found.
+        cell.textContent = allAdmissions.length === 0
+            ? "No admissions found for your account."
+            : "No admissions match your filters.";
 
-                </td>
+        row.appendChild(cell);
+        tableBody.appendChild(row);
 
-            </tr>
-
-        `;
-
-        document.getElementById(
-            "recordSummary"
-        ).textContent =
-            "Showing 0 records";
-
+        updateRecordSummary(0, 0);
+        renderPagination();
         return;
-
     }
 
-
-    tableBody.innerHTML =
-        admissions.map(
-            (admission, index) => `
-
-            <tr>
-
-                <td>
-                    ${index + 1}
-                </td>
-
-                <td>
-
-                    <strong>
-                        ${escapeHtml(
-                            admission.student_name || "-"
-                        )}
-                    </strong>
-
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        admission.mobile || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        admission.course || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        admission.joining_date
-                    )}
-                </td>
-
-                <td>
-                    ₹${Number(
-                        admission.final_fee || 0
-                    ).toLocaleString("en-IN")}
-                </td>
-
-                <td>
-                    ₹${Number(
-                        admission.balance_amount || 0
-                    ).toLocaleString("en-IN")}
-                </td>
-
-                <td>
-
-                    <span class="crm-status ${getStatusClass(
-                        admission.admission_status
-                    )}">
-
-                        ${escapeHtml(
-                            admission.admission_status || "-"
-                        )}
-
-                    </span>
-
-                </td>
-
-                <td>
-
-                    <button
-                        class="crm-action-btn"
-                        onclick="viewAdmission(${admission.id})"
-                        title="View Admission">
-
-                        <i class="fa-solid fa-eye"></i>
-
-                    </button>
-
-                </td>
-
-            </tr>
-
-        `
-        ).join("");
-
-
-    document.getElementById(
-        "recordSummary"
-    ).textContent =
-        `Showing ${admissions.length} records`;
-
-}
-
-
-// ======================================
-// VIEW ADMISSION
-// ======================================
-
-function viewAdmission(id) {
-
-    window.location.href =
-        `view-admission.html?id=${id}`;
-
-}
-
-
-// ======================================
-// STATUS CLASS
-// ======================================
-
-function getStatusClass(status) {
-
-    switch (status) {
-
-        case "Confirmed":
-            return "completed";
-
-        case "Pending":
-            return "pending";
-
-        case "Cancelled":
-            return "cancelled";
-
-        default:
-            return "pending";
-
-    }
-
-}
-
-
-// ======================================
-// FORMAT DATE
-// ======================================
-
-function formatDate(date) {
-
-    if (!date)
-        return "-";
-
-
-    const d =
-        new Date(date);
-
-
-    if (isNaN(d))
-        return date;
-
-
-    return d.toLocaleDateString(
-        "en-IN",
-        {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        }
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const pageRows = filteredAdmissions.slice(
+        startIndex,
+        startIndex + rowsPerPage
     );
 
-}
+    pageRows.forEach(admission => {
+        const row = document.createElement("tr");
+
+        /*--- Columns 1–7 ---*/
+        const values = [
+            admission.id,
+            admission.student_name || "-",
+            admission.mobile || "-",
+            admission.course || "-",
+            formatDate(admission.joining_date),
+            formatMoney(admission.final_fee),
+            formatMoney(admission.balance_amount)
+        ];
+
+        values.forEach(value => {
+            const cell = document.createElement("td");
+            cell.textContent = String(value ?? "-");
+            row.appendChild(cell);
+        });
+
+        /*--- Column 8: Status ---*/
+        const statusCell = document.createElement("td");
+        const badge = document.createElement("span");
+
+        badge.className = `Emp-my-admission-status ${statusClass(admission.admission_status)}`;
+
+        badge.textContent = admission.admission_status || "Pending";
+
+        statusCell.appendChild(badge);
+        row.appendChild(statusCell);
+
+        
+        const actionCell = document.createElement("td");
+        const actionWrapper = document.createElement("div");
+
+            actionWrapper.className = "Emp-my-admissions-actions";
+
+        /*--- View button ---*/
+        const viewBtn = document.createElement("button");
+            viewBtn.type = "button";
+            viewBtn.className = "emp-myadmissions-btn-view";
+            viewBtn.title = "View Admission";
+            viewBtn.setAttribute("aria-label", "View Admission");
+            viewBtn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+
+            viewBtn.addEventListener("click", () => {
+                viewAdmission(admission.id);
+        });
 
 
-// ======================================
-// ESCAPE HTML
-// ======================================
+        /*--- Edit button ---*/
+        const editBtn = document.createElement("button");
+            editBtn.type = "button";
+            editBtn.className = "emp-myadmissions-btn-edit";
+            editBtn.title = "Edit Admission";
+            editBtn.setAttribute("aria-label", "Edit Admission");
+            editBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
 
-function escapeHtml(value) {
+            editBtn.addEventListener("click", () => {
+                editAdmission(admission.id);
+        });
 
-    const div =
-        document.createElement("div");
+        actionWrapper.appendChild(viewBtn);
+        actionWrapper.appendChild(editBtn);
 
-    div.textContent =
-        value ?? "";
+        actionCell.appendChild(actionWrapper);
+        row.appendChild(actionCell);
 
-    return div.innerHTML;
+            tableBody.appendChild(row);
+        });
 
-}
-
-
-// ======================================
-// NOTIFICATION COUNT
-// ======================================
-
-async function loadNotificationCount() {
-
-    const count =
-        document.getElementById(
-            "headerNotificationCount"
-        );
-
-    if (!count)
-        return;
+        updateRecordSummary(startIndex, pageRows.length);
+        renderPagination();
+    }
 
 
-    try {
+    /*--- DOCUMENT LINKS ---*/
+    function createDocumentsCell(value) {
+        const cell = document.createElement("td");
 
-        const response =
-            await fetch(
-                `${API_BASE}/notifications/today`
-            );
+        let documents = [];
 
+        try {
+            if (Array.isArray(value)) {
+                documents = value;
+            } else if (typeof value === "string") {
+                const trimmed = value.trim();
 
-        const data =
-            await response.json();
+                if (trimmed.startsWith("[")) {
+                    const parsed = JSON.parse(trimmed);
 
-
-        if (data.success) {
-
-            count.textContent =
-                Number(
-                    data.summary?.total_notifications || 0
-                );
-
+                    if (Array.isArray(parsed)) {
+                        documents = parsed;
+                    }
+                } else if (
+                    trimmed.startsWith("/uploads/admissions/")
+                ) {
+                    documents = [trimmed];
+                }
+            }
+        } catch (error) {
+            console.warn("Unable to read admission documents:", error);
         }
 
-    }
-    catch (error) {
+        const validDocuments = documents
+            .map(item => {
+                if (typeof item === "string") return item;
 
-        console.error(
-            "Notification error:",
-            error
-        );
+                if (item && typeof item === "object") {
+                    return item.url || item.path || item.file_path || "";
+                }
 
-    }
-
-}
-
-
-// ======================================
-// OPEN NOTIFICATIONS
-// ======================================
-
-function openNotifications() {
-
-    window.location.href =
-        "my-notifications.html";
-
-}
-
-
-// ======================================
-// LOGOUT
-// ======================================
-
-function logoutEmployee(event) {
-
-    if (event)
-        event.preventDefault();
-
-
-    localStorage.removeItem(
-        "crmToken"
-    );
-
-    localStorage.removeItem(
-        "crmUser"
-    );
-
-
-    window.location.href =
-        "login.html";
-
-}
-
-
-// ======================================
-// MOBILE SIDEBAR
-// ======================================
-
-function setupMobileMenu() {
-
-    const menuBtn =
-        document.getElementById(
-            "menuBtn"
-        );
-
-    const sidebar =
-        document.getElementById(
-            "crmSidebar"
-        );
-
-    const overlay =
-        document.getElementById(
-            "crmSidebarOverlay"
-        );
-
-
-    if (!menuBtn ||
-        !sidebar ||
-        !overlay) {
-
-        return;
-
-    }
-
-
-    menuBtn.addEventListener(
-        "click",
-        () => {
-
-            sidebar.classList.toggle(
-                "active"
+                return "";
+            })
+            .filter(url =>
+                typeof url === "string" &&
+                url.startsWith("/uploads/admissions/")
             );
 
-            overlay.classList.toggle(
-                "active"
-            );
-
+        if (validDocuments.length === 0) {
+            cell.textContent = "-";
+            return cell;
         }
-    );
+
+        validDocuments.forEach((url, index) => {
+            const link = document.createElement("a");
+
+            link.className = "doc-link";
+            link.href = API_ORIGIN + url;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = `File ${index + 1}`;
+
+            cell.appendChild(link);
+        });
+
+        return cell;
+    }
 
 
-    overlay.addEventListener(
-        "click",
-        () => {
+    /*--- RECORD COUNT ---*/
+    function updateRecordSummary(startIndex, displayedCount) {
+        const total = filteredAdmissions.length;
 
-            sidebar.classList.remove(
-                "active"
-            );
+        const start = total === 0 ? 0 : startIndex + 1;
+        const end = startIndex + displayedCount;
 
-            overlay.classList.remove(
-                "active"
-            );
+        const message = `Showing ${start}–${end} of ${total} admissions`;
 
+        const recordSummary = $("recordSummary");
+        const paginationInfo = $("paginationInfo");
+
+        if (recordSummary) {
+            recordSummary.textContent = message;
         }
-    );
 
-}
+        if (paginationInfo) {
+            paginationInfo.textContent =
+                total === 0
+                    ? "No records to display"
+                    : message;
+        }
+    }
 
 
-// ======================================
-// INITIALIZE
-// ======================================
+    /*--- PAGINATION ---*/
+    function renderPagination() {
+        const pagination = $("pagination");
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+        if (!pagination) return;
+
+        pagination.replaceChildren();
+
+        const totalPages = Math.ceil(
+            filteredAdmissions.length / rowsPerPage
+        );
+
+        if (totalPages <= 1) return;
+
+        function addPageButton(label, page, disabled = false, active = false) {
+            const button = document.createElement("button");
+
+            button.type = "button";
+            button.textContent = label;
+            button.disabled = disabled;
+
+            if (active) {
+                button.classList.add("active");
+            }
+
+            button.addEventListener("click", () => {
+                currentPage = page;
+                renderAdmissions();
+            });
+
+            pagination.appendChild(button);
+        }
+
+        addPageButton(
+            "Previous",
+            currentPage - 1,
+            currentPage === 1
+        );
+
+        for (let page = 1; page <= totalPages; page++) {
+            addPageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
+            );
+        }
+
+        addPageButton(
+            "Next",
+            currentPage + 1,
+            currentPage === totalPages
+        );
+    }
+
+
+    /*--- TABLE MESSAGES ---*/
+    function showTableMessage(message, isError = false) {
+        if (!tableBody) return;
+
+        tableBody.replaceChildren();
+
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 9;
+        cell.className = "admissions-empty";
+        cell.textContent = message;
+
+        if (isError) {
+            cell.style.color = "#b91c1c";
+        }
+
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+    }
+
+
+    /*--- SUCCESS MESSAGE AFTER ADDING ADMISSION ---*/
+    function showCreatedMessage() {
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("created") !== "1") return;
+
+        const message = $("pageMessage");
+
+        if (message) {
+            message.textContent = "Admission saved successfully.";
+            message.className = "admissions-message show";
+            message.style.background = "#dcfce7";
+            message.style.color = "#166534";
+        }
+
+        window.history.replaceState(
+            null,
+            "",
+            window.location.pathname
+        );
+    }
+
+
+    /*--- NOTIFICATION COUNT ---*/
+    async function loadNotificationCount() {
+        const countElement = $("headerNotificationCount");
+
+        if (!countElement) return;
+
+        try {
+            const data = await apiRequest("/notifications/today");
+
+            countElement.textContent = Number(data.summary?.total_notifications) || 0;
+
+        } catch (error) {
+            console.warn("Unable to load notification count:", error);
+        }
+    }
+
+
+    /*--- MOBILE SIDEBAR ---*/
+    function setupMobileMenu() {
+        const menuButton = $("menuBtn");
+        const sidebar = $("crmSidebar");
+        const overlay = $("crmSidebarOverlay");
+
+        if (menuButton && sidebar && overlay) {
+            menuButton.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+                overlay.classList.toggle("active");
+            });
+
+            overlay.addEventListener("click", () => {
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+        }
+
+        document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const dropdown = button.closest(".crm-dropdown");
+
+                if (dropdown) {
+                    dropdown.classList.toggle("active");
+                }
+            });
+
+            button.addEventListener("keydown", event => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    button.click();
+                }
+            });
+        });
+    }
+
+
+    /*--- RESET FILTERS ---*/
+    function resetFilters() {
+        if (searchInput) searchInput.value = "";
+        if (courseFilter) courseFilter.value = "";
+        if (statusFilter) statusFilter.value = "";
+        if (dateFilter) dateFilter.value = "";
+
+        currentPage = 1;
+        applyFilters();
+    }
+
+
+    /*--- INITIALIZE PAGE ---*/
+    function init() {
+        const user = getCurrentUser();
+        const token = localStorage.getItem("crmToken");
+
+        if (!token || !user) {
+            logout();
+            return;
+        }
+
+        if (!["Counsellor", "Staff"].includes(user.role)) {
+            if (user.role === "Admin") {
+                window.location.href = "dashboard-crm.html";
+            } else {
+                logout();
+            }
+
+            return;
+        }
 
         loadEmployeeInfo();
-
-        loadAdmissions();
-
-        loadNotificationCount();
-
         setupMobileMenu();
 
+        /*--- Search as the user types. ---*/
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                applyFilters();
+            });
+
+            searchInput.addEventListener("keydown", event => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    applyFilters();
+                }
+            });
+        }
+
+
+        /*--- Search / Apply Filter button. ---*/
+        if (searchButton) {
+            searchButton.addEventListener("click", () => {
+                applyFilters();
+            });
+        }
+
+
+        /*--- Update results when a filter changes. ---*/
+        if (courseFilter) {
+            courseFilter.addEventListener("change", () => {
+                applyFilters();
+            });
+        }
+
+        if (statusFilter) {
+            statusFilter.addEventListener("change", () => {
+                applyFilters();
+            });
+        }
+
+        if (dateFilter) {
+            dateFilter.addEventListener("change", () => {
+                applyFilters();
+            });
+        }
+
+
+        /*--- Reset button. ---*/
+        if (resetButton) {
+            resetButton.addEventListener("click", resetFilters);
+        }
+
+
+        /*--- Support the Refresh button used in the alternative HTML. ---*/
+        if (refreshButton) {
+            refreshButton.addEventListener("click", loadAdmissions);
+        }
+
+        const addButton = $("addAdmissionButton");
+
+        if (addButton) {
+            addButton.addEventListener("click", () => {
+                window.location.href = "new-admission.html";
+            });
+        }
+
+        const notificationButton = $("notificationButton");
+
+        if (notificationButton) {
+            notificationButton.addEventListener("click", () => {
+                window.location.href = "my-notifications.html";
+            });
+        }
+
+        const logoutButton = $("logoutButton");
+
+        if (logoutButton) {
+            logoutButton.addEventListener("click", event => {
+                event.preventDefault();
+
+                if (confirm("Are you sure you want to log out?")) {
+                    logout();
+                }
+            });
+        }
+
+        loadAdmissions();
+        loadNotificationCount();
     }
-);
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+
+        init();
+    }
+
+    function viewAdmission(id) {
+
+        window.location.href =`view-admission.html?id=${encodeURIComponent(id)}`;
+    }
+
+    function editAdmission(id) {
+
+        window.location.href = `edit-admission.html?id=${encodeURIComponent(id)}`;
+    }
+
+})();
 
 </script>
 
