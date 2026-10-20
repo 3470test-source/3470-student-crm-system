@@ -301,13 +301,6 @@ dropdowns.forEach(dropdown => {
 
 
 
-
-
-
-
-
-
-
 <!-- Employee - My enquiries - JS -->
 <script>
        
@@ -328,7 +321,6 @@ dropdowns.forEach(dropdown => {
         const tableBody = document.getElementById("enquiriesTableBody");
         const recordCount = document.getElementById("recordCount");
         const pagination = document.getElementById("enquiriesPagination");
-
 
         /*--- AUTHENTICATION ---*/
         function getToken() {
@@ -649,8 +641,7 @@ dropdowns.forEach(dropdown => {
 
                 cell.colSpan = 8;
                 cell.className = "table-empty";
-                cell.innerHTML =
-                    '<i class="fa-solid fa-inbox"></i> No enquiries found.';
+                cell.innerHTML = '<i class="fa-solid fa-inbox"></i> No enquiries found.';
 
                 row.appendChild(cell);
                 tableBody.appendChild(row);
@@ -688,7 +679,6 @@ dropdowns.forEach(dropdown => {
                 viewButton.addEventListener("click", () => {
                     viewEnquiry(enquiry.id);
                 });
-
 
 
                 /*--- Edit button ---*/
@@ -923,19 +913,27 @@ dropdowns.forEach(dropdown => {
                 `view-enquiry.html?id=${encodeURIComponent(id)}`;
         }
 
-        /*--- LOGOUT ---*/
+        
+        /*--- LOGOUT WITH CONFIRMATION ---*/
         const logoutButton = document.getElementById("logoutButton");
 
-        if (logoutButton) {
-            logoutButton.addEventListener("click", function (event) {
-                event.preventDefault();
+            if (logoutButton) {
+                logoutButton.addEventListener("click", function (event) {
+                    event.preventDefault();
 
-                localStorage.removeItem("crmToken");
-                localStorage.removeItem("crmUser");
+            const confirmed = confirm("Are you sure you want to logout?");
 
-                window.location.href = "login.html";
-            });
-        }
+            if (!confirmed) {
+                return;
+            }
+
+            localStorage.removeItem("crmToken");
+            localStorage.removeItem("crmUser");
+
+            window.location.href = "login.html";
+
+        });
+    }
 
 
         /*--- SIDEBAR ---*/
@@ -965,6 +963,34 @@ dropdowns.forEach(dropdown => {
             window.location.href = "my-notifications.html";
         }
 
+
+        /*--- NOTIFICATION COUNT: MATCH MY NOTIFICATIONS PAGE ---*/
+        async function loadNotificationCount() {
+
+            const countElement = document.getElementById("headerNotificationCount");
+
+            if (!countElement) return;
+
+            try {
+                const data = await apiRequest(`${API_BASE_URL}/api/employee/notifications`);
+
+                const notifications = Array.isArray(data.notifications)
+                ? data.notifications
+                : [];
+
+                countElement.textContent = notifications.length;
+
+            } catch (error) {
+                console.error(
+                    "Unable to load notification count:",
+                    error.message
+                );
+
+            countElement.textContent = "0";
+        }
+    }
+
+
         /*--- INITIALIZE ---*/
         document.addEventListener("DOMContentLoaded", () => {
             console.log("Initializing My Enquiries page...");
@@ -974,7 +1000,9 @@ dropdowns.forEach(dropdown => {
             }
 
             setEmployeeHeader();
+
             loadEnquiries();
+            loadNotificationCount();
         });
 
 </script>

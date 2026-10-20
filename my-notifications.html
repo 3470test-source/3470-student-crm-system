@@ -299,15 +299,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
 <!-- Side bar dropdown JS - Script -->
 <script>
     const dropdowns = document.querySelectorAll(".crm-dropdown");
@@ -335,31 +326,23 @@ dropdowns.forEach(dropdown => {
 
 
 
-<!-- =====================================================
-     JAVASCRIPT
-     ===================================================== -->
-
+<!-- My Notifications - JS -->
 <script>
+
     const API_BASE = "http://localhost:3000/api";
 
-const token = localStorage.getItem("crmToken");
+    const token = localStorage.getItem("crmToken");
 
-let allNotifications = [];
+    let allNotifications = [];
 
 
-// =====================================================
-// LOGIN CHECK
-// =====================================================
-
+/*--- LOGIN CHECK ---*/
 if (!token) {
     window.location.href = "login.html";
 }
 
 
-// =====================================================
-// EMPLOYEE INFORMATION
-// =====================================================
-
+/*--- EMPLOYEE INFORMATION ---*/
 function loadEmployeeInfo() {
 
     const storedUser = localStorage.getItem("crmUser");
@@ -384,24 +367,12 @@ function loadEmployeeInfo() {
             "Employee";
 
 
-        const employeeName =
-            document.getElementById("employeeName");
-
-        const employeeRole =
-            document.getElementById("employeeRole");
-
-        const profileAvatar =
-            document.getElementById("profileAvatar");
-
-        const sidebarAvatar =
-            document.getElementById("sidebarAvatar");
-
-        const sidebarEmployeeName =
-            document.getElementById("sidebarEmployeeName");
-
-        const sidebarEmployeeRole =
-            document.getElementById("sidebarEmployeeRole");
-
+        const employeeName = document.getElementById("employeeName");
+        const employeeRole = document.getElementById("employeeRole");
+        const profileAvatar = document.getElementById("profileAvatar");
+        const sidebarAvatar = document.getElementById("sidebarAvatar");
+        const sidebarEmployeeName = document.getElementById("sidebarEmployeeName");
+        const sidebarEmployeeRole = document.getElementById("sidebarEmployeeRole");
 
         if (employeeName) {
             employeeName.textContent = name;
@@ -412,13 +383,11 @@ function loadEmployeeInfo() {
         }
 
         if (profileAvatar) {
-            profileAvatar.textContent =
-                name.charAt(0).toUpperCase();
+            profileAvatar.textContent = name.charAt(0).toUpperCase();
         }
 
         if (sidebarAvatar) {
-            sidebarAvatar.textContent =
-                name.charAt(0).toUpperCase();
+            sidebarAvatar.textContent = name.charAt(0).toUpperCase();
         }
 
         if (sidebarEmployeeName) {
@@ -440,19 +409,14 @@ function loadEmployeeInfo() {
 }
 
 
-// =====================================================
-// LOAD EMPLOYEE NOTIFICATIONS
-// =====================================================
-
+/*--- LOAD EMPLOYEE NOTIFICATIONS ---*/
 async function loadEmployeeNotifications() {
 
-    const list =
-        document.getElementById("notificationList");
+    const list = document.getElementById("notificationList");
 
     try {
 
-        const response = await fetch(
-            `${API_BASE}/employee/notifications`,
+        const response = await fetch(`${API_BASE}/employee/notifications`,
             {
                 method: "GET",
 
@@ -466,12 +430,10 @@ async function loadEmployeeNotifications() {
 
         const data = await response.json();
 
-
         console.log(
             "🔔 Employee Notifications:",
             data
         );
-
 
         if (!response.ok || !data.success) {
 
@@ -482,10 +444,7 @@ async function loadEmployeeNotifications() {
 
         }
 
-
-        allNotifications =
-            data.notifications || [];
-
+        allNotifications = data.notifications || [];
 
         updateSummary(
             data.summary || {}
@@ -507,78 +466,36 @@ async function loadEmployeeNotifications() {
         list.innerHTML = `
 
             <div class="notification-empty notification-error">
-
                 <i class="fa-solid fa-triangle-exclamation"></i>
-
                 ${escapeHtml(error.message)}
-
             </div>
 
         `;
 
-        document.getElementById(
-            "notificationCountText"
-        ).textContent =
-            "Unable to load notifications.";
+        document.getElementById("notificationCountText").textContent = "Unable to load notifications.";
 
     }
 }
 
 
-// =====================================================
-// UPDATE SUMMARY
-// =====================================================
-
+/*--- UPDATE SUMMARY ---*/
 function updateSummary(summary) {
 
-    document.getElementById(
-        "totalNotifications"
-    ).textContent =
-        Number(summary.total_notifications || 0);
+    document.getElementById("totalNotifications").textContent = Number(summary.total_notifications || 0);
+    document.getElementById("todayFollowups").textContent = Number(summary.today_followups || 0);
+    document.getElementById("missedFollowups").textContent = Number(summary.missed_followups || 0);
+    document.getElementById("upcomingFollowups").textContent = Number(summary.upcoming_followups || 0);
+    document.getElementById("headerNotificationCount").textContent = Number(summary.total_notifications || 0);
 
-
-    document.getElementById(
-        "todayFollowups"
-    ).textContent =
-        Number(summary.today_followups || 0);
-
-
-    document.getElementById(
-        "missedFollowups"
-    ).textContent =
-        Number(summary.missed_followups || 0);
-
-
-    document.getElementById(
-        "upcomingFollowups"
-    ).textContent =
-        Number(summary.upcoming_followups || 0);
-
-
-    document.getElementById(
-        "headerNotificationCount"
-    ).textContent =
-        Number(summary.total_notifications || 0);
 }
 
 
-// =====================================================
-// RENDER NOTIFICATIONS
-// =====================================================
-
+/*--- RENDER NOTIFICATIONS ---*/
 function renderNotifications(notifications) {
 
-    const list =
-        document.getElementById(
-            "notificationList"
-        );
+    const list = document.getElementById("notificationList");
 
-
-    document.getElementById(
-        "notificationCountText"
-    ).textContent =
-        `${notifications.length} notification(s)`;
-
+    document.getElementById("notificationCountText").textContent = `${notifications.length} notification(s)`;
 
     if (!notifications.length) {
 
@@ -615,19 +532,13 @@ function renderNotifications(notifications) {
 }
 
 
-// =====================================================
-// CREATE NOTIFICATION HTML
-// =====================================================
 
+/*--- CREATE NOTIFICATION HTML ---*/
 function createNotificationHTML(notification) {
 
-    const type =
-        notification.type || "info";
+    const type = notification.type || "info";
 
-
-    let icon =
-        "fa-circle-info";
-
+    let icon = "fa-circle-info";
 
     if (type === "follow-up") {
 
@@ -654,22 +565,15 @@ function createNotificationHTML(notification) {
 
     let action = "";
 
-
     if (notification.link) {
 
         action = `
 
             <div class="EMP-MyNotification-action">
 
-                <button
-                    type="button"
-                    class="EMP-MyNotification-view-btn"
-                    onclick="openNotification('${escapeAttribute(notification.link)}')">
-
-                    View
-
+                <button type="button" class="EMP-MyNotification-view-btn"
+                    onclick="openNotification('${escapeAttribute(notification.link)}')">View
                     <i class="fa-solid fa-arrow-right"></i>
-
                 </button>
 
             </div>
@@ -684,9 +588,7 @@ function createNotificationHTML(notification) {
         <div class="EMP-MyNotification ${escapeHtml(type)}">
 
             <div class="Emp-MyNotification-icon">
-
                 <i class="fa-solid ${icon}"></i>
-
             </div>
 
 
@@ -700,7 +602,6 @@ function createNotificationHTML(notification) {
 
                 </h3>
 
-
                 <p class="EMP-MyNotification-message">
 
                     ${escapeHtml(
@@ -708,7 +609,6 @@ function createNotificationHTML(notification) {
                     )}
 
                 </p>
-
 
                 <span class="EMP-MyNotification-time">
 
@@ -720,7 +620,6 @@ function createNotificationHTML(notification) {
 
             </div>
 
-
             ${action}
 
         </div>
@@ -729,13 +628,9 @@ function createNotificationHTML(notification) {
 }
 
 
-// =====================================================
-// FILTER
-// =====================================================
 
-document.addEventListener(
-    "change",
-    function (event) {
+/*--- FILTER ---*/
+document.addEventListener("change", function (event) {
 
         if (
             event.target.id !==
@@ -744,10 +639,7 @@ document.addEventListener(
             return;
         }
 
-
-        const selectedType =
-            event.target.value;
-
+        const selectedType = event.target.value;
 
         if (!selectedType) {
 
@@ -758,7 +650,6 @@ document.addEventListener(
             return;
         }
 
-
         const filtered =
             allNotifications.filter(
                 notification =>
@@ -766,17 +657,13 @@ document.addEventListener(
                     selectedType
             );
 
-
         renderNotifications(filtered);
 
     }
 );
 
 
-// =====================================================
-// OPEN NOTIFICATION
-// =====================================================
-
+/*--- OPEN NOTIFICATION ---*/
 function openNotification(link) {
 
     if (!link) {
@@ -787,52 +674,44 @@ function openNotification(link) {
 }
 
 
-// =====================================================
-// OPEN NOTIFICATIONS
-// =====================================================
-
+/*--- OPEN NOTIFICATIONS ---*/
 function openNotifications() {
 
-    window.location.href =
-        "my-notifications.html";
+    window.location.href = "my-notifications.html";
+
 }
 
 
-// =====================================================
-// LOGOUT
-// =====================================================
-
+/*--- LOGOUT WITH CONFIRMATION ---*/
 function logoutEmployee(event) {
 
     if (event) {
         event.preventDefault();
     }
 
+    const confirmed = confirm(
+        "Are you sure you want to logout?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
     localStorage.removeItem("crmToken");
     localStorage.removeItem("crmUser");
 
-    window.location.href =
-        "login.html";
+    window.location.href = "login.html";
 }
 
 
-// =====================================================
-// MOBILE SIDEBAR
-// =====================================================
-
+/*--- MOBILE SIDEBAR ---*/
 function setupMobileMenu() {
 
-    const menuBtn =
-        document.getElementById("menuBtn");
+    const menuBtn = document.getElementById("menuBtn");
 
-    const sidebar =
-        document.getElementById("crmSidebar");
+    const sidebar = document.getElementById("crmSidebar");
 
-    const overlay =
-        document.getElementById(
-            "crmSidebarOverlay"
-        );
-
+    const overlay = document.getElementById("crmSidebarOverlay");
 
     if (!menuBtn ||
         !sidebar ||
@@ -841,25 +720,21 @@ function setupMobileMenu() {
         return;
     }
 
-
     menuBtn.addEventListener(
         "click",
         function () {
 
             sidebar.classList.toggle("active");
-
             overlay.classList.toggle("active");
 
         }
     );
-
 
     overlay.addEventListener(
         "click",
         function () {
 
             sidebar.classList.remove("active");
-
             overlay.classList.remove("active");
 
         }
@@ -867,14 +742,10 @@ function setupMobileMenu() {
 }
 
 
-// =====================================================
-// ESCAPE HTML
-// =====================================================
-
+/*--- ESCAPE HTML ---*/
 function escapeHtml(value) {
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
     div.textContent =
         value ?? "";
@@ -883,10 +754,7 @@ function escapeHtml(value) {
 }
 
 
-// =====================================================
-// ESCAPE ATTRIBUTE
-// =====================================================
-
+/*--- ESCAPE ATTRIBUTE ---*/
 function escapeAttribute(value) {
 
     return String(value ?? "")
@@ -895,22 +763,16 @@ function escapeAttribute(value) {
 }
 
 
-// =====================================================
-// INITIALIZE
-// =====================================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+/*--- INITIALIZE ---*/
+document.addEventListener("DOMContentLoaded", function () {
 
         loadEmployeeInfo();
-
         loadEmployeeNotifications();
-
         setupMobileMenu();
 
     }
 );
+
 </script>
 
 

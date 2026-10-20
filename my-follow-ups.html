@@ -24,7 +24,6 @@
 
     </style>
 
-
 </head>
 <body>
 
@@ -475,7 +474,6 @@ async function apiRequest(url, options = {}) {
 
     }
 
-
     return data;
 
 }
@@ -489,7 +487,6 @@ function loadEmployeeInfo() {
     if (!user) {
 
         redirectToLogin();
-
         return false;
 
     }
@@ -547,7 +544,6 @@ function validateEmployeeAccess() {
     if (!token || !user) {
 
         redirectToLogin();
-
         return false;
 
     }
@@ -559,8 +555,7 @@ function validateEmployeeAccess() {
 
         if (user.role === "Admin") {
 
-            window.location.href =
-                "dashboard-crm.html";
+            window.location.href = "dashboard-crm.html";
 
         } else {
 
@@ -624,7 +619,6 @@ async function loadMyFollowUps() {
         );
 
         loadCourseFilter();
-
         renderFollowUps();
 
     } catch (error) {
@@ -777,7 +771,6 @@ function renderFollowUps() {
 
             </td>
 
-
             <td>
                 ${escapeHtml(
                     followUp.mobile_number ||
@@ -785,7 +778,6 @@ function renderFollowUps() {
                     "-"
                 )}
             </td>
-
 
             <td>
                 ${escapeHtml(
@@ -795,20 +787,17 @@ function renderFollowUps() {
                 )}
             </td>
 
-
             <td>
                 ${formatDate(
                     followUp.follow_up_date
                 )}
             </td>
 
-
             <td>
                 ${formatTime(
                     followUp.follow_up_time
                 )}
             </td>
-
 
             <td>
                 ${escapeHtml(
@@ -817,7 +806,6 @@ function renderFollowUps() {
                     "-"
                 )}
             </td>
-
 
             <td>
                 <span
@@ -837,7 +825,6 @@ function renderFollowUps() {
                         <i class="fa-solid fa-pen"></i>
                     </button>
 
-
                     ${
                         status.toLowerCase() !== "completed"
                         ?
@@ -854,11 +841,9 @@ function renderFollowUps() {
 
         `;
 
-
         tableBody.appendChild(row);
 
     });
-
 
     renderPagination();
 
@@ -1157,38 +1142,36 @@ async function completeFollowUp(id) {
 }
 
 
-/*--- NOTIFICATION COUNT ---*/
+/*--- NOTIFICATION COUNT: SAME API AS MY NOTIFICATIONS ---*/
 async function loadNotificationCount() {
-
     const element = document.getElementById("headerNotificationCount");
 
     if (!element) {
-
         return;
-
     }
 
     try {
+        const data = await apiRequest(`${API_BASE}/employee/notifications`,
+            {
+                method: "GET"
+            }
+        );
 
-        const data = await apiRequest(`${API_BASE}/notifications/today`,
-                {
-                    method: "GET"
-                }
-            );
+        const notifications = Array.isArray(data.notifications)
+            ? data.notifications
+            : [];
 
-        const summary = data.summary || {};
-
-        element.textContent = Number(
-                summary.total_notifications
-            ) || 0;
+        /*--- Match the notification list count. ---*/
+        element.textContent = notifications.length;
 
     } catch (error) {
+        console.error(
+            "Unable to load notification count:",
+            error.message
+        );
 
-        console.error(error);
         element.textContent = "0";
-
     }
-
 }
 
 
@@ -1488,9 +1471,7 @@ function countTodayFollowUps() {
 
 
 /*--- INITIALIZE ---*/
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
+document.addEventListener("DOMContentLoaded", async function () {
 
         console.log(
             "🚀 My Follow-ups initializing..."
@@ -1515,7 +1496,6 @@ document.addEventListener(
         setupMobileMenu();
 
         await loadMyFollowUps();
-
         await loadNotificationCount();
 
         console.log(
@@ -1528,17 +1508,11 @@ document.addEventListener(
 
 /*--- GLOBAL FUNCTIONS ---*/
 window.logoutEmployee = logoutEmployee;
-
 window.openNotifications = openNotifications;
-
 window.goToAddFollowUp = goToAddFollowUp;
-
 window.viewFollowUp = viewFollowUp;
-
 window.editFollowUp = editFollowUp;
-
 window.completeFollowUp = completeFollowUp;
-
 window.applyFilters = applyFilters;
 
 </script>

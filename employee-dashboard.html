@@ -1015,56 +1015,87 @@ function renderDashboardNotifications(notifications) {
 
 
 /*--- HEADER NOTIFICATION COUNT ---*/
+// async function loadNotificationCount() {
+
+//     const countElement = document.getElementById("headerNotificationCount");
+
+//     if (!countElement) {
+//         return;
+//     }
+
+//     try {
+
+//         const data = await apiRequest(
+//             `${API_BASE}/notifications/today`,
+//             {
+//                 method: "GET"
+//             }
+//         );
+
+//         if (!data.success) {
+
+//             throw new Error(
+//                 data.message ||
+//                 "Failed to load notification count."
+//             );
+//         }
+
+//         const summary = data.summary || {};
+
+//         const count =
+//             Number(
+//                 summary.total_notifications
+//             ) || 0;
+
+//         countElement.textContent = count;
+
+//     } catch (error) {
+
+//         console.error(
+//             "❌ Employee Notification Error:",
+//             error
+//         );
+
+//         countElement.textContent = "0";
+//     }
+// }
+
+
+/*--- HEADER NOTIFICATION COUNT ---*/
 async function loadNotificationCount() {
+    const countElement = document.getElementById(
+        "headerNotificationCount"
+    );
 
-    const countElement = document.getElementById("headerNotificationCount");
-
-    if (!countElement) {
-        return;
-    }
+    if (!countElement) return;
 
     try {
-
         const data = await apiRequest(
-            `${API_BASE}/notifications/today`,
+            `${API_BASE}/employee/notifications`,
             {
                 method: "GET"
             }
         );
 
-        if (!data.success) {
+        const notifications = Array.isArray(data.notifications)
+            ? data.notifications
+            : [];
 
-            throw new Error(
-                data.message ||
-                "Failed to load notification count."
-            );
-        }
-
-        const summary = data.summary || {};
-
-        const count =
-            Number(
-                summary.total_notifications
-            ) || 0;
-
-        countElement.textContent = count;
+        countElement.textContent = notifications.length;
 
     } catch (error) {
-
-        console.error(
-            "❌ Employee Notification Error:",
-            error
-        );
-
+        console.error("Notification count error:", error);
         countElement.textContent = "0";
     }
 }
 
 
+
+
 /*--- OPEN NOTIFICATIONS ---*/
 function openNotifications() {
 
-    window.location.href = "today-notifications.html";
+    window.location.href = "my-notifications.html";
 
 }
 
@@ -1076,10 +1107,7 @@ function logoutEmployee(event) {
         event.preventDefault();
     }
 
-    const confirmed =
-        confirm(
-            "Are you sure you want to logout?"
-        );
+    const confirmed = confirm("Are you sure you want to logout?");
 
     if (!confirmed) {
         return;

@@ -585,15 +585,10 @@ async function saveProfile(event) {
     event.preventDefault();
 
     const saveButton = document.getElementById("saveProfileBtn");
-
     const full_name = document.getElementById("full_name").value.trim();
-
     const email = document.getElementById("email").value.trim();
-
     const mobile = document.getElementById("mobile").value.trim();
-
     const department = document.getElementById("department").value.trim();
-
     const address = document.getElementById("address").value.trim();
 
 
@@ -633,11 +628,9 @@ async function saveProfile(event) {
                 },
 
                 body: JSON.stringify({
-                    full_name,
-                    email,
-                    mobile,
-                    department,
-                    address
+
+                    full_name, email, mobile, department, address
+
                 })
             }
         );
@@ -649,9 +642,7 @@ async function saveProfile(event) {
             return;
         }
 
-
         const data = await response.json();
-
 
         if (!data.success) {
 
@@ -661,13 +652,10 @@ async function saveProfile(event) {
             );
         }
 
-
         alert("✅ Profile updated successfully.");
-
 
         /*-- Reload latest profile --*/
         await loadEmployeeProfile();
-
 
     } catch (error) {
 
@@ -698,11 +686,8 @@ async function changePassword(event) {
     event.preventDefault();
 
     const currentPassword = document.getElementById("currentPassword").value;
-
     const newPassword = document.getElementById("newPassword").value;
-
     const confirmPassword = document.getElementById("confirmPassword").value;
-
     const button = document.getElementById("changePasswordBtn");
 
     if (!currentPassword ||
@@ -714,27 +699,21 @@ async function changePassword(event) {
         return;
     }
 
-
     if (newPassword.length < 6) {
 
         alert("New password must be at least 6 characters.");
-
         return;
     }
-
 
     if (newPassword !== confirmPassword) {
 
         alert("New password and confirm password do not match.");
-
         return;
     }
-
 
     if (currentPassword === newPassword) {
 
         alert("New password must be different from the current password.");
-
         return;
     }
 
@@ -747,7 +726,6 @@ async function changePassword(event) {
             `<i class="fa-solid fa-spinner fa-spin"></i>
              Updating...`;
 
-
         const response = await fetch(`${API_BASE}/employee/change-password`,
             {
                 method: "PUT",
@@ -758,13 +736,12 @@ async function changePassword(event) {
                 },
 
                 body: JSON.stringify({
-                    currentPassword,
-                    newPassword,
-                    confirmPassword
+
+                    currentPassword, newPassword, confirmPassword
+
                 })
             }
         );
-
 
         if (response.status === 401) {
 
@@ -782,9 +759,7 @@ async function changePassword(event) {
             );
         }
 
-
         alert("✅ Password changed successfully. Please login again.");
-
 
         /*
          * Password change invalidates the current session
@@ -794,7 +769,6 @@ async function changePassword(event) {
         localStorage.removeItem("crmUser");
 
         window.location.href = "login.html";
-
 
     } catch (error) {
 
@@ -874,9 +848,7 @@ function setupPasswordToggles() {
 function setupSidebar() {
 
     const menuBtn = document.getElementById("menuBtn");
-
     const sidebar = document.getElementById("crmSidebar");
-
     const overlay = document.getElementById("crmSidebarOverlay");
 
     if (!menuBtn || !sidebar || !overlay) {
@@ -926,7 +898,6 @@ async function loadNotificationCount() {
 
     if (!countElement) return;
 
-
     try {
 
         const response = await fetch(`${API_BASE}/employee/notifications`,
@@ -945,7 +916,6 @@ async function loadNotificationCount() {
         if (!response.ok) {
             return;
         }
-
 
         const data = await response.json();
 
@@ -976,18 +946,23 @@ function openNotifications() {
 }
 
 
-/*--- LOGOUT ---*/
+/*--- LOGOUT WITH CONFIRMATION ---*/
 function logoutEmployee(event) {
 
     if (event) {
         event.preventDefault();
     }
 
+    const confirmed = confirm("Are you sure you want to logout?");
+
+    if (!confirmed) {
+        return;
+    }
+
     localStorage.removeItem("crmToken");
     localStorage.removeItem("crmUser");
 
-    window.location.href =
-        "login.html";
+    window.location.href = "login.html";
 }
 
 
@@ -1060,15 +1035,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         loadEmployeeProfile();
-
         loadNotificationCount();
-
         setupPasswordToggles();
-
         setupSidebar();
-
 
         const profileForm = document.getElementById("profileForm");
 
@@ -1106,6 +1076,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 );
+
 </script>
 
 

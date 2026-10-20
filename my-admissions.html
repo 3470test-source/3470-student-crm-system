@@ -1120,19 +1120,26 @@
     }
 
 
-    /*--- NOTIFICATION COUNT ---*/
+    /*--- NOTIFICATION COUNT: SAME API AS MY NOTIFICATIONS ---*/
     async function loadNotificationCount() {
+
         const countElement = $("headerNotificationCount");
 
         if (!countElement) return;
 
         try {
-            const data = await apiRequest("/notifications/today");
+            const data = await apiRequest("/employee/notifications");
 
-            countElement.textContent = Number(data.summary?.total_notifications) || 0;
+            const notifications = Array.isArray(data.notifications)
+                ? data.notifications
+                : [];
+
+            /*-- Keep the header count consistent with My Notifications. --*/
+            countElement.textContent = notifications.length;
 
         } catch (error) {
-            console.warn("Unable to load notification count:", error);
+            console.error("Unable to load notification count:", error.message);
+            countElement.textContent = "0";
         }
     }
 

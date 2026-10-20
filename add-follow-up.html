@@ -576,16 +576,36 @@
         window.location.href = "my-notifications.html";
       });
 
+
+      /*--- NOTIFICATION COUNT: MATCH MY NOTIFICATIONS PAGE ---*/
       async function loadNotificationCount() {
-        try {
-          const result = await apiRequest("/notifications/today");
-          document.getElementById("headerNotificationCount").textContent =
-            Number(result.summary?.total_notifications) || 0;
-        } catch (error) {
-          console.warn("Could not load notification count:", error.message);
+
+        const countElement = document.getElementById("headerNotificationCount");
+
+          if (!countElement) return;
+
+          try {
+
+            const result = await apiRequest("/employee/notifications");
+
+            const notifications = Array.isArray(result.notifications)
+            ? result.notifications
+            : [];
+
+            countElement.textContent = notifications.length;
+
+          } catch (error) {
+
+            console.error(
+            "Could not load notification count:",
+            error.message
+          );
+
+          countElement.textContent = "0";
         }
       }
 
+      
       function setDateMinimums() {
         const now = new Date();
         const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;

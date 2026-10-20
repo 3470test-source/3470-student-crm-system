@@ -670,16 +670,12 @@
             discountValue < 0 ||
             discountValue > fee
         ) {
-            showMessage(
-                "Discount must be between zero and the course fee."
-            );
+            showMessage("Discount must be between zero and the course fee.");
             return;
         }
 
         if (paid < 0 || paid > fee - discountValue) {
-            showMessage(
-                "Registration amount cannot exceed the final fee."
-            );
+            showMessage("Registration amount cannot exceed the final fee.");
             return;
         }
 
@@ -698,8 +694,7 @@
         calculateFees();
 
         saveButton.disabled = true;
-        saveButton.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+        saveButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
         try {
             const formData = new FormData(form);
@@ -779,17 +774,27 @@
         overlay.classList.remove("active");
     });
 
-    async function loadNotificationCount() {
-        try {
-            const result = await apiRequest("/notifications/today");
 
-            document.getElementById("headerNotificationCount")
-                .textContent =
-                Number(result.summary?.total_notifications) || 0;
-        } catch (error) {
-            console.warn("Notification count error:", error.message);
+    async function loadNotificationCount() {
+
+        const countElement = document.getElementById("headerNotificationCount");
+
+        try {
+            const result = await apiRequest("/employee/notifications");
+
+            const notifications = Array.isArray(result.notifications)
+                ? result.notifications
+                : [];
+
+            /*-- Match the notification list page's actual notification count. --*/
+            countElement.textContent = notifications.length;
+
+            } catch (error) {
+                console.error("Notification count error:", error.message);
+                countElement.textContent = "0";
         }
     }
+
 
     async function init() {
         if (!validateEmployee()) return;
@@ -825,6 +830,7 @@
         init();
     }
 })();
+
 </script>
 
 
