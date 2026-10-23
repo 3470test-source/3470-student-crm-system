@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee View Admissions Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .emp-message { padding:14px; border-radius:8px; margin-bottom:18px; }
+    .emp-error { color:#991b1b; background:#fee2e2; }
+    .emp-hidden { display:none !important; }
+    .emp-loading { padding:35px; text-align:center; color:#64748b; }
+       
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+  
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" id="notificationButton">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>My Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>My Follow-ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+                    </div>
+
+                </div>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- Employee - View Admission -->
+            <main class="EMP-dashboard-main">
+
+                <div class="emp-viewAdmission-Header">
+                    <div>
+                        <h1>View Admission</h1>
+                        <p>Review your student's admission details.</p>
+                    </div>
+
+                    <button class="emp-btn-viewAdm emp-viewAdm-secondary" id="backBtn"><i class="fa fa-arrow-left"></i> My Admissions</button>
+                </div>
+
+
+                <div id="loading" class="emp-loading"><i class="fa fa-spinner fa-spin"></i> Loading admission...</div>
+                <div id="errorBox" class="emp-message emp-error emp-hidden" role="alert"></div>
+
+
+                <div id="admissionContent" class="emp-hidden">
+
+                    <!-- Student Information -->
+                    <section class="emp-card-view-admission">
+                        <h2><i class="fa fa-user-graduate"></i> Student Information</h2>
+                        <div class="emp-grid-viewAdmission">
+                            <div><span class="emp-label-viewAdmission">Admission ID</span><span class="emp-value-viewAdmission" id="admissionId">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Student Name</span><span class="emp-value-viewAdmission" id="studentName">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Mobile</span><span class="emp-value-viewAdmission" id="mobile">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Email</span><span class="emp-value-viewAdmission" id="email">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Gender</span><span class="emp-value-viewAdmission" id="gender">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Date of Birth</span><span class="emp-value-viewAdmission" id="dateOfBirth">—</span></div>
+                        </div>
+                    </section>
+
+                    <!-- Course & Admission Details -->
+                    <section class="emp-card-view-admission">
+                        <h2><i class="fa fa-book-open"></i> Course & Admission Details</h2>
+                        <div class="emp-grid-viewAdmission">
+                            <div><span class="emp-label-viewAdmission">Course</span><span class="emp-value-viewAdmission" id="course">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Batch</span><span class="emp-value-viewAdmission" id="batch">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Joining Date</span><span class="emp-value-viewAdmission" id="joiningDate">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Assigned Employee</span><span class="emp-value-viewAdmission" id="counsellor">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Payment Mode</span><span class="emp-value-viewAdmission" id="paymentMode">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Status</span><span class="emp-value-viewAdmission" id="admissionStatus">—</span></div>
+                        </div>
+                    </section>
+
+                    <!-- Fee Details -->
+                    <section class="emp-card-view-admission">
+                        <h2><i class="fa fa-wallet"></i> Fee Details</h2>
+                        <div class="emp-grid-viewAdmission">
+                            <div><span class="emp-label-viewAdmission">Course Fee</span><span class="emp-value-viewAdmission" id="courseFee">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Discount</span><span class="emp-value-viewAdmission" id="discount">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Final Fee</span><span class="emp-value-viewAdmission" id="finalFee">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Registration Amount</span><span class="emp-value-viewAdmission" id="registrationAmount">—</span></div>
+                            <div><span class="emp-label-viewAdmission">Balance Amount</span><span class="emp-value-viewAdmission" id="balanceAmount">—</span></div>
+                        </div>
+                    </section>
+
+                    <section class="emp-card-view-admission">
+                        <h2><i class="fa fa-comment"></i> Remarks</h2>
+                        <div class="emp-value-viewAdmission" id="remarks">No remarks</div>
+                    </section>
+
+                    <div class="emp-actions">
+                        <button class="emp-btn-viewAdm emp-viewAdm-primary" id="editBtn"><i class="fa fa-pen-to-square"></i> Edit Admission</button>
+                        <button class="emp-btn-viewAdm emp-viewAdm-secondary" id="backBtnBottom"><i class="fa fa-arrow-left"></i> Back</button>
+                    </div>
+
+                </div>
+
+            </main>
+
+        </div>
+
+
+
+<!-- Employee View Admission - JS -->
+<script>
+
+(() => {
+    "use strict";
+
+    const API_BASE = "http://localhost:3000/api";
+    const $ = id => document.getElementById(id);
+    let admission = null;
+
+    function getUser() {
+        try { return JSON.parse(localStorage.getItem("crmUser") || "null"); }
+        catch { return null; }
+    }
+
+
+    function logout() {
+        localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
+        window.location.replace("login.html");
+    }
+
+    function back() { window.location.href = "my-admissions.html"; }
+
+
+    function value(...items) {
+        const found = items.find(item => item !== undefined && item !== null && String(item).trim() !== "");
+        return found === undefined ? "—" : String(found);
+    }
+
+    function set(id, val) { $(id).textContent = val; }
+
+
+    function money(val) {
+        const amount = Number(val ?? 0);
+        return new Intl.NumberFormat("en-IN", {
+            style: "currency", currency: "INR",
+            minimumFractionDigits: 2, maximumFractionDigits: 2
+        }).format(Number.isFinite(amount) ? amount : 0);
+    }
+
+
+    function date(val) {
+        if (!val) return "—";
+        const match = String(val).match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (match) return `${match[3]}-${match[2]}-${match[1]}`;
+        return String(val);
+    }
+
+
+    function showError(message) {
+        $("loading").classList.add("emp-hidden");
+        $("admissionContent").classList.add("emp-hidden");
+        $("errorBox").textContent = message;
+        $("errorBox").classList.remove("emp-hidden");
+    }
+
+
+    function display(a) {
+        admission = a;
+        const courseFee = Number(a.course_fee ?? 0);
+        const discount = Number(a.discount ?? 0);
+        const finalFee = Number(a.final_fee ?? courseFee - discount);
+        const registration = Number(a.registration_amount ?? 0);
+        const balance = Number(a.balance_amount ?? finalFee - registration);
+
+        set("admissionId", value(a.id, a.admission_id));
+        set("studentName", value(a.student_name, a.studentName));
+        set("mobile", value(a.mobile, a.mobile_number));
+        set("email", value(a.email));
+        set("gender", value(a.gender));
+        set("dateOfBirth", date(a.date_of_birth ?? a.dateOfBirth));
+        set("course", value(a.course_name, a.course, a.courseName));
+        set("batch", value(a.batch));
+        set("joiningDate", date(a.joining_date ?? a.joiningDate));
+        set("counsellor", value(a.employee_name, a.counsellor_name, a.counsellor, a.assigned_employee));
+        set("paymentMode", value(a.payment_mode, a.paymentMode));
+        set("courseFee", money(courseFee));
+        set("discount", money(discount));
+        set("finalFee", money(finalFee));
+        set("registrationAmount", money(registration));
+        set("balanceAmount", money(balance));
+        set("remarks", value(a.remarks, a.comments, "No remarks"));
+
+        const status = value(a.admission_status, a.status, "Pending");
+        const badge = document.createElement("span");
+        badge.className = "emp-status-viewAdmission";
+        const normalized = status.toLowerCase();
+        if (normalized === "confirmed") badge.classList.add("confirmed");
+        if (normalized === "cancelled") badge.classList.add("cancelled");
+        badge.textContent = status;
+        $("admissionStatus").replaceChildren(badge);
+
+        $("loading").classList.add("emp-hidden");
+        $("errorBox").classList.add("emp-hidden");
+        $("admissionContent").classList.remove("emp-hidden");
+    }
+
+
+    async function loadAdmission() {
+        const token = localStorage.getItem("crmToken");
+        const user = getUser();
+        if (!token || !user) { logout(); return; }
+
+        const role = String(user.role ?? user.user_role ?? "").toLowerCase();
+        if (role === "admin") { window.location.replace("dashboard-crm.html"); return; }
+        if (!["counsellor", "staff"].includes(role)) {
+            showError("You do not have permission to view this admission."); return;
+        }
+
+        const id = new URLSearchParams(location.search).get("id");
+        if (!id || !/^\d+$/.test(id)) {
+            showError("Invalid admission ID. Return to My Admissions."); return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/employee/admissions/${encodeURIComponent(id)}`, {
+                headers: { "Authorization": `Bearer ${token}`, "Accept": "application/json" }
+            });
+            const raw = await response.text();
+            let result;
+            try { result = JSON.parse(raw); }
+            catch { throw new Error(`API returned a non-JSON response (HTTP ${response.status}). Check the backend route.`); }
+
+            if (response.status === 401) { logout(); return; }
+            if (!response.ok || result.success === false) {
+                throw new Error(result.message || result.error || `Request failed (HTTP ${response.status}).`);
+            }
+
+            const record = result.admission ?? result.data;
+            if (!record) throw new Error("The API response does not contain admission data.");
+            display(record);
+        } catch (error) {
+            console.error("View admission error:", error);
+            showError(error.message || "Unable to load admission.");
+        }
+    }
+
+
+    function setupMenu() {
+        const sidebar = $("crmSidebar"), overlay = $("crmSidebarOverlay");
+        $("menuBtn")?.addEventListener("click", () => {
+            sidebar?.classList.toggle("active");
+            overlay?.classList.toggle("active");
+        });
+        overlay?.addEventListener("click", () => {
+            sidebar?.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+        document.querySelectorAll(".crm-dropdown-btn").forEach(btn => {
+            btn.addEventListener("click", () => btn.closest(".crm-dropdown")?.classList.toggle("active"));
+        });
+    }
+
+
+    async function loadNotificationCount() {
+        const countElement = $("headerNotificationCount");
+        const token = localStorage.getItem("crmToken");
+
+    if (!countElement || !token) return;
+
+    try {
+        const response = await fetch(
+            `${API_BASE}/employee/notifications`,
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json"
+                }
+            }
+        );
+
+        if (response.status === 401) {
+            logout();
+            return;
+        }
+
+        const result = await response.json();
+
+        if (!response.ok || result.success === false) {
+            throw new Error(
+                result.message || "Unable to load notifications."
+            );
+        }
+
+        const notifications = Array.isArray(result.notifications)
+            ? result.notifications
+            : [];
+
+        countElement.textContent = notifications.length;
+
+        } catch (error) {
+            console.error("Notification count error:", error);
+            countElement.textContent = "0";
+        }
+    }
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+    const user = getUser();
+
+    if (user) {
+        const name =
+            user.full_name || user.name || user.username || "Employee";
+
+        set("employeeName", name);
+        set("employeeRole", user.role || user.user_role || "Employee");
+        set("profileAvatar", name.trim().charAt(0).toUpperCase() || "E");
+    }
+
+    setupMenu();
+
+    $("backBtn").addEventListener("click", back);
+    $("backBtnBottom").addEventListener("click", back);
+
+    $("logoutButton").addEventListener("click", event => {
+        event.preventDefault();
+
+         const confirmed = confirm("Are you sure you want to log out?");
+
+    if (confirmed) {
+        logout();
+    }
+    });
+
+    $("notificationButton").addEventListener("click", () => {
+        window.location.href = "my-notifications.html";
+    });
+
+    $("editBtn").addEventListener("click", () => {
+        const id = admission?.id ?? admission?.admission_id;
+
+        if (id) {
+            window.location.href = `emp-edit-admission.html?id=${encodeURIComponent(id)}`;
+        }
+    });
+
+        loadAdmission();
+        loadNotificationCount();
+    });
+
+})();
+
+</script>
+
+
+</body>
+</html>

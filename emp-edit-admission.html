@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee Edit Admissions Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    
+
+    .emp-btn-editAdmis { 
+        border:0; 
+        border-radius:8px; 
+        padding:11px 17px; 
+        cursor:pointer; 
+        display:inline-flex;
+        align-items:center; 
+        justify-content:center; 
+        gap:8px; 
+        font-size:14px; 
+        font-weight:600;
+    }
+
+
+
+
+    
+
+    .emp-btn-editAdmis:disabled { 
+        opacity:.6; 
+        cursor:not-allowed; 
+    }
+
+
+
+
+
+
+
+        .emp-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:24px; margin-bottom:20px; }
+        .emp-card h2 { font-size:17px; color:#15803d; padding-bottom:14px; border-bottom:1px solid #e2e8f0; margin-bottom:20px; }
+        .emp-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+        .emp-field label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:7px; }
+        .emp-field input, .emp-field select, .emp-field textarea { width:100%; min-width:0; padding:11px 12px; border:1px solid #cbd5e1; border-radius:7px; font:inherit; color:#1e293b; background:#fff; }
+        .emp-field textarea { min-height:90px; resize:vertical; }
+        .emp-field input:focus, .emp-field select:focus, .emp-field textarea:focus { outline:2px solid #bbf7d0; border-color:#16a34a; }
+        .emp-field input[readonly] { background:#f8fafc; }
+        .emp-actions { display:flex; gap:10px; flex-wrap:wrap; margin:20px 0; }
+
+        
+        .emp-primary { background:#15803d; color:#fff; }
+        .emp-secondary { background:#f1f5f9; color:#334155; }
+        
+        .emp-message { display:none; padding:13px 15px; border-radius:8px; margin-bottom:18px; }
+        .emp-message.show { display:block; }
+        .emp-success { background:#dcfce7; color:#166534; }
+        .emp-error { background:#fee2e2; color:#991b1b; }
+        .emp-hidden { display:none !important; }
+        .emp-loading { text-align:center; padding:35px; color:#64748b; }
+        .emp-hint { font-size:12px; color:#64748b; margin-top:5px; }
+                
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+  
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" id="notificationButton">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="active">
+                    <i class="fa fa-home"></i>Dashboard
+                </a>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>My Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>My Follow-ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+                    </div>
+
+                </div>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- Employee - Edit Admission -->
+            <main class="EMP-dashboard-main">
+
+                <div class="emp-edit-Admission-heading">
+                    <div>
+                        <h1>Edit Admission</h1>
+                        <p>Update an existing admission record.</p></div>
+
+                    <button type="button" class="emp-btn-editAdmis emp-secondary" id="backBtn"><i class="fa fa-arrow-left"></i> Back</button>
+                </div>
+
+
+
+
+
+
+
+            <div id="loading" class="emp-loading"><i class="fa fa-spinner fa-spin"></i> Loading admission details...</div>
+            <div id="message" class="emp-message" role="status" aria-live="polite"></div>
+
+
+
+
+
+            <form id="editAdmissionForm" class="emp-hidden">
+                <section class="emp-card">
+                    <h2><i class="fa fa-user-graduate"></i> Student Information</h2>
+                    <div class="emp-grid">
+                        <div class="emp-field">
+                            <label for="studentName">Student Name *</label>
+                            <input id="studentName" name="student_name" required maxlength="150">
+                        </div>
+                        <div class="emp-field">
+                            <label for="mobile">Mobile Number *</label>
+                            <input id="mobile" name="mobile" required maxlength="20" inputmode="tel">
+                        </div>
+                        <div class="emp-field">
+                            <label for="email">Email</label>
+                            <input id="email" name="email" type="email" maxlength="150">
+                        </div>
+                        <div class="emp-field">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">-- Select Gender --</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div class="emp-field">
+                            <label for="dateOfBirth">Date of Birth</label>
+                            <input id="dateOfBirth" name="date_of_birth" type="date">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="emp-card">
+                    <h2><i class="fa fa-book-open"></i> Course & Admission Details</h2>
+                    <div class="emp-grid">
+                        <div class="emp-field">
+                            <label for="courseId">Course *</label>
+                            <select id="courseId" name="course_id" required>
+                                <option value="">Loading courses...</option>
+                            </select>
+                            <div class="emp-hint">If course options fail to load, check the courses API route.</div>
+                        </div>
+                        <div class="emp-field">
+                            <label for="batch">Batch</label>
+                            <select id="batch" name="batch">
+                                <option value="">-- Select Batch --</option>
+                                <option>Morning</option>
+                                <option>Afternoon</option>
+                                <option>Evening</option>
+                                <option>Weekend</option>
+                            </select>
+                        </div>
+                        <div class="emp-field">
+                            <label for="joiningDate">Joining Date</label>
+                            <input id="joiningDate" name="joining_date" type="date">
+                        </div>
+                        <div class="emp-field">
+                            <label for="paymentMode">Payment Mode</label>
+                            <select id="paymentMode" name="payment_mode">
+                                <option value="">-- Select Payment Mode --</option>
+                                <option>Cash</option>
+                                <option>UPI</option>
+                                <option>Credit Card</option>
+                                <option>Debit Card</option>
+                                <option>Bank Transfer</option>
+                            </select>
+                        </div>
+                        <div class="emp-field">
+                            <label for="admissionStatus">Admission Status</label>
+                            <select id="admissionStatus" name="admission_status">
+                                <option>Confirmed</option>
+                                <option>Pending</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="emp-card">
+                    <h2><i class="fa fa-wallet"></i> Fee & Payment Details</h2>
+                    <div class="emp-grid">
+                        <div class="emp-field">
+                            <label for="courseFee">Course Fee (₹) *</label>
+                            <input id="courseFee" name="course_fee" type="number" min="0" step="0.01" required>
+                        </div>
+                        <div class="emp-field">
+                            <label for="discount">Discount (₹)</label>
+                            <input id="discount" name="discount" type="number" min="0" step="0.01" value="0">
+                        </div>
+                        <div class="emp-field">
+                            <label for="finalFee">Final Fee (₹)</label>
+                            <input id="finalFee" name="final_fee" type="number" readonly>
+                        </div>
+                        <div class="emp-field">
+                            <label for="registrationAmount">Registration Amount (₹)</label>
+                            <input id="registrationAmount" name="registration_amount" type="number" min="0" step="0.01" value="0">
+                        </div>
+                        <div class="emp-field">
+                            <label for="balanceAmount">Balance Amount (₹)</label>
+                            <input id="balanceAmount" name="balance_amount" type="number" readonly>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="emp-card">
+                    <h2><i class="fa fa-comment"></i> Remarks</h2>
+                    <div class="emp-field">
+                        <label for="remarks">Remarks / Comments</label>
+                        <textarea id="remarks" name="remarks" maxlength="2000"></textarea>
+                    </div>
+                </section>
+
+                <div class="emp-actions">
+                    <button type="submit" class="emp-btn-editAdmis emp-primary" id="saveBtn">
+                        <i class="fa fa-save"></i> Update Admission
+                    </button>
+                    <button type="button" class="emp-btn-editAdmis emp-secondary" id="cancelBtn">Cancel</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+<script>
+(() => {
+    "use strict";
+
+    const API_BASE = "http://localhost:3000/api";
+    const $ = id => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+    const admissionId = params.get("id");
+    let originalAdmission = null;
+    let courseOptionsLoaded = false;
+
+    function getUser() {
+        try { return JSON.parse(localStorage.getItem("crmUser") || "null"); }
+        catch { return null; }
+    }
+
+    function logout() {
+        localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
+        location.replace("login.html");
+    }
+
+    function showMessage(text, type = "error") {
+        const box = $("message");
+        box.textContent = text;
+        box.className = `emp-message show emp-${type}`;
+    }
+
+    function hideMessage() {
+        $("message").className = "emp-message";
+        $("message").textContent = "";
+    }
+
+    function toDateInput(value) {
+        if (!value) return "";
+        const match = String(value).match(/^(\d{4}-\d{2}-\d{2})/);
+        return match ? match[1] : "";
+    }
+
+    function number(value) {
+        const parsed = Number(value ?? 0);
+        return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    async function apiRequest(path, options = {}) {
+        const token = localStorage.getItem("crmToken");
+        if (!token) {
+            logout();
+            throw new Error("Your session has expired. Please log in again.");
+        }
+
+        let response;
+        try {
+            response = await fetch(API_BASE + path, {
+                ...options,
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    ...(options.body ? { "Content-Type": "application/json" } : {}),
+                    ...options.headers
+                }
+            });
+        } catch (error) {
+            throw new Error("Cannot connect to the backend. Check your API_BASE and Node.js server.");
+        }
+
+        const raw = await response.text();
+        let result;
+
+        try { result = raw ? JSON.parse(raw) : {}; }
+        catch {
+            console.error("Non-JSON API response:", raw);
+            throw new Error(`The API returned non-JSON data (HTTP ${response.status}). Check the backend route.`);
+        }
+
+        if (response.status === 401) {
+            logout();
+            throw new Error("Your session has expired. Please log in again.");
+        }
+
+        if (!response.ok || result.success === false) {
+            throw new Error(result.message || result.error || `Request failed with HTTP ${response.status}.`);
+        }
+
+        return result;
+    }
+
+    async function loadCourses(selectedCourseId, admission) {
+        const select = $("courseId");
+
+        try {
+            const result = await apiRequest("/employee/admissions/courses");
+            const courses = Array.isArray(result.courses) ? result.courses :
+                            Array.isArray(result.data) ? result.data : [];
+
+            select.replaceChildren();
+            const placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "-- Select Course --";
+            select.appendChild(placeholder);
+
+            courses.forEach(course => {
+                const option = document.createElement("option");
+                option.value = String(course.id ?? course.course_id ?? "");
+                const name = course.course_name ?? course.name ?? "Course";
+                const category = course.course_category ?? course.category;
+                option.textContent = category ? `${name} - ${category}` : name;
+                select.appendChild(option);
+            });
+
+            if (selectedCourseId !== undefined && selectedCourseId !== null) {
+                select.value = String(selectedCourseId);
+            }
+
+            // If the API does not include this existing course, keep it visible.
+            if (select.value === "" && selectedCourseId) {
+                const option = document.createElement("option");
+                option.value = String(selectedCourseId);
+                option.textContent = admission.course_name ?? admission.course ?? `Course #${selectedCourseId}`;
+                select.appendChild(option);
+                select.value = String(selectedCourseId);
+            }
+
+            courseOptionsLoaded = true;
+        } catch (error) {
+            console.error("Could not load courses:", error);
+            select.replaceChildren();
+            const option = document.createElement("option");
+            option.value = "";
+            option.textContent = "Unable to load courses";
+            select.appendChild(option);
+            showMessage("Admission details can load, but course options failed to load: " + error.message);
+        }
+    }
+
+    function fillForm(a) {
+        originalAdmission = a;
+
+        $("studentName").value = a.student_name ?? a.studentName ?? "";
+        $("mobile").value = a.mobile ?? a.mobile_number ?? "";
+        $("email").value = a.email ?? "";
+        $("gender").value = a.gender ?? "";
+        $("dateOfBirth").value = toDateInput(a.date_of_birth ?? a.dateOfBirth);
+        $("batch").value = a.batch ?? "";
+        $("joiningDate").value = toDateInput(a.joining_date ?? a.joiningDate);
+        $("paymentMode").value = a.payment_mode ?? a.paymentMode ?? "";
+        $("admissionStatus").value = a.admission_status ?? a.status ?? "Pending";
+        $("courseFee").value = number(a.course_fee);
+        $("discount").value = number(a.discount);
+        $("registrationAmount").value = number(a.registration_amount);
+        $("remarks").value = a.remarks ?? a.comments ?? "";
+
+        calculateFees();
+
+        return loadCourses(a.course_id ?? a.courseId, a);
+    }
+
+    function calculateFees() {
+        const fee = number($("courseFee").value);
+        const discount = number($("discount").value);
+        const registration = number($("registrationAmount").value);
+
+        const finalFee = fee - discount;
+        const balance = finalFee - registration;
+
+        $("finalFee").value = Math.max(0, finalFee).toFixed(2);
+        $("balanceAmount").value = Math.max(0, balance).toFixed(2);
+    }
+
+    async function loadAdmission() {
+        const token = localStorage.getItem("crmToken");
+        const user = getUser();
+
+        if (!token || !user) { logout(); return; }
+
+        const role = String(user.role ?? user.user_role ?? "").toLowerCase();
+        if (role === "admin") { location.replace("dashboard-crm.html"); return; }
+        if (!["counsellor", "staff"].includes(role)) {
+            showMessage("You do not have permission to edit admissions.");
+            $("loading").classList.add("emp-hidden");
+            return;
+        }
+
+        if (!admissionId || !/^\d+$/.test(admissionId)) {
+            $("loading").classList.add("emp-hidden");
+            showMessage("Invalid admission ID. Return to My Admissions.");
+            return;
+        }
+
+        try {
+            const result = await apiRequest(`/employee/admissions/${encodeURIComponent(admissionId)}`);
+            const admission = result.admission ?? result.data;
+
+            if (!admission) throw new Error("Admission data is missing from the API response.");
+
+            await fillForm(admission);
+            $("loading").classList.add("emp-hidden");
+            $("editAdmissionForm").classList.remove("emp-hidden");
+        } catch (error) {
+            console.error("Load admission for edit failed:", error);
+            $("loading").classList.add("emp-hidden");
+            showMessage(error.message || "Unable to load admission details.");
+        }
+    }
+
+    async function updateAdmission(event) {
+        event.preventDefault();
+        hideMessage();
+
+        if (!originalAdmission) {
+            showMessage("Admission details have not loaded.");
+            return;
+        }
+
+        const courseFee = number($("courseFee").value);
+        const discount = number($("discount").value);
+        const registrationAmount = number($("registrationAmount").value);
+
+        if (discount > courseFee) {
+            showMessage("Discount cannot be greater than the course fee.");
+            return;
+        }
+
+        const finalFee = courseFee - discount;
+
+        if (registrationAmount > finalFee) {
+            showMessage("Registration amount cannot be greater than the final fee.");
+            return;
+        }
+
+        if (!courseOptionsLoaded) {
+            showMessage("Course options have not loaded. Please reload the page and try again.");
+            return;
+        }
+
+        const courseId = $("courseId").value;
+        if (!courseId) {
+            showMessage("Please select a course.");
+            return;
+        }
+
+        const payload = {
+            student_name: $("studentName").value.trim(),
+            mobile: $("mobile").value.trim(),
+            email: $("email").value.trim() || null,
+            gender: $("gender").value || null,
+            date_of_birth: $("dateOfBirth").value || null,
+            course_id: Number(courseId),
+            batch: $("batch").value || null,
+            joining_date: $("joiningDate").value || null,
+            payment_mode: $("paymentMode").value || null,
+            admission_status: $("admissionStatus").value,
+            course_fee: courseFee,
+            discount: discount,
+            final_fee: finalFee,
+            registration_amount: registrationAmount,
+            balance_amount: finalFee - registrationAmount,
+            remarks: $("remarks").value.trim() || null
+        };
+
+        if (!payload.student_name || !payload.mobile) {
+            showMessage("Student name and mobile number are required.");
+            return;
+        }
+
+        const saveBtn = $("saveBtn");
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Updating...';
+
+        try {
+            const result = await apiRequest(`/employee/admissions/${encodeURIComponent(admissionId)}`, {
+                method: "PUT",
+                body: JSON.stringify(payload)
+            });
+
+            showMessage(result.message || "Admission updated successfully.", "success");
+
+            // The admin side reads the same record, so it will see the saved changes on reload.
+            setTimeout(() => {
+                location.href = `emp-view-admission.html?id=${encodeURIComponent(admissionId)}&updated=1`;
+            }, 800);
+        } catch (error) {
+            console.error("Update admission failed:", error);
+            showMessage(error.message || "Failed to update admission.");
+            saveBtn.disabled = false;
+            saveBtn.innerHTML = '<i class="fa fa-save"></i> Update Admission';
+        }
+    }
+
+    function setupMenu() {
+        const sidebar = $("crmSidebar"), overlay = $("crmSidebarOverlay");
+        $("menuBtn")?.addEventListener("click", () => {
+            sidebar?.classList.toggle("active");
+            overlay?.classList.toggle("active");
+        });
+        overlay?.addEventListener("click", () => {
+            sidebar?.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+        document.querySelectorAll(".crm-dropdown-btn").forEach(btn => {
+            btn.addEventListener("click", () => btn.closest(".crm-dropdown")?.classList.toggle("active"));
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const user = getUser();
+        if (user) {
+            const name = user.full_name || user.name || user.username || "Employee";
+            $("employeeName").textContent = name;
+            $("employeeRole").textContent = user.role || user.user_role || "Employee";
+            $("profileAvatar").textContent = name.trim().charAt(0).toUpperCase() || "E";
+        }
+
+        setupMenu();
+        $("backBtn").addEventListener("click", () => location.href = "my-admissions.html");
+        $("cancelBtn").addEventListener("click", () => location.href = `emp-view-admission.html?id=${encodeURIComponent(admissionId || "")}`);
+        $("logoutButton").addEventListener("click", event => {
+            event.preventDefault();
+            logout();
+        });
+
+        ["courseFee", "discount", "registrationAmount"].forEach(id => {
+            $(id).addEventListener("input", calculateFees);
+        });
+
+        $("editAdmissionForm").addEventListener("submit", updateAdmission);
+        loadAdmission();
+    });
+})();
+</script>
+</body>
+</html>

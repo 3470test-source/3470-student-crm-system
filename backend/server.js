@@ -4428,7 +4428,7 @@ app.get("/api/dashboard", async (req, res) => {
             LIMIT 10
         `);
 
-m
+
         /*--- 6. RECENT STUDENT ENQUIRIES ---*/
         const [recentEnquiries] = await db.execute(`
             SELECT
@@ -4586,9 +4586,7 @@ m
         res.status(500).json({
 
             success: false,
-
             message: "Failed to load dashboard data.",
-
             error: error.message
 
         });
@@ -4624,42 +4622,17 @@ m
 
 
 
-// -----------------------------------------------------------------------------------
 
 
 
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({
-            success: false,
-            message: "Authentication token required."
-        });
-    }
 
-    const token = authHeader.split(" ")[1];
 
-    try {
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET || "temporary-secret"
-        );
 
-        req.user = decoded;
 
-        next();
 
-    } catch (error) {
 
-        console.error("❌ JWT Error:", error);
 
-        return res.status(401).json({
-            success: false,
-            message: "Invalid or expired authentication token."
-        });
-    }
-}
 
 
 
@@ -4677,361 +4650,6 @@ function authenticateToken(req, res, next) {
 
 
 
-
-
-
-
-
-
-
-app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
-
-    try {
-
-        const employeeId = req.user.id;
-        const employeeRole = req.user.role;
-
-        console.log(
-            `👤 Employee Dashboard Request: ID=${employeeId}, Role=${employeeRole}`
-        );
-
-        /* =========================================
-           ONLY COUNSELLOR / STAFF
-        ========================================= */
-
-        if (
-            employeeRole !== "Counsellor" &&
-            employeeRole !== "Staff"
-        ) {
-            return res.status(403).json({
-                success: false,
-                message: "Access denied. Employee dashboard only."
-            });
-        }
-
-
-        /* =========================================
-           EMPLOYEE INFORMATION
-        ========================================= */
-
-        const [employeeRows] = await db.execute(`
-            SELECT
-                id,
-                full_name,
-                email,
-                mobile,
-                username,
-                role,
-                status,
-                department,
-                joining_date,
-                address
-            FROM add_users
-            WHERE id = ?
-            LIMIT 1
-        `, [employeeId]);
-
-
-        if (!employeeRows.length) {
-
-            return res.status(404).json({
-                success: false,
-                message: "Employee account not found."
-            });
-        }
-
-
-        const employee = employeeRows[0];
-
-
-        /* =========================================
-           MY ENQUIRIES COUNT
-        ========================================= */
-
-        const [enquiryCountRows] = await db.execute(`
-            SELECT COUNT(*) AS total
-            FROM student_enquiries
-            WHERE counsellor_id = ?
-        `, [employeeId]);
-
-
-        const totalEnquiries =
-            Number(enquiryCountRows[0].total) || 0;
-
-
-        /* =========================================
-           TODAY'S FOLLOW-UPS COUNT
-        ========================================= */
-
-        const [todayFollowupRows] = await db.execute(`
-            SELECT COUNT(*) AS total
-            FROM follow_ups
-            WHERE counsellor_id = ?
-              AND DATE(follow_up_date) = CURDATE()
-              AND status NOT IN ('Completed', 'Not Interested')
-        `, [employeeId]);
-
-
-        const todayFollowups =
-            Number(todayFollowupRows[0].total) || 0;
-
-
-        /* =========================================
-           MY ADMISSIONS COUNT
-        ========================================= */
-
-        const [admissionCountRows] = await db.execute(`
-            SELECT COUNT(*) AS total
-            FROM admissions
-            WHERE counsellor_id = ?
-        `, [employeeId]);
-
-
-        const totalAdmissions =
-            Number(admissionCountRows[0].total) || 0;
-
-
-        /* =========================================
-           MISSED FOLLOW-UPS
-        ========================================= */
-
-        const [missedFollowupRows] = await db.execute(`
-            SELECT COUNT(*) AS total
-            FROM follow_ups
-            WHERE counsellor_id = ?
-              AND (
-                    DATE(follow_up_date) < CURDATE()
-                    OR (
-                        DATE(follow_up_date) = CURDATE()
-                        AND follow_up_time < CURTIME()
-                    )
-                  )
-              AND status NOT IN ('Completed', 'Not Interested')
-        `, [employeeId]);
-
-
-        const missedFollowups =
-            Number(missedFollowupRows[0].total) || 0;
-
-
-        /* =========================================
-           RECENT MY ENQUIRIES
-        ========================================= */
-
-        const [recentEnquiries] = await db.execute(`
-            SELECT
-                id,
-                student_name,
-                mobile,
-                email,
-                course_interested,
-                enquiry_source,
-                counsellor,
-                enquiry_date,
-                follow_up_date,
-                follow_up_time,
-                status
-            FROM student_enquiries
-            WHERE counsellor_id = ?
-            ORDER BY id DESC
-            LIMIT 5
-        `, [employeeId]);
-
-
-        /* =========================================
-           TODAY'S MY FOLLOW-UPS
-        ========================================= */
-
-        const [todayFollowupsList] = await db.execute(`
-            SELECT
-                id,
-                enquiry_id,
-                student_name,
-                mobile_number,
-                course,
-                counsellor,
-                follow_up_date,
-                follow_up_time,
-                follow_up_type,
-                status,
-                next_follow_up_date,
-                next_follow_up_time,
-                comments
-            FROM follow_ups
-            WHERE counsellor_id = ?
-              AND DATE(follow_up_date) = CURDATE()
-              AND status NOT IN ('Completed', 'Not Interested')
-            ORDER BY follow_up_time ASC
-        `, [employeeId]);
-
-
-        /* =========================================
-           RECENT MY ADMISSIONS
-        ========================================= */
-
-        const [recentAdmissions] = await db.execute(`
-            SELECT
-                id,
-                student_name,
-                mobile,
-                email,
-                course,
-                batch,
-                joining_date,
-                course_fee,
-                final_fee,
-                registration_amount,
-                balance_amount,
-                payment_mode,
-                counsellor,
-                admission_status
-            FROM admissions
-            WHERE counsellor_id = ?
-            ORDER BY id DESC
-            LIMIT 5
-        `, [employeeId]);
-
-
-        /* =========================================
-           MY UPCOMING FOLLOW-UPS
-        ========================================= */
-
-        const [upcomingFollowups] = await db.execute(`
-            SELECT
-                id,
-                student_name,
-                mobile_number,
-                course,
-                counsellor,
-                follow_up_date,
-                follow_up_time,
-                follow_up_type,
-                status
-            FROM follow_ups
-            WHERE counsellor_id = ?
-              AND DATE(follow_up_date) > CURDATE()
-              AND status NOT IN ('Completed', 'Not Interested')
-            ORDER BY follow_up_date ASC,
-                     follow_up_time ASC
-            LIMIT 5
-        `, [employeeId]);
-
-
-        /* =========================================
-           EMPLOYEE NOTIFICATIONS
-        ========================================= */
-
-        const notifications = [];
-
-
-        /* Today's follow-ups */
-
-        if (todayFollowups > 0) {
-
-            notifications.push({
-                type: "follow-up",
-                title: "Today's Follow-ups",
-                message:
-                    `You have ${todayFollowups} follow-up(s) scheduled today.`,
-                count: todayFollowups
-            });
-        }
-
-
-        /* Missed follow-ups */
-
-        if (missedFollowups > 0) {
-
-            notifications.push({
-                type: "missed-follow-up",
-                title: "Missed Follow-ups",
-                message:
-                    `You have ${missedFollowups} missed follow-up(s).`,
-                count: missedFollowups
-            });
-        }
-
-
-        /* No notification */
-
-        if (notifications.length === 0) {
-
-            notifications.push({
-                type: "info",
-                title: "All Clear",
-                message:
-                    "You have no pending notifications.",
-                count: 0
-            });
-        }
-
-
-        /* =========================================
-           FINAL RESPONSE
-        ========================================= */
-
-        res.json({
-
-            success: true,
-
-            employee: {
-                id: employee.id,
-                full_name: employee.full_name,
-                email: employee.email,
-                mobile: employee.mobile,
-                username: employee.username,
-                role: employee.role,
-                status: employee.status,
-                department: employee.department,
-                joining_date: employee.joining_date,
-                address: employee.address
-            },
-
-            summary: {
-
-                total_enquiries:
-                    totalEnquiries,
-
-                today_followups:
-                    todayFollowups,
-
-                total_admissions:
-                    totalAdmissions,
-
-                missed_followups:
-                    missedFollowups
-            },
-
-            recent_enquiries:
-                recentEnquiries,
-
-            today_followups:
-                todayFollowupsList,
-
-            recent_admissions:
-                recentAdmissions,
-
-            upcoming_followups:
-                upcomingFollowups,
-
-            notifications:
-                notifications
-        });
-
-    } catch (error) {
-
-        console.error(
-            "❌ Employee Dashboard Error:",
-            error
-        );
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to load employee dashboard.",
-            error: error.message
-        });
-    }
-});
 
 
 
@@ -5149,6 +4767,287 @@ app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
 
 
 /*--------------------------------------- Employee Side Backend Code --------------------------------------*/    
+
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        return res.status(401).json({
+            success: false,
+            message: "Authentication token required."
+        });
+    }
+
+    const token = authHeader.split(" ")[1];
+
+    try {
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET || "temporary-secret"
+        );
+
+        req.user = decoded;
+
+        next();
+
+    } catch (error) {
+
+        console.error("❌ JWT Error:", error);
+
+        return res.status(401).json({
+            success: false,
+            message: "Invalid or expired authentication token."
+        });
+    }
+}
+
+
+
+
+
+/*==== Employee Dashboard - Get Method ====*/
+app.get("/api/employee/dashboard", authenticateToken, async (req, res) => {
+
+    try {
+
+        const employeeId = req.user.id;
+        const employeeRole = req.user.role;
+
+        console.log(
+            `👤 Employee Dashboard Request: ID=${employeeId}, Role=${employeeRole}`
+        );
+
+        /*--- ONLY COUNSELLOR / STAFF ---*/
+
+        if (
+            employeeRole !== "Counsellor" &&
+            employeeRole !== "Staff"
+        ) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied. Employee dashboard only."
+            });
+        }
+
+
+        /*--- EMPLOYEE INFORMATION ---*/
+        const [employeeRows] = await db.execute(`
+            SELECT
+                id, full_name, email, mobile, username, role, status, department, joining_date, address
+            FROM add_users
+            WHERE id = ?
+            LIMIT 1
+        `, [employeeId]);
+
+
+        if (!employeeRows.length) {
+
+            return res.status(404).json({
+                success: false,
+                message: "Employee account not found."
+            });
+        }
+
+        const employee = employeeRows[0];
+
+
+        /*--- MY ENQUIRIES COUNT ---*/
+        const [enquiryCountRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+        `, [employeeId]);
+
+
+        const totalEnquiries = Number(enquiryCountRows[0].total) || 0;
+
+
+        /*--- TODAY'S FOLLOW-UPS COUNT ---*/
+        const [todayFollowupRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) = CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+        `, [employeeId]);
+
+
+        const todayFollowups = Number(todayFollowupRows[0].total) || 0;
+
+
+        /*--- MY ADMISSIONS COUNT ---*/
+        const [admissionCountRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM admissions
+            WHERE counsellor_id = ?
+        `, [employeeId]);
+
+
+        const totalAdmissions = Number(admissionCountRows[0].total) || 0;
+
+
+        /*--- MISSED FOLLOW-UPS ---*/
+        const [missedFollowupRows] = await db.execute(`
+            SELECT COUNT(*) AS total
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND (
+                    DATE(follow_up_date) < CURDATE()
+                    OR (
+                        DATE(follow_up_date) = CURDATE()
+                        AND follow_up_time < CURTIME()
+                    )
+                  )
+              AND status NOT IN ('Completed', 'Not Interested')
+        `, [employeeId]);
+
+
+        const missedFollowups = Number(missedFollowupRows[0].total) || 0;
+
+
+        /*--- RECENT MY ENQUIRIES ---*/
+        const [recentEnquiries] = await db.execute(`
+            SELECT
+                id, student_name, mobile, email, course_interested, enquiry_source, counsellor, enquiry_date, follow_up_date,
+                follow_up_time, status
+            FROM student_enquiries
+            WHERE counsellor_id = ?
+            ORDER BY id DESC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /*--- TODAY'S MY FOLLOW-UPS ---*/
+        const [todayFollowupsList] = await db.execute(`
+            SELECT
+                id, enquiry_id, student_name, mobile_number, course, counsellor, follow_up_date, follow_up_time,
+                follow_up_type, status, next_follow_up_date, next_follow_up_time, comments
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) = CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+            ORDER BY follow_up_time ASC
+        `, [employeeId]);
+
+
+        /*--- RECENT MY ADMISSIONS ---*/
+        const [recentAdmissions] = await db.execute(`
+            SELECT
+                id, student_name, mobile, email, course, batch, joining_date, course_fee, final_fee,
+                registration_amount, balance_amount, payment_mode, counsellor, admission_status
+            FROM admissions
+            WHERE counsellor_id = ?
+            ORDER BY id DESC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /*--- MY UPCOMING FOLLOW-UPS ---*/
+        const [upcomingFollowups] = await db.execute(`
+            SELECT
+                id, student_name, mobile_number, course, counsellor, follow_up_date, follow_up_time, follow_up_type, status
+            FROM follow_ups
+            WHERE counsellor_id = ?
+              AND DATE(follow_up_date) > CURDATE()
+              AND status NOT IN ('Completed', 'Not Interested')
+            ORDER BY follow_up_date ASC,
+                     follow_up_time ASC
+            LIMIT 5
+        `, [employeeId]);
+
+
+        /*--- EMPLOYEE NOTIFICATIONS ---*/
+        const notifications = [];
+
+
+        /*--- Today's follow-ups ---*/
+        if (todayFollowups > 0) {
+
+            notifications.push({
+                type: "follow-up",
+                title: "Today's Follow-ups",
+                message:
+                    `You have ${todayFollowups} follow-up(s) scheduled today.`,
+                count: todayFollowups
+            });
+        }
+
+
+        /*--- Missed follow-ups ---*/
+        if (missedFollowups > 0) {
+
+            notifications.push({
+                type: "missed-follow-up",
+                title: "Missed Follow-ups",
+                message:
+                    `You have ${missedFollowups} missed follow-up(s).`,
+                count: missedFollowups
+            });
+        }
+
+
+        /*--- No notification ---*/
+        if (notifications.length === 0) {
+
+            notifications.push({
+                type: "info",
+                title: "All Clear",
+                message:
+                    "You have no pending notifications.",
+                count: 0
+            });
+        }
+
+
+        /*--- FINAL RESPONSE ---*/
+        res.json({
+
+            success: true,
+            employee: {
+                id: employee.id,
+                full_name: employee.full_name,
+                email: employee.email,
+                mobile: employee.mobile,
+                username: employee.username,
+                role: employee.role,
+                status: employee.status,
+                department: employee.department,
+                joining_date: employee.joining_date,
+                address: employee.address
+            },
+
+            summary: {
+                total_enquiries: totalEnquiries,
+                today_followups: todayFollowups,
+                total_admissions: totalAdmissions,
+                missed_followups: missedFollowups
+            },
+
+            recent_enquiries: recentEnquiries,
+            today_followups: todayFollowupsList,
+            recent_admissions: recentAdmissions,
+            upcoming_followups: upcomingFollowups,
+            notifications: notifications
+        });
+
+    } catch (error) {
+
+        console.error(
+            "❌ Employee Dashboard Error:",
+            error
+        );
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to load employee dashboard.",
+            error: error.message
+        });
+    }
+});
+
+
+
 
 
 /*==== Employee - Add enquiry ====*/
@@ -7111,6 +7010,399 @@ app.put("/api/employee/change-password", authenticateToken, async (req, res) => 
     }
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================
+   EMPLOYEE ADMISSIONS API
+   Add directly inside server.js
+============================================ */
+
+// GET: Load courses for employee admission form
+app.get("/api/employee/admissions/courses", authenticateToken, async (req, res) => {
+    try {
+        const role = String(req.user?.role || "").toLowerCase();
+
+        if (!["counsellor", "staff"].includes(role)) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied."
+            });
+        }
+
+        const [courses] = await db.execute(`
+            SELECT id, course_name, course_category, course_fee
+            FROM courses
+            WHERE status = 'Active'
+            ORDER BY course_name
+        `);
+
+        res.json({ success: true, courses });
+
+    } catch (error) {
+        console.error("Employee courses error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to load courses."
+        });
+    }
+});
+
+
+// GET: View one employee admission
+// app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
+//     try {
+//         const role = String(req.user?.role || "").toLowerCase();
+//         const employeeId = Number(req.user?.id ?? req.user?.user_id);
+//         const admissionId = Number(req.params.id);
+
+//         if (!["counsellor", "staff"].includes(role)) {
+//             return res.status(403).json({
+//                 success: false,
+//                 message: "Access denied."
+//             });
+//         }
+
+//         if (!Number.isInteger(admissionId) || admissionId < 1 ||
+//             !Number.isInteger(employeeId) || employeeId < 1) {
+//             return res.status(400).json({
+//                 success: false,
+//                 message: "Invalid admission or employee ID."
+//             });
+//         }
+
+//         const [rows] = await db.execute(`
+//             SELECT
+//                 a.*,
+//                 c.course_name,
+//                 c.course_category
+//             FROM admissions a
+//             LEFT JOIN courses c ON c.id = a.course_id
+//             WHERE a.id = ?
+//               AND a.counsellor_id = ?
+//             LIMIT 1
+//         `, [admissionId, employeeId]);
+
+//         if (!rows.length) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: "Admission not found or not assigned to you."
+//             });
+//         }
+
+//         res.json({
+//             success: true,
+//             admission: rows[0]
+//         });
+
+//     } catch (error) {
+//         console.error("View employee admission error:", error);
+
+//         res.status(500).json({
+//             success: false,
+//             message: "Unable to retrieve admission."
+//         });
+//     }
+// });
+
+
+
+app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
+    try {
+        const role = String(req.user?.role || "").toLowerCase();
+        const employeeId = Number(req.user?.id ?? req.user?.user_id);
+        const admissionId = Number(req.params.id);
+
+        if (!["counsellor", "staff"].includes(role)) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied."
+            });
+        }
+
+        if (
+            !Number.isInteger(admissionId) || admissionId < 1 ||
+            !Number.isInteger(employeeId) || employeeId < 1
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid admission or employee ID."
+            });
+        }
+
+        // Your table stores course and counsellor as names.
+        const [rows] = await db.execute(
+            `SELECT *
+             FROM admissions
+             WHERE id = ?
+               AND counsellor_id = ?
+             LIMIT 1`,
+            [admissionId, employeeId]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Admission not found or not assigned to you."
+            });
+        }
+
+        return res.json({
+            success: true,
+            admission: rows[0]
+        });
+
+    } catch (error) {
+        console.error("GET EMPLOYEE ADMISSION ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to retrieve admission."
+        });
+    }
+});
+
+
+
+
+
+
+// PUT: Update an existing employee admission
+app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
+    try {
+        const role = String(req.user?.role || "").toLowerCase();
+        const employeeId = Number(req.user?.id ?? req.user?.user_id);
+        const admissionId = Number(req.params.id);
+
+        if (!["counsellor", "staff"].includes(role)) {
+            return res.status(403).json({
+                success: false,
+                message: "Access denied."
+            });
+        }
+
+        if (!Number.isInteger(admissionId) || admissionId < 1 ||
+            !Number.isInteger(employeeId) || employeeId < 1) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid admission or employee ID."
+            });
+        }
+
+        const {
+            student_name,
+            mobile,
+            email,
+            gender,
+            date_of_birth,
+            course,   
+            batch,
+            joining_date,
+            payment_mode,
+            admission_status,
+            course_fee,
+            discount,
+            registration_amount,
+            remarks
+        } = req.body;
+
+        const name = String(student_name || "").trim();
+        const phone = String(mobile || "").trim();
+        const courseId = Number(course_id);
+        const fee = Number(course_fee);
+        const discountAmount = Number(discount ?? 0);
+        const registration = Number(registration_amount ?? 0);
+
+        if (!name || !phone) {
+            return res.status(400).json({
+                success: false,
+                message: "Student name and mobile are required."
+            });
+        }
+
+        if (!Number.isInteger(courseId) || courseId < 1) {
+            return res.status(400).json({
+                success: false,
+                message: "Please select a valid course."
+            });
+        }
+
+        if (![fee, discountAmount, registration].every(Number.isFinite) ||
+            fee < 0 || discountAmount < 0 ||
+            registration < 0 || discountAmount > fee ||
+            registration > fee - discountAmount) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid course fee, discount or registration amount."
+            });
+        }
+
+        const allowedStatuses = ["Confirmed", "Pending", "Cancelled"];
+        const status = String(admission_status || "Pending");
+
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid admission status."
+            });
+        }
+
+        const validDate = value => {
+            if (!value) return null;
+
+            const s = String(value);
+
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return undefined;
+
+            const date = new Date(`${s}T00:00:00Z`);
+
+            return !Number.isNaN(date.getTime()) &&
+                date.toISOString().slice(0, 10) === s
+                ? s
+                : undefined;
+        };
+
+        const dob = validDate(date_of_birth);
+        const joiningDate = validDate(joining_date);
+
+        if (dob === undefined || joiningDate === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid date of birth or joining date."
+            });
+        }
+
+        const finalFee = Number((fee - discountAmount).toFixed(2));
+        const balance = Number((finalFee - registration).toFixed(2));
+
+        // Verify employee ownership before updating the record.
+        const [existing] = await db.execute(`
+            SELECT id
+            FROM admissions
+            WHERE id = ? AND counsellor_id = ?
+            LIMIT 1
+        `, [admissionId, employeeId]);
+
+        if (!existing.length) {
+            return res.status(404).json({
+                success: false,
+                message: "Admission not found or not assigned to you."
+            });
+        }
+
+        const [courseRows] = await db.execute(
+            "SELECT id FROM courses WHERE id = ? LIMIT 1",
+            [courseId]
+        );
+
+        if (!courseRows.length) {
+            return res.status(400).json({
+                success: false,
+                message: "Selected course does not exist."
+            });
+        }
+
+        const [result] = await db.execute(`
+            UPDATE admissions SET
+                student_name = ?,
+                mobile = ?,
+                email = ?,
+                gender = ?,
+                date_of_birth = ?,
+                course = ?,
+                batch = ?,
+                joining_date = ?,
+                payment_mode = ?,
+                admission_status = ?,
+                course_fee = ?,
+                discount = ?,
+                final_fee = ?,
+                registration_amount = ?,
+                balance_amount = ?,
+                remarks = ?
+            WHERE id = ? AND counsellor_id = ?
+        `, [
+            name,
+            phone,
+            email || null,
+            gender || null,
+            dob,
+            courseId,
+            batch || null,
+            joiningDate,
+            payment_mode || null,
+            status,
+            fee,
+            discountAmount,
+            finalFee,
+            registration,
+            balance,
+            remarks || null,
+            admissionId,
+            employeeId
+        ]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                success: false,
+                message: "Admission was not updated."
+            });
+        }
+
+        res.json({
+            success: true,
+            message: "Admission updated successfully.",
+            admission_id: admissionId
+        });
+
+    } catch (error) {
+        console.error("Update employee admission error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Unable to update admission."
+        });
+    }
+});
+
+
+
+
 
 
 

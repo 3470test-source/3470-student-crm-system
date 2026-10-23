@@ -24,7 +24,6 @@
 
     </style>
 
-
 </head>
 <body>
 
@@ -256,6 +255,7 @@
                                 <thead>
                                     <tr>
                                         <th>Student</th>
+                                        <th>Mobile</th>
                                         <th>Course</th>
                                         <th>Time</th>
                                         <th>Type</th>
@@ -266,7 +266,7 @@
                                 <tbody id="todayFollowupsTable">
 
                                     <tr>
-                                        <td colspan="5" style="text-align:center;">
+                                        <td colspan="6" style="text-align:center;">
                                             Loading...
                                         </td>
                                     </tr>
@@ -383,23 +383,22 @@
 
 
 
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
 
+dropdowns.forEach(dropdown => {
 
+    const button = dropdown.querySelector(".crm-dropdown-btn");
 
+    button.addEventListener("click", () => {
 
+        dropdown.classList.toggle("active");
 
+    });
 
-
-
-
-
-
-
-
-        
-
-
-
+});
+</script>        
 
 
 <!-- EMPLOYEE DASHBOARD - JS  -->
@@ -609,57 +608,29 @@ function loadEmployeeInfo() {
 
 /*--- MOBILE SIDEBAR ---*/
 function setupMobileMenu() {
-
     const menuButton = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("crmSidebar");
+    const overlay = document.getElementById("crmSidebarOverlay");
 
-    const sidebar = document.getElementById("employeeSidebar");
-
-    const overlay = document.getElementById("sidebarOverlay");
-
-    if (!menuButton) {
-        console.warn("⚠️ menuBtn not found.");
-        return;
-    }
-
-    if (!sidebar) {
-        console.warn("⚠️ employeeSidebar not found.");
+    if (!menuButton || !sidebar || !overlay) {
+        console.error("Mobile sidebar elements not found.");
         return;
     }
 
     menuButton.addEventListener("click", function () {
-
         sidebar.classList.toggle("active");
-
-        if (overlay) {
-            overlay.classList.toggle("active");
-        }
+        overlay.classList.toggle("active");
     });
 
+    overlay.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+    });
 
-    /*--- Close sidebar when overlay clicked ---*/
-    if (overlay) {
-
-        overlay.addEventListener("click", function () {
-
-            sidebar.classList.remove("active");
-
-            overlay.classList.remove("active");
-        });
-    }
-
-
-    /*--- Close sidebar after clicking sidebar link ---*/
-    const sidebarLinks = sidebar.querySelectorAll("a");
-
-    sidebarLinks.forEach(function (link) {
-
+    sidebar.querySelectorAll("a").forEach(function (link) {
         link.addEventListener("click", function () {
-
             sidebar.classList.remove("active");
-
-            if (overlay) {
-                overlay.classList.remove("active");
-            }
+            overlay.classList.remove("active");
         });
     });
 }
@@ -732,44 +703,44 @@ function renderEmployeeDashboard(data) {
 
     /*--- SUMMARY CARDS ---*/
     setText(
-        "totalEnquiries",
-        numberValue(
-            summary.total_enquiries ??
-            summary.totalEnquiries ??
-            data.total_enquiries ??
-            0
-        )
-    );
+        "myEnquiriesCount",
+            numberValue(
+                summary.total_enquiries ??
+                summary.totalEnquiries ??
+                data.total_enquiries ??
+                0
+            )
+        );
 
     setText(
         "todayFollowupsCount",
-        numberValue(
-            summary.today_followups ??
-            summary.todayFollowups ??
-            data.today_followups ??
-            0
-        )
-    );
+            numberValue(
+                summary.today_followups ??
+                summary.todayFollowups ??
+                data.today_followups_count ??
+                0
+            )
+        );
 
     setText(
-        "totalAdmissions",
-        numberValue(
-            summary.total_admissions ??
-            summary.totalAdmissions ??
-            data.total_admissions ??
-            0
-        )
-    );
+        "myAdmissionsCount",
+            numberValue(
+                summary.total_admissions ??
+                summary.totalAdmissions ??
+                data.total_admissions ??
+                0
+            )
+        );
 
     setText(
-        "missedFollowups",
-        numberValue(
-            summary.missed_followups ??
-            summary.missedFollowups ??
-            data.missed_followups ??
-            0
-        )
-    );
+        "pendingFollowupsCount",
+            numberValue(
+                summary.pending_followups ??
+                summary.pendingFollowups ??
+                data.pending_followups ??
+                0
+            )
+        );
 
 
     /*--- RECENT ENQUIRIES ---*/
@@ -953,112 +924,54 @@ function renderTodayFollowUps(followUps) {
 
 /*--- DASHBOARD NOTIFICATIONS ---*/
 function renderDashboardNotifications(notifications) {
-
-    const container = document.getElementById(
-            "dashboardNotifications"
-        );
+    const container = document.getElementById("dashboardNotifications");
 
     if (!container) {
         return;
     }
 
-    if (!Array.isArray(notifications) ||
-        notifications.length === 0) {
-
+    if (!Array.isArray(notifications) || notifications.length === 0) {
         container.innerHTML = `
-            <div class="crm-dashboard-empty">
-                <i class="fa-solid fa-bell"></i>
-                <span>No new notifications.</span>
+            <div class="EMP-notification-item">
+                <div class="EMP-notification-icon">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+                <div class="EMP-notification-text">
+                    No new notifications.
+                </div>
             </div>
         `;
-
         return;
     }
 
     container.innerHTML = "";
 
     notifications.forEach(function (notification) {
-
         const item = document.createElement("div");
+        item.className = "EMP-notification-item";
 
-        item.className = "crm-dashboard-notification-item";
-
-        const message =
-            notification.message ||
-            notification.title ||
-            "Notification";
+        const title = notification.title || "Notification";
+        const message = notification.message || title;
 
         item.innerHTML = `
-            <div class="crm-dashboard-notification-icon">
+            <div class="EMP-notification-icon">
                 <i class="fa-solid fa-bell"></i>
             </div>
 
-            <div class="crm-dashboard-notification-content">
-
-                <strong>
-                    ${escapeHtml(
-                        notification.title ||
-                        "Notification"
-                    )}
-                </strong>
-
-                <span>
-                    ${escapeHtml(message)}
-                </span>
-
+            <div class="EMP-notification-text">
+                <strong>${escapeHtml(title)}</strong>
+                <span>${escapeHtml(message)}</span>
+                ${
+                    notification.created_at
+                        ? `<small>${escapeHtml(formatDate(notification.created_at))}</small>`
+                        : ""
+                }
             </div>
         `;
 
         container.appendChild(item);
     });
 }
-
-
-/*--- HEADER NOTIFICATION COUNT ---*/
-// async function loadNotificationCount() {
-
-//     const countElement = document.getElementById("headerNotificationCount");
-
-//     if (!countElement) {
-//         return;
-//     }
-
-//     try {
-
-//         const data = await apiRequest(
-//             `${API_BASE}/notifications/today`,
-//             {
-//                 method: "GET"
-//             }
-//         );
-
-//         if (!data.success) {
-
-//             throw new Error(
-//                 data.message ||
-//                 "Failed to load notification count."
-//             );
-//         }
-
-//         const summary = data.summary || {};
-
-//         const count =
-//             Number(
-//                 summary.total_notifications
-//             ) || 0;
-
-//         countElement.textContent = count;
-
-//     } catch (error) {
-
-//         console.error(
-//             "❌ Employee Notification Error:",
-//             error
-//         );
-
-//         countElement.textContent = "0";
-//     }
-// }
 
 
 /*--- HEADER NOTIFICATION COUNT ---*/
@@ -1088,8 +1001,6 @@ async function loadNotificationCount() {
         countElement.textContent = "0";
     }
 }
-
-
 
 
 /*--- OPEN NOTIFICATIONS ---*/
@@ -1215,18 +1126,11 @@ function formatTime(timeValue) {
 /*--- DASHBOARD ERROR ---*/
 function showDashboardError(message) {
 
-    const followups = document.getElementById(
-            "todayFollowupsTable"
-        );
+    const followups = document.getElementById("todayFollowupsTable");
 
-    const enquiries = document.getElementById(
-            "recentEnquiriesTable"
-        );
+    const enquiries = document.getElementById("recentEnquiriesTable");
 
-    const notifications = document.getElementById(
-            "dashboardNotifications"
-        );
-
+    const notifications = document.getElementById("dashboardNotifications");
 
     if (followups) {
 
@@ -1460,41 +1364,6 @@ window.openNotifications = openNotifications;
 window.logoutEmployee = logoutEmployee;
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Side bar dropdown JS - Script -->
-<script>
-    const dropdowns = document.querySelectorAll(".crm-dropdown");
-
-dropdowns.forEach(dropdown => {
-
-    const button = dropdown.querySelector(".crm-dropdown-btn");
-
-    button.addEventListener("click", () => {
-
-        dropdown.classList.toggle("active");
-
-    });
-
-});
-</script>
-
 
 
 </body>
