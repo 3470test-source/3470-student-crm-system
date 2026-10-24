@@ -23,58 +23,13 @@
       box-sizing: border-box;
     }
 
-    
-
-    .emp-btn-editAdmis { 
-        border:0; 
-        border-radius:8px; 
-        padding:11px 17px; 
-        cursor:pointer; 
-        display:inline-flex;
-        align-items:center; 
-        justify-content:center; 
-        gap:8px; 
-        font-size:14px; 
-        font-weight:600;
-    }
-
-
-
-
-    
-
-    .emp-btn-editAdmis:disabled { 
-        opacity:.6; 
-        cursor:not-allowed; 
-    }
-
-
-
-
-
-
-
-        .emp-card { background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:24px; margin-bottom:20px; }
-        .emp-card h2 { font-size:17px; color:#15803d; padding-bottom:14px; border-bottom:1px solid #e2e8f0; margin-bottom:20px; }
-        .emp-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
-        .emp-field label { display:block; font-size:13px; font-weight:600; color:#374151; margin-bottom:7px; }
-        .emp-field input, .emp-field select, .emp-field textarea { width:100%; min-width:0; padding:11px 12px; border:1px solid #cbd5e1; border-radius:7px; font:inherit; color:#1e293b; background:#fff; }
-        .emp-field textarea { min-height:90px; resize:vertical; }
-        .emp-field input:focus, .emp-field select:focus, .emp-field textarea:focus { outline:2px solid #bbf7d0; border-color:#16a34a; }
-        .emp-field input[readonly] { background:#f8fafc; }
-        .emp-actions { display:flex; gap:10px; flex-wrap:wrap; margin:20px 0; }
-
-        
-        .emp-primary { background:#15803d; color:#fff; }
-        .emp-secondary { background:#f1f5f9; color:#334155; }
-        
-        .emp-message { display:none; padding:13px 15px; border-radius:8px; margin-bottom:18px; }
-        .emp-message.show { display:block; }
-        .emp-success { background:#dcfce7; color:#166534; }
-        .emp-error { background:#fee2e2; color:#991b1b; }
-        .emp-hidden { display:none !important; }
-        .emp-loading { text-align:center; padding:35px; color:#64748b; }
-        .emp-hint { font-size:12px; color:#64748b; margin-top:5px; }
+    .emp-message { display:none; padding:13px 15px; border-radius:8px; margin-bottom:18px; }
+    .emp-message.show { display:block; }
+    .emp-success { background:#dcfce7; color:#166534; }
+    .emp-error { background:#fee2e2; color:#991b1b; }
+    .emp-hidden { display:none !important; }
+    .emp-loading { text-align:center; padding:35px; color:#64748b; }
+    .emp-hint { font-size:12px; color:#64748b; margin-top:5px; }
                 
     </style>
 
@@ -201,7 +156,7 @@
                     <i class="fa-solid fa-user"></i>My Profile
                 </a>
 
-                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout" onclick="logoutEmployee(event)">
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout">
                     <i class="fa-solid fa-right-from-bracket"></i>Logout
                 </a>
 
@@ -216,145 +171,183 @@
                         <h1>Edit Admission</h1>
                         <p>Update an existing admission record.</p></div>
 
-                    <button type="button" class="emp-btn-editAdmis emp-secondary" id="backBtn"><i class="fa fa-arrow-left"></i> Back</button>
+                    <button type="button" class="emp-btn-editAdmis emp-editAdmis-secondary" id="backBtn"><i class="fa fa-arrow-left"></i> Back</button>
                 </div>
 
+                <div id="loading" class="emp-loading"><i class="fa fa-spinner fa-spin"></i> Loading admission details...</div>
+                <div id="message" class="emp-message" role="status" aria-live="polite"></div>
 
 
+                <form id="editAdmissionForm" class="emp-hidden">
+
+                    <!-- Student Information -->
+                    <section class="emp-card-editAdmission">
+                        <h2><i class="fa fa-user-graduate"></i> Student Information</h2>
+
+                        <div class="emp-grid-editAdmission">
+
+                            <!-- Student Name -->
+                            <div class="emp-field-editAdmission">
+                                <label for="studentName">Student Name *</label>
+                                <input id="studentName" name="student_name" required maxlength="150">
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="emp-field-editAdmission">
+                                <label for="mobile">Mobile Number *</label>
+                                <input id="mobile" name="mobile" required maxlength="20" inputmode="tel">
+                            </div>
+
+                            <!-- Email -->
+                            <div class="emp-field-editAdmission">
+                                <label for="email">Email</label>
+                                <input id="email" name="email" type="email" maxlength="150">
+                            </div>
 
 
+                            <div class="emp-field-editAdmission">
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="">-- Select Gender --</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
 
+                            <div class="emp-field-editAdmission">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input id="dateOfBirth" name="date_of_birth" type="date">
+                            </div>
 
-            <div id="loading" class="emp-loading"><i class="fa fa-spinner fa-spin"></i> Loading admission details...</div>
-            <div id="message" class="emp-message" role="status" aria-live="polite"></div>
-
-
-
-
-
-            <form id="editAdmissionForm" class="emp-hidden">
-                <section class="emp-card">
-                    <h2><i class="fa fa-user-graduate"></i> Student Information</h2>
-                    <div class="emp-grid">
-                        <div class="emp-field">
-                            <label for="studentName">Student Name *</label>
-                            <input id="studentName" name="student_name" required maxlength="150">
                         </div>
-                        <div class="emp-field">
-                            <label for="mobile">Mobile Number *</label>
-                            <input id="mobile" name="mobile" required maxlength="20" inputmode="tel">
+
+                    </section>
+
+                    <!-- Course & Admission Details -->
+                    <section class="emp-card-editAdmission">
+                        <h2><i class="fa fa-book-open"></i> Course & Admission Details</h2>
+
+                        <div class="emp-grid-editAdmission">
+
+                            <!-- Course -->
+                            <div class="emp-field-editAdmission">
+                                <label for="courseId">Course *</label>
+                                <select id="courseId" name="course_id" required>
+                                    <option value="">Loading courses...</option>
+                                </select>
+
+                                <div class="emp-hint">If course options fail to load, check the courses API route.</div>
+                            </div>
+
+                            <!-- Batch -->
+                            <div class="emp-field-editAdmission">
+                                <label for="batch">Batch</label>
+                                <select id="batch" name="batch">
+                                    <option value="">-- Select Batch --</option>
+                                    <option value="Morning">Morning</option>
+                                    <option value="Afternoon">Afternoon</option>
+                                    <option value="Evening">Evening</option>
+                                    <option value="Weekend">Weekend</option>
+                                </select>
+                            </div>
+
+                            <!-- Joining Date -->
+                            <div class="emp-field-editAdmission">
+                                <label for="joiningDate">Joining Date</label>
+                                <input id="joiningDate" name="joining_date" type="date">
+                            </div>
+
+                            <!-- Payment Mode -->
+                            <div class="emp-field-editAdmission">
+                                <label for="paymentMode">Payment Mode</label>
+                                <select id="paymentMode" name="payment_mode">
+                                    <option value="">-- Select Payment Mode --</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="UPI">UPI</option>
+                                    <option value="Credit Card">Credit Card</option>
+                                    <option value="Debit Card">Debit Card</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                </select>
+                            </div>
+
+                            <!-- Admission Status -->
+                            <div class="emp-field-editAdmission">
+                                <label for="admissionStatus">Admission Status</label>
+                                <select id="admissionStatus" name="admission_status">
+                                    <option value="Confirmed">Confirmed</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
                         </div>
-                        <div class="emp-field">
-                            <label for="email">Email</label>
-                            <input id="email" name="email" type="email" maxlength="150">
+
+                    </section>
+
+                    <!-- Fee & Payment Details -->
+                    <section class="emp-card-editAdmission">
+                        <h2><i class="fa fa-wallet"></i> Fee & Payment Details</h2>
+
+                        <div class="emp-grid-editAdmission">
+
+                            <div class="emp-field-editAdmission">
+                                <label for="courseFee">Course Fee (₹) *</label>
+                                <input id="courseFee" name="course_fee" type="number" min="0" step="0.01" required>
+                            </div>
+
+                            <div class="emp-field-editAdmission">
+                                <label for="discount">Discount (₹)</label>
+                                <input id="discount" name="discount" type="number" min="0" step="0.01" value="0">
+                            </div>
+
+                            <div class="emp-field-editAdmission">
+                                <label for="finalFee">Final Fee (₹)</label>
+                                <input id="finalFee" name="final_fee" type="number" readonly>
+                            </div>
+
+                            <div class="emp-field-editAdmission">
+                                <label for="registrationAmount">Registration Amount (₹)</label>
+                                <input id="registrationAmount" name="registration_amount" type="number" min="0" step="0.01" value="0">
+                            </div>
+
+                            <div class="emp-field-editAdmission">
+                                <label for="balanceAmount">Balance Amount (₹)</label>
+                                <input id="balanceAmount" name="balance_amount" type="number" readonly>
+                            </div>
+
                         </div>
-                        <div class="emp-field">
-                            <label for="gender">Gender</label>
-                            <select id="gender" name="gender">
-                                <option value="">-- Select Gender --</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
-                            </select>
+
+                    </section>
+
+                    <!-- Remarks -->
+                    <section class="emp-card-editAdmission">
+                        <h2><i class="fa fa-comment"></i> Remarks</h2>
+
+                        <div class="emp-field-editAdmission">
+                            <label for="remarks">Remarks / Comments</label>
+                            <textarea id="remarks" name="remarks" maxlength="2000"></textarea>
                         </div>
-                        <div class="emp-field">
-                            <label for="dateOfBirth">Date of Birth</label>
-                            <input id="dateOfBirth" name="date_of_birth" type="date">
-                        </div>
+
+                    </section>
+
+                    <div class="emp-actions-editAdmis">
+                        <button type="submit" class="emp-btn-editAdmis emp-editAdmis-primary" id="saveBtn">
+                            <i class="fa fa-save"></i> Update Admission
+                        </button>
+                        <button type="button" class="emp-btn-editAdmis emp-editAdmis-secondary" id="cancelBtn">Cancel</button>
                     </div>
-                </section>
 
-                <section class="emp-card">
-                    <h2><i class="fa fa-book-open"></i> Course & Admission Details</h2>
-                    <div class="emp-grid">
-                        <div class="emp-field">
-                            <label for="courseId">Course *</label>
-                            <select id="courseId" name="course_id" required>
-                                <option value="">Loading courses...</option>
-                            </select>
-                            <div class="emp-hint">If course options fail to load, check the courses API route.</div>
-                        </div>
-                        <div class="emp-field">
-                            <label for="batch">Batch</label>
-                            <select id="batch" name="batch">
-                                <option value="">-- Select Batch --</option>
-                                <option>Morning</option>
-                                <option>Afternoon</option>
-                                <option>Evening</option>
-                                <option>Weekend</option>
-                            </select>
-                        </div>
-                        <div class="emp-field">
-                            <label for="joiningDate">Joining Date</label>
-                            <input id="joiningDate" name="joining_date" type="date">
-                        </div>
-                        <div class="emp-field">
-                            <label for="paymentMode">Payment Mode</label>
-                            <select id="paymentMode" name="payment_mode">
-                                <option value="">-- Select Payment Mode --</option>
-                                <option>Cash</option>
-                                <option>UPI</option>
-                                <option>Credit Card</option>
-                                <option>Debit Card</option>
-                                <option>Bank Transfer</option>
-                            </select>
-                        </div>
-                        <div class="emp-field">
-                            <label for="admissionStatus">Admission Status</label>
-                            <select id="admissionStatus" name="admission_status">
-                                <option>Confirmed</option>
-                                <option>Pending</option>
-                                <option>Cancelled</option>
-                            </select>
-                        </div>
-                    </div>
-                </section>
+                </form>
 
-                <section class="emp-card">
-                    <h2><i class="fa fa-wallet"></i> Fee & Payment Details</h2>
-                    <div class="emp-grid">
-                        <div class="emp-field">
-                            <label for="courseFee">Course Fee (₹) *</label>
-                            <input id="courseFee" name="course_fee" type="number" min="0" step="0.01" required>
-                        </div>
-                        <div class="emp-field">
-                            <label for="discount">Discount (₹)</label>
-                            <input id="discount" name="discount" type="number" min="0" step="0.01" value="0">
-                        </div>
-                        <div class="emp-field">
-                            <label for="finalFee">Final Fee (₹)</label>
-                            <input id="finalFee" name="final_fee" type="number" readonly>
-                        </div>
-                        <div class="emp-field">
-                            <label for="registrationAmount">Registration Amount (₹)</label>
-                            <input id="registrationAmount" name="registration_amount" type="number" min="0" step="0.01" value="0">
-                        </div>
-                        <div class="emp-field">
-                            <label for="balanceAmount">Balance Amount (₹)</label>
-                            <input id="balanceAmount" name="balance_amount" type="number" readonly>
-                        </div>
-                    </div>
-                </section>
+            </main>
 
-                <section class="emp-card">
-                    <h2><i class="fa fa-comment"></i> Remarks</h2>
-                    <div class="emp-field">
-                        <label for="remarks">Remarks / Comments</label>
-                        <textarea id="remarks" name="remarks" maxlength="2000"></textarea>
-                    </div>
-                </section>
+        </div>
 
-                <div class="emp-actions">
-                    <button type="submit" class="emp-btn-editAdmis emp-primary" id="saveBtn">
-                        <i class="fa fa-save"></i> Update Admission
-                    </button>
-                    <button type="button" class="emp-btn-editAdmis emp-secondary" id="cancelBtn">Cancel</button>
-                </div>
-            </form>
-        </main>
-    </div>
 
+        
+<!-- Employee Edit Admission - JS -->
 <script>
+
 (() => {
     "use strict";
 
@@ -464,20 +457,37 @@
                 select.appendChild(option);
             });
 
+            
+            /*-- Select the saved course using its name --*/
+            const savedCourseName = String(admission?.course ?? "").trim();
+
+            /*-- If a course ID was provided, try selecting it first --*/
             if (selectedCourseId !== undefined && selectedCourseId !== null) {
                 select.value = String(selectedCourseId);
             }
 
-            // If the API does not include this existing course, keep it visible.
-            if (select.value === "" && selectedCourseId) {
-                const option = document.createElement("option");
-                option.value = String(selectedCourseId);
-                option.textContent = admission.course_name ?? admission.course ?? `Course #${selectedCourseId}`;
-                select.appendChild(option);
-                select.value = String(selectedCourseId);
+            /*-- If no course was selected, match the saved course name --*/
+            if (!select.value && savedCourseName) {
+                const matchingCourse = courses.find(course =>
+                    String(course.course_name ?? course.name ?? "")
+                        .trim()
+                        .toLowerCase() === savedCourseName.toLowerCase()
+                );
+
+                if (matchingCourse) {
+                    select.value = String(
+                        matchingCourse.id ?? matchingCourse.course_id
+                    );
+                } else {
+                    showMessage(
+                        `The saved course "${savedCourseName}" is not in the available course list. Please select an available course.`
+                    );
+                }
             }
 
             courseOptionsLoaded = true;
+
+
         } catch (error) {
             console.error("Could not load courses:", error);
             select.replaceChildren();
@@ -508,7 +518,7 @@
 
         calculateFees();
 
-        return loadCourses(a.course_id ?? a.courseId, a);
+        return loadCourses(null, a);
     }
 
     function calculateFees() {
@@ -631,10 +641,13 @@
 
             showMessage(result.message || "Admission updated successfully.", "success");
 
-            // The admin side reads the same record, so it will see the saved changes on reload.
+            const saveBtn = $("saveBtn");
+            saveBtn.disabled = true;
+
             setTimeout(() => {
-                location.href = `emp-view-admission.html?id=${encodeURIComponent(admissionId)}&updated=1`;
-            }, 800);
+                window.location.href = "my-admissions.html";
+            }, 4000);
+
         } catch (error) {
             console.error("Update admission failed:", error);
             showMessage(error.message || "Failed to update admission.");
@@ -642,6 +655,54 @@
             saveBtn.innerHTML = '<i class="fa fa-save"></i> Update Admission';
         }
     }
+
+
+    async function loadNotificationCount() {
+        const badge = $("headerNotificationCount");
+        const token = localStorage.getItem("crmToken");
+
+        if (!badge || !token) return;
+
+        try {
+            const response = await fetch(`${API_BASE}/employee/notifications`,
+            {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        if (response.status === 401) {
+            logout();
+            return;
+        }
+
+        const data = await response.json();
+
+        if (!response.ok || data.success === false) {
+            throw new Error(data.message || "Unable to load notifications.");
+        }
+
+        const notifications = Array.isArray(data.notifications)
+            ? data.notifications
+            : [];
+
+        const count = Number(
+            data.summary?.total_notifications ?? notifications.length
+        );
+
+        badge.textContent = String(count);
+        badge.style.display = "inline-flex";
+
+        } catch (error) {
+            console.error("Notification count error:", error);
+            badge.textContent = "0";
+            badge.style.display = "inline-flex";
+        }
+    }
+
 
     function setupMenu() {
         const sidebar = $("crmSidebar"), overlay = $("crmSidebarOverlay");
@@ -668,12 +729,27 @@
         }
 
         setupMenu();
+
+        loadNotificationCount();
+
+    $("notificationButton").addEventListener("click", () => {
+        window.location.href = "my-notifications.html";
+    });
+
         $("backBtn").addEventListener("click", () => location.href = "my-admissions.html");
         $("cancelBtn").addEventListener("click", () => location.href = `emp-view-admission.html?id=${encodeURIComponent(admissionId || "")}`);
+
         $("logoutButton").addEventListener("click", event => {
             event.preventDefault();
+
+    const confirmed = window.confirm(
+        "Are you sure you want to log out?"
+    );
+
+        if (confirmed) {
             logout();
-        });
+        }
+    });
 
         ["courseFee", "discount", "registrationAmount"].forEach(id => {
             $(id).addEventListener("input", calculateFees);
@@ -682,7 +758,11 @@
         $("editAdmissionForm").addEventListener("submit", updateAdmission);
         loadAdmission();
     });
+
 })();
+
 </script>
+
+
 </body>
 </html>

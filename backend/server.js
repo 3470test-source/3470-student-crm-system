@@ -7015,44 +7015,7 @@ app.put("/api/employee/change-password", authenticateToken, async (req, res) => 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ============================================
-   EMPLOYEE ADMISSIONS API
-   Add directly inside server.js
-============================================ */
-
-// GET: Load courses for employee admission form
+/*==== GET: Load courses for employee admission form ====*/ 
 app.get("/api/employee/admissions/courses", authenticateToken, async (req, res) => {
     try {
         const role = String(req.user?.role || "").toLowerCase();
@@ -7084,64 +7047,10 @@ app.get("/api/employee/admissions/courses", authenticateToken, async (req, res) 
 });
 
 
-// GET: View one employee admission
-// app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
-//     try {
-//         const role = String(req.user?.role || "").toLowerCase();
-//         const employeeId = Number(req.user?.id ?? req.user?.user_id);
-//         const admissionId = Number(req.params.id);
-
-//         if (!["counsellor", "staff"].includes(role)) {
-//             return res.status(403).json({
-//                 success: false,
-//                 message: "Access denied."
-//             });
-//         }
-
-//         if (!Number.isInteger(admissionId) || admissionId < 1 ||
-//             !Number.isInteger(employeeId) || employeeId < 1) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Invalid admission or employee ID."
-//             });
-//         }
-
-//         const [rows] = await db.execute(`
-//             SELECT
-//                 a.*,
-//                 c.course_name,
-//                 c.course_category
-//             FROM admissions a
-//             LEFT JOIN courses c ON c.id = a.course_id
-//             WHERE a.id = ?
-//               AND a.counsellor_id = ?
-//             LIMIT 1
-//         `, [admissionId, employeeId]);
-
-//         if (!rows.length) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: "Admission not found or not assigned to you."
-//             });
-//         }
-
-//         res.json({
-//             success: true,
-//             admission: rows[0]
-//         });
-
-//     } catch (error) {
-//         console.error("View employee admission error:", error);
-
-//         res.status(500).json({
-//             success: false,
-//             message: "Unable to retrieve admission."
-//         });
-//     }
-// });
 
 
 
+/*==== Employee View & Edit Admission  - Get Method ====*/
 app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
     try {
         const role = String(req.user?.role || "").toLowerCase();
@@ -7165,7 +7074,7 @@ app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
             });
         }
 
-        // Your table stores course and counsellor as names.
+        /*-- Your table stores course and counsellor as names. --*/
         const [rows] = await db.execute(
             `SELECT *
              FROM admissions
@@ -7201,14 +7110,14 @@ app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
 
 
 
-
-// PUT: Update an existing employee admission
+/*==== PUT: Update an existing employee admission ====*/
 app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
     try {
         const role = String(req.user?.role || "").toLowerCase();
         const employeeId = Number(req.user?.id ?? req.user?.user_id);
         const admissionId = Number(req.params.id);
 
+        /*--- 1. Check employee permissions ---*/
         if (!["counsellor", "staff"].includes(role)) {
             return res.status(403).json({
                 success: false,
@@ -7216,34 +7125,26 @@ app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
             });
         }
 
-        if (!Number.isInteger(admissionId) || admissionId < 1 ||
-            !Number.isInteger(employeeId) || employeeId < 1) {
+        if (
+            !Number.isInteger(admissionId) || admissionId < 1 ||
+            !Number.isInteger(employeeId) || employeeId < 1
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid admission or employee ID."
             });
         }
 
+        /*--- 2. Read the fields sent by the frontend ---*/
         const {
-            student_name,
-            mobile,
-            email,
-            gender,
-            date_of_birth,
-            course,   
-            batch,
-            joining_date,
-            payment_mode,
-            admission_status,
-            course_fee,
-            discount,
-            registration_amount,
-            remarks
+            student_name, mobile, email, gender, date_of_birth, course_id, batch, joining_date, payment_mode,
+            admission_status, course_fee, discount, registration_amount, remarks
         } = req.body;
 
         const name = String(student_name || "").trim();
         const phone = String(mobile || "").trim();
-        const courseId = Number(course_id);
+        const selectedCourseId = Number(course_id);
+
         const fee = Number(course_fee);
         const discountAmount = Number(discount ?? 0);
         const registration = Number(registration_amount ?? 0);
@@ -7255,17 +7156,31 @@ app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
             });
         }
 
-        if (!Number.isInteger(courseId) || courseId < 1) {
+        if (!/^\d{10}$/.test(phone)) {
+            return res.status(400).json({
+                success: false,
+                message: "Mobile number must contain exactly 10 digits."
+            });
+        }
+
+        if (
+            !Number.isInteger(selectedCourseId) ||
+            selectedCourseId < 1
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Please select a valid course."
             });
         }
 
-        if (![fee, discountAmount, registration].every(Number.isFinite) ||
-            fee < 0 || discountAmount < 0 ||
-            registration < 0 || discountAmount > fee ||
-            registration > fee - discountAmount) {
+        if (
+            ![fee, discountAmount, registration].every(Number.isFinite) ||
+            fee < 0 ||
+            discountAmount < 0 ||
+            registration < 0 ||
+            discountAmount > fee ||
+            registration > fee - discountAmount
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid course fee, discount or registration amount."
@@ -7282,20 +7197,23 @@ app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
             });
         }
 
-        const validDate = value => {
+        /*--- 3. Validate dates ---*/
+        function validDate(value) {
             if (!value) return null;
 
             const s = String(value);
 
-            if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return undefined;
+            if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+                return undefined;
+            }
 
-            const date = new Date(`${s}T00:00:00Z`);
+            const date = new Date(`${s}T00:00:00.000Z`);
 
             return !Number.isNaN(date.getTime()) &&
                 date.toISOString().slice(0, 10) === s
                 ? s
                 : undefined;
-        };
+        }
 
         const dob = validDate(date_of_birth);
         const joiningDate = validDate(joining_date);
@@ -7307,98 +7225,342 @@ app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
             });
         }
 
+        /*--- 4. Calculate fees on the server ---*/
         const finalFee = Number((fee - discountAmount).toFixed(2));
         const balance = Number((finalFee - registration).toFixed(2));
 
-        // Verify employee ownership before updating the record.
-        const [existing] = await db.execute(`
-            SELECT id
-            FROM admissions
-            WHERE id = ? AND counsellor_id = ?
-            LIMIT 1
-        `, [admissionId, employeeId]);
+        /*--- 5. Check that this admission belongs to this employee ---*/
+        const [existing] = await db.execute(
+            `SELECT id
+             FROM admissions
+             WHERE id = ? AND counsellor_id = ?
+             LIMIT 1`,
+            [admissionId, employeeId]
+        );
 
-        if (!existing.length) {
+        if (existing.length === 0) {
             return res.status(404).json({
                 success: false,
                 message: "Admission not found or not assigned to you."
             });
         }
 
+        /*--- 6. Get the course NAME using the selected course ID. ---*/
         const [courseRows] = await db.execute(
-            "SELECT id FROM courses WHERE id = ? LIMIT 1",
-            [courseId]
+            `SELECT id, course_name
+             FROM courses
+             WHERE id = ?
+             LIMIT 1`,
+            [selectedCourseId]
         );
 
-        if (!courseRows.length) {
+        if (courseRows.length === 0) {
             return res.status(400).json({
                 success: false,
                 message: "Selected course does not exist."
             });
         }
 
-        const [result] = await db.execute(`
-            UPDATE admissions SET
-                student_name = ?,
-                mobile = ?,
-                email = ?,
-                gender = ?,
-                date_of_birth = ?,
-                course = ?,
-                batch = ?,
-                joining_date = ?,
-                payment_mode = ?,
-                admission_status = ?,
-                course_fee = ?,
-                discount = ?,
-                final_fee = ?,
-                registration_amount = ?,
-                balance_amount = ?,
-                remarks = ?
-            WHERE id = ? AND counsellor_id = ?
-        `, [
-            name,
-            phone,
-            email || null,
-            gender || null,
-            dob,
-            courseId,
-            batch || null,
-            joiningDate,
-            payment_mode || null,
-            status,
-            fee,
-            discountAmount,
-            finalFee,
-            registration,
-            balance,
-            remarks || null,
-            admissionId,
-            employeeId
-        ]);
+        const courseName = courseRows[0].course_name;
 
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "Admission was not updated."
-            });
-        }
+        /*--- 7. Update the admission using the correct database columns ---*/
+        const [result] = await db.execute(
+            `UPDATE admissions SET
+                student_name = ?, mobile = ?, email = ?, gender = ?, date_of_birth = ?, course = ?, batch = ?, joining_date = ?,
+                payment_mode = ?, admission_status = ?, course_fee = ?, discount = ?, final_fee = ?, registration_amount = ?,
+                balance_amount = ?, remarks = ?
+             WHERE id = ? AND counsellor_id = ?`,
+            [
+                name,
+                phone,
+                email || null,
+                gender || null,
+                dob,
+                courseName,
+                batch || null,
+                joiningDate,
+                payment_mode || null,
+                status,
+                fee,
+                discountAmount,
+                finalFee,
+                registration,
+                balance,
+                remarks || null,
+                admissionId,
+                employeeId
+            ]
+        );
 
-        res.json({
+        return res.json({
             success: true,
             message: "Admission updated successfully.",
-            admission_id: admissionId
+            admission_id: admissionId,
+            affectedRows: result.affectedRows
         });
 
     } catch (error) {
-        console.error("Update employee admission error:", error);
+        console.error("UPDATE EMPLOYEE ADMISSION ERROR:", error);
 
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
-            message: "Unable to update admission."
+            message: "Unable to update admission.",
+            ...(process.env.NODE_ENV !== "production"
+                ? { error: error.message }
+                : {})
         });
     }
 });
+
+
+
+
+
+/*==== EMPLOYEE: VIEW ONE ENQUIRY  -  GET /api/employee/enquiries/:id ====*/
+app.get("/api/employee/enquiries/:id", authenticateToken,
+    async (req, res) => {
+        try {
+            const role = String(req.user?.role || "").toLowerCase();
+            const employeeId = Number(req.user?.id ?? req.user?.user_id);
+            const enquiryId = Number(req.params.id);
+
+            if (!["counsellor", "staff"].includes(role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Access denied."
+                });
+            }
+
+            if (
+                !Number.isInteger(employeeId) || employeeId < 1 ||
+                !Number.isInteger(enquiryId) || enquiryId < 1
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid employee or enquiry ID."
+                });
+            }
+
+            const [rows] = await db.execute(
+                `SELECT
+                    id, student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source, counsellor,
+                    counsellor_id, enquiry_date, follow_up_date, follow_up_time, status, address, comments, created_at, updated_at
+                 FROM student_enquiries
+                 WHERE id = ? AND counsellor_id = ?
+                 LIMIT 1`,
+                [enquiryId, employeeId]
+            );
+
+            if (!rows.length) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Enquiry not found or not assigned to you."
+                });
+            }
+
+            return res.json({
+                success: true,
+                enquiry: rows[0]
+            });
+        } catch (error) {
+            console.error("EMPLOYEE VIEW ENQUIRY ERROR:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load enquiry."
+            });
+        }
+    }
+);
+
+
+
+
+
+/*==== EMPLOYEE: UPDATE ONE ENQUIRY  -  PUT /api/employee/enquiries/:id ====*/
+app.put("/api/employee/enquiries/:id", authenticateToken,
+    async (req, res) => {
+        try {
+            const role = String(req.user?.role || "").toLowerCase();
+            const employeeId = Number(req.user?.id ?? req.user?.user_id);
+            const enquiryId = Number(req.params.id);
+
+            if (!["counsellor", "staff"].includes(role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Access denied."
+                });
+            }
+
+            if (
+                !Number.isInteger(employeeId) || employeeId < 1 ||
+                !Number.isInteger(enquiryId) || enquiryId < 1
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid employee or enquiry ID."
+                });
+            }
+
+            const {
+                student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source, enquiry_date,
+                follow_up_date, follow_up_time, status, address, comments
+            } = req.body;
+
+            const name = String(student_name || "").trim();
+            const phone = String(mobile || "").trim();
+            const course = String(course_interested || "").trim();
+
+            if (!name || !phone || !course) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Student name, mobile and course are required."
+                });
+            }
+
+            if (!/^\d{10}$/.test(phone)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Mobile number must contain exactly 10 digits."
+                });
+            }
+
+            const validDate = value => {
+                if (value === undefined || value === null || value === "") {
+                    return null;
+                }
+
+                const dateString = String(value);
+
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+                    return undefined;
+                }
+
+                const date = new Date(`${dateString}T00:00:00.000Z`);
+
+                return !Number.isNaN(date.getTime()) &&
+                    date.toISOString().slice(0, 10) === dateString
+                    ? dateString
+                    : undefined;
+            };
+
+            const dob = validDate(date_of_birth);
+            const enquiryDate = validDate(enquiry_date);
+            const followUpDate = validDate(follow_up_date);
+
+            if (
+                dob === undefined ||
+                enquiryDate === undefined ||
+                followUpDate === undefined
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please enter valid dates."
+                });
+            }
+
+            let followUpTime = null;
+
+            if (follow_up_time) {
+                followUpTime = String(follow_up_time);
+
+                if (!/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(followUpTime)) {
+                    return res.status(400).json({
+                        success: false,
+                        message: "Please enter a valid follow-up time."
+                    });
+                }
+
+                if (followUpTime.length === 5) {
+                    followUpTime += ":00";
+                }
+            }
+
+            const allowedStatuses = [
+                "New", "Pending", "Interested", "Not Interested", "Call Back", "Follow-up", "Admission Confirmed"
+            ];
+
+            const enquiryStatus = String(status || "New").trim();
+
+            if (!allowedStatuses.includes(enquiryStatus)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid enquiry status."
+                });
+            }
+
+            /*-- Verify that this enquiry belongs to the logged-in employee. --*/
+            const [existing] = await db.execute(
+                `SELECT id
+                 FROM student_enquiries
+                 WHERE id = ? AND counsellor_id = ?
+                 LIMIT 1`,
+                [enquiryId, employeeId]
+            );
+
+            if (!existing.length) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Enquiry not found or not assigned to you."
+                });
+            }
+
+            /*-- Do not allow the employee to change counsellor_id or ownership. --*/
+            const [result] = await db.execute(
+                `UPDATE student_enquiries SET
+                    student_name = ?,
+                    mobile = ?,
+                    email = ?,
+                    gender = ?,
+                    date_of_birth = ?,
+                    course_interested = ?,
+                    enquiry_source = ?,
+                    enquiry_date = ?,
+                    follow_up_date = ?,
+                    follow_up_time = ?,
+                    status = ?,
+                    address = ?,
+                    comments = ?
+                    updated_at = CURRENT_TIMESTAMP
+                 WHERE id = ? AND counsellor_id = ?`,
+                [
+                    name,
+                    phone,
+                    email ? String(email).trim() : null,
+                    gender || null,
+                    dob,
+                    course,
+                    enquiry_source || null,
+                    enquiryDate,
+                    followUpDate,
+                    followUpTime,
+                    enquiryStatus,
+                    address || null,
+                    comments || null,
+                    enquiryId,
+                    employeeId
+                ]
+            );
+
+            return res.json({
+                success: true,
+                message: "Enquiry updated successfully.",
+                enquiry_id: enquiryId,
+                affectedRows: result.affectedRows
+            });
+        } catch (error) {
+            console.error("EMPLOYEE UPDATE ENQUIRY ERROR:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to update enquiry.",
+                ...(process.env.NODE_ENV !== "production"
+                    ? { error: error.message }
+                    : {})
+            });
+        }
+    }
+);
 
 
 
