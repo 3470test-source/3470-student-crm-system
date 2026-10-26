@@ -1,0 +1,898 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3470 Healthcare - Edit Follow-up</title>
+
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .edit-followup-main {
+            padding: 28px;
+        }
+
+        .edit-followup-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .edit-followup-heading h1 {
+            color: #1e3a8a;
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .edit-followup-heading p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .edit-followup-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .edit-followup-btn {
+            padding: 11px 17px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .edit-followup-back {
+            background: #e2e8f0;
+            color: #334155;
+        }
+
+        .edit-followup-save {
+            background: #2563eb;
+            color: white;
+        }
+
+        .edit-followup-save:hover {
+            background: #1d4ed8;
+        }
+
+        .edit-followup-save:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .edit-followup-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, .05);
+        }
+
+        .edit-followup-card h3 {
+            color: #1e293b;
+            font-size: 19px;
+            margin-bottom: 22px;
+        }
+
+        .edit-followup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .edit-followup-field {
+            min-width: 0;
+        }
+
+        .edit-followup-field.full {
+            grid-column: 1 / -1;
+        }
+
+        .edit-followup-field label {
+            display: block;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .edit-followup-field input,
+        .edit-followup-field select,
+        .edit-followup-field textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #dbe2ea;
+            border-radius: 8px;
+            background: #fff;
+            color: #1e293b;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .edit-followup-field input:focus,
+        .edit-followup-field select:focus,
+        .edit-followup-field textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+        }
+
+        .edit-followup-field input[readonly] {
+            background: #f1f5f9;
+            color: #475569;
+            cursor: not-allowed;
+        }
+
+        .edit-followup-field textarea {
+            min-height: 105px;
+            resize: vertical;
+        }
+
+        .edit-followup-message {
+            padding: 13px 15px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 14px;
+        }
+
+        .edit-followup-error {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .edit-followup-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .edit-followup-info {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .edit-followup-hidden {
+            display: none !important;
+        }
+
+        .edit-followup-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 1000px) {
+            .edit-followup-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .edit-followup-main {
+                padding: 16px;
+            }
+
+            .edit-followup-card {
+                padding: 17px;
+            }
+
+            .edit-followup-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-followup-field.full {
+                grid-column: auto;
+            }
+
+            .edit-followup-actions {
+                width: 100%;
+            }
+
+            .edit-followup-actions button {
+                flex: 1;
+            }
+
+            .edit-followup-footer button {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Employee Header -->
+    <header class="EMP-dashboard-header">
+
+        <div class="EMP-header-left">
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png"
+                     alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <div class="EMP-header-right">
+            <div class="EMP-notification"
+                 id="notificationButton"
+                 role="button"
+                 tabindex="0"
+                 aria-label="Open notifications">
+
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count"
+                      id="headerNotificationCount">0</span>
+            </div>
+
+            <div class="EMP-profile">
+                <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+                    <div class="EMP-profile-name" id="employeeName">
+                        Employee
+                    </div>
+                    <div class="EMP-profile-role" id="employeeRole">
+                        Employee
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+    <div class="crm-sidebar-container">
+
+        <!-- Sidebar -->
+        <aside class="crm-sidebar" id="crmSidebar">
+
+            <a href="employee-dashboard.html">
+                <i class="fa fa-home"></i> Dashboard
+            </a>
+
+            <div class="crm-dropdown">
+                <div class="crm-dropdown-btn">
+                    <i class="fa fa-user-graduate"></i> My Enquiries
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="crm-dropdown-content">
+                    <a href="add-enquiry.html">
+                        <i class="fa fa-user-plus"></i> Add Enquiry
+                    </a>
+                    <a href="my-enquiries.html">
+                        <i class="fa fa-users"></i> Manage Enquiries
+                    </a>
+                </div>
+            </div>
+
+            <div class="crm-dropdown open">
+                <div class="crm-dropdown-btn">
+                    <i class="fa fa-phone"></i> My Follow-ups
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="crm-dropdown-content">
+                    <a href="add-follow-up.html">
+                        <i class="fa fa-calendar-plus"></i> Add Follow-up
+                    </a>
+                    <a href="my-follow-ups.html" class="active">
+                        <i class="fa-solid fa-phone"></i> My Follow-ups
+                    </a>
+                </div>
+            </div>
+
+            <div class="crm-dropdown">
+                <div class="crm-dropdown-btn">
+                    <i class="fa fa-user-check"></i> Admissions
+                    <i class="fa fa-angle-down icon-color"></i>
+                </div>
+
+                <div class="crm-dropdown-content">
+                    <a href="new-admission.html">
+                        <i class="fa fa-plus-circle"></i> New Admission
+                    </a>
+                    <a href="my-admissions.html">
+                        <i class="fa-solid fa-user-check"></i> My Admissions
+                    </a>
+                </div>
+            </div>
+
+            <a href="my-notifications.html" class="crm-nav-link">
+                <i class="fa-solid fa-bell"></i> Notifications
+            </a>
+
+            <a href="employee-profile.html" class="crm-nav-link">
+                <i class="fa-solid fa-user"></i> My Profile
+            </a>
+
+            <a href="#" id="logoutButton" class="crm-nav-link logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="EMP-dashboard-main edit-followup-main">
+
+            <div class="edit-followup-heading">
+                <div>
+                    <h1>Edit Follow-up</h1>
+                    <p>Update the student's follow-up information.</p>
+                </div>
+
+                <div class="edit-followup-actions">
+                    <button type="button"
+                            class="edit-followup-btn edit-followup-back"
+                            id="backButton">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </button>
+                </div>
+            </div>
+
+            <div id="formMessage"
+                 class="edit-followup-message edit-followup-hidden"
+                 role="alert"
+                 aria-live="polite"></div>
+
+            <div id="loadingMessage"
+                 class="edit-followup-card">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Loading follow-up details...
+            </div>
+
+            <form id="editFollowUpForm"
+                  class="edit-followup-card edit-followup-hidden">
+
+                <h3>
+                    <i class="fa-solid fa-calendar-check"></i>
+                    Follow-up Information
+                </h3>
+
+                <div class="edit-followup-grid">
+
+                    <div class="edit-followup-field">
+                        <label for="followUpId">Follow-up ID</label>
+                        <input type="text" id="followUpId" readonly>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" readonly>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="mobile">Mobile Number</label>
+                        <input type="text" id="mobile" readonly>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="course">Course</label>
+                        <input type="text" id="course" readonly>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="counsellor">Counsellor</label>
+                        <input type="text" id="counsellor" readonly>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="followUpDate">Follow-up Date *</label>
+                        <input type="date" id="followUpDate" required>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="followUpTime">Follow-up Time *</label>
+                        <input type="time" id="followUpTime" required>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="followUpType">Follow-up Type *</label>
+                        <select id="followUpType" required>
+                            <option value="">Select Type</option>
+                            <option value="Phone Call">Phone Call</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Email">Email</option>
+                            <option value="Walk-in">Walk-in</option>
+                        </select>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="status">Status *</label>
+                        <select id="status" required>
+                            <option value="">Select Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Scheduled">Scheduled</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Missed">Missed</option>
+                        </select>
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="nextFollowUpDate">
+                            Next Follow-up Date
+                        </label>
+                        <input type="date" id="nextFollowUpDate">
+                    </div>
+
+                    <div class="edit-followup-field">
+                        <label for="nextFollowUpTime">
+                            Next Follow-up Time
+                        </label>
+                        <input type="time" id="nextFollowUpTime">
+                    </div>
+
+                    <div class="edit-followup-field full">
+                        <label for="comments">Comments</label>
+                        <textarea id="comments"
+                                  placeholder="Enter follow-up comments..."></textarea>
+                    </div>
+
+                </div>
+
+                <div class="edit-followup-footer">
+                    <button type="button"
+                            class="edit-followup-btn edit-followup-back"
+                            id="cancelButton">
+                        Cancel
+                    </button>
+
+                    <button type="submit"
+                            class="edit-followup-btn edit-followup-save"
+                            id="saveButton">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Update Follow-up</span>
+                    </button>
+                </div>
+
+            </form>
+
+        </main>
+    </div>
+
+    <script>
+    (() => {
+        const API_BASE = "http://localhost:3000/api";
+        const $ = id => document.getElementById(id);
+
+        let currentFollowUp = null;
+        let followUpId = null;
+
+        function getUser() {
+            try {
+                return JSON.parse(localStorage.getItem("crmUser") || "null");
+            } catch {
+                return null;
+            }
+        }
+
+        function getToken() {
+            return localStorage.getItem("crmToken");
+        }
+
+        function logout() {
+            localStorage.removeItem("crmToken");
+            localStorage.removeItem("crmUser");
+            location.replace("login.html");
+        }
+
+        function showMessage(message, type = "error") {
+            const element = $("formMessage");
+
+            element.textContent = message;
+            element.className = "edit-followup-message";
+
+            if (type === "success") {
+                element.classList.add("edit-followup-success");
+            } else if (type === "info") {
+                element.classList.add("edit-followup-info");
+            } else {
+                element.classList.add("edit-followup-error");
+            }
+        }
+
+        function hideMessage() {
+            $("formMessage").classList.add("edit-followup-hidden");
+        }
+
+        function setValue(id, value) {
+            const element = $(id);
+            if (!element) return;
+
+            element.value =
+                value === null || value === undefined ? "" : String(value);
+        }
+
+        function getFirstValue(...values) {
+            return values.find(value =>
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+            );
+        }
+
+        // Supports YYYY-MM-DD and ISO date values.
+        function toDateInput(value) {
+            if (!value) return "";
+
+            const text = String(value).trim();
+            const match = text.match(/^(\d{4}-\d{2}-\d{2})/);
+
+            return match ? match[1] : "";
+        }
+
+        // Supports HH:MM:SS or HH:MM.
+        function toTimeInput(value) {
+            if (!value) return "";
+
+            const text = String(value).trim();
+            const match = text.match(/(\d{2}:\d{2})/);
+
+            return match ? match[1] : "";
+        }
+
+        function displayFollowUp(item) {
+            currentFollowUp = item;
+
+            setValue("followUpId", item.id ?? item.follow_up_id);
+            setValue("studentName",
+                getFirstValue(item.student_name, item.studentName));
+
+            setValue("mobile", getFirstValue(
+                item.mobile,
+                item.student_mobile,
+                item.mobile_number,
+                item.phone,
+                item.student?.mobile,
+                item.enquiry?.mobile
+            ));
+
+            setValue("course",
+                getFirstValue(item.course, item.course_name));
+
+            setValue("counsellor",
+                getFirstValue(item.counsellor, item.counsellor_name));
+
+            setValue("followUpDate",
+                toDateInput(getFirstValue(
+                    item.follow_up_date,
+                    item.followUpDate
+                )));
+
+            setValue("followUpTime",
+                toTimeInput(getFirstValue(
+                    item.follow_up_time,
+                    item.followUpTime
+                )));
+
+            setValue("followUpType",
+                getFirstValue(item.follow_up_type, item.type));
+
+            setValue("status", item.status);
+
+            setValue("nextFollowUpDate",
+                toDateInput(getFirstValue(
+                    item.next_follow_up_date,
+                    item.nextFollowUpDate
+                )));
+
+            setValue("nextFollowUpTime",
+                toTimeInput(getFirstValue(
+                    item.next_follow_up_time,
+                    item.nextFollowUpTime
+                )));
+
+            setValue("comments", item.comments);
+
+            $("loadingMessage").classList.add("edit-followup-hidden");
+            $("editFollowUpForm").classList.remove("edit-followup-hidden");
+        }
+
+        async function apiRequest(url, options = {}) {
+            const token = getToken();
+
+            const response = await fetch(url, {
+                ...options,
+                headers: {
+                    "Accept": "application/json",
+                    ...(options.body ? {
+                        "Content-Type": "application/json"
+                    } : {}),
+                    "Authorization": `Bearer ${token}`,
+                    ...(options.headers || {})
+                }
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (response.status === 401) {
+                logout();
+                throw new Error("Your session has expired. Please log in again.");
+            }
+
+            if (!response.ok || data.success === false) {
+                throw new Error(
+                    data.message || `Request failed (${response.status}).`
+                );
+            }
+
+            return data;
+        }
+
+        async function loadFollowUp() {
+            const token = getToken();
+            const user = getUser();
+
+            if (!token || !user) {
+                logout();
+                return;
+            }
+
+            const role = String(
+                user.role ?? user.user_role ?? ""
+            ).toLowerCase();
+
+            if (role === "admin") {
+                location.replace("dashboard-crm.html");
+                return;
+            }
+
+            if (!["counsellor", "staff"].includes(role)) {
+                $("loadingMessage").classList.add("edit-followup-hidden");
+                showMessage("You do not have permission to edit this follow-up.");
+                return;
+            }
+
+            followUpId = new URLSearchParams(location.search).get("id");
+
+            if (!followUpId || !/^\d+$/.test(followUpId)) {
+                $("loadingMessage").classList.add("edit-followup-hidden");
+                showMessage(
+                    "Invalid follow-up ID. Open Edit from My Follow-ups."
+                );
+                return;
+            }
+
+            try {
+                const data = await apiRequest(
+                    `${API_BASE}/employee/follow-ups/${encodeURIComponent(followUpId)}`
+                );
+
+                const record =
+                    data.followUp ?? data.follow_up ?? data.data;
+
+                if (!record) {
+                    throw new Error(
+                        "The API did not return follow-up details."
+                    );
+                }
+
+                displayFollowUp(record);
+            } catch (error) {
+                $("loadingMessage").classList.add("edit-followup-hidden");
+                showMessage(error.message || "Unable to load follow-up.");
+                console.error("Load follow-up error:", error);
+            }
+        }
+
+        async function updateFollowUp(event) {
+            event.preventDefault();
+            hideMessage();
+
+            if (!currentFollowUp || !followUpId) {
+                showMessage("Follow-up details have not loaded.");
+                return;
+            }
+
+            const followUpDate = $("followUpDate").value;
+            const followUpTime = $("followUpTime").value;
+            const nextDate = $("nextFollowUpDate").value;
+            const nextTime = $("nextFollowUpTime").value;
+
+            if (!followUpDate || !followUpTime) {
+                showMessage("Please enter the follow-up date and time.");
+                return;
+            }
+
+            if (nextTime && !nextDate) {
+                showMessage(
+                    "Please select the next follow-up date when entering its time."
+                );
+                return;
+            }
+
+            if (nextDate && !nextTime) {
+                showMessage(
+                    "Please select the next follow-up time when entering its date."
+                );
+                return;
+            }
+
+            const payload = {
+                follow_up_date: followUpDate,
+                follow_up_time: followUpTime,
+                follow_up_type: $("followUpType").value,
+                status: $("status").value,
+                next_follow_up_date: nextDate || null,
+                next_follow_up_time: nextTime || null,
+                comments: $("comments").value.trim()
+            };
+
+            const saveButton = $("saveButton");
+            saveButton.disabled = true;
+            saveButton.querySelector("span").textContent = "Updating...";
+
+            try {
+                await apiRequest(
+                    `${API_BASE}/employee/follow-ups/${encodeURIComponent(followUpId)}`,
+                    {
+                        method: "PUT",
+                        body: JSON.stringify(payload)
+                    }
+                );
+
+                showMessage(
+                    "Follow-up updated successfully.",
+                    "success"
+                );
+
+                // Reload from the server so the page shows saved values.
+                await loadUpdatedRecord();
+            } catch (error) {
+                showMessage(
+                    error.message || "Unable to update follow-up."
+                );
+                console.error("Update follow-up error:", error);
+            } finally {
+                saveButton.disabled = false;
+                saveButton.querySelector("span").textContent = "Update Follow-up";
+            }
+        }
+
+        async function loadUpdatedRecord() {
+            const data = await apiRequest(
+                `${API_BASE}/employee/follow-ups/${encodeURIComponent(followUpId)}`
+            );
+
+            const record =
+                data.followUp ?? data.follow_up ?? data.data;
+
+            if (record) {
+                displayFollowUp(record);
+            }
+        }
+
+        function loadEmployeeHeader() {
+            const user = getUser();
+            if (!user) return;
+
+            const name =
+                user.full_name ||
+                user.fullName ||
+                user.name ||
+                user.username ||
+                "Employee";
+
+            const role = user.role || user.user_role || "Employee";
+
+            $("employeeName").textContent = name;
+            $("employeeRole").textContent = role;
+            $("profileAvatar").textContent =
+                name.charAt(0).toUpperCase();
+        }
+
+        async function loadNotificationCount() {
+            if (!getToken()) return;
+
+            try {
+                const data = await apiRequest(
+                    `${API_BASE}/employee/notifications`
+                );
+
+                const notifications = Array.isArray(data.notifications)
+                    ? data.notifications
+                    : [];
+
+                $("headerNotificationCount").textContent =
+                    data.summary?.total_notifications ?? notifications.length;
+            } catch (error) {
+                console.error("Notification count error:", error);
+            }
+        }
+
+        function setupSidebar() {
+            const menuBtn = $("menuBtn");
+            const sidebar = $("crmSidebar");
+            const overlay = $("crmSidebarOverlay");
+
+            if (menuBtn && sidebar && overlay) {
+                menuBtn.addEventListener("click", () => {
+                    sidebar.classList.toggle("active");
+                    overlay.classList.toggle("active");
+                });
+
+                overlay.addEventListener("click", () => {
+                    sidebar.classList.remove("active");
+                    overlay.classList.remove("active");
+                });
+            }
+
+            document.querySelectorAll(".crm-dropdown-btn")
+                .forEach(button => {
+                    button.addEventListener("click", () => {
+                        const dropdown = button.closest(".crm-dropdown");
+                        if (dropdown) dropdown.classList.toggle("open");
+                    });
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            loadEmployeeHeader();
+            setupSidebar();
+            loadNotificationCount();
+            loadFollowUp();
+
+            $("backButton").addEventListener("click", () => {
+                location.href = "my-follow-ups.html";
+            });
+
+            $("cancelButton").addEventListener("click", () => {
+                location.href = "my-follow-ups.html";
+            });
+
+            $("notificationButton").addEventListener("click", () => {
+                location.href = "my-notifications.html";
+            });
+
+            $("notificationButton").addEventListener("keydown", event => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    location.href = "my-notifications.html";
+                }
+            });
+
+            $("logoutButton").addEventListener("click", event => {
+                event.preventDefault();
+
+                if (confirm("Are you sure you want to log out?")) {
+                    logout();
+                }
+            });
+
+            $("editFollowUpForm").addEventListener(
+                "submit",
+                updateFollowUp
+            );
+        });
+    })();
+    </script>
+
+</body>
+</html>

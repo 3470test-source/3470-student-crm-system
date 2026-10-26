@@ -737,7 +737,8 @@ document.addEventListener("DOMContentLoaded", function () {
     /*-- FOLLOW-UP --*/
     window.addFollowUp = function (id) {
 
-        window.location.href = `add-follow-up.html?enquiry_id=${id}`;
+        // window.location.href = `add-follow-up.html?enquiry_id=${id}`;
+        window.location.href = `calendar-view.html`;
 
     };
 
@@ -759,8 +760,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            const response =
-                await fetch(
+            const response = await fetch(
                     `${API_BASE_URL}/api/enquiries/${id}`,
                     {
                         method: "DELETE"
@@ -768,8 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
 
-            const result =
-                await response.json();
+            const result = await response.json();
 
 
             if (!response.ok) {

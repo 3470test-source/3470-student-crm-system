@@ -23,164 +23,21 @@
       box-sizing: border-box;
     }        
        
-       
+    .EMP-dashboard-main button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
 
+    .message { padding: 14px 16px; border-radius: 8px; margin-bottom: 18px; }
 
+    .message.error { background: #fee2e2; color: #b91c1c; }
 
+    .message.success { background: #dcfce7; color: #166534; }
 
-
-    
-
-.EMP-dashboard-main .primary {
-    background: #065f46;
-    color: #fff;
-}
-
-.EMP-dashboard-main .primary:hover {
-    background: #047857;
-}
-
-.EMP-dashboard-main .secondary {
-    background: #e2e8f0;
-    color: #1e293b;
-}
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-.EMP-dashboard-main .card {
-    background: #fff;
-    padding: 26px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
-    margin-bottom: 22px;
-}
-
-.EMP-dashboard-main .card h3 {
-    font-size: 20px;
-    color: #1e3a8a;
-    margin-bottom: 22px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.EMP-dashboard-main .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-}
-
-.EMP-dashboard-main .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    min-width: 0;
-}
-
-.EMP-dashboard-main .field.full {
-    grid-column: 1 / -1;
-}
-
-.EMP-dashboard-main .field label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #334155;
-}
-
-.EMP-dashboard-main .field input,
-.EMP-dashboard-main .field select,
-.EMP-dashboard-main .field textarea {
-    width: 100%;
-    min-height: 44px;
-    padding: 11px 13px;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    background: #fff;
-    color: #1e293b;
-    font: inherit;
-    outline: none;
-}
-
-.EMP-dashboard-main .field textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-.EMP-dashboard-main .field input:focus,
-.EMP-dashboard-main .field select:focus,
-.EMP-dashboard-main .field textarea:focus {
-    border-color: #047857;
-    box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.12);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.EMP-dashboard-main button:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-.EMP-dashboard-main .message {
-    padding: 14px 16px;
-    border-radius: 8px;
-    margin-bottom: 18px;
-}
-
-.EMP-dashboard-main .message.error {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.EMP-dashboard-main .message.success {
-    background: #dcfce7;
-    color: #166534;
-}
-
-.EMP-dashboard-main .message.hidden,
-.EMP-dashboard-main .hidden {
-    display: none !important;
-}
-
-
-
-
-
-/* Sidebar dropdowns */
-.crm-dropdown .crm-dropdown-content {
-    display: none;
-}
-
-.crm-dropdown.open .crm-dropdown-content {
-    display: block;
-}
-
-
-      
-        
+    .message.hidden,
+    .hidden {
+      display: none !important;
+    }
         
     </style>
 
@@ -322,42 +179,42 @@
                         <p>Update an existing student enquiry.</p>
                     </div>
 
-                    <button class="emp-btn-editEnquiry secondary" id="backButton"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    <button class="emp-btn-editEnquiry emp-secondary-editEnquiry" id="backButton"><i class="fa-solid fa-arrow-left"></i> Back</button>
                 </div>
 
                 <div id="formMessage" class="message hidden" role="status"></div>
-                <div id="loading" class="card">Loading enquiry...</div>
+                <div id="loading" class="emp-edit-Enquiry-card">Loading enquiry...</div>
 
 
                 <form id="editEnquiryForm" class="hidden">
 
                     <!-- Student Information -->
-                    <section class="card">
+                    <section class="emp-edit-Enquiry-card">
                         <h3>Student Information</h3>
 
-                            <div class="grid">
+                            <div class="emp-edit-Enquiry-grid">
 
                                 <!-- STUDENT NAME -->
-                                <div class="field">
-                                    <label for="student_name">STUDENT NAME *</label>
+                                <div class="emp-field-EditEnq">
+                                    <label for="student_name">STUDENT NAME <span>*</span></label>
                                     <input id="student_name" name="student_name" required maxlength="150">
                                 </div>
 
                                 <!-- MOBILE NUMBER -->
-                                <div class="field">
-                                    <label for="mobile">MOBILE NUMBER *</label>
+                                <div class="emp-field-EditEnq">
+                                    <label for="mobile">MOBILE NUMBER <span>*</span></label>
                                     <input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10"
                                         pattern="[0-9]{10}" required>
                                 </div>
 
                                 <!-- EMAIL -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="email">EMAIL</label>
                                     <input id="email" name="email" type="email" maxlength="150">
                                 </div>
 
                                 <!-- GENDER -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="gender">GENDER</label>
                                     <select id="gender" name="gender">
                                         <option value="">Select gender</option>
@@ -367,19 +224,19 @@
                                 </div>
 
                                 <!-- DATE OF BIRTH -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="date_of_birth">DATE OF BIRTH</label>
                                     <input id="date_of_birth" name="date_of_birth" type="date">
                                 </div>
 
                                 <!-- COURSE INTERESTED -->
-                                <div class="field">
-                                    <label for="course_interested">COURSE INTERESTED *</label>
+                                <div class="emp-field-EditEnq">
+                                    <label for="course_interested">COURSE INTERESTED <span>*</span></label>
                                     <input id="course_interested" name="course_interested" required maxlength="150">
                                 </div>
 
                                 <!-- ENQUIRY SOURCE -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="enquiry_source">ENQUIRY SOURCE</label>
                                     <select id="enquiry_source" name="enquiry_source">
                                         <option value="">Select source</option>
@@ -394,15 +251,21 @@
                                     </select>
                                 </div>
 
+                                <!-- COUNSELLOR -->
+                                <div class="emp-field-EditEnq">
+                                    <label for="counsellor">COUNSELLOR</label>
+                                    <input id="counsellor" name="counsellor" type="text" readonly>
+                                </div>
+
                                 <!-- ENQUIRY DATE -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="enquiry_date">ENQUIRY DATE</label>
                                     <input id="enquiry_date" name="enquiry_date" type="date">
                                 </div>
 
                                 <!-- ENQUIRY STATUS -->
-                                <div class="field">
-                                    <label for="status">ENQUIRY STATUS *</label>
+                                <div class="emp-field-EditEnq">
+                                    <label for="status">ENQUIRY STATUS <span>*</span></label>
                                     <select id="status" name="status" required>
                                         <option value="New">New</option>
                                         <option value="Pending">Pending</option>
@@ -415,25 +278,25 @@
                                 </div>
 
                                 <!-- FOLLOW-UP DATE -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="follow_up_date">FOLLOW-UP DATE</label>
                                     <input id="follow_up_date" name="follow_up_date" type="date">
                                 </div>
 
                                 <!-- FOLLOW-UP TIME -->
-                                <div class="field">
+                                <div class="emp-field-EditEnq">
                                     <label for="follow_up_time">FOLLOW-UP TIME</label>
                                     <input id="follow_up_time" name="follow_up_time" type="time">
                                 </div>
 
                                 <!-- ADDRESS   -->
-                                <div class="field full">
+                                <div class="emp-field-EditEnq full">
                                     <label for="address">ADDRESS</label>
                                     <textarea id="address" name="address" maxlength="1000"></textarea>
                                 </div>
 
                                 <!-- COMMENTS -->
-                                <div class="field full">
+                                <div class="emp-field-EditEnq full">
                                     <label for="comments">COMMENTS</label>
                                     <textarea id="comments" name="comments" maxlength="3000"></textarea>
                                 </div>
@@ -441,11 +304,11 @@
                             </div>
 
                             <div class="emp-editAdmis-form-actions">
-                                <button type="submit" class="emp-btn-editEnquiry primary" id="saveButton">
+                                <button type="submit" class="emp-btn-editEnquiry emp-primary-editEnquiry" id="saveButton">
                                     <i class="fa-solid fa-floppy-disk"></i> Update Enquiry
                                 </button>
 
-                                <button type="button" class="emp-btn-editEnquiry secondary" id="cancelButton">Cancel</button>
+                                <button type="button" class="emp-btn-editEnquiry emp-secondary-editEnquiry" id="cancelButton">Cancel</button>
                             </div>
 
                         </section>
@@ -456,12 +319,30 @@
 
 
 
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>            
 
 
 
+<!-- Employee Edit Enquiry - JS -->
 <script>
 
 (() => {
+
     const API_BASE = "http://localhost:3000/api";
     const $ = id => document.getElementById(id);
     let enquiryId = null;
@@ -517,6 +398,7 @@
         setValue("date_of_birth", dateForInput(a.date_of_birth));
         setValue("course_interested", a.course_interested);
         setValue("enquiry_source", a.enquiry_source);
+        setValue("counsellor", a.counsellor);
         setValue("enquiry_date", dateForInput(a.enquiry_date));
         setValue("follow_up_date", dateForInput(a.follow_up_date));
         setValue("follow_up_time", timeForInput(a.follow_up_time));
@@ -584,6 +466,7 @@
             if (!record) throw new Error("Enquiry data was not returned.");
 
             fillForm(record);
+
         } catch (error) {
             console.error("Load enquiry error:", error);
             $("loading").classList.add("hidden");
@@ -666,64 +549,33 @@
 
             button.textContent = "Updated successfully";
 
-            // Redirect after 5 seconds.
+            /*--- Redirect after 5 seconds. ---*/
             redirectTimer = setTimeout(() => {
                 window.location.href = "my-enquiries.html";
-            }, 5000);
+            }, 3500);
 
-        } catch (error) {
-            console.error("Update enquiry error:", error);
-            showMessage(error.message || "Unable to update enquiry.", "error");
-            button.disabled = false;
-            button.innerHTML =
-                '<i class="fa-solid fa-floppy-disk"></i> Update Enquiry';
+            } catch (error) {
+                console.error("Update enquiry error:", error);
+                showMessage(error.message || "Unable to update enquiry.", "error");
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Update Enquiry';
+            }
         }
-    }
 
-    // async function loadNotificationCount() {
-    //     const token = localStorage.getItem("crmToken");
-    //     if (!token) return;
+    
+        async function loadNotificationCount() {
+        const token = localStorage.getItem("crmToken");
+        const countElement = $("headerNotificationCount");
 
-    //     try {
-    //         const response = await fetch(`${API_BASE}/employee/notifications`, {
-    //             headers: {
-    //                 "Accept": "application/json",
-    //                 "Authorization": `Bearer ${token}`
-    //             }
-    //         });
+        if (!countElement) return;
 
-    //         if (response.status === 401) return logout();
+        if (!token) {
+            countElement.textContent = "0";
+            return;
+        }
 
-    //         const data = await response.json().catch(() => ({}));
-    //         if (!response.ok || data.success === false) return;
-
-    //         const notifications = Array.isArray(data.notifications)
-    //             ? data.notifications
-    //             : [];
-
-    //         $("headerNotificationCount").textContent = String(
-    //             data.summary?.total_notifications ?? notifications.length
-    //         );
-    //     } catch (error) {
-    //         console.error("Notification count error:", error);
-    //     }
-    // }
-
-
-    async function loadNotificationCount() {
-    const token = localStorage.getItem("crmToken");
-    const countElement = $("headerNotificationCount");
-
-    if (!countElement) return;
-
-    if (!token) {
-        countElement.textContent = "0";
-        return;
-    }
-
-    try {
-        const response = await fetch(
-            `${API_BASE}/employee/notifications`,
+        try {
+        const response = await fetch(`${API_BASE}/employee/notifications`,
             {
                 headers: {
                     "Accept": "application/json",
@@ -757,47 +609,22 @@
 
         countElement.textContent = String(Number(count) || 0);
 
-    } catch (error) {
-        console.error("Notification count error:", error);
-    }
-}
+            } catch (error) {
+                console.error("Notification count error:", error);
+            }
+        }
 
 
-    function goBack() {
-        if (redirectTimer) clearTimeout(redirectTimer);
-        window.location.href = "my-enquiries.html";
-    }
+        function goBack() {
+            if (redirectTimer) clearTimeout(redirectTimer);
+            window.location.href = "my-enquiries.html";
+        }
 
-    // document.addEventListener("DOMContentLoaded", () => {
-    //     const user = getUser();
-    //     if (user) {
-    //         $("employeeName").textContent =
-    //             user.full_name || user.fullName || user.name || user.username || "Employee";
-    //     }
-
-    //     $("editEnquiryForm").addEventListener("submit", updateEnquiry);
-    //     $("backButton").addEventListener("click", goBack);
-    //     $("cancelButton").addEventListener("click", goBack);
-
-    //     $("notificationButton").addEventListener("click", () => {
-    //         window.location.href = "my-notifications.html";
-    //     });
-
-    //     $("logoutButton").addEventListener("click", () => {
-    //         if (confirm("Are you sure you want to log out?")) logout();
-    //     });
-
-    //     loadNotificationCount();
-    //     loadEnquiry();
-    // });
-
-
-
-
+    
     document.addEventListener("DOMContentLoaded", () => {
     const user = getUser();
 
-    // Employee name, role and avatar
+    /*-- Employee name, role and avatar --*/
     if (user) {
         const name =
             user.full_name ||
@@ -819,12 +646,12 @@
             name.trim().charAt(0).toUpperCase() || "E";
     }
 
-    // Form buttons
+    /*-- Form buttons --*/
     $("editEnquiryForm").addEventListener("submit", updateEnquiry);
     $("backButton").addEventListener("click", goBack);
     $("cancelButton").addEventListener("click", goBack);
 
-    // Notification navigation
+    /*-- Notification navigation --*/
     const notification = document.querySelector(".EMP-notification");
 
     if (notification) {
@@ -835,7 +662,7 @@
         notification.removeAttribute("onclick");
     }
 
-    // Logout confirmation
+    /*-- Logout confirmation --*/
     $("logoutButton").addEventListener("click", event => {
         event.preventDefault();
 
@@ -844,39 +671,11 @@
         }
     });
 
-    // Sidebar dropdowns
-    document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            const dropdown = button.closest(".crm-dropdown");
 
-            if (!dropdown) return;
-
-            dropdown.classList.toggle("open");
-        });
-    });
-
-    // Sidebar open/close
-    const menuBtn = $("menuBtn");
-    const sidebar = $("crmSidebar");
-    const overlay = $("crmSidebarOverlay");
-
-    if (menuBtn && sidebar && overlay) {
-        menuBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
-            overlay.classList.toggle("active");
-        });
-
-        overlay.addEventListener("click", () => {
-            sidebar.classList.remove("active");
-            overlay.classList.remove("active");
-        });
-    }
-
-    // Load API data
+    /*-- Load API data --*/
     loadNotificationCount();
     loadEnquiry();
 });
-
 
 })();
 

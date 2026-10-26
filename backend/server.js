@@ -7520,7 +7520,7 @@ app.put("/api/employee/enquiries/:id", authenticateToken,
                     follow_up_time = ?,
                     status = ?,
                     address = ?,
-                    comments = ?
+                    comments = ?,
                     updated_at = CURRENT_TIMESTAMP
                  WHERE id = ? AND counsellor_id = ?`,
                 [
@@ -7565,6 +7565,274 @@ app.put("/api/employee/enquiries/:id", authenticateToken,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   EMPLOYEE: VIEW ONE FOLLOW-UP
+   GET /api/employee/follow-ups/:id
+========================================================= */
+
+app.get(
+    "/api/employee/follow-ups/:id",
+    authenticateToken,
+    async (req, res) => {
+        try {
+            const role = String(req.user?.role || "").toLowerCase();
+            const employeeId = Number(req.user?.id ?? req.user?.user_id);
+            const followUpId = Number(req.params.id);
+
+            if (!["counsellor", "staff"].includes(role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Access denied."
+                });
+            }
+
+            if (
+                !Number.isInteger(employeeId) || employeeId < 1 ||
+                !Number.isInteger(followUpId) || followUpId < 1
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid employee or follow-up ID."
+                });
+            }
+
+            const [rows] = await db.execute(
+                `SELECT *
+                 FROM follow_ups
+                 WHERE id = ? AND counsellor_id = ?
+                 LIMIT 1`,
+                [followUpId, employeeId]
+            );
+
+            if (!rows.length) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Follow-up not found or not assigned to you."
+                });
+            }
+
+            return res.json({
+                success: true,
+                followUp: rows[0]
+            });
+        } catch (error) {
+            console.error("EMPLOYEE VIEW FOLLOW-UP ERROR:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to load follow-up."
+            });
+        }
+    }
+);
+
+
+/* =========================================================
+   EMPLOYEE: UPDATE ONE FOLLOW-UP
+   PUT /api/employee/follow-ups/:id
+========================================================= */
+
+app.put(
+    "/api/employee/follow-ups/:id",
+    authenticateToken,
+    async (req, res) => {
+        try {
+            const role = String(req.user?.role || "").toLowerCase();
+            const employeeId = Number(req.user?.id ?? req.user?.user_id);
+            const followUpId = Number(req.params.id);
+
+            if (!["counsellor", "staff"].includes(role)) {
+                return res.status(403).json({
+                    success: false,
+                    message: "Access denied."
+                });
+            }
+
+            if (
+                !Number.isInteger(employeeId) || employeeId < 1 ||
+                !Number.isInteger(followUpId) || followUpId < 1
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid employee or follow-up ID."
+                });
+            }
+
+            const {
+                follow_up_date,
+                follow_up_time,
+                follow_up_type,
+                status,
+                next_follow_up_date,
+                next_follow_up_time,
+                comments
+            } = req.body;
+
+            const validDate = value => {
+                if (value === undefined || value === null || value === "") {
+                    return null;
+                }
+
+                const s = String(value);
+
+                if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) {
+                    return undefined;
+                }
+
+                const d = new Date(`${s}T00:00:00.000Z`);
+
+                return !Number.isNaN(d.getTime()) &&
+                    d.toISOString().slice(0, 10) === s
+                    ? s
+                    : undefined;
+            };
+
+            const validTime = value => {
+                if (value === undefined || value === null || value === "") {
+                    return null;
+                }
+
+                const s = String(value);
+
+                if (!/^([01]\d|2[0-3]):[0-5]\d(:[0-5]\d)?$/.test(s)) {
+                    return undefined;
+                }
+
+                return s.length === 5 ? `${s}:00` : s;
+            };
+
+            const date = validDate(follow_up_date);
+            const nextDate = validDate(next_follow_up_date);
+            const time = validTime(follow_up_time);
+            const nextTime = validTime(next_follow_up_time);
+
+            if (
+                date === undefined ||
+                nextDate === undefined ||
+                time === undefined ||
+                nextTime === undefined
+            ) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Please enter valid follow-up dates and times."
+                });
+            }
+
+            const allowedTypes = [
+                "Phone Call",
+                "WhatsApp",
+                "Email",
+                "Walk-in"
+            ];
+
+            const allowedStatuses = [
+                "Pending",
+                "Scheduled",
+                "Completed",
+                "Missed",
+                "Interested",
+                "Not Interested",
+                "Call Back",
+                "Admission Confirmed"
+            ];
+
+            const type = String(follow_up_type || "").trim();
+            const followUpStatus = String(status || "").trim();
+
+            if (!allowedTypes.includes(type)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid follow-up type."
+                });
+            }
+
+            if (!allowedStatuses.includes(followUpStatus)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid follow-up status."
+                });
+            }
+
+            const [existing] = await db.execute(
+                `SELECT id
+                 FROM follow_ups
+                 WHERE id = ? AND counsellor_id = ?
+                 LIMIT 1`,
+                [followUpId, employeeId]
+            );
+
+            if (!existing.length) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Follow-up not found or not assigned to you."
+                });
+            }
+
+            const [result] = await db.execute(
+                `UPDATE follow_ups
+                 SET follow_up_date = ?,
+                     follow_up_time = ?,
+                     follow_up_type = ?,
+                     status = ?,
+                     next_follow_up_date = ?,
+                     next_follow_up_time = ?,
+                     comments = ?,
+                     updated_at = CURRENT_TIMESTAMP
+                 WHERE id = ? AND counsellor_id = ?`,
+                [
+                    date,
+                    time,
+                    type,
+                    followUpStatus,
+                    nextDate,
+                    nextTime,
+                    comments ? String(comments).trim() : null,
+                    followUpId,
+                    employeeId
+                ]
+            );
+
+            return res.json({
+                success: true,
+                message: "Follow-up updated successfully.",
+                follow_up_id: followUpId,
+                affectedRows: result.affectedRows
+            });
+        } catch (error) {
+            console.error("EMPLOYEE UPDATE FOLLOW-UP ERROR:", error);
+
+            return res.status(500).json({
+                success: false,
+                message: "Unable to update follow-up.",
+                ...(process.env.NODE_ENV !== "production"
+                    ? { error: error.message }
+                    : {})
+            });
+        }
+    }
+);
 
 
 

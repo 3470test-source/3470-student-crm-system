@@ -1,0 +1,593 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee View Follow-Ups Page</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
+
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .follow-details-message { padding: 14px 16px; border-radius: 8px; margin-bottom: 18px; }
+
+    .follow-details-error { background: #fee2e2; color: #b91c1c; }
+
+    .follow-details-loading { color: #475569; }
+
+    .follow-details-hidden { display: none !important; }
+
+    </style>
+
+</head>
+<body>
+
+
+    <!-- Employee Dashboard - Header -->
+    <header class="EMP-dashboard-header">
+
+        <!-- LEFT -->
+        <div class="EMP-header-left">
+
+            <div class="EMP-header-logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
+            </div>
+
+            <div class="EMP-header-menu-btn" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </div>
+
+        </div>
+        
+        <!-- CENTER -->
+        <div class="EMP-header-center">
+            STUDENT CRM SYSTEM
+        </div>
+
+        <!-- RIGHT -->
+        <div class="EMP-header-right">
+
+            <!-- Notification -->
+            <div class="EMP-notification" id="notificationButton" onclick="openNotifications()">
+                <i class="fa-solid fa-bell"></i>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
+
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+
+                <div class="EMP-profile-info">
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
+                    </div>
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- EMP Sidebar Overlay -->
+    <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
+
+        <div class="crm-sidebar-container">
+
+            <aside class="crm-sidebar" id="crmSidebar">
+
+                <a href="employee-dashboard.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
+
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>My Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                    </div>
+
+                </div>
+
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>My Follow-ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+                    </div>
+
+                </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+                    </div>
+
+                </div>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- My Follow-ups View -->
+            <main class="EMP-dashboard-main">
+
+                <div class="emp-view-Follow-heading">
+
+                    <div>
+                        <h1>Follow-up Details</h1>
+                        <p>View student follow-up information.</p>
+                    </div>
+
+                    <div class="emp-ViewFollow-details">
+                        <button type="button" class="ViewFollow-emp-btn ViewFollow-emp-back" id="backButton">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+
+                        <button type="button" class="ViewFollow-emp-btn ViewFollow-emp-edit" id="editButton">
+                            <i class="fa-solid fa-pen"></i> Edit Follow-up
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div id="message" class="follow-details-message follow-details-error follow-details-hidden" role="alert"></div>
+
+                <div id="loading" class="emp-View-FollowUps-card follow-details-loading"><i class="fa-solid fa-spinner fa-spin"></i>
+                    Loading follow-up details...
+                </div>
+
+
+                <div id="followUpContent" class="follow-details-hidden">
+
+                    <section class="emp-View-FollowUps-card">
+
+                        <h3><i class="fa-solid fa-calendar-check"></i>Follow-up Information</h3>
+
+                            <div class="emp-ViewFollowUps-grid">
+
+                                <!-- FOLLOW-UP ID -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>FOLLOW-UP ID</label>
+                                    <div class="emp-ViewFollowUps-value" id="followUpId">—</div>
+                                </div>
+
+                                <!-- STUDENT NAME -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>STUDENT NAME</label>
+                                    <div class="emp-ViewFollowUps-value" id="studentName">—</div>
+                                </div>
+
+                                <!-- MOBILE NUMBER -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>MOBILE NUMBER</label>
+                                    <div class="emp-ViewFollowUps-value" id="mobile">—</div>
+                                </div>
+
+                                <!-- COURSE -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>COURSE</label>
+                                    <div class="emp-ViewFollowUps-value" id="course">—</div>
+                                </div>
+
+                                <!-- COUNSELLOR -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>COUNSELLOR</label>
+                                    <div class="emp-ViewFollowUps-value" id="counsellor">—</div>
+                                </div>
+
+                                <!-- FOLLOW-UP DATE -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>FOLLOW-UP DATE</label>
+                                    <div class="emp-ViewFollowUps-value" id="followUpDate">—</div>
+                                </div>
+
+                                <!-- FOLLOW-UP TIME -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>FOLLOW-UP TIME</label>
+                                    <div class="emp-ViewFollowUps-value" id="followUpTime">—</div>
+                                </div>
+
+                                <!-- FOLLOW-UP TYPE -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>FOLLOW-UP TYPE</label>
+                                    <div class="emp-ViewFollowUps-value" id="followUpType">—</div>
+                                </div>
+
+                                <!-- STATUS -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>STATUS</label>
+                                    <div class="emp-ViewFollowUps-value" id="status">—</div>
+                                </div>
+
+                                <!-- NEXT FOLLOW-UP DATE -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>NEXT FOLLOW-UP DATE</label>
+                                    <div class="emp-ViewFollowUps-value" id="nextFollowUpDate">—</div>
+                                </div>
+
+                                <!-- NEXT FOLLOW-UP TIME -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>NEXT FOLLOW-UP TIME</label>
+                                    <div class="emp-ViewFollowUps-value" id="nextFollowUpTime">—</div>
+                                </div>
+
+                                <!-- COMMENTS -->
+                                <div class="emp-ViewFollowUps-field full">
+                                    <label>COMMENTS</label>
+                                    <div class="emp-ViewFollowUps-value" id="comments">—</div>
+                                </div>
+
+                                <!-- CREATED AT -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>CREATED AT</label>
+                                    <div class="emp-ViewFollowUps-value" id="createdAt">—</div>
+                                </div>
+
+                                <!-- LAST UPDATED -->
+                                <div class="emp-ViewFollowUps-field">
+                                    <label>LAST UPDATED</label>
+                                    <div class="emp-ViewFollowUps-value" id="lastUpdated">—</div>
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                </main>
+
+            </div>
+
+
+
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".crm-dropdown-btn");
+
+    button.addEventListener("click", () => {
+
+        dropdown.classList.toggle("active");
+
+    });
+
+});
+</script>
+
+
+
+<!-- Employee View FollowUps - Js -->
+<script>
+
+(() => {
+
+    const API_BASE = "http://localhost:3000/api";
+    const $ = id => document.getElementById(id);
+    let currentFollowUp = null;
+
+    function getUser() {
+        try {
+            return JSON.parse(localStorage.getItem("crmUser") || "null");
+        } catch {
+            return null;
+        }
+    }
+
+    function logout() {
+        localStorage.removeItem("crmToken");
+        localStorage.removeItem("crmUser");
+        location.replace("login.html");
+    }
+
+    function showError(message) {
+        $("loading").classList.add("follow-details-hidden");
+        $("followUpContent").classList.add("follow-details-hidden");
+        $("message").textContent = message;
+        $("message").classList.remove("follow-details-hidden");
+    }
+
+    function setText(id, value) {
+        const element = $(id);
+        if (!element) return;
+
+        element.textContent =
+            value === null || value === undefined || value === ""
+                ? "—"
+                : String(value);
+    }
+
+    function displayDate(value) {
+        if (!value) return "—";
+
+        const textValue = String(value).slice(0, 10);
+        const match = textValue.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+
+        return match
+            ? `${match[3]}-${match[2]}-${match[1]}`
+            : textValue;
+    }
+
+    function displayDateTime(value) {
+        if (!value) return "—";
+
+        const date = new Date(String(value).replace(" ", "T"));
+
+        if (Number.isNaN(date.getTime())) return String(value);
+
+        return date.toLocaleString("en-IN", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+        });
+    }
+
+    function displayFollowUp(item) {
+        currentFollowUp = item;
+
+        setText("followUpId", item.id);
+        setText("studentName", item.student_name);
+
+        setText("mobile", item.mobile ?? item.student_mobile ?? item.mobile_number ?? item.phone ??item.student?.mobile ??
+                item.enquiry?.mobile);
+
+        setText("course", item.course ?? item.course_name);
+        setText("counsellor", item.counsellor ?? item.counsellor_name);
+        setText("followUpDate", displayDate(item.follow_up_date));
+        setText("followUpTime", item.follow_up_time);
+        setText("followUpType", item.follow_up_type ?? item.type);
+        setText("status", item.status);
+        setText("nextFollowUpDate", displayDate(item.next_follow_up_date));
+        setText("nextFollowUpTime", item.next_follow_up_time ?? item.nextFollowUpTime);
+        setText("comments", item.comments);
+        setText("createdAt", displayDateTime(item.created_at));
+        setText("lastUpdated", displayDateTime(item.updated_at));
+
+        $("loading").classList.add("follow-details-hidden");
+        $("message").classList.add("follow-details-hidden");
+        $("followUpContent").classList.remove("follow-details-hidden");
+    }
+
+    async function loadFollowUp() {
+        const token = localStorage.getItem("crmToken");
+        const user = getUser();
+
+        if (!token || !user) {
+            logout();
+            return;
+        }
+
+        const role = String(user.role ?? user.user_role ?? "").toLowerCase();
+
+        if (role === "admin") {
+            location.replace("dashboard-crm.html");
+            return;
+        }
+
+        if (!["counsellor", "staff"].includes(role)) {
+            showError("You do not have permission to view this follow-up.");
+            return;
+        }
+
+        const id = new URLSearchParams(location.search).get("id");
+
+        if (!id || !/^\d+$/.test(id)) {
+            showError("Invalid follow-up ID. Open this page from My Follow-ups.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/employee/follow-ups/${encodeURIComponent(id)}`,
+                {
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data = await response.json().catch(() => ({}));
+
+            if (response.status === 401) {
+                logout();
+                return;
+            }
+
+            if (!response.ok || data.success === false) {
+                throw new Error(
+                    data.message || `Unable to load follow-up (${response.status}).`
+                );
+            }
+
+            const record = data.followUp ?? data.follow_up ?? data.data;
+
+            if (!record) {
+                throw new Error("The API did not return follow-up details.");
+            }
+
+            displayFollowUp(record);
+
+        } catch (error) {
+            console.error("Load follow-up details error:", error);
+            showError(error.message || "Unable to load follow-up details.");
+        }
+    }
+
+    function loadEmployeeHeader() {
+        const user = getUser();
+        if (!user) return;
+
+        const name =
+            user.full_name || user.fullName || user.name ||
+            user.username || "Employee";
+
+        const role = user.role || user.user_role || "Employee";
+
+        setText("employeeName", name);
+        setText("employeeRole", role);
+        setText("profileAvatar", name.charAt(0).toUpperCase());
+    }
+
+    async function loadNotificationCount() {
+        const token = localStorage.getItem("crmToken");
+        if (!token) return;
+
+        try {
+            const response = await fetch(`${API_BASE}/employee/notifications`,
+                {
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (response.status === 401) {
+                logout();
+                return;
+            }
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok || data.success === false) return;
+
+            const notifications = Array.isArray(data.notifications)
+                ? data.notifications
+                : [];
+
+            setText(
+                "headerNotificationCount",
+                data.summary?.total_notifications ?? notifications.length
+            );
+
+        } catch (error) {
+            console.error("Notification count error:", error);
+        }
+    }
+
+    function setupSidebar() {
+        const menuBtn = $("menuBtn");
+        const sidebar = $("crmSidebar");
+        const overlay = $("crmSidebarOverlay");
+
+        if (menuBtn && sidebar && overlay) {
+            menuBtn.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+                overlay.classList.toggle("active");
+            });
+
+            overlay.addEventListener("click", () => {
+                sidebar.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+        }
+
+        document.querySelectorAll(".crm-dropdown-btn").forEach(button => {
+            button.addEventListener("click", () => {
+                const dropdown = button.closest(".crm-dropdown");
+                if (dropdown) dropdown.classList.toggle("open");
+            });
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        $("backButton").addEventListener("click", () => {
+            location.href = "my-follow-ups.html";
+        });
+
+        $("editButton").addEventListener("click", () => {
+            if (currentFollowUp?.id) {
+                location.href =
+                    `emp-edit-follow-up.html?id=${encodeURIComponent(currentFollowUp.id)}`;
+            }
+        });
+
+        $("notificationButton").addEventListener("click", () => {
+            location.href = "my-notifications.html";
+        });
+
+        $("notificationButton").addEventListener("keydown", event => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                location.href = "my-notifications.html";
+            }
+        });
+
+        $("logoutButton").addEventListener("click", event => {
+            event.preventDefault();
+            if (confirm("Are you sure you want to log out?")) logout();
+        });
+
+        loadEmployeeHeader();
+        setupSidebar();
+        loadNotificationCount();
+        loadFollowUp();
+    });
+
+})();
+
+</script>
+
+
+</body>
+</html>
