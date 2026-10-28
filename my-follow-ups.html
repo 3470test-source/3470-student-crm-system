@@ -22,6 +22,54 @@
       box-sizing: border-box;
     }
 
+    .EMP-pagination-follow-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    .EMP-pagination-info {
+      color: #0e8331;
+      font-size: 15px;
+    }
+
+    .EMP-pagination-follow {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .EMP-pagination-follow button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .EMP-pagination-follow button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .EMP-pagination-follow button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .EMP-pagination-follow button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
 
 </head>
@@ -304,7 +352,7 @@
                                         <i class="fa-solid fa-spinner fa-spin"></i>
                                         Loading follow-ups...
                                     </td>
-                                </tr>
+                                </tr> 
                             </tbody>
 
                         </table>
@@ -313,7 +361,12 @@
 
 
                     <!-- PAGINATION -->
-                    <div class="EMP-pagination-follow" id="pagination"></div>
+                    <div class="EMP-pagination-follow-container">
+
+                        <div id="paginationInfo" class="EMP-pagination-info">Showing 0–0 of 0 records</div>
+                        <div class="EMP-pagination-follow" id="pagination"></div>
+
+                    </div>
 
                 </section>
 
@@ -999,60 +1052,96 @@ document
 
 /*--- PAGINATION ---*/
 function renderPagination() {
-
     const container = document.getElementById("pagination");
+    const info = document.getElementById("paginationInfo");
 
-    if (!container) {
+    if (!container) return;
 
-        return;
+    const totalRecords = filteredFollowUps.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
+    if (totalPages === 0) {
+        currentPage = 1;
+    } else if (currentPage > totalPages) {
+        currentPage = totalPages;
     }
 
-    const totalPages =
-        Math.ceil(
-            filteredFollowUps.length /
-            rowsPerPage
-        );
+    const startRecord = totalRecords === 0
+        ? 0
+        : (currentPage - 1) * rowsPerPage + 1;
+
+    const endRecord = Math.min(
+        currentPage * rowsPerPage,
+        totalRecords
+    );
+
+    if (info) {
+        info.textContent =
+            `Showing ${startRecord}–${endRecord} of ${totalRecords} records`;
+    }
 
     container.innerHTML = "";
 
-    if (totalPages <= 1) {
+    if (totalPages <= 1) return;
 
-        return;
-
-    }
-
-    for (
-        let page = 1;
-        page <= totalPages;
-        page++
-    ) {
-
+    function addButton(label, page, disabled = false, active = false) {
         const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
 
-        button.textContent = page;
+        if (active) button.classList.add("active");
 
-        if (page === currentPage) {
-
-            button.classList.add("active");
-
-        }
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                currentPage = page;
-
-                renderFollowUps();
-
-            }
-        );
+        button.addEventListener("click", function () {
+            currentPage = page;
+            renderFollowUps();
+        });
 
         container.appendChild(button);
-
     }
 
+    function addDots() {
+        const dots = document.createElement("span");
+        dots.className = "pagination-dots";
+        dots.textContent = "...";
+        container.appendChild(dots);
+    }
+
+    /*-- Previous --*/
+    addButton("Previous", currentPage - 1, currentPage === 1);
+
+    /*-- Show up to 10 consecutive page numbers --*/
+    const maxVisiblePages = 10;
+    let startPage = Math.max(1, currentPage - 4);
+    let endPage = Math.min(
+        totalPages,
+        startPage + maxVisiblePages - 1
+    );
+
+    /*-- Keep the window at 10 pages near the end --*/
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+    if (startPage > 1) {
+        addButton("1", 1);
+        if (startPage > 2) addDots();
+    }
+
+    for (let page = startPage; page <= endPage; page++) {
+        addButton(
+            String(page),
+            page,
+            false,
+            page === currentPage
+        );
+    }
+
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) addDots();
+        addButton(String(totalPages), totalPages);
+    }
+
+    /*-- Next --*/
+    addButton("Next", currentPage + 1, currentPage === totalPages);
 }
 
 

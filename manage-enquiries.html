@@ -22,6 +22,61 @@
       box-sizing: border-box;
     }
     
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    .crm-table-footer p {
+      color: #64748b;
+      font-size: 15px;
+      margin: 0;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .crm-pagination .pagination-dots {
+      padding: 0 5px;
+      color: #64748b;
+    }
+
     </style>
 
 </head>
@@ -305,7 +360,8 @@
 
                     <!-- Footer -->
                     <div class="crm-table-footer">
-                        <p>Showing 1 to 3 of 3 student enquiries.</p>
+                        <p id="enquiryPaginationInfo">Showing 0 to 0 of 0 student enquiries.</p>
+                        <div class="crm-pagination" id="enquiryPagination"></div>
                     </div>
 
             </main>
@@ -360,6 +416,11 @@ dropdowns.forEach(dropdown => {
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    const rowsPerPage = 10;
+    let currentPage = 1;
+    let allEnquiries = [];
+    let filteredEnquiries = [];
 
     const API_BASE_URL = "http://localhost:3000";
 
@@ -463,152 +524,150 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /*-- DISPLAY ENQUIRIES --*/
+    /*-- DISPLAY ENQUIRIES --*/    
     function displayEnquiries(enquiries) {
 
-        tableBody.innerHTML = "";
+        allEnquiries = Array.isArray(enquiries) ? enquiries : [];
+        filteredEnquiries = [...allEnquiries];
+        currentPage = 1;
 
+        renderEnquiriesPage();
+    }
 
-        if (
-            !Array.isArray(enquiries) ||
-            enquiries.length === 0
-        ) {
+    function renderEnquiriesPage() {
+        const totalRecords = filteredEnquiries.length;
+        const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-            tableBody.innerHTML = `
-                <tr class="no-courses-row">
-                    <td colspan="9"
-                        style="text-align:center; padding:20px;
-                        ">
-                        <i class="fa-solid fa-circle-info"></i>
-                        No enquiries found.
+    if (totalPages === 0) {
+        currentPage = 1;
+    } else if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
 
-                    </td>
-                </tr>
-            `;
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const pageData = filteredEnquiries.slice(
+        startIndex,
+        startIndex + rowsPerPage
+    );
 
+    tableBody.innerHTML = "";
 
-            updateFooter(0);
-
-            return;
-
-        }
-
-
-        enquiries.forEach(function (enquiry) {
-
+    if (totalRecords === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" style="text-align:center;padding:20px;">
+                    <i class="fa-solid fa-circle-info"></i>
+                    No enquiries found.
+                </td>
+            </tr>
+        `;
+    } else {
+        pageData.forEach(function (enquiry) {
             const row = document.createElement("tr");
 
-
             row.innerHTML = `
-
-                <td>${enquiry.id}</td>
-
+                <td>${escapeHtml(enquiry.id ?? "-")}</td>
+                <td>${escapeHtml(enquiry.student_name || "-")}</td>
+                <td>${escapeHtml(enquiry.mobile || "-")}</td>
+                <td>${escapeHtml(enquiry.course || "-")}</td>
+                <td>${formatDate(enquiry.enquiry_date)}</td>
+                <td>${enquiry.follow_up_date
+                    ? formatDate(enquiry.follow_up_date)
+                    : "-"}</td>
                 <td>
-                    ${escapeHtml(
-                        enquiry.student_name || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.mobile || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.course || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        enquiry.enquiry_date
-                    )}
-                </td>
-
-                <td>
-                    ${
-                        enquiry.follow_up_date
-                            ? formatDate(
-                                enquiry.follow_up_date
-                            )
-                            : "-"
-                    }
-                </td>
-
-                <td>
-
-                    <span
-                        class="crm-status-MEB
-                        ${getStatusClass(
-                            enquiry.status
-                        )}">
-
-                        ${escapeHtml(
-                            enquiry.status || "-"
-                        )}
-
+                    <span class="crm-status-MEB ${getStatusClass(enquiry.status)}">
+                        ${escapeHtml(enquiry.status || "-")}
                     </span>
-
                 </td>
-
+                <td>${escapeHtml(enquiry.counsellor || "-")}</td>
                 <td>
-                    ${escapeHtml(
-                        enquiry.counsellor || "-"
-                    )}
-                </td>
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="crm-view-btn-MEB"
-                        onclick="viewEnquiry(${enquiry.id})"
-                        title="View">
-
+                    <button type="button" class="crm-view-btn-MEB"
+                        onclick="viewEnquiry(${Number(enquiry.id)})" title="View">
                         <i class="fa fa-eye"></i>
                     </button>
 
-                    <button
-                        type="button"
-                        class="crm-edit-btn-MEB"
-                        onclick="editEnquiry(${enquiry.id})"
-                        title="Edit">
-
+                    <button type="button" class="crm-edit-btn-MEB"
+                        onclick="editEnquiry(${Number(enquiry.id)})" title="Edit">
                         <i class="fa fa-edit"></i>
                     </button>
 
-
-                    <button
-                        type="button"
-                        class="crm-followup-btn-MEB"
-                        onclick="addFollowUp(${enquiry.id})"
-                        title="Follow-up">
-
+                    <button type="button" class="crm-followup-btn-MEB"
+                        onclick="addFollowUp(${Number(enquiry.id)})" title="Follow-up">
                         <i class="fa fa-phone"></i>
                     </button>
 
-
-                    <button
-                        type="button"
-                        class="crm-delete-btn-MEB"
-                        onclick="deleteEnquiry(${enquiry.id})"
-                        title="Delete">
-
+                    <button type="button" class="crm-delete-btn-MEB"
+                        onclick="deleteEnquiry(${Number(enquiry.id)})" title="Delete">
                         <i class="fa fa-trash"></i>
                     </button>
-
                 </td>
-
             `;
 
             tableBody.appendChild(row);
+        });
+    }
 
+        updateFooter(totalRecords, startIndex, pageData.length);
+        renderEnquiryPagination(totalPages);
+    }
+
+
+    function renderEnquiryPagination(totalPages) {
+
+    const container = document.getElementById("enquiryPagination");
+    
+        if (!container) return;
+
+        container.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, disabled = false, active = false) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) button.classList.add("active");
+
+        button.addEventListener("click", function () {
+            currentPage = page;
+            renderEnquiriesPage();
         });
 
-        updateFooter(enquiries.length);
+        container.appendChild(button);
+    }
 
+    function addDots() {
+        const dots = document.createElement("span");
+        dots.className = "pagination-dots";
+        dots.textContent = "...";
+        container.appendChild(dots);
+    }
+
+    addButton("Previous", currentPage - 1, currentPage === 1);
+
+    const maxVisiblePages = 10;
+    let startPage = Math.max(1, currentPage - 4);
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+    if (startPage > 1) {
+        addButton("1", 1);
+        if (startPage > 2) addDots();
+    }
+
+    for (let page = startPage; page <= endPage; page++) {
+        addButton(String(page), page, false, page === currentPage);
+    }
+
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) addDots();
+        addButton(String(totalPages), totalPages);
+    }
+
+        addButton("Next", currentPage + 1, currentPage === totalPages);
     }
 
 
@@ -864,28 +923,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*-- FOOTER --*/
-    function updateFooter(total) {
+    function updateFooter(total, startIndex = 0, displayedCount = 0) {
 
-        const footer = document.querySelector(
-                ".crm-table-footer p"
-            );
+        const footer = document.getElementById("enquiryPaginationInfo");
 
-        if (!footer) {
+        if (!footer) return;
 
-            return;
+        const start = total === 0 ? 0 : startIndex + 1;
+        const end = startIndex + displayedCount;
 
-        }
-
-        if (total === 0) {
-
-            footer.textContent = "Showing 0 of 0 student enquiries.";
-
-        } else {
-
-            footer.textContent = `Showing 1 to ${total} of ${total} student enquiries.`;
-
-        }
-
+        footer.textContent = `Showing ${start} to ${end} of ${total} student enquiries.`;
     }
 
 

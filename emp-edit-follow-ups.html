@@ -1,484 +1,329 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3470 Healthcare - Edit Follow-up</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3470 Healthcare & Student CRM System - Employee Edit Follow-Ups Page</title>
 
-    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
 
+    <!-- Css styles -->
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+          
     <style>
-        * {
-            box-sizing: border-box;
-        }
 
-        .edit-followup-main {
-            padding: 28px;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }    
 
-        .edit-followup-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
+    .edit-followup-message { padding: 13px 15px; border-radius: 8px; margin-bottom: 18px; font-size: 14px; }
 
-        .edit-followup-heading h1 {
-            color: #1e3a8a;
-            font-size: 27px;
-            margin-bottom: 7px;
-        }
+    .edit-followup-error { background: #fee2e2; color: #b91c1c; }
 
-        .edit-followup-heading p {
-            color: #64748b;
-            font-size: 14px;
-        }
+    .edit-followup-success { background: #dcfce7; color: #166534; }
 
-        .edit-followup-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    .edit-followup-info { background: #dbeafe; color: #1d4ed8; }
 
-        .edit-followup-btn {
-            padding: 11px 17px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+    .edit-followup-hidden { display: none !important; }
 
-        .edit-followup-back {
-            background: #e2e8f0;
-            color: #334155;
-        }
-
-        .edit-followup-save {
-            background: #2563eb;
-            color: white;
-        }
-
-        .edit-followup-save:hover {
-            background: #1d4ed8;
-        }
-
-        .edit-followup-save:disabled {
-            opacity: .6;
-            cursor: not-allowed;
-        }
-
-        .edit-followup-card {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 14px rgba(15, 23, 42, .05);
-        }
-
-        .edit-followup-card h3 {
-            color: #1e293b;
-            font-size: 19px;
-            margin-bottom: 22px;
-        }
-
-        .edit-followup-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .edit-followup-field {
-            min-width: 0;
-        }
-
-        .edit-followup-field.full {
-            grid-column: 1 / -1;
-        }
-
-        .edit-followup-field label {
-            display: block;
-            color: #475569;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .edit-followup-field input,
-        .edit-followup-field select,
-        .edit-followup-field textarea {
-            width: 100%;
-            padding: 12px 13px;
-            border: 1px solid #dbe2ea;
-            border-radius: 8px;
-            background: #fff;
-            color: #1e293b;
-            font-family: inherit;
-            font-size: 14px;
-            outline: none;
-        }
-
-        .edit-followup-field input:focus,
-        .edit-followup-field select:focus,
-        .edit-followup-field textarea:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
-        }
-
-        .edit-followup-field input[readonly] {
-            background: #f1f5f9;
-            color: #475569;
-            cursor: not-allowed;
-        }
-
-        .edit-followup-field textarea {
-            min-height: 105px;
-            resize: vertical;
-        }
-
-        .edit-followup-message {
-            padding: 13px 15px;
-            border-radius: 8px;
-            margin-bottom: 18px;
-            font-size: 14px;
-        }
-
-        .edit-followup-error {
-            background: #fee2e2;
-            color: #b91c1c;
-        }
-
-        .edit-followup-success {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .edit-followup-info {
-            background: #dbeafe;
-            color: #1d4ed8;
-        }
-
-        .edit-followup-hidden {
-            display: none !important;
-        }
-
-        .edit-followup-footer {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 24px;
-        }
-
-        @media (max-width: 1000px) {
-            .edit-followup-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 600px) {
-            .edit-followup-main {
-                padding: 16px;
-            }
-
-            .edit-followup-card {
-                padding: 17px;
-            }
-
-            .edit-followup-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .edit-followup-field.full {
-                grid-column: auto;
-            }
-
-            .edit-followup-actions {
-                width: 100%;
-            }
-
-            .edit-followup-actions button {
-                flex: 1;
-            }
-
-            .edit-followup-footer button {
-                flex: 1;
-            }
-        }
     </style>
-</head>
 
+</head>
 <body>
 
-    <!-- Employee Header -->
+    
+    <!-- Employee Dashboard - Header -->
     <header class="EMP-dashboard-header">
 
+        <!-- LEFT -->
         <div class="EMP-header-left">
+
             <div class="EMP-header-logo">
-                <img src="/image/Logo3470-health3-removebg-preview.png"
-                     alt="3470 Healthcare Logo">
+                <img src="/image/Logo3470-health3-removebg-preview.png" alt="3470 Healthcare Logo">
             </div>
 
             <div class="EMP-header-menu-btn" id="menuBtn">
                 <i class="fa fa-bars"></i>
             </div>
-        </div>
 
+        </div>
+        
+        <!-- CENTER -->
         <div class="EMP-header-center">
             STUDENT CRM SYSTEM
         </div>
 
+        <!-- RIGHT -->
         <div class="EMP-header-right">
-            <div class="EMP-notification"
-                 id="notificationButton"
-                 role="button"
-                 tabindex="0"
-                 aria-label="Open notifications">
 
+            <!-- Notification -->
+            <div class="EMP-notification" id="notificationButton" onclick="openNotifications()">
                 <i class="fa-solid fa-bell"></i>
-                <span class="EMP-notification-count"
-                      id="headerNotificationCount">0</span>
-            </div>
+                <span class="EMP-notification-count" id="headerNotificationCount">0</span>
 
-            <div class="EMP-profile">
-                <div class="EMP-profile-avatar" id="profileAvatar">E</div>
+        </div>
+
+        <!-- Profile -->
+        <div class="EMP-profile">
+
+            <div class="EMP-profile-avatar" id="profileAvatar">E</div>
 
                 <div class="EMP-profile-info">
-                    <div class="EMP-profile-name" id="employeeName">
-                        Employee
+
+                    <div class="EMP-profile-name"
+                        id="employeeName">Employee
                     </div>
-                    <div class="EMP-profile-role" id="employeeRole">
-                        Employee
+
+                    <div class="EMP-profile-role"
+                        id="employeeRole">Employee
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
     </header>
 
-    <!-- Sidebar Overlay -->
+
+    <!-- EMP Sidebar Overlay -->
     <div id="crmSidebarOverlay" class="crm-siderbar-overlay"></div>
 
-    <div class="crm-sidebar-container">
+        <div class="crm-sidebar-container">
 
-        <!-- Sidebar -->
-        <aside class="crm-sidebar" id="crmSidebar">
+            <aside class="crm-sidebar" id="crmSidebar">
 
-            <a href="employee-dashboard.html">
-                <i class="fa fa-home"></i> Dashboard
-            </a>
+                <a href="employee-dashboard.html" class="active"><i class="fa fa-home"></i>Dashboard</a>
 
-            <div class="crm-dropdown">
-                <div class="crm-dropdown-btn">
-                    <i class="fa fa-user-graduate"></i> My Enquiries
-                    <i class="fa fa-angle-down icon-color"></i>
+                <!-- Student Enquiries -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-graduate"></i>My Enquiries
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-enquiry.html"><i class="fa fa-user-plus"></i>Add Enquiry</a>
+                        <a href="my-enquiries.html"><i class="fa fa-users"></i>Manage Enquiries</a>
+                    </div>
+
                 </div>
 
-                <div class="crm-dropdown-content">
-                    <a href="add-enquiry.html">
-                        <i class="fa fa-user-plus"></i> Add Enquiry
-                    </a>
-                    <a href="my-enquiries.html">
-                        <i class="fa fa-users"></i> Manage Enquiries
-                    </a>
+                <!-- Follow-ups -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-phone"></i>My Follow-ups
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="add-follow-up.html"><i class="fa fa-calendar-check"></i>Add Follow-up</a>
+                        <a href="my-follow-ups.html"><i class="fa-solid fa-phone"></i>My Follow-ups</a>
+                    </div>
+
                 </div>
+
+                <!-- Admissions -->
+                <div class="crm-dropdown">
+
+                    <div class="crm-dropdown-btn">
+                        <i class="fa fa-user-check"></i>Admissions
+                        <i class="fa fa-angle-down icon-color"></i>
+                    </div>
+
+                    <div class="crm-dropdown-content">
+                        <a href="new-admission.html"><i class="fa fa-plus-circle"></i>New Admission</a>
+                        <a href="my-admissions.html"><i class="fa-solid fa-user-check"></i>My Admissions</a>
+                    </div>
+
+                </div>
+
+                <a href="my-notifications.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-bell"></i>Notifications
+                </a>
+
+                <a href="employee-profile.html" class="crm-nav-link EMP-active">
+                    <i class="fa-solid fa-user"></i>My Profile
+                </a>
+
+                <a href="#" id="logoutButton" class="EMP-active crm-nav-link logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>Logout
+                </a>
+
+            </aside>
+
+
+            <!-- Main Content -->
+            <main class="EMP-dashboard-main">
+
+                <div class="emp-edit-Follow-heading">
+
+                    <div>
+                        <h1>Edit Follow-up</h1>
+                        <p>Update the student's follow-up information.</p>
+                    </div>
+
+                    <div class="emp-EditFollowup-actions">
+                        <button type="button" class="emp-EditFollowup-btn emp-EditFollowup-back" id="backButton">
+                            <i class="fa-solid fa-arrow-left"></i> Back
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div id="formMessage" class="edit-followup-message edit-followup-hidden" role="alert" aria-live="polite"></div>
+
+                <div id="loadingMessage" class="emp-Edit-Followup-card"><i class="fa-solid fa-spinner fa-spin"></i>
+                    Loading follow-up details...
+                </div>
+
+
+                <form id="editFollowUpForm" class="emp-Edit-Followup-card edit-followup-hidden">
+
+                    <h3><i class="fa-solid fa-calendar-check"></i>Follow-up Information</h3>
+
+                        <div class="emp-EditFollowup-grid">
+
+                            <!-- Follow-up ID -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="followUpId">Follow-up ID</label>
+                                <input type="text" id="followUpId" readonly>
+                            </div>
+
+                            <!-- Student Name -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="studentName">Student Name</label>
+                                <input type="text" id="studentName" readonly>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="mobile">Mobile Number</label>
+                                <input type="text" id="mobile" readonly>
+                            </div>
+
+                            <!-- Course -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="course">Course</label>
+                                <input type="text" id="course" readonly>
+                            </div>
+
+                            <!-- Counsellor -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="counsellor">Counsellor</label>
+                                <input type="text" id="counsellor" readonly>
+                            </div>
+
+                            <!-- Follow-up Date -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="followUpDate">Follow-up Date <span>*</span></label>
+                                <input type="date" id="followUpDate" required>
+                            </div>
+
+                            <!-- Follow-up Time -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="followUpTime">Follow-up Time <span>*</span></label>
+                                <input type="time" id="followUpTime" required>
+                            </div>
+
+                            <!-- Follow-up Type -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="followUpType">Follow-up Type <span>*</span></label>
+                                <select id="followUpType" required>
+                                    <option value="">-- Select Type --</option>
+                                    <option value="Phone Call">Phone Call</option>
+                                    <option value="WhatsApp">WhatsApp</option>
+                                    <option value="Email">Email</option>
+                                    <option value="Walk-in">Walk-in</option>
+                                </select>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="status">Status <span>*</span></label>
+                                <select id="status" required>
+                                    <option value="">-- Select Status --</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Call Back">Call Back</option>
+                                    <option value="Interested">Interested</option>
+                                    <option value="Not Interested">Not Interested</option>
+                                    <option value="Admission Confirmed">Admission Confirmed</option>
+                                </select>
+                            </div>
+
+                            <!-- Next Follow-up Date -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="nextFollowUpDate">Next Follow-up Date</label>
+                                <input type="date" id="nextFollowUpDate">
+                            </div>
+
+                            <!-- Next Follow-up Time -->
+                            <div class="emp-EditFollowUps-field">
+                                <label for="nextFollowUpTime">Next Follow-up Time</label>
+                                <input type="time" id="nextFollowUpTime">
+                            </div>
+
+                            <!-- Comments -->
+                            <div class="emp-EditFollowUps-field full">
+                                <label for="comments">Comments</label>
+                                <textarea id="comments" placeholder="Enter follow-up comments..."></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- Button type   -->
+                        <div class="emp-EditFollowUps-footer">
+                            <button type="button" class="emp-EditFollowup-btn emp-EditFollowup-back" id="cancelButton">Cancel</button>
+
+                            <button type="submit" class="emp-EditFollowup-btn emp-EditFollowup-save" id="saveButton">
+                                <i class="fa-solid fa-floppy-disk"></i><span>Update Follow-up</span>
+                            </button>      
+                        </div>
+
+                    </form>
+
+                </main>
+
             </div>
 
-            <div class="crm-dropdown open">
-                <div class="crm-dropdown-btn">
-                    <i class="fa fa-phone"></i> My Follow-ups
-                    <i class="fa fa-angle-down icon-color"></i>
-                </div>
 
-                <div class="crm-dropdown-content">
-                    <a href="add-follow-up.html">
-                        <i class="fa fa-calendar-plus"></i> Add Follow-up
-                    </a>
-                    <a href="my-follow-ups.html" class="active">
-                        <i class="fa-solid fa-phone"></i> My Follow-ups
-                    </a>
-                </div>
-            </div>
 
-            <div class="crm-dropdown">
-                <div class="crm-dropdown-btn">
-                    <i class="fa fa-user-check"></i> Admissions
-                    <i class="fa fa-angle-down icon-color"></i>
-                </div>
+<!-- Side bar dropdown JS - Script -->
+<script>
+    const dropdowns = document.querySelectorAll(".crm-dropdown");
 
-                <div class="crm-dropdown-content">
-                    <a href="new-admission.html">
-                        <i class="fa fa-plus-circle"></i> New Admission
-                    </a>
-                    <a href="my-admissions.html">
-                        <i class="fa-solid fa-user-check"></i> My Admissions
-                    </a>
-                </div>
-            </div>
+dropdowns.forEach(dropdown => {
 
-            <a href="my-notifications.html" class="crm-nav-link">
-                <i class="fa-solid fa-bell"></i> Notifications
-            </a>
+    const button = dropdown.querySelector(".crm-dropdown-btn");
 
-            <a href="employee-profile.html" class="crm-nav-link">
-                <i class="fa-solid fa-user"></i> My Profile
-            </a>
+    button.addEventListener("click", () => {
 
-            <a href="#" id="logoutButton" class="crm-nav-link logout">
-                <i class="fa-solid fa-right-from-bracket"></i> Logout
-            </a>
+        dropdown.classList.toggle("active");
 
-        </aside>
+    });
 
-        <!-- Main Content -->
-        <main class="EMP-dashboard-main edit-followup-main">
+});
+</script>
 
-            <div class="edit-followup-heading">
-                <div>
-                    <h1>Edit Follow-up</h1>
-                    <p>Update the student's follow-up information.</p>
-                </div>
 
-                <div class="edit-followup-actions">
-                    <button type="button"
-                            class="edit-followup-btn edit-followup-back"
-                            id="backButton">
-                        <i class="fa-solid fa-arrow-left"></i> Back
-                    </button>
-                </div>
-            </div>
 
-            <div id="formMessage"
-                 class="edit-followup-message edit-followup-hidden"
-                 role="alert"
-                 aria-live="polite"></div>
+<!-- Employee Edit Follow ups - JS -->
+<script>
 
-            <div id="loadingMessage"
-                 class="edit-followup-card">
-                <i class="fa-solid fa-spinner fa-spin"></i>
-                Loading follow-up details...
-            </div>
-
-            <form id="editFollowUpForm"
-                  class="edit-followup-card edit-followup-hidden">
-
-                <h3>
-                    <i class="fa-solid fa-calendar-check"></i>
-                    Follow-up Information
-                </h3>
-
-                <div class="edit-followup-grid">
-
-                    <div class="edit-followup-field">
-                        <label for="followUpId">Follow-up ID</label>
-                        <input type="text" id="followUpId" readonly>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="studentName">Student Name</label>
-                        <input type="text" id="studentName" readonly>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="mobile">Mobile Number</label>
-                        <input type="text" id="mobile" readonly>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="course">Course</label>
-                        <input type="text" id="course" readonly>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="counsellor">Counsellor</label>
-                        <input type="text" id="counsellor" readonly>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="followUpDate">Follow-up Date *</label>
-                        <input type="date" id="followUpDate" required>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="followUpTime">Follow-up Time *</label>
-                        <input type="time" id="followUpTime" required>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="followUpType">Follow-up Type *</label>
-                        <select id="followUpType" required>
-                            <option value="">Select Type</option>
-                            <option value="Phone Call">Phone Call</option>
-                            <option value="WhatsApp">WhatsApp</option>
-                            <option value="Email">Email</option>
-                            <option value="Walk-in">Walk-in</option>
-                        </select>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="status">Status *</label>
-                        <select id="status" required>
-                            <option value="">Select Status</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Scheduled">Scheduled</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Missed">Missed</option>
-                        </select>
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="nextFollowUpDate">
-                            Next Follow-up Date
-                        </label>
-                        <input type="date" id="nextFollowUpDate">
-                    </div>
-
-                    <div class="edit-followup-field">
-                        <label for="nextFollowUpTime">
-                            Next Follow-up Time
-                        </label>
-                        <input type="time" id="nextFollowUpTime">
-                    </div>
-
-                    <div class="edit-followup-field full">
-                        <label for="comments">Comments</label>
-                        <textarea id="comments"
-                                  placeholder="Enter follow-up comments..."></textarea>
-                    </div>
-
-                </div>
-
-                <div class="edit-followup-footer">
-                    <button type="button"
-                            class="edit-followup-btn edit-followup-back"
-                            id="cancelButton">
-                        Cancel
-                    </button>
-
-                    <button type="submit"
-                            class="edit-followup-btn edit-followup-save"
-                            id="saveButton">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                        <span>Update Follow-up</span>
-                    </button>
-                </div>
-
-            </form>
-
-        </main>
-    </div>
-
-    <script>
     (() => {
+
         const API_BASE = "http://localhost:3000/api";
         const $ = id => document.getElementById(id);
 
@@ -538,7 +383,7 @@
             );
         }
 
-        // Supports YYYY-MM-DD and ISO date values.
+        /*-- Supports YYYY-MM-DD and ISO date values. --*/
         function toDateInput(value) {
             if (!value) return "";
 
@@ -548,7 +393,7 @@
             return match ? match[1] : "";
         }
 
-        // Supports HH:MM:SS or HH:MM.
+        /*-- Supports HH:MM:SS or HH:MM. --*/
         function toTimeInput(value) {
             if (!value) return "";
 
@@ -685,8 +530,7 @@
                     `${API_BASE}/employee/follow-ups/${encodeURIComponent(followUpId)}`
                 );
 
-                const record =
-                    data.followUp ?? data.follow_up ?? data.data;
+                const record = data.followUp ?? data.follow_up ?? data.data;
 
                 if (!record) {
                     throw new Error(
@@ -695,6 +539,7 @@
                 }
 
                 displayFollowUp(record);
+
             } catch (error) {
                 $("loadingMessage").classList.add("edit-followup-hidden");
                 showMessage(error.message || "Unable to load follow-up.");
@@ -758,18 +603,22 @@
                     }
                 );
 
-                showMessage(
-                    "Follow-up updated successfully.",
-                    "success"
-                );
+                
+                /*-- Redirect only after the backend confirms the update. --*/
+                alert("✅ Follow-up updated successfully!");
+                    window.location.href = "my-follow-ups.html";
+                return;
 
-                // Reload from the server so the page shows saved values.
+                /*-- Reload from the server so the page shows saved values. --*/
                 await loadUpdatedRecord();
+
             } catch (error) {
                 showMessage(
                     error.message || "Unable to update follow-up."
                 );
+
                 console.error("Update follow-up error:", error);
+
             } finally {
                 saveButton.disabled = false;
                 saveButton.querySelector("span").textContent = "Update Follow-up";
@@ -781,8 +630,7 @@
                 `${API_BASE}/employee/follow-ups/${encodeURIComponent(followUpId)}`
             );
 
-            const record =
-                data.followUp ?? data.follow_up ?? data.data;
+            const record = data.followUp ?? data.follow_up ?? data.data;
 
             if (record) {
                 displayFollowUp(record);
@@ -891,8 +739,11 @@
                 updateFollowUp
             );
         });
+        
     })();
-    </script>
+
+</script>
+
 
 </body>
 </html>

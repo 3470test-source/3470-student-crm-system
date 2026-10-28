@@ -23,48 +23,49 @@
     }
 
     .table-empty {
-        text-align: center !important;
-        padding: 40px !important;
-        color: #6b7280;
+      text-align: center !important;
+      padding: 40px !important;
+      color: #6b7280;
     }
 
     .pagination {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 6px;
-        padding: 18px 20px;
-        flex-wrap: wrap;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 6px;
+      padding: 20px 10px;
+      flex-wrap: wrap;
     }
 
     .pagination button {
-        min-width: 36px;
-        height: 36px;
-        padding: 0 11px;
-        border: 1px solid #d5dce5;
-        background: #fff;
-        color: #2864e6;
-        border-radius: 6px;
-        cursor: pointer;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
     .pagination button:hover:not(:disabled) {
-        background: #eef4ff;
+      background: #0a8830;
+      color: #fff;
     }
 
     .pagination button.active {
-        background: #2864e6;
-        color: #fff;
-        border-color: #2864e6;
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
     }
 
     .pagination button:disabled {
-        opacity: .5;
-        cursor: not-allowed;
+      opacity: .5;
+      cursor: not-allowed;
     }
 
     .pagination-dots {
-        padding: 0 5px;
+      padding: 0 5px;
     }
 
     </style>
@@ -807,10 +808,14 @@ dropdowns.forEach(dropdown => {
             } else if (normalized === "admission-confirmed") {
                 className = "EMP-MyEnq-status-admission-confirmed";
             }
+            else if (normalized === "new") {
+                className = "EMP-MyEnq-status-new";
+            }
 
             return `<span class="EMP-status-badge-MyEnq ${className}">${escapeHtml(safeStatus)}</span>`;
         }
 
+        
         /*--- DATE FORMAT ---*/
         function formatDate(value) {
             if (!value) return "-";
@@ -819,9 +824,20 @@ dropdowns.forEach(dropdown => {
             const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
 
             if (match) {
-                return `${match[3]}-${new Date(
-                    Number(match[2]) - 1
-                ).toLocaleString("en-US", { month: "short" })}-${match[1]}`;
+                const year = Number(match[1]);
+                const month = Number(match[2]);
+                const day = Number(match[3]);
+
+                const monthName = [
+                    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                ][month - 1];
+
+            if (!monthName || day < 1 || day > 31) {
+                return "-";
+            }
+ 
+                return `${String(day).padStart(2, "0")}-${monthName}-${year}`;
             }
 
             const date = new Date(value);
@@ -836,6 +852,7 @@ dropdowns.forEach(dropdown => {
                 year: "numeric"
             });
         }
+
 
         /*--- HTML ESCAPING ---*/
         function escapeHtml(value) {

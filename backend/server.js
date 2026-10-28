@@ -4393,8 +4393,8 @@ app.get("/api/dashboard", async (req, res) => {
         const [[todayFollowupCount]] = await db.execute(`
             SELECT COUNT(*) AS total
             FROM follow_ups
-            WHERE DATE(follow_up_date) = CURDATE()
-              AND status NOT IN ('Completed', 'Not Interested')
+            WHERE follow_up_date >= CURDATE()
+              AND follow_up_date < CURDATE() + INTERVAL 1 DAY
         `);
 
 
@@ -4425,7 +4425,7 @@ app.get("/api/dashboard", async (req, res) => {
                     ELSE 0
                 END,
                 follow_up_time ASC
-            LIMIT 10
+            LIMIT 4
         `);
 
 
@@ -4436,7 +4436,7 @@ app.get("/api/dashboard", async (req, res) => {
                 enquiry_date, created_at
             FROM student_enquiries
             ORDER BY id DESC
-            LIMIT 10
+            LIMIT 4
         `);
 
 
@@ -4532,7 +4532,7 @@ app.get("/api/dashboard", async (req, res) => {
 
             ORDER BY notification_date DESC
 
-            LIMIT 8
+            LIMIT 3
 
         `);
 
@@ -5250,7 +5250,10 @@ app.get("/api/employee/enquiries", authenticateToken,
             /*-- Fetch this page of enquiries --*/
             const [enquiries] = await db.execute(
             `SELECT
-                id, student_name, mobile, email, course_interested, counsellor, enquiry_date, follow_up_date, status
+                id, student_name, mobile, email, course_interested, counsellor, 
+                DATE_FORMAT(enquiry_date, '%Y-%m-%d') AS enquiry_date,
+                DATE_FORMAT(follow_up_date, '%Y-%m-%d') AS follow_up_date,
+                status
             FROM student_enquiries
             WHERE ${whereClause}
             ORDER BY id DESC
@@ -7566,37 +7569,10 @@ app.put("/api/employee/enquiries/:id", authenticateToken,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================================
-   EMPLOYEE: VIEW ONE FOLLOW-UP
-   GET /api/employee/follow-ups/:id
-========================================================= */
-
-app.get(
-    "/api/employee/follow-ups/:id",
-    authenticateToken,
-    async (req, res) => {
+/*==== EMPLOYEE: VIEW ONE FOLLOW-UP  -  GET /api/employee/follow-ups/:id ====*/
+app.get("/api/employee/follow-ups/:id", authenticateToken, async (req, res) => {
         try {
+
             const role = String(req.user?.role || "").toLowerCase();
             const employeeId = Number(req.user?.id ?? req.user?.user_id);
             const followUpId = Number(req.params.id);
@@ -7637,6 +7613,7 @@ app.get(
                 success: true,
                 followUp: rows[0]
             });
+
         } catch (error) {
             console.error("EMPLOYEE VIEW FOLLOW-UP ERROR:", error);
 
@@ -7649,15 +7626,12 @@ app.get(
 );
 
 
-/* =========================================================
-   EMPLOYEE: UPDATE ONE FOLLOW-UP
-   PUT /api/employee/follow-ups/:id
-========================================================= */
 
-app.put(
-    "/api/employee/follow-ups/:id",
-    authenticateToken,
-    async (req, res) => {
+
+
+/*==== EMPLOYEE: UPDATE ONE FOLLOW-UP  -  PUT /api/employee/follow-ups/:id ====*/
+app.put("/api/employee/follow-ups/:id", authenticateToken, async (req, res) => {
+
         try {
             const role = String(req.user?.role || "").toLowerCase();
             const employeeId = Number(req.user?.id ?? req.user?.user_id);
@@ -7681,13 +7655,7 @@ app.put(
             }
 
             const {
-                follow_up_date,
-                follow_up_time,
-                follow_up_type,
-                status,
-                next_follow_up_date,
-                next_follow_up_time,
-                comments
+                follow_up_date, follow_up_time, follow_up_type, status, next_follow_up_date, next_follow_up_time, comments
             } = req.body;
 
             const validDate = value => {
@@ -7741,21 +7709,11 @@ app.put(
             }
 
             const allowedTypes = [
-                "Phone Call",
-                "WhatsApp",
-                "Email",
-                "Walk-in"
+                "Phone Call", "WhatsApp", "Email", "Walk-in"
             ];
 
             const allowedStatuses = [
-                "Pending",
-                "Scheduled",
-                "Completed",
-                "Missed",
-                "Interested",
-                "Not Interested",
-                "Call Back",
-                "Admission Confirmed"
+                "Pending", "Scheduled", "Completed", "Missed", "Interested", "Not Interested", "Call Back", "Admission Confirmed"
             ];
 
             const type = String(follow_up_type || "").trim();
