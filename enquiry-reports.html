@@ -51,7 +51,56 @@
       padding: 30px;
       color: #64748b;
     }
-  
+
+    .crm-report-pagination-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      margin-bottom: -20px;
+    }
+
+    #enquiryReportPaginationInfo {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination .crm-pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
  
 </head>
@@ -364,6 +413,7 @@
                             <label for="reportStatus">Status</label>
                             <select id="reportStatus">
                                 <option value="">-- All Status --</option>
+                                <option value="New">New</option>
                                 <option value="Interested">Interested</option>
                                 <option value="Follow-up">Follow-up</option>
                                 <option value="Not Interested">Not Interested</option>
@@ -432,6 +482,13 @@
 
                         </table>
 
+                    </div>
+
+                    
+                    <!-- pagination -->
+                    <div class="crm-report-pagination-footer">
+                        <p id="enquiryReportPaginationInfo">Showing 0 to 0 of 0 records</p>
+                        <div id="enquiryReportPagination" class="crm-pagination"></div>
                     </div>
 
                 </div>
@@ -575,6 +632,8 @@ const API_BASE = "http://localhost:3000/api";
 
 /*--- GLOBAL REPORT DATA ---*/
 let currentReportData = [];
+let currentPage = 1;
+const rowsPerPage = 10;
 
 
 /*--- DOM READY ---*/
@@ -789,6 +848,7 @@ async function loadEnquiryReport() {
 
         /*--- STORE DATA ---*/
         currentReportData = data.enquiries || [];
+        currentPage = 1;
 
 
         /*--- UPDATE SUMMARY ---*/
@@ -812,7 +872,6 @@ async function loadEnquiryReport() {
     }
 
 }
-
 
 
 /*--- UPDATE SUMMARY CARDS ---*/
@@ -875,137 +934,185 @@ function updateStatusSummary(summary) {
 
 /*--- RENDER REPORT TABLE ---*/
 function renderEnquiryReport(enquiries) {
-
     const tbody = document.getElementById("enquiryReportTableBody");
+
+    /*-- Keep the full filtered dataset for pagination and Excel export. --*/
+    const totalRecords = currentReportData.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
+    if (totalRecords === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="8" class="crm-report-no-data">
+                    No enquiry records found.
+                </td>
+            </tr>
+        `;
+
+        renderEnquiryPagination(0, 0, 0);
+        return;
+    }
+
+    /*-- Keep currentPage within the valid range. --*/
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
+
+    /*-- Display only the records for the current page. --*/
+    const pageRecords = currentReportData.slice(startIndex, endIndex);
 
     tbody.innerHTML = "";
 
-    if (!enquiries.length) {
+    pageRecords.forEach((enquiry, index) => {
+        const row = document.createElement("tr");
 
-        showNoData();
+        /*-- Use the existing table column structure. --*/
+        row.innerHTML = `
+            <td>${startIndex + index + 1}</td>
+            <td>${escapeHtml(enquiry.student_name || "-")}</td>
+            <td>${escapeHtml(enquiry.mobile || "-")}</td>
+            <td>${escapeHtml(enquiry.course || "-")}</td>
+            <td>${escapeHtml(enquiry.counsellor || "-")}</td>
+            <td>${formatDate(enquiry.enquiry_date)}</td>
+            <td>${formatDate(enquiry.follow_up_date)}</td>
+            <td>
+                ${renderEnquiryStatus(enquiry.status)}
+            </td>
+        `;
 
-        return;
+        tbody.appendChild(row);
+    });
 
-    }
+    renderEnquiryPagination(
+        totalRecords,
+        startIndex + 1,
+        endIndex
+    );
+}
 
 
-    enquiries.forEach((enquiry, index) => {
-
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-
-                <td>${index + 1}</td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.student_name
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.mobile || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.course || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHtml(
-                        enquiry.counsellor || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        enquiry.enquiry_date
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        enquiry.follow_up_date
-                    )}
-                </td>
-
-                <td>
-
-                    <span
-                        class="crm-status-ER
-                        ${getStatusClass(
-                            enquiry.status
-                        )}"
-                    >
-
-                        ${escapeHtml(
-                            enquiry.status || "-"
-                        )}
-
-                    </span>
-
-                </td>
-
-            `;
-
-            tbody.appendChild(row);
-
-        }
+function renderEnquiryPagination(totalRecords, startRecord, endRecord) {
+    const pagination = document.getElementById(
+        "enquiryReportPagination"
     );
 
+    const info = document.getElementById(
+        "enquiryReportPaginationInfo"
+    );
+
+    if (!pagination || !info) return;
+
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
+    info.textContent = totalRecords
+        ? `Showing ${startRecord} to ${endRecord} of ${totalRecords} records`
+        : "Showing 0 to 0 of 0 records";
+
+    pagination.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, disabled = false, active = false) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+            button.setAttribute("aria-current", "page");
+        }
+
+        button.addEventListener("click", () => {
+            currentPage = page;
+            renderEnquiryReport(currentReportData);
+        });
+
+        pagination.appendChild(button);
+    }
+
+    addButton("Previous", currentPage - 1, currentPage === 1);
+
+    /*-- Show the first page, last page, and nearby page numbers. --*/
+    const pages = new Set([
+        1,
+        totalPages,
+        currentPage - 1,
+        currentPage,
+        currentPage + 1
+    ]);
+
+    const visiblePages = [...pages]
+        .filter(page => page >= 1 && page <= totalPages)
+        .sort((a, b) => a - b);
+
+    let previousPage = 0;
+
+    visiblePages.forEach(page => {
+        if (previousPage && page - previousPage > 1) {
+            const dots = document.createElement("span");
+            dots.className = "crm-pagination-dots";
+            dots.textContent = "...";
+            pagination.appendChild(dots);
+        }
+
+        addButton(
+            String(page),
+            page,
+            false,
+            page === currentPage
+        );
+
+        previousPage = page;
+    });
+
+    addButton("Next", currentPage + 1, currentPage === totalPages);
 }
 
 
+/*--- ENQUIRY STATUS BADGE ---*/
+function renderEnquiryStatus(status) {
+    const safeStatus = String(status || "Unknown");
+    const normalized = safeStatus.toLowerCase().trim();
 
-/*--- STATUS CSS CLASS ---*/
-function getStatusClass(status) {
+    let badgeStyle = "background:#F1F5F9;color:#475569;";
 
-    if (!status) {
-
-        return "";
-
+    if (normalized === "interested") {
+        badgeStyle = "background:#DCFCE7;color:#166534;";
+    } else if (normalized === "not interested" ||
+               normalized === "not-interested") {
+        badgeStyle = "background:#FEE2E2;color:#991B1B;";
+    } else if (normalized === "call back" ||
+               normalized === "call-back" ||
+               normalized === "follow-up" ||
+               normalized === "follow up") {
+        badgeStyle = "background:#FEF3C7;color:#92400E;";
+    } else if (normalized === "admission confirmed" ||
+               normalized === "admission-confirmed" ||
+               normalized === "converted") {
+        badgeStyle = "background:#DBEAFE;color:#1D4ED8;";
+    } else if (normalized === "new") {
+        badgeStyle = "background:#EDE9FE;color:#5B21B6;";
     }
 
-
-    switch (
-        String(status)
-            .toLowerCase()
-            .trim()
-    ) {
-
-
-        case "interested":
-
-            return "interested";
-
-        case "follow-up":
-
-            return "followup";
-
-        case "follow up":
-
-            return "followup";
-
-        case "not interested":
-
-            return "not-interested";
-
-        case "admission confirmed":
-
-            return "admission";
-
-        default:
-
-            return "followup";
-
-    }
-
+    return `
+        <span style="
+            display:inline-block;
+            padding:5px 10px;
+            border-radius:20px;
+            font-size:12px;
+            font-weight:600;
+            white-space:nowrap;
+            ${badgeStyle}
+        ">
+            ${escapeHtml(safeStatus)}
+        </span>
+    `;
 }
-
 
 
 /*--- RESET FILTERS ---*/

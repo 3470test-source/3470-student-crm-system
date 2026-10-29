@@ -21,7 +21,55 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    .crm-table-footer p {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination .pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
  
 </head>
@@ -307,7 +355,8 @@
 
                     <!-- Footer -->
                     <div class="crm-table-footer">
-                        <p>Showing <span id="recordCount">0</span> Records</p>
+                        <p id="recordCount">Showing 0 to 0 of 0 records</p>
+                        <div class="crm-pagination" id="admissionPagination"></div>
                     </div>
 
             </main>
@@ -363,6 +412,10 @@ dropdowns.forEach(dropdown => {
     const API_BASE = "http://localhost:3000/api";
 
     let allAdmissions = [];
+    let filteredAdmissions = [];
+
+    const rowsPerPage = 10;
+    let currentPage = 1;
 
 
 /*--- LOAD ADMISSIONS ---*/
@@ -385,7 +438,7 @@ async function loadAdmissions() {
         allAdmissions = data.admissions || [];
 
         populateFilters();
-        renderAdmissions(allAdmissions);
+        filterAdmissions();
 
     } catch (error) {
 
@@ -404,14 +457,30 @@ async function loadAdmissions() {
 
 
 /*--- RENDER TABLE ---*/
-function renderAdmissions(admissions) {
+function renderAdmissions() {
 
     const tbody = document.getElementById("admissionsTableBody");
+    const recordCount = document.getElementById("recordCount");
+
+    const totalRecords = filteredAdmissions.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
+    /*-- Keep the current page valid after filtering or deleting. --*/
+    if (totalPages === 0) {
+        currentPage = 1;
+    } else if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const pageAdmissions = filteredAdmissions.slice(
+        startIndex,
+        startIndex + rowsPerPage
+    );
 
     tbody.innerHTML = "";
 
-    if (admissions.length === 0) {
-
+    if (totalRecords === 0) {
         tbody.innerHTML = `
             <tr>
                 <td colspan="12" style="text-align:center;">
@@ -420,53 +489,46 @@ function renderAdmissions(admissions) {
             </tr>
         `;
 
-        document.getElementById("recordCount").textContent = "0";
-
+        recordCount.textContent = "Showing 0 to 0 of 0 records";
+        renderAdmissionPagination(0);
         return;
     }
 
-
-    admissions.forEach((admission, index) => {
-
+    pageAdmissions.forEach((admission, index) => {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-            <td>${index + 1}</td>
-
+            <td>${startIndex + index + 1}</td>
             <td>${escapeHtml(admission.student_name)}</td>
-
             <td>${escapeHtml(admission.mobile || "-")}</td>
-
             <td>${escapeHtml(admission.course || "-")}</td>
-
             <td>${escapeHtml(admission.batch || "-")}</td>
-
             <td>${formatDate(admission.joining_date)}</td>
-
             <td>₹${formatCurrency(admission.final_fee)}</td>
-
             <td>₹${formatCurrency(admission.registration_amount)}</td>
-
             <td>₹${formatCurrency(admission.balance_amount)}</td>
-
             <td>
                 <span class="crm-status-MD ${getStatusClass(admission.admission_status)}">
                     ${escapeHtml(admission.admission_status || "-")}
                 </span>
             </td>
-
             <td>${escapeHtml(admission.counsellor || "-")}</td>
-
             <td>
-                <button class="crm-view-btn-MD" onclick="viewAdmission(${admission.id})" title="View">
+                <button class="crm-view-btn-MD"
+                    onclick="viewAdmission(${Number(admission.id)})"
+                    title="View">
                     <i class="fa fa-eye"></i>
                 </button>
 
-                <button class="crm-edit-btn-MD" onclick="editAdmission(${admission.id})" title="Edit">
+                <button class="crm-edit-btn-MD"
+                    onclick="editAdmission(${Number(admission.id)})"
+                    title="Edit">
                     <i class="fa fa-edit"></i>
                 </button>
 
-                <button class="crm-delete-btn-MD" onclick="deleteAdmission(${admission.id})" title="Delete">
+                <button class="crm-delete-btn-MD"
+                    onclick="deleteAdmission(${Number(admission.id)})"
+                    title="Delete">
                     <i class="fa fa-trash"></i>
                 </button>
             </td>
@@ -475,53 +537,114 @@ function renderAdmissions(admissions) {
         tbody.appendChild(row);
     });
 
+    const firstRecord = startIndex + 1;
+    const lastRecord = startIndex + pageAdmissions.length;
 
-    document.getElementById("recordCount").textContent = admissions.length;
+    recordCount.textContent = `Showing ${firstRecord} to ${lastRecord} of ${totalRecords} records`;
 
+    renderAdmissionPagination(totalPages);
 }
 
+
+function renderAdmissionPagination(totalPages) {
+
+    const container = document.getElementById("admissionPagination");
+    container.innerHTML = "";
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, options = {}) {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+
+        if (options.active) {
+            button.classList.add("active");
+            button.setAttribute("aria-current", "page");
+        }
+
+        button.disabled = Boolean(options.disabled);
+
+        button.addEventListener("click", () => {
+            currentPage = page;
+            renderAdmissions();
+        });
+
+        container.appendChild(button);
+    }
+
+    function addDots() {
+        const dots = document.createElement("span");
+        dots.className = "pagination-dots";
+        dots.textContent = "...";
+        container.appendChild(dots);
+    }
+
+    /*-- Previous button --*/
+    addButton("Previous", currentPage - 1, {
+        disabled: currentPage === 1
+    });
+
+    /*-- Page numbers with ellipses --*/
+    const pages = new Set([1, totalPages]);
+
+    for (
+        let page = Math.max(2, currentPage - 2);
+        page <= Math.min(totalPages - 1, currentPage + 2);
+        page++
+    ) {
+        pages.add(page);
+    }
+
+    const sortedPages = [...pages].sort((a, b) => a - b);
+    let previousPage = 0;
+
+    sortedPages.forEach(page => {
+        if (previousPage && page - previousPage > 1) {
+            addDots();
+        }
+
+        addButton(String(page), page, {
+            active: page === currentPage
+        });
+
+        previousPage = page;
+    });
+
+    /*-- Next button --*/
+    addButton("Next", currentPage + 1, {
+        disabled: currentPage === totalPages
+    });
+}
 
 
 /*--- SEARCH + FILTER ---*/
 function filterAdmissions() {
-
     const search = document.getElementById("searchAdmission")
-            .value
-            .toLowerCase()
-            .trim();
+        .value.toLowerCase().trim();
 
     const course = document.getElementById("courseFilter").value;
-
     const batch = document.getElementById("batchFilter").value;
-
     const status = document.getElementById("statusFilter").value;
 
-    const filtered = allAdmissions.filter(admission => {
+    filteredAdmissions = allAdmissions.filter(admission => {
+        const studentName = String(admission.student_name || "").toLowerCase();
+        const mobile = String(admission.mobile || "").toLowerCase();
 
         const matchesSearch =
             !search ||
-            (admission.student_name || "")
-                .toLowerCase()
-                .includes(search) ||
-            (admission.mobile || "")
-                .toLowerCase()
-                .includes(search);
-
+            studentName.includes(search) ||
+            mobile.includes(search);
 
         const matchesCourse =
-            !course ||
-            admission.course === course;
-
+            !course || admission.course === course;
 
         const matchesBatch =
-            !batch ||
-            admission.batch === batch;
-
+            !batch || admission.batch === batch;
 
         const matchesStatus =
-            !status ||
-            admission.admission_status === status;
-
+            !status || admission.admission_status === status;
 
         return (
             matchesSearch &&
@@ -531,10 +654,9 @@ function filterAdmissions() {
         );
     });
 
-
-    renderAdmissions(filtered);
+    currentPage = 1;
+    renderAdmissions();
 }
-
 
 
 /*--- POPULATE FILTERS ---*/
@@ -714,7 +836,6 @@ function escapeHtml(value) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
-
 
 
 /*--- INITIAL LOAD ---*/

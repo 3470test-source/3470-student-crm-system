@@ -2775,6 +2775,11 @@
   color:#B45309;
 }
 
+.crm-status-MD.cancelled {
+  background:#fcdcdb;
+  color:#b40f09;
+}
+
 
 /*--- ACTION BUTTONS ---*/
 .crm-view-btn-MD,

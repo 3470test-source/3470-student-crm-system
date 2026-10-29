@@ -59,6 +59,56 @@
       cursor: not-allowed;
     }
 
+    /*--- ADMISSION REPORT PAGINATION ---*/
+    .crm-report-pagination-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 20px 0;
+      margin-bottom: -20px;
+    }
+
+    #admissionReportPaginationInfo {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+ 
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination .crm-pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
  
 </head>
@@ -440,6 +490,12 @@
 
                     </div>
 
+                    <!-- pagination -->
+                    <div class="crm-report-pagination-footer">
+                        <p id="admissionReportPaginationInfo">Showing 0 to 0 of 0 records</p>
+                        <div id="admissionReportPagination" class="crm-pagination"></div>
+                    </div>
+
                 </div>
 
         
@@ -578,6 +634,8 @@ dropdowns.forEach(dropdown => {
 const API_BASE = "http://localhost:3000/api";
 
 let currentReportData = [];
+let currentPage = 1;
+const rowsPerPage = 10;
 
 
 /*--- FORMAT CURRENCY ---*/
@@ -733,7 +791,6 @@ async function loadFilterOptions() {
                 if (!item.course) {
                     return;
                 }
-
 
                 const option = document.createElement("option");
 
@@ -954,12 +1011,10 @@ async function loadAdmissionReport() {
                 ? data.admissions
                 : [];
 
+        currentPage = 1;        
 
         /*--- UPDATE SUMMARY ---*/
-        updateSummary(
-            data.summary || {}
-        );
-
+        updateSummary(data.summary || {});
 
         /*--- RENDER TABLE ---*/
         renderAdmissionReport(currentReportData);
@@ -1098,123 +1153,176 @@ function updateSummary(summary) {
 }
 
 
-
-/*--- RENDER ADMISSION REPORT ---*/
+/*--- RENDER ADMISSION REPORT WITH PAGINATION ---*/
 function renderAdmissionReport(admissions) {
-
     const tbody = document.getElementById("admissionReportTableBody");
+    const pagination = document.getElementById("admissionReportPagination");
+    const paginationInfo = document.getElementById("admissionReportPaginationInfo");
 
     if (!tbody) {
-
-        console.error(
-            "❌ admissionReportTableBody not found."
-        );
-
+        console.error("admissionReportTableBody not found.");
         return;
     }
 
-    tbody.innerHTML = "";
+    /*--- Always use the complete filtered report dataset. ---*/
+    const records = Array.isArray(admissions) ? admissions : [];
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-
-    /*--- NO DATA ---*/
-    if (!admissions.length) {
-
+    /*--- Handle empty results. ---*/
+    if (totalRecords === 0) {
+        currentPage = 1;
         tbody.innerHTML = `
             <tr>
-                <td
-                    colspan="10" class="crm-report-empty">
-
-                    <i class="fa fa-file-circle-xmark" style="font-size:24px; margin-bottom:10px;"></i>
-
+                <td colspan="10" class="crm-report-empty">
+                    <i class="fa fa-file-circle-xmark"
+                       style="font-size:24px; margin-bottom:10px;"></i>
                     <br>
-
                     No admission records found.
-
                 </td>
             </tr>
         `;
 
+        if (paginationInfo) {
+            paginationInfo.textContent = "Showing 0 to 0 of 0 records";
+        }
+
+        if (pagination) {
+            pagination.innerHTML = "";
+        }
+
         return;
     }
 
+    /*-- Keep currentPage within the valid range. --*/
+    currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
-    /*--- DATA ROWS ---*/
-    admissions.forEach(
-        (admission, index) => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
+    const pageRecords = records.slice(startIndex, endIndex);
 
-            const row = document.createElement("tr");
+    tbody.innerHTML = "";
 
-            row.innerHTML = `
+    pageRecords.forEach((admission, index) => {
+        const row = document.createElement("tr");
 
-                <td>${index + 1}</td>
+        row.innerHTML = `
+            <td>${startIndex + index + 1}</td>
 
-                <td>
-                    ${escapeHtml(
-                        admission.student_name || "-"
-                    )}
-                </td>
+            <td>${escapeHtml(admission.student_name || "-")}</td>
 
-                <td>
-                    ${escapeHtml(
-                        admission.mobile || "-"
-                    )}
-                </td>
+            <td>${escapeHtml(admission.mobile || "-")}</td>
 
-                <td>
-                    ${escapeHtml(
-                        admission.course || "-"
-                    )}
-                </td>
+            <td>${escapeHtml(admission.course || "-")}</td>
 
-                <td>
-                    ${escapeHtml(
-                        admission.counsellor || "-"
-                    )}
-                </td>
+            <td>${escapeHtml(admission.counsellor || "-")}</td>
 
-                <td>
-                    ${formatDate(
-                        admission.admission_date
-                    )}
-                </td>
+            <td>${formatDate(admission.admission_date)}</td>
 
-                <td>
-                    ₹${formatCurrency(
-                        admission.course_fee
-                    )}
-                </td>
+            <td>₹${formatCurrency(admission.course_fee)}</td>
 
-                <td>
-                    ₹${formatCurrency(
-                        admission.paid_amount
-                    )}
-                </td>
+            <td>₹${formatCurrency(admission.paid_amount)}</td>
 
-                <td>
-                    ₹${formatCurrency(
-                        admission.balance_amount
-                    )}
-                </td>
+            <td>₹${formatCurrency(admission.balance_amount)}</td>
 
-                <td>
-                    <span
-                        class="crm-status-AR
-                        ${getPaymentStatusClass(
-                            admission.payment_status
-                        )}"
-                    >
-                        ${escapeHtml(
-                            admission.payment_status || "-"
-                        )}
-                    </span>
-                </td>
+            <td>
+                <span class="crm-status-AR ${getPaymentStatusClass(
+                    admission.payment_status
+                )}">
+                    ${escapeHtml(admission.payment_status || "-")}
+                </span>
+            </td>
+        `;
 
-            `;
+        tbody.appendChild(row);
+    });
+
+    /*-- Update record count. --*/
+    if (paginationInfo) {
+        paginationInfo.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} records`;
+    }
+
+    /*-- Build pagination controls. --*/
+    if (!pagination) return;
+
+    pagination.innerHTML = "";
+
+    function addPageButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+    button.type = "button";
+    button.textContent = label;
+    button.disabled = disabled;
+
+    if (active) {
+        button.classList.add("active");
+        button.setAttribute("aria-current", "page");
+    }
+
+    button.addEventListener("click", () => {
+        currentPage = page;
+        renderAdmissionReport(currentReportData);
+    });
+
+        pagination.appendChild(button);
+    }
 
 
-            tbody.appendChild(row);
-        }
-    );
+    function addDots() {
+        const dots = document.createElement("span");
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+        pagination.appendChild(dots);
+    }
+
+    /*--- Previous button ---*/
+    addPageButton("Previous", currentPage - 1, currentPage === 1);
+
+    /*--- Page numbers and dots ---*/
+    if (totalPages <= 5) {
+        for (let page = 1; page <= totalPages; page++) {
+        addPageButton(
+            String(page),
+            page,
+            false,
+            page === currentPage
+        );
+    }
+    } else {
+        addPageButton("1", 1, false, currentPage === 1);
+
+    if (currentPage > 3) {
+        addDots();
+    }
+
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    for (let page = startPage; page <= endPage; page++) {
+        addPageButton(
+            String(page),
+            page,
+            false,
+            page === currentPage
+        );
+    }
+
+    if (currentPage < totalPages - 2) {
+        addDots();
+    }
+
+        addPageButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
+    }
+
+    /*--- Next button ---*/
+    addPageButton("Next", currentPage + 1, currentPage === totalPages);
+
 }
 
 
@@ -1260,7 +1368,6 @@ async function exportAdmissionReport() {
         return;
     }
 
-
     try {
 
         console.log("📊 Preparing professional Excel report...");
@@ -1295,7 +1402,6 @@ async function exportAdmissionReport() {
                     ]
                 }
             );
-
 
 
         /*--- PAGE SETUP ---*/
@@ -1431,7 +1537,6 @@ async function exportAdmissionReport() {
         };
 
         worksheet.getRow(4).height = 28;
-
 
 
         /*--- FILTER INFORMATION ---*/
