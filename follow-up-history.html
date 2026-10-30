@@ -22,60 +22,53 @@
       box-sizing: border-box;
     }
     
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
 
+    #historyCount {
+      color: #64748b;
+      font-size: 15px;
+    }
 
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
 
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
 
-.crm-pagination {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 6px;
-    margin-top: 15px;
-    flex-wrap: wrap;
-}
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
 
-.crm-pagination button {
-    min-width: 36px;
-    height: 36px;
-    padding: 0 12px;
-    border: 1px solid #d5dce5;
-    background: #ffffff;
-    color: #1f3c88;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.crm-pagination button:hover:not(:disabled) {
-    background: #eef4ff;
-    border-color: #2864e6;
-}
-
-.crm-pagination button.active {
-    background: #2864e6;
-    color: #ffffff;
-    border-color: #2864e6;
-    font-weight: 600;
-}
-
-.crm-pagination button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.crm-pagination .pagination-dots {
-    min-width: 30px;
-    text-align: center;
-    color: #777;
-    font-weight: 600;
-}
-
-
-
-
+    .crm-pagination .pagination-dots { padding: 0 5px; color: #64748b; }
 
     </style>
  
@@ -436,6 +429,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let currentFollowUps = [];
 
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
 
     /*--- LOAD HISTORY ---*/
     async function loadFollowUpHistory() {
@@ -527,6 +523,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 ? result.followUps
                 : [];
 
+            currentPage = 1;
 
             renderFollowUpHistory(currentFollowUps);
 
@@ -555,73 +552,204 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /*--- RENDER ---*/
-    function renderFollowUpHistory(followUps) {
+/*--- RENDER FOLLOW-UP HISTORY WITH PAGINATION ---*/
+function renderFollowUpHistory(followUps) {
 
-        tableBody.innerHTML = "";
+    const pagination = document.getElementById("historyPagination");
 
-        if (!Array.isArray(followUps) || followUps.length === 0) {
+    const records = Array.isArray(followUps) ? followUps : [];
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="10" style="text-align:center;">
-                        ❌ No follow-up history found.
-                    </td>
-                </tr>
-            `;
+    /*--- Empty records ---*/
+    if (totalRecords === 0) {
 
-            countText.textContent = "Showing 0 records.";
+        currentPage = 1;
 
-            return;
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align:center;">
+                    No follow-up history found.
+                </td>
+            </tr>
+        `;
+
+        countText.textContent = "Showing 0 records.";
+
+        if (pagination) {
+            pagination.innerHTML = "";
         }
 
+        return;
+    }
 
-        followUps.forEach(function (followUp) {
+    /*-- Keep current page valid --*/
+    currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
-            const row = document.createElement("tr");
+    /*-- Calculate records for current page --*/
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
 
-            const statusClass = getStatusClass(followUp.status);
+    const pageRecords = records.slice(startIndex, endIndex);
 
-            row.innerHTML = `
+    tableBody.innerHTML = "";
 
-                <td>${escapeHtml(followUp.id)}</td>
+    /*-- Render current page records --*/
+    pageRecords.forEach(function (followUp, index) {
 
-                <td>${escapeHtml(followUp.student_name)}</td>
+        const row = document.createElement("tr");
 
-                <td>${escapeHtml(followUp.mobile)}</td>
+        const statusClass = getStatusClass(followUp.status);
 
-                <td>${escapeHtml(followUp.course_interested)}</td>
+        row.innerHTML = `
+            <td>${escapeHtml(followUp.id)}</td>
 
-                <td>${formatDate(followUp.follow_up_date)}</td>
+            <td>${escapeHtml(followUp.student_name)}</td>
 
-                <td>${formatTime(followUp.follow_up_time)}</td>
+            <td>${escapeHtml(followUp.mobile)}</td>
 
-                <td>${escapeHtml(followUp.follow_up_type)}</td>
+            <td>${escapeHtml(followUp.course_interested)}</td>
 
-                <td>
-                    <span class="crm-status-FUH ${statusClass}">
-                        ${escapeHtml(followUp.status)}
-                    </span>
-                </td>
+            <td>${formatDate(followUp.follow_up_date)}</td>
 
-                <td>${escapeHtml(followUp.counsellor)}</td>
+            <td>${formatTime(followUp.follow_up_time)}</td>
 
-                <td>
-                    <button type="button" class="crm-view-FUH-btn" data-id="${escapeHtml(followUp.id)}" title="View Follow-up">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                </td>
+            <td>${escapeHtml(followUp.follow_up_type)}</td>
 
-            `;
+            <td>
+                <span class="crm-status-FUH ${statusClass}">
+                    ${escapeHtml(followUp.status)}
+                </span>
+            </td>
 
-            tableBody.appendChild(row);
+            <td>${escapeHtml(followUp.counsellor)}</td>
+
+            <td>
+                <button
+                    type="button"
+                    class="crm-view-FUH-btn"
+                    data-id="${escapeHtml(followUp.id)}"
+                    title="View Follow-up">
+                    <i class="fa fa-eye"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+
+    });
+
+    /*-- Update record information --*/
+    countText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} records.`;
+
+    /*-- Build pagination --*/
+    if (!pagination) return;
+
+    pagination.innerHTML = "";
+
+    function addPageButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+            button.setAttribute("aria-current", "page");
+        }
+
+        button.addEventListener("click", function () {
+
+            currentPage = page;
+
+            renderFollowUpHistory(currentFollowUps);
 
         });
 
+        pagination.appendChild(button);
+    }
 
-        countText.textContent = `Showing ${followUps.length} records.`;
+    function addDots() {
+
+        const dots = document.createElement("span");
+
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+
+        pagination.appendChild(dots);
+    }
+
+    /*-- Previous button --*/
+    addPageButton(
+        "Previous",
+        currentPage - 1,
+        currentPage === 1
+    );
+
+    /*-- Page numbers --*/
+    if (totalPages <= 5) {
+
+        for (let page = 1; page <= totalPages; page++) {
+
+            addPageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
+            );
+
+        }
+
+    } else {
+
+        addPageButton(
+            "1",
+            1,
+            false,
+            currentPage === 1
+        );
+
+        if (currentPage > 3) {
+            addDots();
+        }
+
+        const startPage = Math.max(2, currentPage - 1);
+        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let page = startPage; page <= endPage; page++) {
+
+            addPageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
+            );
+
+        }
+
+        if (currentPage < totalPages - 2) {
+            addDots();
+        }
+
+        addPageButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
 
     }
+
+    /*-- Next button --*/
+    addPageButton(
+        "Next",
+        currentPage + 1,
+        currentPage === totalPages
+    );
+
+}
 
 
     /*--- STATUS ---*/
@@ -804,8 +932,7 @@ exportButton.addEventListener("click", async function () {
 
             });
 
-
-         
+ 
         /*--- COMPANY NAME ---*/
 
         worksheet.mergeCells("A1:J1");

@@ -21,7 +21,55 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    #scheduledFollowUpCount {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
  
 </head>
@@ -298,6 +346,8 @@
                     <!-- Footer -->
                     <div class="crm-table-footer">
                         <p id="scheduledFollowUpCount">Loading scheduled follow-ups...</p>
+
+                        <div id="scheduledFollowUpPagination" class="crm-pagination"></div>
                     </div>
 
             </main>
@@ -370,6 +420,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const API_URL = "http://localhost:3000/api/follow-ups";
 
         const SCHEDULED_API_URL = `${API_URL}/scheduled`;
+
+        let currentScheduledFollowUps = [];
+        let currentPage = 1;
+        const rowsPerPage = 10;
 
         /*--- LOAD SCHEDULED FOLLOW-UPS ---*/
         async function loadScheduledFollowUps() {
@@ -473,7 +527,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 /*--- RENDER ---*/
-                renderScheduledFollowUps(result.followUps || []);
+                // renderScheduledFollowUps(result.followUps || []);
+
+                /*--- SAVE COMPLETE FILTERED DATA ---*/
+                currentScheduledFollowUps = Array.isArray(result.followUps)
+                    ? result.followUps
+                    : [];
+
+                currentPage = 1;
+
+                renderScheduledFollowUps(currentScheduledFollowUps);
 
             }
 
@@ -502,179 +565,263 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+        
+/*--- RENDER SCHEDULED FOLLOW-UPS WITH PAGINATION ---*/
+function renderScheduledFollowUps(followUps) {
 
-        /*--- RENDER ---*/
-        function renderScheduledFollowUps(
-            followUps
-        ) {
+    const pagination = document.getElementById(
+        "scheduledFollowUpPagination"
+    );
 
-            tableBody.innerHTML = "";
+    const records = Array.isArray(followUps) ? followUps : [];
 
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-            /*--- NO DATA ---*/
-            if (
-                !Array.isArray(followUps) ||
-                followUps.length === 0
-            ) {
+    /*--- NO DATA ---*/
+    if (totalRecords === 0) {
 
-                tableBody.innerHTML = `
+        currentPage = 1;
 
-                    <tr>
-                        <td colspan="10" style="text-align:center;">
-                            ❌ No scheduled follow-ups found.
-                        </td>
-                    </tr>
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="10" style="text-align:center;">
+                    No scheduled follow-ups found.
+                </td>
+            </tr>
+        `;
 
-                `;
+        countText.textContent = "Showing 0 scheduled follow-ups.";
 
+        if (pagination) {
+            pagination.innerHTML = "";
+        }
 
-                countText.textContent = "Showing 0 scheduled follow-ups.";
+        return;
+    }
 
-                return;
+    /*--- VALIDATE CURRENT PAGE ---*/
+    currentPage = Math.max(
+        1,
+        Math.min(currentPage, totalPages)
+    );
 
-            }
+    /*--- CURRENT PAGE RECORDS ---*/
+    const startIndex = (currentPage - 1) * rowsPerPage;
 
+    const endIndex = Math.min(
+        startIndex + rowsPerPage,
+        totalRecords
+    );
 
-            /*--- ROWS ---*/
-            followUps.forEach(
-                function (followUp) {
+    const pageRecords = records.slice(startIndex, endIndex);
 
-                    const row = document.createElement("tr");
+    tableBody.innerHTML = "";
 
-                    /*--- STATUS CLASS ---*/
-                    let statusClass = "pending";
+    /*--- RENDER ROWS ---*/
+    pageRecords.forEach(function (followUp) {
 
-                    if (
-                        followUp.status === "Completed"
-                    ) {
+        const row = document.createElement("tr");
 
-                        statusClass = "success";
+        /*--- STATUS CLASS ---*/
+        let statusClass = "pending";
 
-                    }
-
-                    else if (
-                        followUp.status === "Call Back"
-                    ) {
-
-                        statusClass = "callback";
-
-                    }
-
-
-                    /*--- DATE ---*/
-                    const followUpDate = formatDate(followUp.follow_up_date);
-
-
-                    /*--- TIME ---*/
-                    const followUpTime = formatTime(followUp.follow_up_time);
-
-
-                    /*--- ROW ---*/
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHtml(
-                                String(
-                                    followUp.id || ""
-                                )
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.student_name || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.mobile || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.course_interested || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUpDate
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUpTime
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.follow_up_type || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            <span
-                                class="
-                                    crm-status-SFU
-                                    ${statusClass}
-                                "
-                            >
-
-                                ${escapeHtml(
-                                    followUp.status || "-"
-                                )}
-                            </span>
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.counsellor || "-"
-                            )}
-                        </td>
-
-                        <td>
-                            <!-- VIEW -->
-                            <button type="button" class="crm-view-btn-SFU" title="View" data-id="${followUp.id}">
-                                <i class="fa fa-eye"></i>
-                            </button>
-
-                            <!-- EDIT -->
-                            <button type="button" class="crm-edit-btn-SFU" title="Edit" data-id="${followUp.id}">
-                                <i class="fa fa-edit"></i>
-                            </button>
-
-                            <!-- COMPLETE -->
-                            <button
-                                type="button" class="crm-complete-btn-SFU" title="Complete" data-id="${followUp.id}"
-                                ${
-                                    followUp.status ===
-                                    "Completed"
-                                        ? "disabled"
-                                        : ""
-                                }
-
-                            >
-
-                                <i class="fa fa-check"></i>
-                            </button>
-                        </td>
-
-                    `;
+        if (followUp.status === "Completed") {
+            statusClass = "success";
+        } else if (followUp.status === "Call Back") {
+            statusClass = "callback";
+        } else if (followUp.status === "Interested") {
+            statusClass = "Interested";
+        } 
 
 
-                    tableBody.appendChild(row);
+        /*--- DATE AND TIME ---*/
+        const followUpDate = formatDate(followUp.follow_up_date);
+        const followUpTime = formatTime(followUp.follow_up_time);
 
-                }
+        /*--- ROW HTML ---*/
+        row.innerHTML = `
+            <td>
+                ${escapeHtml(String(followUp.id || ""))}
+            </td>
+
+            <td>
+                ${escapeHtml(followUp.student_name || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(followUp.mobile || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(followUp.course_interested || "-")}
+            </td>
+
+            <td>
+                ${escapeHtml(followUpDate)}
+            </td>
+
+            <td>
+                ${escapeHtml(followUpTime)}
+            </td>
+
+            <td>
+                ${escapeHtml(followUp.follow_up_type || "-")}
+            </td>
+
+            <td>
+                <span class="crm-status-SFU ${statusClass}">
+                    ${escapeHtml(followUp.status || "-")}
+                </span>
+            </td>
+
+            <td>
+                ${escapeHtml(followUp.counsellor || "-")}
+            </td>
+
+            <td>
+                <button
+                    type="button"
+                    class="crm-view-btn-SFU"
+                    title="View"
+                    data-id="${escapeHtml(String(followUp.id || ""))}">
+                    <i class="fa fa-eye"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="crm-edit-btn-SFU"
+                    title="Edit"
+                    data-id="${escapeHtml(String(followUp.id || ""))}">
+                    <i class="fa fa-edit"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="crm-complete-btn-SFU"
+                    title="Complete"
+                    data-id="${escapeHtml(String(followUp.id || ""))}"
+                    ${followUp.status === "Completed" ? "disabled" : ""}>
+                    <i class="fa fa-check"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+
+    });
+
+    /*--- RECORD COUNT ---*/
+    countText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} scheduled follow-ups.`;
+
+    /*--- BUILD PAGINATION ---*/
+    if (!pagination) return;
+
+    pagination.innerHTML = "";
+
+    function addPageButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+            button.setAttribute("aria-current", "page");
+        }
+
+        button.addEventListener("click", function () {
+
+            currentPage = page;
+
+            renderScheduledFollowUps(currentScheduledFollowUps);
+
+        });
+
+        pagination.appendChild(button);
+    }
+
+    function addDots() {
+
+        const dots = document.createElement("span");
+
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+
+        pagination.appendChild(dots);
+    }
+
+    /*--- PREVIOUS ---*/
+    addPageButton(
+        "Previous",
+        currentPage - 1,
+        currentPage === 1
+    );
+
+    /*--- PAGE NUMBERS ---*/
+    if (totalPages <= 5) {
+
+        for (let page = 1; page <= totalPages; page++) {
+
+            addPageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
             );
 
-            /*--- COUNT ---*/
-            countText.textContent = `Showing ${followUps.length} scheduled follow-ups.`;
+        }
+
+    } else {
+
+        addPageButton(
+            "1",
+            1,
+            false,
+            currentPage === 1
+        );
+
+        if (currentPage > 3) {
+            addDots();
+        }
+
+        const startPage = Math.max(2, currentPage - 1);
+        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let page = startPage; page <= endPage; page++) {
+
+            addPageButton(
+                String(page),
+                page,
+                false,
+                page === currentPage
+            );
 
         }
+
+        if (currentPage < totalPages - 2) {
+            addDots();
+        }
+
+        addPageButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
+
+    }
+
+    /*--- NEXT ---*/
+    addPageButton(
+        "Next",
+        currentPage + 1,
+        currentPage === totalPages
+    );
+
+}
 
 
         /*--- FORMAT DATE ---*/
@@ -852,7 +999,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 /*--- VIEW ---*/
-
                 if (
                     button.classList.contains(
                         "crm-view-btn-SFU"

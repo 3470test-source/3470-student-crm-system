@@ -1834,8 +1834,8 @@
 }
 
 .crm-status-SFU.pending {
-  background:#FEF3C7;
-  color:#B45309;
+  background:#fad3d1;
+  color:#b40f09;
 }
 
 .crm-status-SFU.callback {
@@ -1846,6 +1846,11 @@
 .crm-status-SFU.success {
   background:#DCFCE7;
   color:#15803D;
+}
+
+.crm-status-SFU.Interested {
+  background:#d3fcf8;
+  color:#158077;
 }
 
 

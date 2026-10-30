@@ -21,7 +21,55 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+
+    #followUpCount {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination-dots { padding: 0 5px; color: #64748b; }
+
     </style>
 
 </head>
@@ -282,7 +330,8 @@
 
                     <!-- Footer -->
                     <div class="crm-table-footer">
-                        <p id="followUpCount">Showing 1 to 3 of 3 follow-ups scheduled for today.</p>
+                        <p id="followUpCount">Loading follow-ups...</p>
+                        <div id="todayFollowUpPagination" class="crm-pagination"></div>
                     </div>
 
             </main>     
@@ -354,6 +403,9 @@ document.addEventListener("DOMContentLoaded", function () {
         /*--- API URL ---*/
         const API_URL = "http://localhost:3000/api/follow-ups";
 
+        let currentFollowUps = [];
+        let currentPage = 1;
+        const rowsPerPage = 10;
 
         /*--- LOAD TODAY'S FOLLOW-UPS ---*/
         async function loadTodayFollowUps() {
@@ -477,9 +529,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 /*--- RENDER ---*/
-                renderFollowUps(
-                    result.followUps || []
-                );
+                // renderFollowUps(result.followUps || []);
+
+                currentFollowUps = Array.isArray(result.followUps)
+                    ? result.followUps
+                    : [];
+
+                currentPage = 1;
+
+                renderFollowUps(currentFollowUps);
 
 
             } catch (error) {
@@ -510,189 +568,193 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-        /*--- RENDER FOLLOW-UPS ---*/
-        function renderFollowUps(followUps) {
+    /*--- RENDER FOLLOW-UPS ---*/
+    function renderFollowUps(followUps) {
 
-            tableBody.innerHTML = "";
+    const pagination = document.getElementById("todayFollowUpPagination");
 
-            /*--- NO DATA ---*/
-            if (
-                !Array.isArray(followUps) ||
-                followUps.length === 0
-            ) {
+    const records = Array.isArray(followUps) ? followUps : [];
 
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
-                tableBody.innerHTML = `
+    tableBody.innerHTML = "";
+    pagination.innerHTML = "";
 
-                    <tr>
-                        <td
-                            colspan="9" style=" text-align:center; padding:20px;">
-                            ❌ No follow-ups scheduled for today.
-                        </td>
-                    </tr>
+    if (totalRecords === 0) {
 
-                `;
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" style="text-align:center; padding:20px;">
+                    No follow-ups scheduled for today.
+                </td>
+            </tr>
+        `;
 
+        followUpCount.textContent = "Showing 0 follow-ups scheduled for today.";
 
-                followUpCount.textContent = "Showing 0 follow-ups scheduled for today.";
+        return;
+    }
 
-                return;
+    currentPage = Math.min(
+        Math.max(currentPage, 1),
+        totalPages
+    );
 
-            }
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
 
+    const pageRecords = records.slice(startIndex, endIndex);
 
-            /*--- CREATE ROWS ---*/
-            followUps.forEach(function (followUp) {
+    pageRecords.forEach(function (followUp) {
 
-                    const row = document.createElement("tr" );
+        const row = document.createElement("tr");
 
-                    /*--- STATUS CLASS ---*/
-                    let statusClass = "pending";
+        let statusClass = "pending";
 
-                    const currentStatus = String(followUp.status || "").trim();
+        const currentStatus = String(followUp.status || "").trim();
 
-                    if (
-                        currentStatus === "Completed"
-                    ) {
-
-                        statusClass = "success";
-
-                    }
-
-                    else if (
-                        currentStatus ===
-                        "Call Back"
-                    ) {
-
-                        statusClass =
-                            "callback";
-
-                    }
-
-                    else if (
-                        currentStatus ===
-                        "Not Interested"
-                    ) {
-
-                        statusClass =
-                            "danger";
-
-                    }
-
-
-                    /*--- TIME ---*/
-                    const formattedTime = formatTime(followUp.follow_up_time);
-
-                    /*--- COURSE ---*/
-                    const course = followUp.course_interested ||
-                        "-";
-
-                    /*--- ROW ---*/
-                    row.innerHTML = `
-
-                        <td>
-                            ${escapeHtml(
-                                String(
-                                    followUp.id || ""
-                                )
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.student_name ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.mobile ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                course
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                formattedTime
-                            )}
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.follow_up_type ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            <span
-                                class="
-                                    crm-status-AFU
-                                    ${statusClass}
-                                ">
-
-                                ${escapeHtml(
-                                    currentStatus ||
-                                    "-"
-                                )}
-                            </span>
-                        </td>
-
-                        <td>
-                            ${escapeHtml(
-                                followUp.counsellor ||
-                                "-"
-                            )}
-                        </td>
-
-                        <td>
-                            <!-- VIEW -->
-                            <button type="button" class="crm-view-AFU-btn" title="View" data-id="${followUp.id}">
-                                <i class="fa fa-eye"></i>
-                            </button>
-
-                            <!-- EDIT -->
-                            <button type="button" class="crm-edit-AFU-btn" title="Edit" data-id="${followUp.id}">
-                                <i class="fa fa-edit"></i>
-                            </button>
-
-                            <!-- COMPLETE -->
-                            <button type="button" class="crm-complete-AFU-btn" title="Complete" data-id="${followUp.id}"
-                                ${
-                                    currentStatus ===
-                                    "Completed"
-                                        ? "disabled"
-                                        : ""
-                                }
-
-                            >
-
-                                <i class="fa fa-check"></i>
-                            </button>
-                        </td>
-
-                    `;
-
-
-                    tableBody.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-
-            /*--- FOOTER ---*/
-            followUpCount.textContent =
-                `Showing 1 to ${followUps.length} of ${followUps.length} follow-ups scheduled for today.`;
+        if (currentStatus === "Completed") {
+            statusClass = "success";
+        } else if (currentStatus === "Call Back") {
+            statusClass = "callback";
+        } else if (currentStatus === "Not Interested") {
+            statusClass = "danger";
         }
+
+        const formattedTime = formatTime(followUp.follow_up_time);
+        const course = followUp.course_interested || "-";
+
+        row.innerHTML = `
+            <td>${escapeHtml(String(followUp.id || ""))}</td>
+            <td>${escapeHtml(followUp.student_name || "-")}</td>
+            <td>${escapeHtml(followUp.mobile || "-")}</td>
+            <td>${escapeHtml(course)}</td>
+            <td>${escapeHtml(formattedTime)}</td>
+            <td>${escapeHtml(followUp.follow_up_type || "-")}</td>
+
+            <td>
+                <span class="crm-status-AFU ${statusClass}">
+                    ${escapeHtml(currentStatus || "-")}
+                </span>
+            </td>
+
+            <td>${escapeHtml(followUp.counsellor || "-")}</td>
+
+            <td>
+                <button type="button"
+                    class="crm-view-AFU-btn"
+                    title="View"
+                    data-id="${followUp.id}">
+                    <i class="fa fa-eye"></i>
+                </button>
+
+                <button type="button"
+                    class="crm-edit-AFU-btn"
+                    title="Edit"
+                    data-id="${followUp.id}">
+                    <i class="fa fa-edit"></i>
+                </button>
+
+                <button type="button"
+                    class="crm-complete-AFU-btn"
+                    title="Complete"
+                    data-id="${followUp.id}"
+                    ${currentStatus === "Completed" ? "disabled" : ""}>
+                    <i class="fa fa-check"></i>
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    });
+
+    followUpCount.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} follow-ups scheduled for today.`;
+
+    renderPagination(totalPages, pagination);
+}
+
+
+/*-- PAGINATION BUTTONS --*/
+function renderPagination(totalPages, pagination) {
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", function () {
+
+            currentPage = page;
+            renderFollowUps(currentFollowUps);
+
+        });
+
+        pagination.appendChild(button);
+    }
+
+    function addDots() {
+
+        const dots = document.createElement("span");
+
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+
+        pagination.appendChild(dots);
+    }
+
+    /*-- Previous --*/
+    addButton("Previous", currentPage - 1, currentPage === 1);
+
+    if (totalPages <= 5) {
+
+        for (let i = 1; i <= totalPages; i++) {
+            addButton(String(i), i, false, currentPage === i);
+        }
+
+    } else {
+
+        addButton("1", 1, false, currentPage === 1);
+
+        if (currentPage > 3) {
+            addDots();
+        }
+
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = start; i <= end; i++) {
+            addButton(String(i), i, false, currentPage === i);
+        }
+
+        if (currentPage < totalPages - 2) {
+            addDots();
+        }
+
+        addButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
+    }
+
+    /*-- Next --*/
+    addButton(
+        "Next",
+        currentPage + 1,
+        currentPage === totalPages
+    );
+}
 
 
         /*--- FORMAT TIME ---*/
@@ -736,7 +798,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 hour >= 12
                     ? "PM"
                     : "AM";
-
 
             hour =
                 hour % 12 || 12;
@@ -877,8 +938,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             try {
 
-                const response = await fetch(
-                        `${API_URL}/${encodeURIComponent(id)}/complete`,
+                const response = await fetch(`${API_URL}/${encodeURIComponent(id)}/complete`,
                         {
 
                             method: "PUT",
