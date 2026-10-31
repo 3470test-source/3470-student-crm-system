@@ -21,6 +21,55 @@
       padding: 0;
       box-sizing: border-box;
     }
+
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      border-top: 1px solid #3e6bc5;
+    }
+
+    #notificationCount {
+      color: #64748b;
+      font-size: 15px;
+    }
+
+    .crm-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination-dots { padding: 0 5px; color: #64748b; }
     
     </style>
  
@@ -311,6 +360,12 @@
 
                     </div>
 
+                    <!-- pagination -->
+                    <div class="crm-table-footer">
+                        <p id="notificationCount">Loading notifications...</p>
+                        <div id="notificationPagination" class="crm-pagination"></div>
+                    </div>
+
                 </div>
 
 
@@ -385,6 +440,11 @@ dropdowns.forEach(dropdown => {
 
 const API_BASE = "http://localhost:3000/api";
 
+let allNotifications = [];
+let currentPage = 1;
+const rowsPerPage = 10;
+
+
 /*--- LOAD TODAY'S NOTIFICATIONS ---*/
 async function loadTodayNotifications() {
 
@@ -423,7 +483,15 @@ async function loadTodayNotifications() {
 
         updateNotificationSummary(data.summary);
 
-        renderNotifications(data.notifications || []);
+        // renderNotifications(data.notifications || []);
+
+        allNotifications = Array.isArray(data.notifications)
+            ? data.notifications
+            : [];
+
+            currentPage = 1;
+
+        renderNotifications(allNotifications);
 
         updateActivitySummary(data.summary);
 
@@ -475,80 +543,76 @@ function updateNotificationSummary(summary) {
 function renderNotifications(notifications) {
 
     const container = document.getElementById("notificationList");
+    const countText = document.getElementById("notificationCount");
+    const pagination = document.getElementById("notificationPagination");
+
+    const records = Array.isArray(notifications) ? notifications : [];
+
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
 
     container.innerHTML = "";
+    pagination.innerHTML = "";
 
-    if (!notifications.length) {
+    if (totalRecords === 0) {
 
         container.innerHTML = `
-
             <div class="crm-notification-item">
-
                 <div class="crm-notification-icon">
                     <i class="fa fa-check-circle"></i>
                 </div>
 
                 <div class="crm-Tdynotification-content">
-
                     <h4>No Notifications Today</h4>
                     <p>There are no new CRM activities or alerts for today.</p>
-
                     <span class="crm-tdynotification-time">
-                        <i class="fa fa-clock"></i>
-                        Today
+                        <i class="fa fa-clock"></i> Today
                     </span>
-
                 </div>
 
                 <span class="crm-notification-badge completed">Clear</span>
-
             </div>
-
         `;
 
-        return;
+        countText.textContent = "Showing 0 notifications.";
 
+        return;
     }
 
+    currentPage = Math.min(
+        Math.max(currentPage, 1),
+        totalPages
+    );
 
-    notifications.forEach(notification => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(startIndex + rowsPerPage, totalRecords);
+
+    const pageRecords = records.slice(startIndex, endIndex);
+
+    pageRecords.forEach(notification => {
 
         const item = document.createElement("div");
 
         item.className = "crm-notification-item";
 
         const typeClass = getNotificationTypeClass(notification.type);
-
         const badgeClass = getNotificationBadgeClass(notification.status);
-
         const time = formatNotificationTime(notification.time);
 
         item.innerHTML = `
-
             <div class="crm-notification-icon ${typeClass}">
-
-                <i class="fa ${escapeHtml(
-                    notification.icon || "fa-bell"
-                )}"></i>
-
+                <i class="fa ${escapeHtml(notification.icon || "fa-bell")}"></i>
             </div>
-
 
             <div class="crm-Tdynotification-content">
 
                 <h4>
-                    ${escapeHtml(
-                        notification.title || "Notification"
-                    )}
+                    ${escapeHtml(notification.title || "Notification")}
                 </h4>
 
-
                 <p>
-                    ${escapeHtml(
-                        notification.message || ""
-                    )}
+                    ${escapeHtml(notification.message || "")}
                 </p>
-
 
                 <span class="crm-tdynotification-time">
                     <i class="fa fa-clock"></i>
@@ -557,19 +621,95 @@ function renderNotifications(notifications) {
 
             </div>
 
-
             <span class="crm-notification-badge ${badgeClass}">
-                ${escapeHtml(
-                    notification.status || "Info"
-                )}
+                ${escapeHtml(notification.status || "Info")}
             </span>
-
         `;
 
         container.appendChild(item);
 
     });
 
+    countText.textContent = `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} notifications.`;
+
+    renderNotificationPagination(totalPages, pagination);
+}
+
+
+/*--- NOTIFICATION PAGINATION ---*/
+function renderNotificationPagination(totalPages, pagination) {
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", function () {
+
+            currentPage = page;
+
+            renderNotifications(allNotifications);
+
+        });
+
+        pagination.appendChild(button);
+    }
+
+    function addDots() {
+
+        const dots = document.createElement("span");
+
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+
+        pagination.appendChild(dots);
+    }
+
+    addButton("Previous", currentPage - 1, currentPage === 1);
+
+    if (totalPages <= 5) {
+
+        for (let i = 1; i <= totalPages; i++) {
+            addButton(String(i), i, false, currentPage === i);
+        }
+
+    } else {
+
+        addButton("1", 1, false, currentPage === 1);
+
+        if (currentPage > 3) {
+            addDots();
+        }
+
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = start; i <= end; i++) {
+            addButton(String(i), i, false, currentPage === i);
+        }
+
+        if (currentPage < totalPages - 2) {
+            addDots();
+        }
+
+        addButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
+    }
+
+    addButton("Next", currentPage + 1, currentPage === totalPages);
 }
 
 

@@ -21,7 +21,64 @@
       padding: 0;
       box-sizing: border-box;
     }
-    
+
+    .crm-table-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      border-top: 1px solid #3e6bc5;
+    }
+
+    .crm-table-footer p {
+      color: #64748b;
+      font-size: 15px;
+    } 
+
+    .crm-pagination { 
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .crm-pagination button {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 10px;
+      border: 1px solid #05692f;
+      background: #fff;
+      color: #08582a;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .crm-pagination button:hover:not(:disabled) {
+      background: #0a8830;
+      color: #fff;
+    }
+
+    .crm-pagination button.active {
+      background: #2864e6;
+      color: #fff;
+      border-color: #2864e6;
+    }
+
+    .crm-pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .crm-pagination-dots {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      height: 36px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
     </style>
  
 </head>
@@ -369,6 +426,13 @@
 
                     </div>
 
+
+                    <!-- Pagination -->
+                    <div class="crm-table-footer">
+                        <p id="missedFollowupCount">Loading missed follow-ups...</p>
+                        <div id="missedFollowupPagination" class="crm-pagination"></div>
+                    </div>
+
                 </div>
 
 
@@ -433,6 +497,9 @@ dropdowns.forEach(dropdown => {
 const API_BASE = "http://localhost:3000/api";
 
 let missedFollowUps = [];
+
+let currentPage = 1;
+const rowsPerPage = 10;
 
 /*--- LOAD FILTER OPTIONS ---*/
 async function loadMissedFilterOptions() {
@@ -651,15 +718,19 @@ async function loadMissedFollowUps() {
         }
 
 
-        missedFollowUps = data.followUps || [];
+        // missedFollowUps = data.followUps || [];
+
+        missedFollowUps = Array.isArray(data.followUps)
+            ? data.followUps
+            : [];
+
+        currentPage = 1;
 
         updateMissedSummary(
             data.summary || {}
         );
 
-        renderMissedFollowUps(
-            missedFollowUps
-        );
+        renderMissedFollowUps(missedFollowUps);
 
 
     } catch (error) {
@@ -763,84 +834,70 @@ function updateMissedSummary(summary) {
 }
 
 
-/*--- RENDER TABLE ---*/
+/*--- RENDER TABLE WITH PAGINATION ---*/
 function renderMissedFollowUps(followUps) {
 
     const tbody = document.getElementById("missedFollowupTableBody");
-
     const emptyMessage = document.getElementById("missedEmptyMessage");
+    const countText = document.getElementById("missedFollowupCount");
+    const pagination = document.getElementById("missedFollowupPagination");
 
     if (!tbody) return;
 
-    tbody.innerHTML = "";
+    const records = Array.isArray(followUps) ? followUps : [];
 
-    if (!followUps.length) {
+    const totalRecords = records.length;
+    const totalPages = Math.ceil(totalRecords / rowsPerPage);
+
+    tbody.innerHTML = "";
+    pagination.innerHTML = "";
+
+    if (totalRecords === 0) {
 
         if (emptyMessage) {
-
             emptyMessage.style.display = "block";
-
         }
 
+        countText.textContent = "Showing 0 missed follow-ups.";
+
         return;
-
     }
-
 
     if (emptyMessage) {
-
         emptyMessage.style.display = "none";
-
     }
 
+    currentPage = Math.min(
+        Math.max(currentPage, 1),
+        totalPages
+    );
 
-    followUps.forEach(followUp => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = Math.min(
+        startIndex + rowsPerPage,
+        totalRecords
+    );
+
+    const pageRecords = records.slice(startIndex, endIndex);
+
+    pageRecords.forEach(followUp => {
 
         const row = document.createElement("tr");
 
         row.innerHTML = `
+            <td>${escapeHtml(followUp.student_name || "-")}</td>
 
-            <td>
-                ${escapeHtml(
-                    followUp.student_name || "-"
-                )}
-            </td>
+            <td>${escapeHtml(followUp.mobile_number || "-")}</td>
 
-            <td>
-                ${escapeHtml(
-                    followUp.mobile_number || "-"
-                )}
-            </td>
+            <td>${escapeHtml(followUp.course || "-")}</td>
 
-            <td>
-                ${escapeHtml(
-                    followUp.course || "-"
-                )}
-            </td>
+            <td>${escapeHtml(followUp.counsellor || "-")}</td>
 
-            <td>
-                ${escapeHtml(
-                    followUp.counsellor || "-"
-                )}
-            </td>
+            <td>${formatDate(followUp.follow_up_date)}</td>
 
-            <td>
-                ${formatDate(
-                    followUp.follow_up_date
-                )}
-            </td>
+            <td>${formatTime(followUp.follow_up_time)}</td>
 
-            <td>
-                ${formatTime(
-                    followUp.follow_up_time
-                )}
-            </td>
-
-            <td>
-                ${getFollowUpTypeHtml(
-                    followUp.follow_up_type
-                )}
-            </td>
+            <td>${getFollowUpTypeHtml(followUp.follow_up_type)}</td>
 
             <td>
                 <span class="crm-status-MFUPS missed">
@@ -849,32 +906,141 @@ function renderMissedFollowUps(followUps) {
             </td>
 
             <td>
-
                 <button
                     class="crm-view-btn-MFUPS"
                     title="View"
-                    onclick="viewMissedFollowUp(${followUp.id})"
-                >
+                    onclick="viewMissedFollowUp(${followUp.id})">
                     <i class="fa fa-eye"></i>
                 </button>
 
                 <button
                     class="crm-edit-btn-MFUPS"
                     title="Reschedule"
-                    onclick="rescheduleMissedFollowUp(${followUp.id})"
-                >
+                    onclick="rescheduleMissedFollowUp(${followUp.id})">
                     <i class="fa fa-calendar-plus"></i>
                 </button>
-
             </td>
-
         `;
 
         tbody.appendChild(row);
 
     });
 
+    countText.textContent =
+        `Showing ${startIndex + 1} to ${endIndex} of ${totalRecords} missed follow-ups.`;
+
+    renderMissedPagination(totalPages, pagination);
 }
+
+
+/*--- PAGINATION BUTTONS ---*/
+function renderMissedPagination(totalPages, pagination) {
+
+    if (totalPages <= 1) return;
+
+    function addButton(label, page, disabled = false, active = false) {
+
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.textContent = label;
+        button.disabled = disabled;
+
+        if (active) {
+            button.classList.add("active");
+        }
+
+        button.addEventListener("click", () => {
+
+            currentPage = page;
+
+            renderMissedFollowUps(missedFollowUps);
+
+        });
+
+        pagination.appendChild(button);
+    }
+
+    function addDots() {
+
+        const dots = document.createElement("span");
+
+        dots.className = "crm-pagination-dots";
+        dots.textContent = "...";
+
+        pagination.appendChild(dots);
+    }
+
+    /*--- Previous ---*/
+    addButton(
+        "Previous",
+        currentPage - 1,
+        currentPage === 1
+    );
+
+    if (totalPages <= 5) {
+
+        for (let i = 1; i <= totalPages; i++) {
+
+            addButton(
+                String(i),
+                i,
+                false,
+                currentPage === i
+            );
+
+        }
+
+    } else {
+
+        addButton(
+            "1",
+            1,
+            false,
+            currentPage === 1
+        );
+
+        if (currentPage > 3) {
+            addDots();
+        }
+
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let i = start; i <= end; i++) {
+
+            addButton(
+                String(i),
+                i,
+                false,
+                currentPage === i
+            );
+
+        }
+
+        if (currentPage < totalPages - 2) {
+            addDots();
+        }
+
+        addButton(
+            String(totalPages),
+            totalPages,
+            false,
+            currentPage === totalPages
+        );
+
+    }
+
+    /*--- Next ---*/
+    addButton(
+        "Next",
+        currentPage + 1,
+        currentPage === totalPages
+    );
+
+}
+
+
 
 
 /*--- FOLLOW-UP TYPE ---*/
