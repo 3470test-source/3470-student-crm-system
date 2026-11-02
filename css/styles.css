@@ -149,6 +149,351 @@
   box-shadow:0 15px 30px rgba(37,99,235,.30);
 }
 
+
+
+                          /* ==============================================
+                                        RESPONSIVE LOGIN PAGE
+                          ============================================== */
+
+/*--- Desktop: 1280px and above ---*/
+@media (min-width: 1200px) {
+
+    .crm-login-container {
+        width: min(1100px, 94%);
+        min-height: 600px;
+    }
+
+    .crm-login-left,
+    .crm-login-right {
+        width: 50%;
+    }
+
+    .crm-login-left {
+        padding: 60px;
+    }
+
+    .crm-login-right {
+        padding: 50px;
+    }
+
+    .crm-logo {
+        width: 180px;
+    }
+
+    .crm-brand h1 {
+        font-size: 38px;
+    }
+
+    .crm-brand p {
+        font-size: 17px;
+    }
+}
+
+
+/*--- Laptop: 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+    .crm-login-container {
+        width: 94%;
+        min-height: 550px;
+    }
+
+    .crm-login-left {
+        padding: 40px;
+    }
+
+    .crm-login-right {
+        padding: 35px;
+    }
+
+    .crm-logo {
+        width: 150px;
+    }
+
+    .crm-brand h1 {
+        font-size: 32px;
+    }
+
+    .crm-brand p {
+        font-size: 15px;
+    }
+
+    .crm-login-card {
+        padding: 35px;
+    }
+
+    .crm-login-card h2 {
+        font-size: 30px;
+    }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    .crm-login-container {
+        width: 92%;
+        min-height: 500px;
+        border-radius: 16px;
+    }
+
+    .crm-login-left {
+        width: 45%;
+        padding: 25px;
+    }
+
+    .crm-login-right {
+        width: 55%;
+        padding: 25px;
+    }
+
+    .crm-logo {
+        width: 130px;
+    }
+
+    .crm-brand h1 {
+        font-size: 27px;
+        line-height: 1.3;
+    }
+
+    .crm-brand p {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .crm-login-card {
+        padding: 28px;
+        border-radius: 14px;
+    }
+
+    .crm-login-card h2 {
+        font-size: 28px;
+    }
+
+    .crm-subtitle {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .crm-login-input-group {
+        margin-bottom: 20px;
+    }
+}
+
+
+/*--- Mobile: 481px to 767px ---*/
+@media (min-width: 481px) and (max-width: 767px) {
+
+    .crm-login-container {
+        width: 92%;
+        min-height: auto;
+        flex-direction: column;
+        margin: 20px auto;
+        border-radius: 16px;
+    }
+
+    .crm-login-left,
+    .crm-login-right {
+        width: 100%;
+    }
+
+    .crm-login-left {
+        padding: 30px 20px;
+    }
+
+    .crm-logo {
+        width: 110px;
+        margin-bottom: 8px;
+    }
+
+    .crm-brand h1 {
+        font-size: 27px;
+        margin-bottom: 10px;
+    }
+
+    .crm-brand p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+
+    .crm-login-right {
+        padding: 30px 20px;
+    }
+
+    .crm-login-card {
+        max-width: 430px;
+        padding: 30px;
+        border-radius: 14px;
+    }
+
+    .crm-login-card h2 {
+        font-size: 28px;
+    }
+
+    .crm-subtitle {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+    .crm-login-input-group {
+        margin-bottom: 20px;
+    }
+}
+
+
+/*--- Small Mobile: 320px to 480px ---*/
+@media (max-width: 480px) {
+
+    .crm-login-container {
+        width: 94%;
+        min-height: auto;
+        flex-direction: column;
+        margin: 12px auto;
+        border-radius: 14px;
+    }
+
+    .crm-login-left,
+    .crm-login-right {
+        width: 100%;
+    }
+
+    .crm-login-left {
+        padding: 22px 16px;
+    }
+
+    .crm-logo {
+        width: 90px;
+        margin-bottom: 5px;
+    }
+
+    .crm-brand h1 {
+        font-size: 23px;
+        line-height: 1.3;
+        margin-bottom: 8px;
+    }
+
+    .crm-brand p {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 0;
+    }
+
+    .crm-login-right {
+        padding: 22px 15px;
+    }
+
+    .crm-login-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 18px;
+        border-radius: 12px;
+    }
+
+    .crm-login-card h2 {
+        font-size: 25px;
+        margin-bottom: 8px;
+    }
+
+    .crm-subtitle {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 22px;
+    }
+
+    .crm-login-input-group {
+        margin-bottom: 18px;
+    }
+
+    .crm-login-input-group label {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .crm-login-input-box input {
+        height: 46px;
+        font-size: 14px;
+        padding-left: 43px;
+        padding-right: 43px;
+    }
+
+    .crm-login-input-box i:first-child {
+        left: 14px;
+        top: 16px;
+    }
+
+    .crm-togglePassword {
+        right: 14px;
+        top: 17px;
+    }
+
+    .crm-loginBtn {
+        height: 44px;
+        font-size: 15px;
+    }
+}
+
+
+/*--- Extra-small Mobile: 320px ---*/ 
+@media (max-width: 360px) {
+
+    .crm-login-container {
+        width: 96%;
+        margin: 8px auto;
+    }
+
+    .crm-login-left {
+        padding: 18px 12px;
+    }
+
+    .crm-brand h1 {
+        font-size: 21px;
+    }
+
+    .crm-brand p {
+        font-size: 12px;
+    }
+
+    .crm-login-right {
+        padding: 18px 12px;
+    }
+
+    .crm-login-card {
+        padding: 20px 15px;
+    }
+
+    .crm-login-card h2 {
+        font-size: 23px;
+    }
+}
+
+
+/*--- Short-height screens ---*/
+@media (max-height: 600px) and (min-width: 768px) {
+
+    .crm-login-container {
+        min-height: 0;
+        margin: 12px auto;
+    }
+
+    .crm-login-left,
+    .crm-login-right {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
+    .crm-brand p {
+        margin-bottom: 15px;
+    }
+
+    .crm-login-card {
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 
                         /* ===================================

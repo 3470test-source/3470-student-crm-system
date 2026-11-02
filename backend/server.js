@@ -392,7 +392,7 @@ app.put("/api/courses/:id", async (req, res) => {
         }
 
 
-        /*---- Convert Fee ---*/
+        /*--- Convert Fee ---*/
         let fee = null;
 
         if (
