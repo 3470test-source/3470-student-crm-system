@@ -699,6 +699,11 @@
         try {
             const formData = new FormData(form);
 
+            console.log("FRONTEND JOINING DATE:", {
+                inputValue: document.getElementById("joiningDate").value,
+                submittedValue: formData.get("joining_date")
+            });
+
             formData.delete("counsellor_display");
 
             const result = await apiRequest("/employee/admissions",

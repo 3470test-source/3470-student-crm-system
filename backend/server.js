@@ -1079,12 +1079,14 @@ app.get("/api/enquiries/:id", async (req, res) => {
 
             `
             SELECT
-                id, student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source,
-                counsellor, enquiry_date, follow_up_date, follow_up_time, status, address, comments,created_at,
-                updated_at
-
+                id, student_name, mobile, email, gender, 
+                 DATE_FORMAT(date_of_birth, '%Y-%m-%d') AS date_of_birth,
+                course_interested, enquiry_source, counsellor, 
+                DATE_FORMAT(enquiry_date, '%Y-%m-%d') AS enquiry_date, 
+                DATE_FORMAT(follow_up_date, '%Y-%m-%d') AS follow_up_date,
+                TIME_FORMAT(follow_up_time, '%H:%i') AS follow_up_time, 
+                status, address, comments,created_at, updated_at
             FROM student_enquiries
-
             WHERE id = ?
             `,
 
@@ -1811,8 +1813,11 @@ app.get("/api/follow-ups/scheduled", async (req, res) => {
             SELECT
 
                 f.id, f.enquiry_id, e.student_name, e.mobile, e.course_interested,
-                f.follow_up_date, f.follow_up_time, f.follow_up_type, f.status,
-                e.counsellor, f.next_follow_up_date, f.next_follow_up_time,
+                DATE_FORMAT(f.follow_up_date, '%Y-%m-%d') AS follow_up_date, 
+                TIME_FORMAT(f.follow_up_time, '%H:%i') AS follow_up_time,
+                f.follow_up_type, f.status, e.counsellor, 
+                DATE_FORMAT(f.next_follow_up_date, '%Y-%m-%d') AS next_follow_up_date,
+                TIME_FORMAT(f.next_follow_up_time, '%H:%i') AS next_follow_up_time,
                 f.comments
 
             FROM follow_ups AS f
@@ -2603,8 +2608,12 @@ app.get("/api/follow-ups/:id", async (req, res) => {
             const [rows] = await db.execute(`
 
                     SELECT
-                        f.id, f.enquiry_id, e.student_name, e.mobile, e.course_interested, e.counsellor, f.follow_up_date,
-                        f.follow_up_time, f.follow_up_type, f.status, f.next_follow_up_date, f.next_follow_up_time,
+                        f.id, f.enquiry_id, e.student_name, e.mobile, e.course_interested, e.counsellor, 
+                        DATE_FORMAT(f.follow_up_date, '%Y-%m-%d') AS follow_up_date,
+                        TIME_FORMAT(f.follow_up_time, '%H:%i') AS follow_up_time, 
+                        f.follow_up_type, f.status, 
+                        DATE_FORMAT(f.next_follow_up_date, '%Y-%m-%d') AS next_follow_up_date,
+                        TIME_FORMAT(f.next_follow_up_time, '%H:%i') AS next_follow_up_time,
                         f.comments
 
                     FROM follow_ups AS f
@@ -3489,7 +3498,8 @@ app.get("/api/admissions/reports", async (req, res) => {
         const [admissions] = await db.execute(
             `
             SELECT
-                a.id, a.student_name, a.mobile, a.course, a.counsellor, a.joining_date AS admission_date,
+                a.id, a.student_name, a.mobile, a.course, a.counsellor,
+                DATE_FORMAT(a.joining_date, '%Y-%m-%d') AS admission_date,
                 a.course_fee, a.final_fee, a.registration_amount AS paid_amount, a.balance_amount,
 
                 ${paymentStatusCase} AS payment_status
@@ -6022,6 +6032,12 @@ app.post("/api/employee/admissions", authenticateToken,
             const courseName = String(req.body.course || "").trim();
             const batch = normalizeAdmissionOptional(req.body.batch);
             const joiningDate = normalizeAdmissionOptional(req.body.joining_date);
+
+            console.log("BACKEND JOINING DATE:", {
+                receivedDate: req.body.joining_date,
+                processedDate: joiningDate
+            });
+
             const paymentMode = normalizeAdmissionOptional(req.body.payment_mode);
             const admissionStatus = normalizeAdmissionOptional(req.body.admission_status) || "Pending";
             const remarks = normalizeAdmissionOptional(req.body.remarks);
@@ -6287,7 +6303,11 @@ app.get("/api/employee/admissions", authenticateToken,
             /*--- Return only admissions assigned to this logged-in employee. ---*/
             const [admissions] = await db.execute(
                 `SELECT
-                    id, student_name, mobile, email, gender, date_of_birth, course, batch, joining_date, course_fee,
+                    id, student_name, mobile, email, gender, 
+                    DATE_FORMAT(date_of_birth, '%Y-%m-%d') AS date_of_birth, 
+                    course, batch, 
+                    DATE_FORMAT(joining_date, '%Y-%m-%d') AS joining_date,
+                    course_fee,
                     discount, final_fee, registration_amount, balance_amount, payment_mode, counsellor, counsellor_name, counsellor_id,
                     admission_status, documents, remarks, created_at, updated_at
                  FROM admissions
@@ -7079,7 +7099,13 @@ app.get("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
 
         /*-- Your table stores course and counsellor as names. --*/
         const [rows] = await db.execute(
-            `SELECT *
+            `SELECT 
+                id, student_name, mobile, email, gender,
+                DATE_FORMAT(date_of_birth, '%Y-%m-%d') AS date_of_birth,
+                course, batch,
+                DATE_FORMAT(joining_date, '%Y-%m-%d') AS joining_date,
+                course_fee, discount, final_fee, registration_amount, balance_amount, payment_mode, counsellor, counsellor_name,
+                counsellor_id, admission_status, documents, remarks, created_at, updated_at
              FROM admissions
              WHERE id = ?
                AND counsellor_id = ?
@@ -7346,8 +7372,13 @@ app.get("/api/employee/enquiries/:id", authenticateToken,
 
             const [rows] = await db.execute(
                 `SELECT
-                    id, student_name, mobile, email, gender, date_of_birth, course_interested, enquiry_source, counsellor,
-                    counsellor_id, enquiry_date, follow_up_date, follow_up_time, status, address, comments, created_at, updated_at
+                    id, student_name, mobile, email, gender,
+                    DATE_FORMAT(date_of_birth, '%Y-%m-%d') AS date_of_birth,
+                    course_interested, enquiry_source, counsellor, counsellor_id, 
+                    DATE_FORMAT(enquiry_date, '%Y-%m-%d') AS enquiry_date, 
+                    DATE_FORMAT(follow_up_date, '%Y-%m-%d') AS follow_up_date,
+                    TIME_FORMAT(follow_up_time, '%H:%i') AS follow_up_time, 
+                    status, address, comments, created_at, updated_at
                  FROM student_enquiries
                  WHERE id = ? AND counsellor_id = ?
                  LIMIT 1`,
@@ -7595,12 +7626,21 @@ app.get("/api/employee/follow-ups/:id", authenticateToken, async (req, res) => {
             }
 
             const [rows] = await db.execute(
-                `SELECT *
-                 FROM follow_ups
-                 WHERE id = ? AND counsellor_id = ?
-                 LIMIT 1`,
+                `SELECT
+                    id, enquiry_id, student_name, mobile_number, course, counsellor, counsellor_id,
+                    DATE_FORMAT(follow_up_date, '%Y-%m-%d') AS follow_up_date,
+                    TIME_FORMAT(follow_up_time, '%H:%i') AS follow_up_time,
+                    follow_up_type,status,
+                    DATE_FORMAT(next_follow_up_date, '%Y-%m-%d') AS next_follow_up_date,
+                    TIME_FORMAT(next_follow_up_time, '%H:%i') AS next_follow_up_time,
+                    comments,
+                    created_at,
+                    updated_at
+                    FROM follow_ups
+                WHERE id = ? AND counsellor_id = ?
+                LIMIT 1`,
                 [followUpId, employeeId]
-            );
+             );
 
             if (!rows.length) {
                 return res.status(404).json({
