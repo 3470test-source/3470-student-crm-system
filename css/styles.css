@@ -705,6 +705,176 @@
 }
 
 
+
+                          /* ==============================================
+                                     RESPONSIVE Admin Side Header
+                          ============================================== */
+
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .crm-dashboard-header {
+    min-height: 80px;
+    padding: 10px 20px;
+  }
+
+  .crm-header-left {
+    gap: 15px;
+  }
+
+  .crm-header-logo img {
+    width: 95px;
+  }
+
+  .crm-header-center {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    padding: 0 8px;
+  }
+
+  .crm-header-right {
+    gap: 15px;
+  }
+
+  .crm-notification {
+    width: 38px;
+    height: 38px;
+  }
+
+  .crm-profile-btn {
+    gap: 8px;
+    padding: 6px 10px;
+  }
+
+  .crm-avatar {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+
+
+/*--- MOBILE - 320px to 767px ---*/
+@media (max-width: 767px) {
+  .crm-dashboard-header {
+    min-height: 65px;
+    height: auto;
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .crm-header-left {
+    gap: 8px;
+  }
+
+  .crm-header-logo img {
+    width: 65px;
+  }
+
+  .crm-header-menu-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .crm-header-menu-btn i {
+    font-size: 17px;
+  }
+
+  .crm-header-center {
+    font-size: 13px;
+    letter-spacing: 0;
+    padding: 0 3px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .crm-header-right {
+    gap: 8px;
+  }
+
+  .crm-notification {
+    width: 34px;
+    height: 34px;
+  }
+
+  .crm-notification i {
+    font-size: 17px;
+  }
+
+  .crm-notification-count {
+    min-width: 17px;
+    height: 17px;
+    font-size: 9px;
+  }
+
+  .crm-profile-btn {
+    padding: 4px;
+    gap: 0;
+    background: transparent;
+  }
+
+  .crm-profile-btn span {
+    display: none;
+  }
+
+  .crm-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
+  .crm-avatar i {
+    font-size: 16px;
+  }
+
+  .crm-dropdown-menu {
+    width: 180px;
+    top: calc(100% + 10px);
+  }
+}
+
+
+
+/*--- SMALL MOBILE - 320px to 375px ---*/
+@media (max-width: 375px) {
+  .crm-dashboard-header {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .crm-header-left {
+    gap: 6px;
+  }
+
+  .crm-header-logo img {
+    width: 55px;
+  }
+
+  .crm-header-menu-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .crm-header-center {
+    font-size: 11px;
+    padding: 0 2px;
+  }
+
+  .crm-header-right {
+    gap: 6px;
+  }
+
+  .crm-notification {
+    width: 31px;
+    height: 31px;
+  }
+
+  .crm-avatar {
+    width: 31px;
+    height: 31px;
+  }
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
                         /* =========================================
@@ -816,6 +986,102 @@
 .crm-dropdown.active .icon-color {
   transform:rotate(180deg);
 }
+
+
+                          /* ==============================================
+                                    RESPONSIVE Admin Side / Sidebar
+                          ============================================== */
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-sidebar {
+    width: 230px;
+    min-width: 230px;
+  }
+
+  .crm-sidebar a,
+  .crm-dropdown-btn {
+    padding: 12px 18px;
+    font-size: 14px;
+    gap: 12px;
+  }
+
+  .crm-dropdown-content a {
+    padding-left: 35px;
+    font-size: 13px;
+  }
+}
+
+
+
+/*---MOBILE - BELOW 768px ---*/
+@media (max-width: 767px) {
+
+  .crm-sidebar-container {
+    display: block;
+    min-height: calc(100vh - 65px);
+  }
+
+  /*--- Sidebar hidden initially ---*/
+  .crm-sidebar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    bottom: 0;
+    width: 270px;
+    min-width: 270px;
+    height: calc(100vh - 65px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1001;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding-top: 15px;
+  }
+
+  /*--- Sidebar open ---*/
+  .crm-sidebar.active {
+    transform: translateX(0);
+  }
+
+  /*--- Overlay ---*/
+  .crm-siderbar-overlay {
+    display: block;
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 65px);
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .crm-siderbar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .crm-sidebar a,
+  .crm-dropdown-btn {
+    padding: 13px 22px;
+    font-size: 15px;
+  }
+
+  .crm-dropdown-content a {
+    padding-left: 40px;
+    font-size: 14px;
+  }
+
+  /*--- Prevent background scrolling when menu is open ---*/
+  body.crm-sidebar-open {
+    overflow: hidden;
+  }
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------ */
 

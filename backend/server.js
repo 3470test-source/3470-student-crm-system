@@ -3803,7 +3803,7 @@ app.put("/api/admissions/:id", async (req, res) => {
 
         res.json({
             success: true,
-            message: "Admission updated successfully.",
+            message: "✅ Admission updated successfully.",
             admissionId: id
         });
 
@@ -4604,162 +4604,6 @@ app.get("/api/dashboard", async (req, res) => {
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -6234,7 +6078,7 @@ app.post("/api/employee/admissions", authenticateToken,
 
             return res.status(201).json({
                 success: true,
-                message: "Admission saved successfully.",
+                message: "✅ Admission saved successfully.",
                 admission_id: insertResult.insertId
             });
 
@@ -7323,7 +7167,7 @@ app.put("/api/employee/admissions/:id", authenticateToken, async (req, res) => {
 
         return res.json({
             success: true,
-            message: "Admission updated successfully.",
+            message: "✅ Admission updated successfully.",
             admission_id: admissionId,
             affectedRows: result.affectedRows
         });
@@ -7578,7 +7422,7 @@ app.put("/api/employee/enquiries/:id", authenticateToken,
 
             return res.json({
                 success: true,
-                message: "Enquiry updated successfully.",
+                message: "✅ Enquiry updated successfully.",
                 enquiry_id: enquiryId,
                 affectedRows: result.affectedRows
             });

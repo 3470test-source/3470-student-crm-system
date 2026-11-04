@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3470 Healthcare & Student CRM System - Dashboard Page</title>
+    <title>3470 Healthcare & Student CRM System - Admin / Dashboard Page</title>
 
     <!-- Favicon -->
     <link rel="icon" href="/image/Logo3470-health3-removebg-preview.png" type="image/x-icon">
@@ -128,7 +128,7 @@
 
                 <a href="my-profile.html"><i class="fa fa-user"></i>My Profile</a>
                 <a href="crm-settings.html"><i class="fa fa-cog"></i>Settings</a>
-                <a href="login.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
+                <a href="index.html" onclick="logout()"><i class="fa fa-sign-out-alt"></i>Logout</a>
 
             </div>
             
@@ -1039,6 +1039,78 @@ document.addEventListener("DOMContentLoaded",() => {
 
     }
 );
+
+</script>
+
+
+
+<!-- Header Menu icon btn - JS  -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("crmSidebar");
+    const overlay = document.getElementById("crmSidebarOverlay");
+
+    if (!menuBtn || !sidebar || !overlay) {
+        console.error("Sidebar elements not found.");
+        return;
+    }
+
+    function openSidebar() {
+        sidebar.classList.add("active");
+        overlay.classList.add("active");
+        document.body.classList.add("crm-sidebar-open");
+
+        menuBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove("active");
+        overlay.classList.remove("active");
+        document.body.classList.remove("crm-sidebar-open");
+
+        menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
+
+    menuBtn.addEventListener("click", function () {
+
+        if (sidebar.classList.contains("active")) {
+            closeSidebar();
+        } else {
+            openSidebar();
+        }
+
+    });
+
+    /*-- Close when clicking outside sidebar --*/
+    overlay.addEventListener("click", closeSidebar);
+
+    /*-- Close after selecting a sidebar link --*/
+    sidebar.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+            if (window.innerWidth <= 767) {
+                closeSidebar();
+            }
+        });
+    });
+
+    /*-- Close with Escape key --*/
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closeSidebar();
+        }
+    });
+
+    /*-- Reset sidebar when switching to desktop --*/
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 767) {
+            closeSidebar();
+        }
+    });
+
+});
 
 </script>
 
