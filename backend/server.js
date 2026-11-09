@@ -4080,7 +4080,9 @@ app.get("/api/users/:id", async (req, res) => {
 
         const [users] = await db.execute(`
             SELECT
-                id, full_name, email, mobile, username, role, status, department, joining_date, address,
+                id, full_name, email, mobile, username, role, status, department, 
+                DATE_FORMAT(joining_date, '%Y-%m-%d') AS joining_date,
+                address,
                 created_at, updated_at
             FROM add_users
             WHERE id = ?
