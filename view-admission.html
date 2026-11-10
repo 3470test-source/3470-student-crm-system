@@ -53,9 +53,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" id="notificationBtn" onclick="openNotifications()" title="View Notifications">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="notificationCount">0</span>
 
         </div>
 
@@ -454,6 +454,48 @@ dropdowns.forEach(dropdown => {
     const API_BASE = "http://localhost:3000/api";
 
 
+    /*--- OPEN NOTIFICATIONS PAGE ---*/
+    function openNotifications() {
+        window.location.href = "today-notifications.html";
+    }
+
+    /*--- LOAD DYNAMIC NOTIFICATION COUNT ---*/
+    async function loadNotificationCount() {
+
+    const countElement = document.getElementById("notificationCount");
+
+    if (!countElement) return;
+
+    try {
+
+        const response = await fetch(`${API_BASE}/notifications/today`);
+
+        if (!response.ok) {
+            throw new Error("Failed to load notifications");
+        }
+
+        const result = await response.json();
+
+        const count = Number(
+            result.count ??
+            result.total ??
+            result.notifications?.length ??
+            0
+        );
+
+        countElement.textContent = count > 99 ? "99+" : count;
+
+        countElement.style.display = count > 0 ? "flex" : "none";
+
+        } catch (error) {
+
+            console.error("Notification Count Error:", error);
+
+            countElement.style.display = "none";
+        }
+    }
+
+
     /*--- GET ADMISSION ID FROM URL ---*/
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -753,8 +795,9 @@ dropdowns.forEach(dropdown => {
 
             loadAdmission();
 
-        }
-    );
+            loadNotificationCount();
+
+        });
 
 </script>
 
