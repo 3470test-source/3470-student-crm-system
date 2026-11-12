@@ -452,7 +452,7 @@
     }
 
     .crm-brand p {
-        font-size: 12px;
+        font-size: 12px; 
     }
 
     .crm-login-right {
@@ -1270,19 +1270,12 @@
 }
 
 
+                      /* ===================================================
+                                RESPONSIVE CRM DASHBOARD / Admin
+                      =================================================== */
 
 
-
-
-
-
-
-/* =========================================
-   RESPONSIVE CRM DASHBOARD
-   Desktop, Tablet and Mobile
-========================================= */
-
-/* Large Desktop: 1600px and above */
+/*--- Large Desktop: 1600px and above ---*/
 @media (min-width: 1600px) {
 
   .crm-dashboard-main {
@@ -1310,7 +1303,7 @@
 }
 
 
-/* Desktop: 1280px to 1599px */
+/*--- Desktop: 1280px to 1599px ---*/
 @media (min-width: 1200px) and (max-width: 1599px) {
 
   .crm-dashboard-main {
@@ -1344,7 +1337,7 @@
 }
 
 
-/* Small Laptop / Tablet Landscape: 992px to 1199px */
+/*--- Small Laptop / Tablet Landscape: 992px to 1199px ---*/
 @media (min-width: 992px) and (max-width: 1199px) {
 
   .crm-dashboard-main {
@@ -1383,7 +1376,7 @@
 }
 
 
-/* Tablet Portrait: 768px to 991px */
+/*--- Tablet Portrait: 768px to 991px ---*/
 @media (min-width: 768px) and (max-width: 991px) {
 
   .crm-dashboard-main {
@@ -1443,7 +1436,7 @@
 }
 
 
-/* Mobile: 576px to 767px */
+/*--- Mobile: 576px to 767px ---*/
 @media (max-width: 767px) {
 
   .crm-dashboard-main {
@@ -1548,7 +1541,7 @@
 }
 
 
-/* Small Mobile: 320px to 414px */
+/*--- Small Mobile: 320px to 414px ---*/
 @media (max-width: 414px) {
 
   .crm-dashboard-main {
@@ -1602,7 +1595,7 @@
 }
 
 
-/* Extra Small Mobile: 320px */
+/*--- Extra Small Mobile: 320px ---*/
 @media (max-width: 340px) {
 
   .crm-dashboard-main {
@@ -1758,6 +1751,279 @@
   background:#d12525;
   color:white;
 }
+
+
+
+                              /* ==================================================
+                                            ADD COURSE - RESPONSIVE DESIGN
+                              ================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+    .crm-addCourse-header h2 {
+        font-size: 32px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 20px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 35px;
+    }
+
+    .crm-form-grid-AddCourse {
+        gap: 25px;
+    }
+
+    .crm-form-group-AddCourse input,
+    .crm-form-group-AddCourse select,
+    .crm-form-group-AddCourse textarea {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    .crm-btn-save,
+    .crm-btn-reset {
+        padding: 15px 32px;
+        font-size: 16px;
+    }
+}
+
+
+/*--- Desktop: 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+    .crm-addCourse-header h2 {
+        font-size: 29px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 18px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 28px;
+    }
+
+    .crm-form-grid-AddCourse {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+}
+
+
+/*--- Tablet Landscape / Small Laptop: 992px to 1199px ---*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .crm-addCourse-header {
+        margin-bottom: 22px;
+    }
+
+    .crm-addCourse-header h2 {
+        font-size: 27px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 17px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 25px;
+    }
+
+    .crm-form-grid-AddCourse {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .crm-form-group-AddCourse input,
+    .crm-form-group-AddCourse select,
+    .crm-form-group-AddCourse textarea {
+        padding: 12px;
+    }
+}
+
+
+/*--- Tablet Portrait: 768px to 991px ---*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .crm-addCourse-header {
+        margin-bottom: 20px;
+    }
+
+    .crm-addCourse-header h2 {
+        font-size: 26px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0.4px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 22px;
+    }
+
+    .crm-form-grid-AddCourse {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .crm-form-group-AddCourse label {
+        font-size: 14px;
+    }
+
+    .crm-form-group-AddCourse input,
+    .crm-form-group-AddCourse select,
+    .crm-form-group-AddCourse textarea {
+        padding: 11px 12px;
+        font-size: 14px;
+    }
+
+    .crm-form-AddCourse-buttons {
+        gap: 12px;
+    }
+
+    .crm-btn-save,
+    .crm-btn-reset {
+        padding: 13px 24px;
+        font-size: 14px;
+    }
+}
+
+
+/*--- Mobile: 576px to 767px ---*/
+@media (max-width: 767px) {
+
+    .crm-addCourse-header {
+        margin-bottom: 18px;
+    }
+
+    .crm-addCourse-header h2 {
+        font-size: 23px;
+        margin-bottom: 8px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .crm-form-grid-AddCourse {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-bottom: 18px;
+    }
+
+    .crm-form-group-AddCourse label {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .crm-form-group-AddCourse input,
+    .crm-form-group-AddCourse select,
+    .crm-form-group-AddCourse textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .crm-form-group-AddCourse textarea {
+        min-height: 90px;
+    }
+
+    .crm-form-AddCourse-buttons {
+        gap: 12px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .crm-btn-save,
+    .crm-btn-reset {
+        flex: 1;
+        padding: 13px 18px;
+        font-size: 14px;
+    }
+}
+
+
+/*--- Small Mobile: 320px to 414px ---*/
+@media (max-width: 414px) {
+
+    .crm-addCourse-header {
+        margin-bottom: 15px;
+    }
+
+    .crm-addCourse-header h2 {
+        font-size: 21px;
+    }
+
+    .crm-addCourse-header p {
+        font-size: 13px;
+    }
+
+    .crm-form-AddCourse {
+        padding: 15px 12px;
+    }
+
+    .crm-form-grid-AddCourse {
+        gap: 14px;
+    }
+
+    .crm-form-group-AddCourse label {
+        font-size: 13px;
+    }
+
+    .crm-form-group-AddCourse input,
+    .crm-form-group-AddCourse select,
+    .crm-form-group-AddCourse textarea {
+        padding: 11px 10px;
+        font-size: 13px;
+    }
+
+    .crm-form-group-AddCourse textarea {
+        min-height: 85px;
+    }
+
+    .crm-form-AddCourse-buttons {
+        gap: 10px;
+    }
+
+    .crm-btn-save,
+    .crm-btn-reset {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+}
+
+
+/*--- Extra Small Mobile: 320px to 340px ---*/
+@media (max-width: 340px) {
+
+    .crm-form-AddCourse {
+        padding: 12px 10px;
+    }
+
+    .crm-form-AddCourse-buttons {
+        flex-direction: column;
+    }
+
+    .crm-btn-save,
+    .crm-btn-reset {
+        width: 100%;
+        flex: auto;
+    }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -1950,6 +2216,371 @@
   color:#64748b;
   font-size:16px;
 }
+
+
+                    /* =============================================
+                            MANAGE COURSES - RESPONSIVE DESIGN
+                    ============================================= */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+    .crm-manageCourses-header h2 {
+        font-size: 32px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 20px;
+    }
+
+    .crm-add-btn {
+        padding: 14px 28px;
+        font-size: 16px;
+    }
+
+    .crm-filter-manageCourse {
+        gap: 25px;
+    }
+
+    .crm-ManageCourse-search-box {
+        width: 400px;
+    }
+
+    .crm-table-MC th,
+    .crm-table-MC td {
+        padding: 18px;
+        font-size: 16px;
+    }
+}
+
+
+/*--- Desktop: 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+    .crm-manageCourses-header h2 {
+        font-size: 29px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 18px;
+    }
+
+    .crm-filter-manageCourse {
+        gap: 18px;
+    }
+
+    .crm-ManageCourse-search-box {
+        width: 350px;
+    }
+
+    .crm-table-MC th,
+    .crm-table-MC td {
+        padding: 14px;
+        font-size: 14px;
+    }
+}
+
+
+/*--- Tablet Landscape / Small Laptop: 992px to 1199px ---*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+    .crm-manageCourses-header {
+        margin-bottom: 22px;
+    }
+
+    .crm-manageCourses-header h2 {
+        font-size: 27px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 16px;
+        letter-spacing: 0.4px;
+    }
+
+    .crm-add-btn {
+        padding: 11px 18px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .crm-filter-manageCourse {
+        gap: 15px;
+    }
+
+    .crm-ManageCourse-search-box {
+        width: 280px;
+    }
+
+    .crm-ManageCourse-search-box input,
+    .crm-ManageCourse-filter-box select {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .crm-table-manageCourse {
+        overflow-x: auto;
+    }
+
+    .crm-table-MC {
+        min-width: 850px;
+    }
+
+    .crm-table-MC th,
+    .crm-table-MC td {
+        padding: 13px 10px;
+        font-size: 14px;
+    }
+
+    .crm-table-footer {
+        font-size: 14px;
+    }
+}
+
+
+/*--- Tablet Portrait: 768px to 991px ---*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .crm-manageCourses-header {
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .crm-manageCourses-header h2 {
+        font-size: 25px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 15px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-add-btn {
+        padding: 11px 16px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-filter-manageCourse {
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .crm-ManageCourse-search-box {
+        width: 55%;
+    }
+
+    .crm-ManageCourse-search-box input {
+        padding: 12px 12px 12px 38px;
+        font-size: 13px;
+    }
+
+    .crm-ManageCourse-filter-box {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .crm-ManageCourse-filter-box select {
+        width: 100%;
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .crm-table-manageCourse {
+        overflow-x: auto;
+    }
+
+    .crm-table-MC {
+        min-width: 800px;
+    }
+
+    .crm-table-MC th,
+    .crm-table-MC td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .crm-table-footer {
+        font-size: 13px;
+    }
+}
+
+
+/*--- Mobile: 576px to 767px ---*/
+@media (max-width: 767px) {
+
+    .crm-manageCourses-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .crm-manageCourses-header h2 {
+        font-size: 23px;
+        margin-bottom: 7px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-add-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        font-size: 14px;
+        width: fit-content;
+    }
+
+    .crm-filter-manageCourse {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .crm-ManageCourse-search-box {
+        width: 100%;
+    }
+
+    .crm-ManageCourse-search-box input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        font-size: 14px;
+    }
+
+    .crm-ManageCourse-filter-box {
+        width: 100%;
+    }
+
+    .crm-ManageCourse-filter-box select {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .crm-table-manageCourse {
+        overflow-x: auto;
+        border-radius: 10px;
+    }
+
+    .crm-table-MC {
+        min-width: 750px;
+    }
+
+    .crm-table-MC th {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-table-MC td {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-status {
+        padding: 5px 11px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    .crm-table-footer {
+        margin-top: 14px;
+        font-size: 13px;
+    }
+}
+
+
+/*--- Small Mobile: 320px to 414px ---*/
+@media (max-width: 414px) {
+
+    .crm-manageCourses-header {
+        gap: 13px;
+    }
+
+    .crm-manageCourses-header h2 {
+        font-size: 21px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 13px;
+    }
+
+    .crm-add-btn {
+        padding: 11px 15px;
+        font-size: 13px;
+    }
+
+    .crm-filter-manageCourse {
+        gap: 10px;
+    }
+
+    .crm-ManageCourse-search-box input,
+    .crm-ManageCourse-filter-box select {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .crm-ManageCourse-search-box input {
+        padding-left: 38px;
+    }
+
+    .crm-ManageCourse-search-box i {
+        left: 13px;
+    }
+
+    .crm-table-MC {
+        min-width: 700px;
+    }
+
+    .crm-table-MC th,
+    .crm-table-MC td {
+        padding: 11px 9px;
+        font-size: 12px;
+    }
+
+    .crm-edit-btn-AMC,
+    .crm-delete-btn-AMC {
+        width: 27px;
+        height: 27px;
+        margin-right: 3px;
+    }
+
+    .crm-table-footer {
+        font-size: 12px;
+    }
+}
+
+
+/*--- Extra Small Mobile: 320px to 340px ---*/
+@media (max-width: 340px) {
+
+    .crm-manageCourses-header h2 {
+        font-size: 20px;
+    }
+
+    .crm-manageCourses-header p {
+        font-size: 12px;
+    }
+
+    .crm-add-btn {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+    .crm-table-MC {
+        min-width: 680px;
+    }
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -2325,6 +2956,344 @@
   background:#d97706;
 }
 
+
+                              /* ================================================
+                                      MANAGE ENQUIRIES - RESPONSIVE DESIGN
+                              ================================================ */
+
+
+/*--- Tablet Portrait: 768px to 991px ---*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .crm-manageEnquiry-header {
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .crm-manageEnquiry-header h2 {
+        font-size: 25px;
+    }
+
+    .crm-manageEnquiry-header p {
+        font-size: 15px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-add-btn {
+        padding: 11px 16px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-filter-manageEnquiries {
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .crm-manageEnquiries-search-box {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+
+    .crm-manageEnquiries-filter-box {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    .crm-manageEnquiries-search-box input,
+    .crm-manageEnquiries-filter-box select {
+        width: 100%;
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .crm-manageEnquiries-search-box input {
+        padding-left: 40px;
+    }
+
+    .crm-manageEnquiries-search-box i {
+        left: 14px;
+    }
+
+    .crm-table-manageEnquiries {
+        overflow-x: auto;
+        border-radius: 10px;
+    }
+
+    .crm-table-ME {
+        min-width: 950px;
+    }
+
+    .crm-table-ME th,
+    .crm-table-ME td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .crm-status-MEB {
+        white-space: nowrap;
+        padding: 5px 11px;
+    }
+
+    .crm-table-footer {
+        gap: 12px;
+    }
+
+    .crm-table-footer p {
+        font-size: 13px;
+    }
+
+    .crm-pagination {
+        gap: 5px;
+    }
+}
+
+
+/*--- Mobile: up to 767px ---*/
+@media (max-width: 767px) {
+
+    /*-- Header --*/
+    .crm-manageEnquiry-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+    }
+
+    .crm-manageEnquiry-header h2 {
+        font-size: 23px;
+        margin-bottom: 7px;
+    }
+
+    .crm-manageEnquiry-header p {
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-add-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        padding: 12px 18px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+
+    /*-- Search and Filters --*/
+    .crm-filter-manageEnquiries {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .crm-manageEnquiries-search-box {
+        width: 100%;
+        flex: none;
+    }
+
+    .crm-manageEnquiries-search-box input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        font-size: 14px;
+    }
+
+    .crm-manageEnquiries-search-box i {
+        left: 14px;
+    }
+
+    .crm-manageEnquiries-filter-box {
+        width: 100%;
+        flex: none;
+    }
+
+    .crm-manageEnquiries-filter-box select {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+
+    /*-- Table --*/
+    .crm-table-manageEnquiries {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-radius: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .crm-table-ME {
+        width: 100%;
+        min-width: 950px;
+        border-collapse: collapse;
+    }
+
+    .crm-table-ME th {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-table-ME td {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-status-MEB {
+        padding: 5px 11px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+
+    /*-- Action Buttons --*/
+    .crm-view-btn-MEB,
+    .crm-edit-btn-MEB,
+    .crm-followup-btn-MEB,
+    .crm-delete-btn-MEB {
+        width: 27px;
+        height: 27px;
+        margin-right: 3px;
+        flex-shrink: 0;
+    }
+
+
+    /*-- Table Footer --*/
+    .crm-table-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    .crm-table-footer p {
+        font-size: 13px;
+    }
+
+    .crm-pagination {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    .crm-pagination button {
+        min-width: 30px;
+        height: 30px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+    .crm-pagination .pagination-dots {
+        padding: 0 3px;
+    }
+}
+
+
+/*--- Small Mobile: 320px to 414px ---*/
+@media (max-width: 414px) {
+
+    .crm-manageEnquiry-header {
+        gap: 12px;
+    }
+
+    .crm-manageEnquiry-header h2 {
+        font-size: 21px;
+    }
+
+    .crm-manageEnquiry-header p {
+        font-size: 13px;
+    }
+
+    .crm-add-btn {
+        padding: 11px 15px;
+        font-size: 13px;
+    }
+
+    .crm-filter-manageEnquiries {
+        gap: 10px;
+    }
+
+    .crm-manageEnquiries-search-box input,
+    .crm-manageEnquiries-filter-box select {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .crm-manageEnquiries-search-box input {
+        padding-left: 38px;
+    }
+
+    .crm-manageEnquiries-search-box i {
+        left: 13px;
+    }
+
+    .crm-table-ME {
+        min-width: 900px;
+    }
+
+    .crm-table-ME th,
+    .crm-table-ME td {
+        padding: 11px 9px;
+        font-size: 12px;
+    }
+
+    .crm-status-MEB {
+        padding: 5px 9px;
+        font-size: 10px;
+    }
+
+    .crm-table-footer p {
+        font-size: 12px;
+    }
+
+    .crm-pagination {
+        gap: 4px;
+    }
+
+    .crm-pagination button {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 7px;
+    }
+}
+
+
+/*--- Extra Small Mobile: 320px to 340px ---*/
+@media (max-width: 340px) {
+
+    .crm-manageEnquiry-header h2 {
+        font-size: 20px;
+    }
+
+    .crm-manageEnquiry-header p {
+        font-size: 12px;
+    }
+
+    .crm-add-btn {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+
+    .crm-table-ME {
+        min-width: 850px;
+    }
+
+    .crm-pagination button {
+        min-width: 26px;
+        padding: 0 6px;
+        font-size: 11px;
+    }
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
                           /* ==================================
@@ -2646,6 +3615,339 @@
   background:#16a34a;
 }
 
+
+
+                        /* ==============================================
+                               TODAY'S FOLLOW-UPS - RESPONSIVE DESIGN
+                        ============================================== */
+
+/*--- Tablet Portrait: 768px to 991px ---*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .crm-TodayFollowUps-header {
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .crm-TodayFollowUps-header h2 {
+        font-size: 25px;
+    }
+
+    .crm-TodayFollowUps-header p {
+        font-size: 15px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+    .crm-Tdyfollowup-filter-container {
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .crm-Tdyfollowup-search-box {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .crm-Tdyfollowup-filter-box {
+        flex: 1 1 0;
+        min-width: 140px;
+    }
+
+    .crm-Tdyfollowup-search-box input,
+    .crm-Tdyfollowup-filter-box select {
+        width: 100%;
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .crm-Tdyfollowup-search-box input {
+        padding-left: 40px;
+    }
+
+    .crm-Tdyfollowup-search-box i {
+        left: 14px;
+    }
+
+    .crm-table-addFollow-Ups {
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-radius: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .crm-table-AFU {
+        min-width: 850px;
+    }
+
+    .crm-table-AFU th,
+    .crm-table-AFU td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+
+    .crm-status-AFU {
+        padding: 5px 10px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+    .crm-view-AFU-btn,
+    .crm-edit-AFU-btn,
+    .crm-complete-AFU-btn {
+        width: 27px;
+        height: 27px;
+        margin-right: 3px;
+    }
+
+    .crm-table-footer {
+        gap: 12px;
+    }
+
+    #followUpCount {
+        font-size: 13px;
+    }
+
+    .crm-pagination {
+        gap: 5px;
+    }
+}
+
+
+/*--- Mobile: up to 767px ---*/
+@media (max-width: 767px) {
+
+    /*-- Header --*/
+    .crm-TodayFollowUps-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .crm-TodayFollowUps-header h2 {
+        font-size: 23px;
+        margin-bottom: 7px;
+    }
+
+    .crm-TodayFollowUps-header p {
+        font-size: 14px;
+        line-height: 1.5;
+        letter-spacing: 0.3px;
+    }
+
+
+    /*-- Search and Filters --*/
+    .crm-Tdyfollowup-filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .crm-Tdyfollowup-search-box {
+        width: 100%;
+        min-width: 0;
+        flex: none;
+    }
+
+    .crm-Tdyfollowup-search-box input {
+        width: 100%;
+        padding: 12px 12px 12px 40px;
+        font-size: 14px;
+    }
+
+    .crm-Tdyfollowup-search-box i {
+        left: 14px;
+    }
+
+    .crm-Tdyfollowup-filter-box {
+        width: 100%;
+        flex: none;
+    }
+
+    .crm-Tdyfollowup-filter-box select {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+
+    /*-- Table --*/
+    .crm-table-addFollow-Ups {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        border-radius: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .crm-table-AFU {
+        width: 100%;
+        min-width: 850px;
+        border-collapse: collapse;
+    }
+
+    .crm-table-AFU th {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .crm-table-AFU td {
+        padding: 12px 10px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+
+    /*-- Status --*/
+    .crm-status-AFU {
+        display: inline-block;
+        padding: 5px 11px;
+        font-size: 11px;
+        white-space: nowrap;
+    }
+
+
+    /*-- Action Buttons --*/
+    .crm-view-AFU-btn,
+    .crm-edit-AFU-btn,
+    .crm-complete-AFU-btn {
+        width: 27px;
+        height: 27px;
+        margin-right: 3px;
+        flex-shrink: 0;
+    }
+
+
+    /*-- Table Footer --*/
+    .crm-table-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    #followUpCount {
+        font-size: 13px;
+    }
+
+    .crm-pagination {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 5px;
+    }
+
+    .crm-pagination button {
+        min-width: 30px;
+        height: 30px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+    .crm-pagination-dots {
+        padding: 0 3px;
+    }
+}
+
+
+/*--- Small Mobile: 320px to 414px ---*/
+@media (max-width: 414px) {
+
+    .crm-TodayFollowUps-header {
+        gap: 10px;
+    }
+
+    .crm-TodayFollowUps-header h2 {
+        font-size: 21px;
+    }
+
+    .crm-TodayFollowUps-header p {
+        font-size: 13px;
+    }
+
+    .crm-Tdyfollowup-filter-container {
+        gap: 10px;
+    }
+
+    .crm-Tdyfollowup-search-box input,
+    .crm-Tdyfollowup-filter-box select {
+        padding: 11px;
+        font-size: 13px;
+    }
+
+    .crm-Tdyfollowup-search-box input {
+        padding-left: 38px;
+    }
+
+    .crm-Tdyfollowup-search-box i {
+        left: 13px;
+    }
+
+    .crm-table-AFU {
+        min-width: 800px;
+    }
+
+    .crm-table-AFU th,
+    .crm-table-AFU td {
+        padding: 11px 9px;
+        font-size: 12px;
+    }
+
+    .crm-status-AFU {
+        padding: 5px 9px;
+        font-size: 10px;
+    }
+
+    .crm-view-AFU-btn,
+    .crm-edit-AFU-btn,
+    .crm-complete-AFU-btn {
+        width: 26px;
+        height: 26px;
+    }
+
+    #followUpCount {
+        font-size: 12px;
+    }
+
+    .crm-pagination {
+        gap: 4px;
+    }
+
+    .crm-pagination button {
+        min-width: 28px;
+        height: 28px;
+        padding: 0 7px;
+    }
+}
+
+
+/*--- Extra Small Mobile: 320px to 340px ---*/
+@media (max-width: 340px) {
+
+    .crm-TodayFollowUps-header h2 {
+        font-size: 20px;
+    }
+
+    .crm-TodayFollowUps-header p {
+        font-size: 12px;
+    }
+
+    .crm-table-AFU {
+        min-width: 750px;
+    }
+
+    .crm-pagination button {
+        min-width: 26px;
+        padding: 0 6px;
+        font-size: 11px;
+    }
+}
+
+
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
                       /* =======================================
@@ -2863,6 +4165,405 @@
   background:#16a34a;
 }
 
+
+
+                      /* ===================================================
+                              RESPONSIVE DESIGN - SCHEDULED FOLLOW-UPS
+                      =================================================== */
+
+
+/*--- LARGE DESKTOP - 1600px to 1920px ---*/
+@media screen and (min-width: 1600px) {
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 20px;
+  }
+
+  .crm-ScheduledFollowup-search-box {
+    width: 400px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 18px;
+    font-size: 16px;
+  }
+
+}
+
+
+/*--- DESKTOP - 1280px to 1599px ---*/
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 18px;
+  }
+
+  .crm-filter-scheduledFollowUps {
+    gap: 15px;
+  }
+
+  .crm-ScheduledFollowup-search-box {
+    width: 300px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 14px 10px;
+    font-size: 14px;
+  }
+
+}
+
+
+/*--- SMALL LAPTOP / TABLET LANDSCAPE / 1024px to 1199px ---*/
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-filter-scheduledFollowUps {
+    gap: 12px;
+  }
+
+  .crm-ScheduledFollowup-search-box {
+    width: 250px;
+  }
+
+  .crm-ScheduledFollowup-search-box input,
+  .crm-ScheduledFollowup-filter-box input,
+  .crm-ScheduledFollowup-filter-box select {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-ScheduledFollowup-search-box input {
+    padding-left: 38px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .crm-status-SFU {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .crm-view-btn-SFU,
+  .crm-edit-btn-SFU,
+  .crm-complete-btn-SFU {
+    width: 27px;
+    height: 27px;
+    margin-right: 2px;
+  }
+
+}
+
+
+/*--- TABLET PORTRAIT / 768px to 1023px ---*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  .crm-scheduled-followUps-header {
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-add-btn-sfu {
+    padding: 11px 15px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  /*--- Filters ---*/
+  .crm-filter-scheduledFollowUps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .crm-ScheduledFollowup-search-box {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .crm-ScheduledFollowup-filter-box {
+    min-width: 0;
+  }
+
+  .crm-ScheduledFollowup-search-box input,
+  .crm-ScheduledFollowup-filter-box input,
+  .crm-ScheduledFollowup-filter-box select {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .crm-ScheduledFollowup-search-box input {
+    padding-left: 40px;
+  }
+
+  /*--- Table horizontal scroll ---*/
+  .crm-table-ScheduledFollowUps {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .crm-table-SFU {
+    min-width: 950px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .crm-status-SFU {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- MOBILE - 415px to 767px ---*/
+@media screen and (max-width: 767px) {
+
+  /*--- Header ---*/
+  .crm-scheduled-followUps-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+  }
+
+  .crm-add-btn-sfu {
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+
+
+  /*--- Filters ---*/
+  .crm-filter-scheduledFollowUps {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-ScheduledFollowup-search-box {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-ScheduledFollowup-filter-box {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-ScheduledFollowup-search-box input,
+  .crm-ScheduledFollowup-filter-box input,
+  .crm-ScheduledFollowup-filter-box select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .crm-ScheduledFollowup-search-box input {
+    padding-left: 40px;
+  }
+
+
+  /*--- Table ---*/
+  .crm-table-ScheduledFollowUps {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-ScheduledFollowup {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-SFU {
+    min-width: 900px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 11px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .crm-status-SFU {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+
+  /*--- Action Buttons ---*/
+  .crm-view-btn-SFU,
+  .crm-edit-btn-SFU,
+  .crm-complete-btn-SFU {
+    width: 28px;
+    height: 28px;
+    margin-right: 3px;
+  }
+
+
+  /*--- Table Footer ---*/
+  .crm-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  #scheduledFollowUpCount {
+    font-size: 13px;
+  }
+
+  .crm-pagination {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .crm-pagination button {
+    min-width: 28px;
+    height: 30px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- SMALL MOBILE - 320px to 414px ---*/
+@media screen and (max-width: 414px) {
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 13px;
+  }
+
+  .crm-add-btn-sfu {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .crm-filter-scheduledFollowUps {
+    gap: 10px;
+  }
+
+  .crm-ScheduledFollowup-search-box input,
+  .crm-ScheduledFollowup-filter-box input,
+  .crm-ScheduledFollowup-filter-box select {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 13px;
+  }
+
+  .crm-ScheduledFollowup-search-box input {
+    padding-left: 38px;
+  }
+
+  .crm-table-SFU {
+    min-width: 850px;
+  }
+
+  .crm-table-SFU th,
+  .crm-table-SFU td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .crm-pagination {
+    gap: 4px;
+  }
+
+  .crm-pagination button {
+    min-width: 25px;
+    height: 28px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+}
+
+
+/*--- EXTRA SMALL MOBILE - 320px to 359px ---*/
+@media screen and (max-width: 359px) {
+
+  .crm-scheduled-followUps-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-scheduled-followUps-header p {
+    font-size: 12px;
+  }
+
+  .crm-add-btn-sfu {
+    font-size: 12px;
+    padding: 9px 12px;
+  }
+
+  .crm-table-SFU {
+    min-width: 800px;
+  }
+
+  .crm-pagination button {
+    min-width: 23px;
+    padding: 0 5px;
+  }
+
+}
+
+
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
 
                       /* ======================================
@@ -3078,6 +4779,466 @@
 .crm-view-FUH-btn:hover {  
   background:#1746c9;
 }
+
+
+                          /* ================================================
+                                  RESPONSIVE DESIGN - FOLLOW-UP HISTORY
+                          ================================================= */
+
+
+/*--- LARGE DESKTOP - 1600px to 1920px ---*/
+@media screen and (min-width: 1600px) {
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 20px;
+  }
+
+  .crm-FollowUp-History-search {
+    width: 400px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 18px;
+    font-size: 16px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 13px 22px;
+    font-size: 16px;
+  }
+
+}
+
+
+/*--- DESKTOP - 1280px to 1599px ---*/
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 18px;
+  }
+
+  .crm-FollowUp-History-actions {
+    gap: 10px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+
+  .crm-filter-FollowUp-History {
+    gap: 15px;
+  }
+
+  .crm-FollowUp-History-search {
+    width: 300px;
+  }
+
+  .crm-FollowUp-History-search input,
+  .crm-FollowUp-History-filter input,
+  .crm-FollowUp-History-filter select {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .crm-FollowUp-History-search input {
+    padding-left: 40px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 14px 10px;
+    font-size: 14px;
+  }
+
+}
+
+
+/*--- SMALL LAPTOP / TABLET LANDSCAPE / 1024px to 1199px ---*/
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+  .crm-FollowUp-History-header {
+    gap: 12px;
+  }
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-FollowUp-History-actions {
+    gap: 8px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .crm-filter-FollowUp-History {
+    gap: 12px;
+  }
+
+  .crm-FollowUp-History-search {
+    width: 250px;
+  }
+
+  .crm-FollowUp-History-search input,
+  .crm-FollowUp-History-filter input,
+  .crm-FollowUp-History-filter select {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .crm-FollowUp-History-search input {
+    padding-left: 38px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+
+  .crm-status-FUH {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .crm-view-FUH-btn {
+    width: 27px;
+    height: 27px;
+  }
+
+}
+
+
+/*--- TABLET PORTRAIT / 768px to 1023px ---*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  /*--- Header ---*/
+  .crm-FollowUp-History-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .crm-FollowUp-History-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+
+  /*--- Filters ---*/
+  .crm-filter-FollowUp-History {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .crm-FollowUp-History-search {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .crm-FollowUp-History-filter {
+    min-width: 0;
+  }
+
+  .crm-FollowUp-History-search input,
+  .crm-FollowUp-History-filter input,
+  .crm-FollowUp-History-filter select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .crm-FollowUp-History-search input {
+    padding-left: 40px;
+  }
+
+
+  /*--- Table ---*/
+  .crm-table-FollowUp-History {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-FUH {
+    min-width: 950px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .crm-status-FUH {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- MOBILE - 415px to 767px ---*/
+@media screen and (max-width: 767px) {
+
+  /*-- Header --*/
+  .crm-FollowUp-History-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+  }
+
+
+  /*-- Export / Print Buttons --*/
+  .crm-FollowUp-History-actions {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 11px 12px;
+    font-size: 13px;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+
+  /*-- Filters --*/
+  .crm-filter-FollowUp-History {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-FollowUp-History-search {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-FollowUp-History-filter {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-FollowUp-History-search input,
+  .crm-FollowUp-History-filter input,
+  .crm-FollowUp-History-filter select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .crm-FollowUp-History-search input {
+    padding-left: 40px;
+  }
+
+
+  /*-- Table --*/
+  .crm-table-FollowUp-History {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-FUH {
+    min-width: 900px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 11px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .crm-status-FUH {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+
+  /*-- View Button --*/
+  .crm-view-FUH-btn {
+    width: 28px;
+    height: 28px;
+    margin-right: 3px;
+  }
+
+
+  /*-- Footer --*/
+  .crm-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  #historyCount {
+    font-size: 13px;
+  }
+
+  .crm-pagination {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .crm-pagination button {
+    min-width: 28px;
+    height: 30px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- SMALL MOBILE - 320px to 414px ---*/
+@media screen and (max-width: 414px) {
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 13px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 10px 8px;
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .crm-filter-FollowUp-History {
+    gap: 10px;
+  }
+
+  .crm-FollowUp-History-search input,
+  .crm-FollowUp-History-filter input,
+  .crm-FollowUp-History-filter select {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 13px;
+  }
+
+  .crm-FollowUp-History-search input {
+    padding-left: 38px;
+  }
+
+  .crm-table-FUH {
+    min-width: 850px;
+  }
+
+  .crm-table-FUH th,
+  .crm-table-FUH td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .crm-pagination {
+    gap: 4px;
+  }
+
+  .crm-pagination button {
+    min-width: 25px;
+    height: 28px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+}
+
+
+/*--- EXTRA SMALL MOBILE - 320px to 359px ---*/
+@media screen and (max-width: 359px) {
+
+  .crm-FollowUp-History-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-FollowUp-History-header p {
+    font-size: 12px;
+  }
+
+  .crm-export-FUH-btn,
+  .crm-print-FUH-btn {
+    padding: 9px 6px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .crm-table-FUH {
+    min-width: 800px;
+  }
+
+  .crm-pagination button {
+    min-width: 23px;
+    padding: 0 5px;
+  }
+
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -3410,6 +5571,622 @@
   font-size: 10px;
   color: #666666;
 }
+
+
+                              /* ============================================
+                                      RESPONSIVE DESIGN - CALENDAR VIEW
+                              ============================================ */
+
+
+/*--- LARGE DESKTOP - 1600px to 1920px ---*/
+@media screen and (min-width: 1600px) {
+
+  .crm-calendar-view-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 20px;
+  }
+
+  .crm-calendar-view-container {
+    padding: 25px;
+  }
+
+  .crm-calendar-view-table th {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 135px;
+    padding: 10px;
+  }
+
+  .crm-cal-date {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+
+  .crm-event {
+    font-size: 14px;
+    padding: 7px 9px;
+  }
+
+  .crm-dashboard-calendar {
+    padding: 25px;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+}
+
+
+/*--- DESKTOP - 1280px to 1599px ---*/
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-calendar-view-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 18px;
+  }
+
+  .crm-calendar-navigation {
+    gap: 12px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 22px;
+  }
+
+  .crm-calendar-view-container {
+    padding: 18px;
+  }
+
+  .crm-calendar-view-table th {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 115px;
+    padding: 7px;
+  }
+
+  .crm-event {
+    font-size: 12px;
+    padding: 5px 6px;
+  }
+
+  .crm-event-time {
+    font-size: 10px;
+  }
+
+  .crm-event-type {
+    font-size: 9px;
+  }
+
+  .crm-dashboard-calendar {
+    padding: 18px;
+  }
+
+  .crm-box-calendar h3 {
+    font-size: 20px;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 13px 10px;
+    font-size: 14px;
+  }
+
+}
+
+
+/*--- SMALL LAPTOP / TABLET LANDSCAPE / 1024px to 1199px ---*/
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+  .crm-calendar-view-header {
+    gap: 12px;
+  }
+
+  .crm-calendar-view-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-calendar-today-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .crm-calendar-navigation {
+    gap: 10px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 20px;
+  }
+
+  .crm-calendar-view-container {
+    padding: 12px;
+  }
+
+  .crm-calendar-view-table {
+    min-width: 750px;
+  }
+
+  .crm-calendar-view-table th {
+    padding: 11px 6px;
+    font-size: 13px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 105px;
+    padding: 6px;
+  }
+
+  .crm-cal-date {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .crm-event {
+    font-size: 11px;
+    padding: 5px;
+    margin-bottom: 4px;
+  }
+
+  .crm-event-time {
+    font-size: 9px;
+  }
+
+  .crm-event-type {
+    font-size: 9px;
+  }
+
+  .crm-event-more {
+    font-size: 10px;
+  }
+
+  .crm-dashboard-calendar {
+    padding: 15px;
+  }
+
+  .crm-box-calendar h3 {
+    font-size: 19px;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 11px 8px;
+    font-size: 13px;
+  }
+
+  .crm-status-CV {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- TABLET PORTRAIT / 768px to 1023px ---*/
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  /*-- Header --*/
+  .crm-calendar-view-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-calendar-view-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-calendar-today-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+
+  /*-- Calendar Navigation --*/
+  .crm-calendar-navigation {
+    gap: 10px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 19px;
+  }
+
+  .crm-calendar-btn {
+    width: 29px;
+    height: 29px;
+  }
+
+
+  /*-- Calendar Container --*/
+  .crm-calendar-view-container {
+    padding: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-calendar-view-table {
+    min-width: 750px;
+  }
+
+  .crm-calendar-view-table th {
+    padding: 11px 6px;
+    font-size: 13px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 100px;
+    padding: 6px;
+  }
+
+  .crm-cal-date {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .crm-event {
+    font-size: 11px;
+    padding: 5px;
+    margin-bottom: 4px;
+  }
+
+  .crm-event-time {
+    font-size: 9px;
+  }
+
+  .crm-event-type {
+    font-size: 9px;
+  }
+
+  .crm-event-more {
+    font-size: 10px;
+  }
+
+
+  /*-- Dashboard Summary --*/
+  .crm-dashboard-calendar {
+    padding: 15px;
+  }
+
+  .crm-box-calendar h3 {
+    font-size: 19px;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 11px 8px;
+    font-size: 13px;
+  }
+
+  .crm-status-CV {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/*--- MOBILE - 415px to 767px ---*/
+@media screen and (max-width: 767px) {
+
+  /*-- Header --*/
+  .crm-calendar-view-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-calendar-view-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+  }
+
+  .crm-calendar-today-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+
+  /*-- Calendar Navigation --*/
+  .crm-calendar-navigation {
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 19px;
+  }
+
+  .crm-calendar-btn {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+
+
+  /*-- Calendar Container --*/
+  .crm-calendar-view-container {
+    padding: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-calendar-view-table {
+    min-width: 700px;
+    table-layout: fixed;
+  }
+
+  .crm-calendar-view-table th {
+    padding: 10px 5px;
+    font-size: 12px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 95px;
+    padding: 5px;
+  }
+
+  .crm-cal-date {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+
+  /*-- Calendar Events --*/
+  .crm-event {
+    font-size: 11px;
+    padding: 5px;
+    margin-bottom: 4px;
+    border-left-width: 3px;
+  }
+
+  .crm-event-student {
+    font-size: 10px;
+  }
+
+  .crm-event-time {
+    font-size: 9px;
+  }
+
+  .crm-event-type {
+    font-size: 9px;
+  }
+
+  .crm-event-more {
+    font-size: 9px;
+  }
+
+
+  /*-- Dashboard Calendar --*/
+  .crm-dashboard-calendar {
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .crm-box-calendar {
+    margin-bottom: 15px;
+  }
+
+  .crm-box-calendar h3 {
+    font-size: 18px;
+  }
+
+
+  /*-- Dashboard Table --*/
+  .crm-table-Cal-view {
+    min-width: 650px;
+  }
+
+  .crm-dashboard-calendar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .crm-status-CV {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+
+  /*-- Empty Message --*/
+  .crm-calendar-empty {
+    padding: 15px;
+    font-size: 13px;
+  }
+
+}
+
+
+/*--- SMALL MOBILE - 320px to 414px ---*/
+@media screen and (max-width: 414px) {
+
+  .crm-calendar-view-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 13px;
+  }
+
+  .crm-calendar-today-btn {
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+
+  .crm-calendar-navigation {
+    gap: 9px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 17px;
+  }
+
+  .crm-calendar-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .crm-calendar-view-container {
+    padding: 8px;
+  }
+
+  .crm-calendar-view-table {
+    min-width: 650px;
+  }
+
+  .crm-calendar-view-table th {
+    padding: 9px 4px;
+    font-size: 11px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 85px;
+    padding: 4px;
+  }
+
+  .crm-cal-date {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+
+  .crm-event {
+    font-size: 10px;
+    padding: 4px;
+  }
+
+  .crm-event-student {
+    font-size: 9px;
+  }
+
+  .crm-event-time,
+  .crm-event-type {
+    font-size: 8px;
+  }
+
+  .crm-event-more {
+    font-size: 8px;
+  }
+
+  .crm-dashboard-calendar {
+    padding: 11px;
+  }
+
+  .crm-box-calendar h3 {
+    font-size: 17px;
+  }
+
+  .crm-table-Cal-view {
+    min-width: 600px;
+  }
+
+  .crm-table-Cal-view th,
+  .crm-table-Cal-view td {
+    padding: 9px 6px;
+    font-size: 11px;
+  }
+
+  .crm-status-CV {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+}
+
+
+/*--- EXTRA SMALL MOBILE - 320px to 359px ---*/
+@media screen and (max-width: 359px) {
+
+  .crm-calendar-view-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-calendar-view-header p {
+    font-size: 12px;
+  }
+
+  .crm-calendar-navigation {
+    gap: 7px;
+  }
+
+  .crm-calendar-navigation h3 {
+    font-size: 16px;
+  }
+
+  .crm-calendar-view-table {
+    min-width: 620px;
+  }
+
+  .crm-calendar-view-table td {
+    height: 80px;
+  }
+
+  .crm-event {
+    font-size: 9px;
+    padding: 3px;
+  }
+
+  .crm-event-student {
+    font-size: 8px;
+  }
+
+  .crm-dashboard-calendar {
+    padding: 9px;
+  }
+
+  .crm-table-Cal-view {
+    min-width: 580px;
+  }
+
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -3794,6 +6571,500 @@
 .crm-delete-btn-MD:hover {
   background:#dc2626;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==========================================
+   RESPONSIVE DESIGN - MANAGE ADMISSIONS
+========================================== */
+
+
+/* ==========================================
+   LARGE DESKTOP - 1600px to 1920px
+========================================== */
+
+@media screen and (min-width: 1600px) {
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 20px;
+  }
+
+  .crm-manageAdmission-search-box {
+    width: 400px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 18px;
+    font-size: 16px;
+  }
+
+  .crm-status-MD {
+    font-size: 14px;
+    padding: 7px 15px;
+  }
+
+}
+
+
+/* ==========================================
+   DESKTOP - 1280px to 1599px
+========================================== */
+
+@media screen and (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 18px;
+  }
+
+  .crm-add-btn-MD {
+    padding: 11px 17px;
+    font-size: 14px;
+  }
+
+  .crm-manageAdmission-filter {
+    gap: 15px;
+  }
+
+  .crm-manageAdmission-search-box {
+    width: 300px;
+  }
+
+  .crm-manageAdmission-search-box input,
+  .crm-manageAdmission-filter-box select {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .crm-manageAdmission-search-box input {
+    padding-left: 40px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 13px 10px;
+    font-size: 13px;
+  }
+
+  .crm-status-MD {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .crm-view-btn-MD,
+  .crm-edit-btn-MD,
+  .crm-delete-btn-MD {
+    width: 27px;
+    height: 27px;
+    margin-right: 3px;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL LAPTOP / TABLET LANDSCAPE
+   1024px to 1199px
+========================================== */
+
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+  .crm-manageAdmissions-header {
+    gap: 12px;
+  }
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-add-btn-MD {
+    padding: 10px 13px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .crm-manageAdmission-filter {
+    gap: 12px;
+  }
+
+  .crm-manageAdmission-search-box {
+    width: 250px;
+  }
+
+  .crm-manageAdmission-search-box input,
+  .crm-manageAdmission-filter-box select {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .crm-manageAdmission-search-box input {
+    padding-left: 38px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+
+  .crm-status-MD {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .crm-view-btn-MD,
+  .crm-edit-btn-MD,
+  .crm-delete-btn-MD {
+    width: 26px;
+    height: 26px;
+    margin-right: 2px;
+  }
+
+}
+
+
+/* ==========================================
+   TABLET PORTRAIT
+   768px to 1023px
+========================================== */
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+
+  /* Header */
+
+  .crm-manageAdmissions-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .crm-add-btn-MD {
+    padding: 10px 14px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+
+  /* Search and Filters */
+
+  .crm-manageAdmission-filter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .crm-manageAdmission-search-box {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  .crm-manageAdmission-filter-box {
+    min-width: 0;
+  }
+
+  .crm-manageAdmission-search-box input,
+  .crm-manageAdmission-filter-box select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .crm-manageAdmission-search-box input {
+    padding-left: 40px;
+  }
+
+
+  /* Table */
+
+  .crm-table-manageAdmissions {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-MD {
+    min-width: 950px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .crm-status-MD {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE - 415px to 767px
+========================================== */
+
+@media screen and (max-width: 767px) {
+
+  /* Header */
+
+  .crm-manageAdmissions-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    line-height: 1.5;
+  }
+
+  .crm-add-btn-MD {
+    padding: 11px 16px;
+    font-size: 14px;
+  }
+
+
+  /* Search and Filters */
+
+  .crm-manageAdmission-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-manageAdmission-search-box {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-manageAdmission-filter-box {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-manageAdmission-search-box input,
+  .crm-manageAdmission-filter-box select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .crm-manageAdmission-search-box input {
+    padding-left: 40px;
+  }
+
+
+  /* Table */
+
+  .crm-table-manageAdmissions {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .crm-table-MD {
+    min-width: 900px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 11px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .crm-status-MD {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+
+  /* Action Buttons */
+
+  .crm-view-btn-MD,
+  .crm-edit-btn-MD,
+  .crm-delete-btn-MD {
+    width: 28px;
+    height: 28px;
+    margin-right: 3px;
+  }
+
+
+  /* Footer */
+
+  .crm-table-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .crm-table-footer p {
+    font-size: 13px;
+  }
+
+  .crm-pagination {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+
+  .crm-pagination button {
+    min-width: 28px;
+    height: 30px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE - 320px to 414px
+========================================== */
+
+@media screen and (max-width: 414px) {
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 13px;
+  }
+
+  .crm-add-btn-MD {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .crm-manageAdmission-filter {
+    gap: 10px;
+  }
+
+  .crm-manageAdmission-search-box input,
+  .crm-manageAdmission-filter-box select {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    font-size: 13px;
+  }
+
+  .crm-manageAdmission-search-box input {
+    padding-left: 38px;
+  }
+
+  .crm-table-MD {
+    min-width: 850px;
+  }
+
+  .crm-table-MD th,
+  .crm-table-MD td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .crm-status-MD {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .crm-pagination {
+    gap: 4px;
+  }
+
+  .crm-pagination button {
+    min-width: 25px;
+    height: 28px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+}
+
+
+/* ==========================================
+   EXTRA SMALL MOBILE - 320px to 359px
+========================================== */
+
+@media screen and (max-width: 359px) {
+
+  .crm-manageAdmissions-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-manageAdmissions-header p {
+    font-size: 12px;
+  }
+
+  .crm-add-btn-MD {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .crm-table-MD {
+    min-width: 800px;
+  }
+
+  .crm-pagination button {
+    min-width: 23px;
+    padding: 0 5px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------- */
 
