@@ -2725,6 +2725,314 @@
   color:white;
 }
 
+
+
+                      /* ===========================================
+                              ADD ENQUIRY RESPONSIVE DESIGN
+                      =========================================== */
+
+
+/*--- LARGE DESKTOP - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-addEnquiry-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 20px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 35px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    gap: 25px;
+  }
+
+  .crm-form-group-addEnquiry label {
+    font-size: 16px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    padding: 13px 16px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- LAPTOP - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-form-AddEnquiry {
+    padding: 28px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    gap: 20px;
+  }
+}
+
+
+/*--- SMALL LAPTOP - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-addEnquiry-header h2 {
+    font-size: 27px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 17px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 22px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    gap: 16px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    padding: 11px 12px;
+  }
+}
+
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-addEnquiry-header {
+    margin-bottom: 20px;
+  }
+
+  .crm-addEnquiry-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .crm-form-group-addEnquiry label {
+    font-size: 14px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .crm-btn-AddEnq-save,
+  .crm-btn-AddEnq-reset {
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- SMALL TABLET - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-addEnquiry-header {
+    margin-bottom: 18px;
+  }
+
+  .crm-addEnquiry-header h2 {
+    font-size: 23px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 15px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 18px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .crm-form-group-addEnquiry label {
+    font-size: 13px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .crm-form-AddEnquiry-buttons {
+    gap: 10px;
+  }
+
+  .crm-btn-AddEnq-save,
+  .crm-btn-AddEnq-reset {
+    padding: 11px 20px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- MOBILE - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-addEnquiry-header {
+    margin-bottom: 18px;
+  }
+
+  .crm-addEnquiry-header h2 {
+    font-size: 21px;
+    margin-bottom: 8px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 16px;
+    border-radius: 9px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    margin-bottom: 18px;
+  }
+
+  .crm-form-group-addEnquiry {
+    width: 100%;
+  }
+
+  .crm-form-group-addEnquiry label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-group-addEnquiry textarea {
+    min-height: 90px;
+  }
+
+  .crm-assigned-employee {
+    padding: 11px 12px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+
+  .crm-form-AddEnquiry-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 5px;
+  }
+
+  .crm-btn-AddEnq-save,
+  .crm-btn-AddEnq-reset {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- SMALL MOBILE - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-addEnquiry-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-addEnquiry-header p {
+    font-size: 13px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 13px;
+  }
+
+  .crm-form-grid-addEnquiry {
+    gap: 13px;
+  }
+
+  .crm-form-group-addEnquiry label {
+    font-size: 12px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .crm-assigned-employee {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .crm-btn-AddEnq-save,
+  .crm-btn-AddEnq-reset {
+    font-size: 13px;
+    padding: 11px;
+  }
+}
+
+
+/*--- EXTRA SMALL MOBILE - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-addEnquiry-header h2 {
+    font-size: 18px;
+  }
+
+  .crm-form-AddEnquiry {
+    padding: 11px;
+  }
+
+  .crm-form-group-addEnquiry input,
+  .crm-form-group-addEnquiry select,
+  .crm-form-group-addEnquiry textarea {
+    font-size: 12px;
+  }
+
+  .crm-form-AddEnquiry-buttons {
+    gap: 8px;
+  }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------------- */
 
                   /* =============================================
@@ -10011,19 +10319,12 @@
 }
 
 
+                            /* ================================================
+                                    ENQUIRY REPORTS - RESPONSIVE DESIGN
+                            ================================================ */
 
 
-
-
-
-
-/* =========================================
-   ENQUIRY REPORTS - RESPONSIVE DESIGN
-========================================= */
-
-
-
-/* TABLET & SMALL DESKTOP: 1024px */
+/*--- TABLET & SMALL DESKTOP: 1024px ---*/
 @media screen and (max-width: 1024px) {
 
     .crm-enquiryReports-header {
@@ -10061,7 +10362,7 @@
 }
 
 
-/* TABLET: 768px */
+/*--- TABLET: 768px ---*/
 @media screen and (max-width: 768px) {
 
     .crm-enquiryReports-header {
@@ -10170,7 +10471,7 @@
 }
 
 
-/* MOBILE: 600px */
+/*--- MOBILE: 600px ---*/
 @media screen and (max-width: 600px) {
 
     .crm-enquiryReports-header h2 {
@@ -10303,7 +10604,7 @@
 }
 
 
-/* SMALL MOBILE: 380px */
+/*--- SMALL MOBILE: 380px ---*/
 @media screen and (max-width: 380px) {
 
     .crm-enquiryReports-header h2 {
@@ -10352,7 +10653,7 @@
 }
 
 
-/* VERY SMALL MOBILE: 320px */
+/*--- VERY SMALL MOBILE: 320px ---*/
 @media screen and (max-width: 340px) {
 
     .crm-enquiryReports-summary {
@@ -14152,6 +14453,353 @@
 }
 
 
+                                /* ============================================
+                                          VIEW ENQUIRY - RESPONSIVE DESIGN
+                                ============================================ */
+
+
+/*--- LARGE DESKTOP: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 20px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 30px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 24px;
+  }
+
+  .crm-viewEnquiry-grid {
+    gap: 24px 35px;
+  }
+
+  .crm-viewEnquiry-field label {
+    font-size: 15px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    min-height: 45px;
+    font-size: 15px;
+  }
+
+  .crm-viewEnquiry-back-btn,
+  .crm-viewEnquiry-edit-btn,
+  .crm-viewEnquiry-manage-btn {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+}
+
+
+/*--- DESKTOP / LAPTOP: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-viewEnquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 25px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 25px;
+  }
+}
+
+
+/*--- SMALL LAPTOP: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 27px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 16px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 20px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 20px;
+  }
+
+  .crm-viewEnquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+  }
+
+  .crm-viewEnquiry-field label {
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .crm-viewEnquiry-back-btn,
+  .crm-viewEnquiry-edit-btn,
+  .crm-viewEnquiry-manage-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- TABLET: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-viewEnquiry-header {
+    gap: 12px;
+  }
+
+  .crm-viewEnquiry-back-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 18px;
+  }
+
+  .crm-viewEnquiry-card-title {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 19px;
+  }
+
+  .crm-viewEnquiry-status {
+    padding: 5px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .crm-viewEnquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px 16px;
+  }
+
+  .crm-viewEnquiry-field label {
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    min-height: 40px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-edit-btn,
+  .crm-viewEnquiry-manage-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- MOBILE: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-viewEnquiry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 24px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 15px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 18px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 19px;
+  }
+
+  .crm-viewEnquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-actions {
+    flex-wrap: wrap;
+  }
+}
+
+
+/*--- MOBILE: 320px - 600px ---*/
+@media (max-width: 600px) {
+
+  .crm-viewEnquiry-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 22px;
+    margin-bottom: 7px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+  }
+
+  .crm-viewEnquiry-back-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .crm-viewEnquiry-card-title {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  .crm-viewEnquiry-status {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .crm-viewEnquiry-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .crm-viewEnquiry-field {
+    width: 100%;
+    gap: 5px;
+  }
+
+  .crm-viewEnquiry-field label {
+    font-size: 13px;
+    margin-bottom: 2px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    width: 100%;
+    min-height: 39px;
+    padding: 10px 11px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .crm-viewEnquiry-actions {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+  }
+
+  .crm-viewEnquiry-edit-btn,
+  .crm-viewEnquiry-manage-btn {
+    justify-content: center;
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-loading {
+    padding: 40px 15px;
+  }
+
+  .crm-viewEnquiry-error {
+    padding: 35px 15px;
+  }
+}
+
+
+/*--- EXTRA SMALL MOBILE: 320px - 360px ---*/
+@media (max-width: 360px) {
+
+  .crm-viewEnquiry-header h2 {
+    font-size: 20px;
+  }
+
+  .crm-viewEnquiry-header p {
+    font-size: 13px;
+  }
+
+  .crm-viewEnquiry-card {
+    padding: 12px;
+  }
+
+  .crm-viewEnquiry-card-title h3 {
+    font-size: 16px;
+  }
+
+  .crm-viewEnquiry-grid {
+    gap: 12px;
+  }
+
+  .crm-viewEnquiry-field label {
+    font-size: 12px;
+  }
+
+  .crm-viewEnquiry-field-value {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .crm-viewEnquiry-actions {
+    gap: 7px;
+  }
+
+  .crm-viewEnquiry-edit-btn,
+  .crm-viewEnquiry-manage-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------- */
         
                       /* ====================================
@@ -14276,6 +14924,313 @@
   padding: 40px;
   color: #dc2626;
 }
+
+
+
+                            /* ==============================================
+                                    VIEW FOLLOW-UP - RESPONSIVE DESIGN
+                            ============================================== */
+
+
+/*--- Large Desktop - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-view-followup-container {
+    padding: 30px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 24px;
+  }
+
+  .crm-view-followup-grid {
+    gap: 24px;
+  }
+
+  .crm-view-followup-field {
+    padding: 18px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 15px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 16px;
+  }
+
+  .crm-view-followup-btn {
+    padding: 11px 20px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-view-followup-container {
+    padding: 22px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 21px;
+  }
+
+  .crm-view-followup-grid {
+    gap: 17px;
+  }
+
+  .crm-view-followup-field {
+    padding: 14px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 13px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 14px;
+  }
+}
+
+
+/*--- Small Laptop - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-view-followup-container {
+    padding: 20px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 20px;
+  }
+
+  .crm-view-followup-grid {
+    gap: 15px;
+  }
+
+  .crm-view-followup-field {
+    padding: 13px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 13px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 14px;
+  }
+
+  .crm-view-followup-btn {
+    padding: 9px 15px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Tablet - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-view-followup-container {
+    padding: 20px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 20px;
+  }
+
+  .crm-view-followup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .crm-view-followup-field {
+    padding: 13px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 13px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 14px;
+  }
+
+  .crm-view-followup-actions {
+    gap: 10px;
+  }
+
+  .crm-view-followup-btn {
+    padding: 9px 15px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Tablet - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-view-followup-container {
+    padding: 18px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 19px;
+    padding-bottom: 12px;
+  }
+
+  .crm-view-followup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .crm-view-followup-field {
+    padding: 12px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 12px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 13px;
+  }
+
+  .crm-view-followup-actions {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .crm-view-followup-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-view-followup-container {
+    padding: 16px;
+    margin-top: 15px;
+    border-radius: 9px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 19px;
+    margin-bottom: 13px;
+    padding-bottom: 12px;
+  }
+
+  .crm-view-followup-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .crm-view-followup-field {
+    padding: 13px;
+  }
+
+  .crm-view-followup-field.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .crm-view-followup-label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 13px;
+    min-height: 18px;
+  }
+
+  .crm-view-followup-actions {
+    margin-top: 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .crm-view-followup-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 15px;
+    font-size: 13px;
+  }
+
+  .crm-followup-status {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .crm-view-loading,
+  .crm-view-error {
+    padding: 35px 15px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Mobile - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-view-followup-container {
+    padding: 13px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 17px;
+  }
+
+  .crm-view-followup-grid {
+    gap: 10px;
+  }
+
+  .crm-view-followup-field {
+    padding: 11px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 11px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 12px;
+  }
+
+  .crm-view-followup-btn {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- Extra Small Mobile - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-view-followup-container {
+    padding: 11px;
+  }
+
+  .crm-view-followup-title {
+    font-size: 16px;
+  }
+
+  .crm-view-followup-field {
+    padding: 10px;
+  }
+
+  .crm-view-followup-label {
+    font-size: 10px;
+  }
+
+  .crm-view-followup-value {
+    font-size: 12px;
+  }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -14405,6 +15360,266 @@
   text-align: center;
   padding: 30px;
 }
+
+
+
+                              /* ============================================
+                                      EDIT FOLLOW-UP RESPONSIVE DESIGN
+                              ============================================ */
+
+
+
+/*--- LARGE DESKTOP - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-edit-followup-container {
+    padding: 30px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 24px;
+  }
+
+  .crm-edit-followup-grid {
+    gap: 25px;
+  }
+
+  .crm-edit-followup-group label {
+    font-size: 15px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+}
+
+
+/*--- LAPTOP - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-edit-followup-container {
+    padding: 25px;
+  }
+
+  .crm-edit-followup-grid {
+    gap: 20px;
+  }
+}
+
+
+/*--- SMALL LAPTOP - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-edit-followup-container {
+    padding: 22px;
+  }
+
+  .crm-edit-followup-grid {
+    gap: 16px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 21px;
+  }
+}
+
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-edit-followup-container {
+    padding: 20px;
+    margin-top: 18px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 21px;
+  }
+
+  .crm-edit-followup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .crm-edit-followup-group label {
+    font-size: 13px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .crm-edit-followup-actions {
+    gap: 10px;
+  }
+}
+
+
+/*--- SMALL TABLET - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-edit-followup-container {
+    padding: 18px;
+    margin-top: 15px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 20px;
+    padding-bottom: 12px;
+  }
+
+  .crm-edit-followup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .crm-edit-followup-group label {
+    font-size: 13px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .crm-edit-followup-actions {
+    margin-top: 20px;
+  }
+
+  .crm-edit-save-btn,
+  .crm-edit-cancel-btn {
+    padding: 10px 15px;
+  }
+}
+
+
+/*--- MOBILE - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-edit-followup-container {
+    padding: 16px;
+    margin-top: 12px;
+    border-radius: 8px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 19px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+  }
+
+  .crm-edit-followup-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .crm-edit-followup-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .crm-edit-followup-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .crm-edit-followup-group textarea {
+    min-height: 90px;
+  }
+
+  .crm-edit-followup-actions {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .crm-edit-save-btn,
+  .crm-edit-cancel-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 15px;
+    font-size: 14px;
+  }
+
+  .crm-edit-loading,
+  .crm-edit-error {
+    padding: 25px 12px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- SMALL MOBILE - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-edit-followup-container {
+    padding: 13px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 18px;
+  }
+
+  .crm-edit-followup-grid {
+    gap: 13px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  .crm-edit-save-btn,
+  .crm-edit-cancel-btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
+
+
+/*--- EXTRA SMALL MOBILE - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-edit-followup-container {
+    padding: 11px;
+  }
+
+  .crm-edit-followup-title {
+    font-size: 17px;
+  }
+
+  .crm-edit-followup-group label {
+    font-size: 12px;
+  }
+
+  .crm-edit-followup-group input,
+  .crm-edit-followup-group select,
+  .crm-edit-followup-group textarea {
+    font-size: 12px;
+  }
+
+  .crm-edit-followup-actions {
+    gap: 8px;
+  }
+}
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -14653,6 +15868,480 @@
   font-size: 35px;
   margin-bottom: 12px;
 }
+
+
+
+                              /* ===============================================
+                                      VIEW ADMISSION MD - RESPONSIVE DESIGN
+                              =============================================== */
+
+
+/*--- Large Desktop - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-view-header-left-MD h1 {
+    font-size: 32px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 20px;
+  }
+
+  .crm-admission-grid-MD {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .crm-detail-item-MD {
+    padding: 22px 25px;
+  }
+
+  .crm-detail-value-MD {
+    font-size: 16px;
+  }
+
+  .crm-fee-item-MD {
+    padding: 25px;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 23px;
+  }
+
+  .crm-section-title-MD {
+    padding: 20px 25px;
+  }
+}
+
+
+/*--- Laptop - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-view-header-left-MD h1 {
+    font-size: 28px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 17px;
+  }
+
+  .crm-view-header-actions-MD {
+    gap: 10px;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .crm-detail-item-MD {
+    padding: 16px 18px;
+  }
+
+  .crm-fee-item-MD {
+    padding: 18px;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 19px;
+  }
+}
+
+
+/*--- Small Laptop - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-view-header-MD {
+    align-items: flex-start;
+  }
+
+  .crm-view-header-left-MD h1 {
+    font-size: 27px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 16px;
+  }
+
+  .crm-view-header-actions-MD {
+    gap: 8px;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .crm-admission-grid-MD {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .crm-detail-item-MD {
+    padding: 15px;
+  }
+
+  .crm-fee-item-MD {
+    padding: 16px;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 18px;
+  }
+}
+
+
+/*--- Tablet - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-view-header-MD {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .crm-view-header-left-MD h1 {
+    font-size: 26px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 16px;
+  }
+
+  .crm-view-header-actions-MD {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    padding: 9px 15px;
+  }
+
+  .crm-admission-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-detail-item-MD:nth-child(3n + 1),
+  .crm-detail-item-MD:nth-child(3n + 2) {
+    border-right: none;
+  }
+
+  .crm-detail-item-MD:nth-child(odd) {
+    border-right: 1px solid #edf0f2;
+  }
+
+  .crm-fee-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-fee-item-MD {
+    padding: 18px;
+    border-bottom: 1px solid #edf0f2;
+  }
+
+  .crm-fee-item-MD:nth-child(2) {
+    border-right: none;
+  }
+
+  .crm-fee-item-MD:nth-child(3),
+  .crm-fee-item-MD:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 19px;
+  }
+}
+
+
+/*--- Small Tablet - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-view-header-MD {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-view-header-left-MD h1 {
+    font-size: 25px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-view-header-actions-MD {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-admission-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-detail-item-MD {
+    padding: 15px 17px;
+  }
+
+  .crm-detail-item-MD:nth-child(3n + 1),
+  .crm-detail-item-MD:nth-child(3n + 2) {
+    border-right: none;
+  }
+
+  .crm-detail-item-MD:nth-child(odd) {
+    border-right: 1px solid #edf0f2;
+  }
+
+  .crm-fee-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-fee-item-MD {
+    padding: 17px;
+    border-bottom: 1px solid #edf0f2;
+  }
+
+  .crm-fee-item-MD:nth-child(2) {
+    border-right: none;
+  }
+
+  .crm-fee-item-MD:nth-child(3),
+  .crm-fee-item-MD:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 18px;
+  }
+}
+
+
+/*--- Mobile - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-view-header-MD {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-view-header-left-MD h1 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-view-header-actions-MD {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    padding: 9px 13px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .crm-admission-card-MD {
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .crm-section-title-MD {
+    padding: 14px 16px;
+  }
+
+  .crm-section-title-MD h2 {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .crm-admission-grid-MD {
+    grid-template-columns: 1fr;
+  }
+
+  .crm-detail-item-MD {
+    padding: 13px 16px;
+    border-right: none !important;
+  }
+
+  .crm-detail-label-MD {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .crm-detail-value-MD {
+    font-size: 13px;
+  }
+
+  .crm-fee-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crm-fee-item-MD {
+    padding: 15px;
+    border-bottom: 1px solid #edf0f2;
+  }
+
+  .crm-fee-item-MD:nth-child(2) {
+    border-right: none;
+  }
+
+  .crm-fee-item-MD:nth-child(3),
+  .crm-fee-item-MD:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .crm-fee-label-MD {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 17px;
+  }
+
+  .crm-admission-status-MD {
+    padding: 14px 16px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .crm-status-label-MD {
+    font-size: 12px;
+  }
+
+  .crm-status-viewMD {
+    font-size: 11px;
+    padding: 5px 11px;
+  }
+
+  .crm-remarks-MD {
+    padding: 15px 16px;
+    font-size: 13px;
+  }
+
+  .crm-loading-MD,
+  .crm-error-MD {
+    padding: 45px 15px;
+  }
+
+  .crm-loading-MD i {
+    font-size: 26px;
+  }
+
+  .crm-error-MD i {
+    font-size: 30px;
+  }
+}
+
+
+/*--- Small Mobile - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-view-header-left-MD h1 {
+    font-size: 21px;
+  }
+
+  .crm-view-header-left-MD p {
+    font-size: 13px;
+  }
+
+  .crm-view-header-actions-MD {
+    gap: 6px;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    padding: 8px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .crm-section-title-MD {
+    padding: 12px 13px;
+  }
+
+  .crm-section-title-MD h2 {
+    font-size: 15px;
+  }
+
+  .crm-detail-item-MD {
+    padding: 12px 13px;
+  }
+
+  .crm-fee-item-MD {
+    padding: 13px;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 15px;
+  }
+
+  .crm-fee-label-MD {
+    font-size: 11px;
+  }
+
+  .crm-admission-status-MD {
+    padding: 12px 13px;
+  }
+
+  .crm-remarks-MD {
+    padding: 13px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- Extra Small Mobile - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-view-header-left-MD h1 {
+    font-size: 19px;
+  }
+
+  .crm-view-header-actions-MD {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .crm-view-back-btn-MD,
+  .crm-edit-btn-view-MD {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-section-title-MD h2 {
+    font-size: 14px;
+  }
+
+  .crm-fee-grid-MD {
+    grid-template-columns: 1fr;
+  }
+
+  .crm-fee-item-MD {
+    border-right: none;
+    border-bottom: 1px solid #edf0f2;
+  }
+
+  .crm-fee-item-MD:last-child {
+    border-bottom: none;
+  }
+
+  .crm-fee-value-MD {
+    font-size: 16px;
+  }
+}
+
 
 /* --------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -14926,6 +16615,488 @@
   font-size: 35px;
   margin-bottom: 12px;
 }
+
+
+
+                              /* ================================================
+                                      EDIT ADMISSION MD - RESPONSIVE DESIGN
+                              ================================================ */
+
+
+/*--- Large Desktop - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 32px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 20px;
+  }
+
+  .crm-form-grid-MD {
+    gap: 25px;
+    padding: 28px;
+  }
+
+  .crm-section-title-editMD {
+    padding: 20px 25px;
+  }
+
+  .crm-section-title-editMD h2 {
+    font-size: 20px;
+  }
+
+  .crm-form-group-MD label {
+    font-size: 15px;
+  }
+
+  .crm-form-group-MD input,
+  .crm-form-group-MD select,
+  .crm-form-group-MD textarea {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+
+  .crm-fee-summary-MD {
+    gap: 22px;
+    padding: 28px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 22px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 23px;
+  }
+}
+
+
+/*--- Laptop - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 28px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 17px;
+  }
+
+  .crm-back-btn-MD,
+  .crm-save-header-btn-MD {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .crm-form-grid-MD {
+    gap: 17px;
+    padding: 20px;
+  }
+
+  .crm-fee-summary-MD {
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 16px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 19px;
+  }
+}
+
+
+/*--- Small Laptop - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-edit-header-MD {
+    align-items: flex-start;
+  }
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 27px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 16px;
+  }
+
+  .crm-edit-header-actions-MD {
+    gap: 8px;
+  }
+
+  .crm-back-btn-MD,
+  .crm-save-header-btn-MD {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .crm-form-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+    padding: 20px;
+  }
+
+  .crm-fee-summary-MD {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 14px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 18px;
+  }
+}
+
+
+/*--- Tablet - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-edit-header-MD {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 26px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 16px;
+  }
+
+  .crm-edit-header-actions-MD {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-form-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .crm-section-title-editMD {
+    padding: 16px 20px;
+  }
+
+  .crm-form-group-MD label {
+    font-size: 13px;
+  }
+
+  .crm-fee-summary-MD {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 14px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 17px;
+  }
+
+  .crm-form-footer-MD {
+    padding: 18px 20px;
+  }
+}
+
+
+/*--- Small Tablet - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-edit-header-MD {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 25px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-edit-header-actions-MD {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-form-grid-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .crm-section-title-editMD {
+    padding: 15px 18px;
+  }
+
+  .crm-section-title-editMD h2 {
+    font-size: 17px;
+  }
+
+  .crm-fee-summary-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 15px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 18px;
+  }
+
+  .crm-form-footer-MD {
+    padding: 17px 18px;
+  }
+}
+
+
+/*--- Mobile - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-edit-header-MD {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-edit-header-actions-MD {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .crm-back-btn-MD,
+  .crm-save-header-btn-MD {
+    flex: 1;
+    justify-content: center;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .crm-admission-form-card-MD {
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+
+  .crm-section-title-editMD {
+    padding: 14px 16px;
+  }
+
+  .crm-section-title-editMD h2 {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .crm-form-grid-MD {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 16px;
+  }
+
+  .crm-form-group-MD.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .crm-form-group-MD label {
+    font-size: 13px;
+    margin-bottom: 7px;
+  }
+
+  .crm-form-group-MD input,
+  .crm-form-group-MD select,
+  .crm-form-group-MD textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .crm-form-group-MD textarea {
+    min-height: 85px;
+  }
+
+  .crm-fee-summary-MD {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 13px;
+  }
+
+  .crm-fee-box-MD label {
+    font-size: 11px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 17px;
+  }
+
+  .crm-form-footer-MD {
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding: 15px 16px;
+  }
+
+  .crm-cancel-btn-MD,
+  .crm-update-btn-MD {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 15px;
+    font-size: 13px;
+  }
+
+  .crm-loading-editMD,
+  .crm-error-editMD {
+    padding: 45px 15px;
+  }
+
+  .crm-loading-editMD i {
+    font-size: 28px;
+  }
+
+  .crm-error-editMD i {
+    font-size: 30px;
+  }
+}
+
+
+/*--- Small Mobile - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 21px;
+  }
+
+  .crm-edit-header-left-MD p {
+    font-size: 13px;
+  }
+
+  .crm-back-btn-MD,
+  .crm-save-header-btn-MD {
+    padding: 8px 10px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .crm-section-title-editMD {
+    padding: 12px 13px;
+  }
+
+  .crm-section-title-editMD h2 {
+    font-size: 15px;
+  }
+
+  .crm-form-grid-MD {
+    padding: 13px;
+    gap: 13px;
+  }
+
+  .crm-form-group-MD label {
+    font-size: 12px;
+  }
+
+  .crm-form-group-MD input,
+  .crm-form-group-MD select,
+  .crm-form-group-MD textarea {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .crm-fee-summary-MD {
+    gap: 8px;
+    padding: 13px;
+  }
+
+  .crm-fee-box-MD {
+    padding: 11px;
+  }
+
+  .crm-fee-box-MD label {
+    font-size: 10px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 15px;
+  }
+
+  .crm-form-footer-MD {
+    padding: 13px;
+  }
+}
+
+
+/*--- Extra Small Mobile - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-edit-header-left-MD h1 {
+    font-size: 19px;
+  }
+
+  .crm-edit-header-actions-MD {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .crm-back-btn-MD,
+  .crm-save-header-btn-MD {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-section-title-editMD h2 {
+    font-size: 14px;
+  }
+
+  .crm-form-grid-MD {
+    padding: 11px;
+  }
+
+  .crm-fee-summary-MD {
+    grid-template-columns: 1fr;
+  }
+
+  .crm-fee-box-MD {
+    padding: 13px;
+  }
+
+  .crm-fee-box-MD label {
+    font-size: 11px;
+  }
+
+  .crm-fee-box-MD strong {
+    font-size: 16px;
+  }
+}
+
 
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -15201,6 +17372,444 @@
   margin-bottom: 15px;
 }
 
+
+
+                          /* =============================================
+                                    VIEW USER - RESPONSIVE DESIGN
+                          ============================================= */
+
+
+/*--- Large Desktop - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-viewUser-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 20px;
+  }
+
+  .crm-viewUser-profile {
+    padding: 30px;
+    gap: 25px;
+  }
+
+  .crm-viewUser-avatar {
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    font-size: 34px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 28px;
+  }
+
+  .crm-viewUser-section {
+    padding: 30px;
+  }
+
+  .crm-viewUser-details-grid {
+    gap: 25px;
+  }
+
+  .crm-viewUser-field-grid {
+    gap: 22px;
+  }
+}
+
+
+/*--- Laptop - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-viewUser-header {
+    gap: 15px;
+  }
+
+  .crm-viewUser-header h2 {
+    font-size: 28px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 17px;
+  }
+
+  .crm-viewUser-actions {
+    gap: 10px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .crm-viewUser-section {
+    padding: 22px;
+  }
+
+  .crm-viewUser-details-grid {
+    gap: 18px;
+  }
+
+  .crm-viewUser-field-grid {
+    gap: 15px;
+  }
+}
+
+
+/*--- Small Laptop / Large Tablet - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-viewUser-header {
+    align-items: flex-start;
+  }
+
+  .crm-viewUser-header h2 {
+    font-size: 27px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 16px;
+  }
+
+  .crm-viewUser-actions {
+    gap: 8px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .crm-viewUser-profile {
+    padding: 20px;
+  }
+
+  .crm-viewUser-section {
+    padding: 20px;
+  }
+
+  .crm-viewUser-details-grid {
+    gap: 15px;
+  }
+
+  .crm-viewUser-field-grid {
+    gap: 14px;
+  }
+}
+
+
+/*--- Tablet - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-viewUser-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .crm-viewUser-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 16px;
+  }
+
+  .crm-viewUser-actions {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 9px 14px;
+  }
+
+  .crm-viewUser-profile {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .crm-viewUser-avatar {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    font-size: 26px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 23px;
+  }
+
+  .crm-viewUser-details-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .crm-viewUser-section {
+    padding: 18px;
+  }
+
+  .crm-viewUser-field-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+}
+
+
+/*--- Mobile / Small Tablet - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-viewUser-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-viewUser-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-viewUser-actions {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .crm-viewUser-profile {
+    padding: 18px;
+    gap: 15px;
+  }
+
+  .crm-viewUser-avatar {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    font-size: 24px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 21px;
+  }
+
+  .crm-viewUser-details-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .crm-viewUser-section {
+    padding: 18px;
+  }
+
+  .crm-viewUser-field-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+}
+
+
+/*--- Mobile - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-viewUser-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .crm-viewUser-header h2 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-viewUser-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 9px 12px;
+    font-size: 12px;
+    flex: 1 1 auto;
+  }
+
+  .crm-viewUser-profile {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .crm-viewUser-avatar {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    font-size: 24px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 21px;
+  }
+
+  .crm-viewUser-profile-info p {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .crm-viewUser-profile-meta {
+    gap: 8px;
+  }
+
+  .crm-viewUser-details-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .crm-viewUser-section {
+    padding: 16px;
+  }
+
+  .crm-viewUser-section-title {
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+
+  .crm-viewUser-section-title h3 {
+    font-size: 16px;
+  }
+
+  .crm-viewUser-field-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .crm-viewUser-field label {
+    font-size: 12px;
+  }
+
+  .crm-viewUser-field-value {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .crm-viewUser-address {
+    min-height: 85px;
+    padding: 13px;
+    font-size: 13px;
+  }
+
+  .crm-role-viewuser,
+  .crm-viewuser-status {
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+
+  .crm-viewUser-loading,
+  .crm-viewUser-error {
+    padding: 45px 15px;
+  }
+}
+
+
+/*--- Small Mobile - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-viewUser-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-viewUser-header p {
+    font-size: 13px;
+  }
+
+  .crm-viewUser-actions {
+    gap: 6px;
+  }
+
+  .crm-viewUser-btn {
+    padding: 8px 9px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .crm-viewUser-profile {
+    padding: 14px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 19px;
+  }
+
+  .crm-viewUser-section {
+    padding: 13px;
+  }
+
+  .crm-viewUser-section-title h3 {
+    font-size: 15px;
+  }
+
+  .crm-viewUser-field-value {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .crm-viewUser-address {
+    padding: 11px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- Extra Small Mobile - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-viewUser-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-viewUser-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .crm-viewUser-btn {
+    width: 100%;
+    flex: none;
+  }
+
+  .crm-viewUser-avatar {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    font-size: 22px;
+  }
+
+  .crm-viewUser-profile-info h3 {
+    font-size: 18px;
+  }
+
+  .crm-viewUser-section {
+    padding: 12px;
+  }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
               /* ===========================
@@ -15467,6 +18076,405 @@
   color: #667085;
   margin-bottom: 20px;
 }
+
+
+                            /* =============================================
+                                    EDIT USER - RESPONSIVE DESIGN
+                            ============================================= */
+
+
+/*--- Large Desktop - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-editUser-header h1 {
+    font-size: 32px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 20px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 35px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 20px;
+  }
+
+  .crm-form-grid-editUser {
+    gap: 25px;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 15px;
+  }
+
+  .crm-editUser-form-group input,
+  .crm-editUser-form-group select,
+  .crm-editUser-form-group textarea {
+    padding: 12px 15px;
+    font-size: 15px;
+  }
+
+  .crm-editUser-btn {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-editUser-header h1 {
+    font-size: 28px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 17px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 25px;
+  }
+
+  .crm-form-grid-editUser {
+    gap: 18px;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 13px;
+  }
+
+  .crm-editUser-btn {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Laptop - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-editUser-header {
+    gap: 15px;
+  }
+
+  .crm-editUser-header h1 {
+    font-size: 27px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 16px;
+  }
+
+  .crm-editUser-actions {
+    gap: 8px;
+  }
+
+  .crm-editUser-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 22px;
+  }
+
+  .crm-form-grid-editUser {
+    gap: 16px;
+  }
+}
+
+
+/*--- Tablet - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-editUser-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .crm-editUser-header h1 {
+    font-size: 26px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 16px;
+  }
+
+  .crm-editUser-actions {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .crm-editUser-btn {
+    padding: 9px 15px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 22px;
+  }
+
+  .crm-form-grid-editUser {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 17px;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Tablet - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-editUser-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .crm-editUser-header h1 {
+    font-size: 25px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-editUser-actions {
+    width: 100%;
+  }
+
+  .crm-editUser-btn {
+    padding: 9px 14px;
+    font-size: 13px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 20px;
+  }
+
+  .crm-form-grid-editUser {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 17px;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 13px;
+  }
+
+  .crm-form-footer-editUser {
+    gap: 10px;
+  }
+}
+
+
+/*--- Mobile - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .crm-editUser-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .crm-editUser-header h1 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+
+  .crm-editUser-actions {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .crm-editUser-btn {
+    padding: 9px 13px;
+    font-size: 12px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 17px;
+    border-radius: 12px;
+  }
+
+  .crm-section-title-editUser {
+    gap: 8px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+  }
+
+  .crm-section-title-editUser i {
+    font-size: 16px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 16px;
+  }
+
+  .crm-form-grid-editUser {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 22px;
+  }
+
+  .crm-editUser-form-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 13px;
+    margin-bottom: 7px;
+  }
+
+  .crm-editUser-form-group input,
+  .crm-editUser-form-group select,
+  .crm-editUser-form-group textarea {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .crm-editUser-form-group textarea {
+    min-height: 85px;
+  }
+
+  .crm-help-text-editUser {
+    font-size: 11px;
+  }
+
+  .crm-password-toggle-editUser {
+    right: 11px;
+  }
+
+  .crm-form-footer-editUser {
+    flex-direction: column-reverse;
+    gap: 10px;
+    padding-top: 17px;
+  }
+
+  .crm-form-footer-editUser .crm-editUser-btn {
+    width: 100%;
+  }
+
+  .crm-message-editUser {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+
+  .crm-loading-editUser {
+    padding: 55px 15px;
+  }
+
+  .crm-error-box-editUser {
+    padding: 45px 15px;
+  }
+
+  .crm-error-box-editUser i {
+    font-size: 38px;
+  }
+}
+
+
+/*--- Small Mobile - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .crm-editUser-header h1 {
+    font-size: 21px;
+  }
+
+  .crm-editUser-header p {
+    font-size: 13px;
+  }
+
+  .crm-editUser-actions {
+    gap: 6px;
+  }
+
+  .crm-editUser-btn {
+    padding: 8px 11px;
+    font-size: 11px;
+    gap: 5px;
+  }
+
+  .crm-form-card-editUser {
+    padding: 14px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 15px;
+  }
+
+  .crm-editUser-form-group label {
+    font-size: 12px;
+  }
+
+  .crm-editUser-form-group input,
+  .crm-editUser-form-group select,
+  .crm-editUser-form-group textarea {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .crm-form-footer-editUser .crm-editUser-btn {
+    padding: 10px;
+  }
+}
+
+
+/*--- Extra Small Mobile - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .crm-editUser-header h1 {
+    font-size: 19px;
+  }
+
+  .crm-editUser-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .crm-editUser-actions .crm-editUser-btn {
+    width: 100%;
+  }
+
+  .crm-form-card-editUser {
+    padding: 12px;
+  }
+
+  .crm-form-grid-editUser {
+    gap: 13px;
+  }
+
+  .crm-section-title-editUser h2 {
+    font-size: 14px;
+  }
+
+  .crm-editUser-form-group input,
+  .crm-editUser-form-group select,
+  .crm-editUser-form-group textarea {
+    font-size: 12px;
+  }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
