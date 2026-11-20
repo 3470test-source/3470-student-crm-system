@@ -3726,6 +3726,328 @@
   color:white;
 }
 
+
+
+                                  /* ================================================
+                                          ADD FOLLOW-UP - RESPONSIVE DESIGN
+                                  ================================================ */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 20px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 35px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    gap: 25px;
+  }
+
+  .crm-form-group-AddFollowUP label {
+    font-size: 16px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 18px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 28px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    gap: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 27px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 17px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 25px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    gap: 18px;
+  }
+
+  .crm-form-buttons-AddFollowUP {
+    gap: 12px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    padding: 12px 23px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 22px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .crm-form-group-AddFollowUP label {
+    font-size: 14px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-buttons-AddFollowUP {
+    gap: 12px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-AddFollow-up-header {
+    margin-bottom: 20px;
+  }
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 20px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .crm-form-group-AddFollowUP label {
+    font-size: 14px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-buttons-AddFollowUP {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .crm-AddFollow-up-header {
+    margin-bottom: 18px;
+  }
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 17px;
+    border-radius: 10px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .crm-form-group-AddFollowUP {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .crm-form-group-AddFollowUP label {
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    width: 100%;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-group-AddFollowUP textarea {
+    min-height: 70px;
+  }
+
+  .crm-form-buttons-AddFollowUP {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 14px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 14px;
+  }
+
+  .crm-form-grid-AddFollowUP {
+    gap: 14px;
+  }
+
+  .crm-form-group-AddFollowUP label {
+    font-size: 13px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    padding: 11px 13px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .crm-AddFollow-up-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-AddFollow-up-header p {
+    font-size: 13px;
+  }
+
+  .crm-form-Add-FollowUP {
+    padding: 12px;
+  }
+
+  .crm-form-group-AddFollowUP input,
+  .crm-form-group-AddFollowUP select,
+  .crm-form-group-AddFollowUP textarea {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+  .crm-form-buttons-AddFollowUP {
+    gap: 8px;
+  }
+
+  .crm-save-btn,
+  .crm-reset-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
+
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
                       /* ======================================
@@ -6662,6 +6984,344 @@
 .crm-cancel-NA-btn:hover {
   background:#dc2626;
 }
+
+
+                                /* =====================================================
+                                        NEW ADMISSION PAGE - RESPONSIVE DESIGN
+                                ===================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .crm-new-Admission-header h2 {
+    font-size: 32px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 20px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 35px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    gap: 25px;
+  }
+
+  .crm-input-group-NewAdmission label {
+    font-size: 16px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    font-size: 15px;
+    padding: 14px 16px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .crm-new-Admission-header h2 {
+    font-size: 29px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 18px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 28px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    gap: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .crm-new-Admission-header h2 {
+    font-size: 27px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 17px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 25px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    gap: 18px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    padding: 12px 23px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .crm-new-Admission-header {
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .crm-new-Admission-header h2 {
+    font-size: 26px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 22px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .crm-input-group-NewAdmission label {
+    font-size: 14px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-NewAdmission-buttons {
+    gap: 12px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .crm-new-Admission-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .crm-new-Admission-header h2 {
+    font-size: 25px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 20px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .crm-input-group-NewAdmission label {
+    font-size: 14px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-form-NewAdmission-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .crm-new-Admission-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .crm-new-Admission-header h2 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 17px;
+    border-radius: 10px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .crm-input-group-NewAdmission {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .crm-input-group-NewAdmission label {
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    width: 100%;
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+
+  .crm-input-group-NewAdmission textarea {
+    min-height: 90px;
+  }
+
+  .crm-input-group-NewAdmission input[type="file"] {
+    padding: 9px;
+    font-size: 13px;
+  }
+
+  .crm-form-NewAdmission-buttons {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .crm-new-Admission-header h2 {
+    font-size: 21px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 14px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 14px;
+  }
+
+  .crm-form-grid-NewAdmission {
+    gap: 14px;
+  }
+
+  .crm-input-group-NewAdmission label {
+    font-size: 13px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    padding: 11px 13px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .crm-new-Admission-header h2 {
+    font-size: 19px;
+  }
+
+  .crm-new-Admission-header p {
+    font-size: 13px;
+  }
+
+  .crm-form-NewAdmission {
+    padding: 12px;
+  }
+
+  .crm-input-group-NewAdmission input,
+  .crm-input-group-NewAdmission select,
+  .crm-input-group-NewAdmission textarea {
+    font-size: 12px;
+    padding: 9px;
+  }
+
+  .crm-form-NewAdmission-buttons {
+    gap: 8px;
+  }
+
+  .crm-save-NA-btn,
+  .crm-reset-NA-btn,
+  .crm-cancel-NA-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+
 
 /* -------------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -15368,7 +16028,6 @@
                               ============================================ */
 
 
-
 /*--- LARGE DESKTOP - 1600px and above ---*/
 @media (min-width: 1600px) {
 
@@ -18476,7 +19135,7 @@
 }
 
 
-/* ----------------------------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------------------------------------------ */
 
                   /* ===============================
                          CRM - Dashboard  
@@ -18784,6 +19443,316 @@
   font-size: 12px;
   color: #6b7280;
 }
+
+
+
+                            /* ============================================
+                                      EMPLOYEE HEADER RESPONSIVE DESIGN
+                            ============================================ */
+
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .EMP-dashboard-header {
+    padding: 15px 20px;
+    height: 75px;
+  }
+
+  .EMP-header-left {
+    gap: 12px;
+  }
+
+  .EMP-header-logo img {
+    width: 90px;
+  }
+
+  .EMP-header-menu-btn {
+    width: 36px;
+    height: 36px;
+    margin-left: 0;
+  }
+
+  .EMP-header-menu-btn i {
+    font-size: 18px;
+  }
+
+  .EMP-header-center {
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    text-align: center;
+  }
+
+  .EMP-header-right {
+    gap: 18px;
+  }
+
+  .EMP-notification {
+    width: 36px;
+    height: 36px;
+  }
+
+  .EMP-notification i {
+    font-size: 18px;
+  }
+
+  .EMP-profile {
+    gap: 7px;
+  }
+
+  .EMP-profile-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+  }
+
+  .EMP-profile-name {
+    font-size: 12px;
+  }
+
+  .EMP-profile-role {
+    font-size: 11px;
+  }
+}
+
+
+/*--- SMALL TABLET - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .EMP-dashboard-header {
+    padding: 12px 15px;
+    height: 70px;
+  }
+
+  .EMP-header-left {
+    gap: 10px;
+  }
+
+  .EMP-header-logo img {
+    width: 75px;
+  }
+
+  .EMP-header-menu-btn {
+    width: 34px;
+    height: 34px;
+    margin-left: 0;
+  }
+
+  .EMP-header-menu-btn i {
+    font-size: 17px;
+  }
+
+  .EMP-header-center {
+    font-size: 15px;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  .EMP-header-right {
+    gap: 12px;
+  }
+
+  .EMP-notification {
+    width: 34px;
+    height: 34px;
+  }
+
+  .EMP-notification i {
+    font-size: 17px;
+  }
+
+  .EMP-notification-count {
+    width: 17px;
+    height: 17px;
+    font-size: 10px;
+  }
+
+  .EMP-profile {
+    gap: 6px;
+  }
+
+  .EMP-profile-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .EMP-profile-name {
+    font-size: 11px;
+  }
+
+  .EMP-profile-role {
+    font-size: 10px;
+  }
+}
+
+
+/*--- MOBILE - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .EMP-dashboard-header {
+    padding: 10px 12px;
+    height: auto;
+    min-height: 65px;
+    gap: 8px;
+  }
+
+  .EMP-header-left {
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .EMP-header-logo img {
+    width: 65px;
+  }
+
+  .EMP-header-menu-btn {
+    width: 32px;
+    height: 32px;
+    margin-left: 0;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+
+  .EMP-header-menu-btn i {
+    font-size: 16px;
+  }
+
+  .EMP-header-center {
+    flex: 1;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 1.3;
+    text-align: center;
+    overflow-wrap: anywhere;
+  }
+
+  .EMP-header-right {
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .EMP-notification {
+    width: 32px;
+    height: 32px;
+  }
+
+  .EMP-notification i {
+    font-size: 16px;
+  }
+
+  .EMP-notification-count {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+    top: -4px;
+    right: -4px;
+  }
+
+  .EMP-profile {
+    gap: 0;
+  }
+
+  .EMP-profile-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+
+  .EMP-profile-info {
+    display: none;
+  }
+}
+
+
+/*--- SMALL MOBILE - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .EMP-dashboard-header {
+    padding: 9px 10px;
+    min-height: 60px;
+    gap: 6px;
+  }
+
+  .EMP-header-left {
+    gap: 6px;
+  }
+
+  .EMP-header-logo img {
+    width: 55px;
+  }
+
+  .EMP-header-menu-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .EMP-header-menu-btn i {
+    font-size: 15px;
+  }
+
+  .EMP-header-center {
+    font-size: 12px;
+  }
+
+  .EMP-header-right {
+    gap: 8px;
+  }
+
+  .EMP-notification {
+    width: 30px;
+    height: 30px;
+  }
+
+  .EMP-notification i {
+    font-size: 15px;
+  }
+
+  .EMP-profile-avatar {
+    width: 29px;
+    height: 29px;
+    font-size: 11px;
+  }
+}
+
+
+/*--- EXTRA SMALL MOBILE - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .EMP-dashboard-header {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .EMP-header-logo img {
+    width: 48px;
+  }
+
+  .EMP-header-menu-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .EMP-header-center {
+    font-size: 11px;
+  }
+
+  .EMP-header-right {
+    gap: 6px;
+  }
+
+  .EMP-notification {
+    width: 28px;
+    height: 28px;
+  }
+
+  .EMP-profile-avatar {
+    width: 27px;
+    height: 27px;
+    font-size: 10px;
+  }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
@@ -19118,6 +20087,605 @@
 }
 
 
+
+                        /* ================================================
+                                  EMPLOYEE DASHBOARD RESPONSIVE DESIGN
+                        ================================================ */
+
+
+/*--- LARGE DESKTOP - 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .EMP-dashboard-main {
+    padding: 45px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 32px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 20px;
+  }
+
+  .EMP-dashboard-cards {
+    gap: 25px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 25px;
+  }
+
+  .EMP-card-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 23px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 18px;
+  }
+
+  .EMP-card-number {
+    font-size: 26px;
+  }
+
+  .EMP-dashboard-grid {
+    gap: 25px;
+  }
+}
+
+
+/*--- LAPTOP - 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .EMP-dashboard-main {
+    padding: 30px;
+  }
+
+  .EMP-dashboard-cards {
+    gap: 18px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .EMP-card-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 19px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 15px;
+  }
+
+  .EMP-card-number {
+    font-size: 22px;
+  }
+
+  .EMP-dashboard-grid {
+    gap: 18px;
+  }
+}
+
+
+/*--- SMALL LAPTOP - 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .EMP-dashboard-main {
+    padding: 25px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 27px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 17px;
+  }
+
+  .EMP-dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 18px;
+  }
+
+  .EMP-dashboard-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .EMP-section {
+    padding: 12px;
+  }
+
+  .EMP-section-header {
+    padding: 10px 14px;
+  }
+
+  .EMP-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 14px;
+  }
+}
+
+
+/*--- TABLET - 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .EMP-dashboard-main {
+    padding: 22px;
+  }
+
+  .EMP-dashboard-title {
+    margin-bottom: 20px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 25px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 16px;
+    letter-spacing: 0.4px;
+  }
+
+  /*-- Dashboard cards --*/
+  .EMP-dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .EMP-card-icon {
+    width: 43px;
+    height: 43px;
+    font-size: 19px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 14px;
+  }
+
+  .EMP-card-number {
+    font-size: 21px;
+  }
+
+  /*-- Dashboard sections --*/
+  .EMP-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .EMP-section {
+    padding: 12px;
+    margin-bottom: 15px;
+  }
+
+  .EMP-section-header {
+    padding: 10px 12px;
+  }
+
+  .EMP-section-title {
+    font-size: 16px;
+  }
+
+  .EMP-table th,
+  .EMP-table td {
+    padding: 11px 13px;
+    font-size: 13px;
+  }
+
+  /*-- Notifications --*/
+  .EMP-notification-item {
+    padding: 13px 14px;
+  }
+
+  .EMP-notification-text strong {
+    font-size: 13px;
+  }
+
+  /*-- Quick actions --*/
+  .EMP-quick-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .EMP-action-btn {
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+
+  .EMP-action-btn i {
+    margin-right: 5px;
+  }
+}
+
+
+/*--- SMALL TABLET - 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .EMP-dashboard-main {
+    padding: 18px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 23px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+
+  .EMP-dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .EMP-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 13px;
+  }
+
+  .EMP-card-number {
+    font-size: 20px;
+  }
+
+  .EMP-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .EMP-section {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  .EMP-section-header {
+    padding: 10px;
+  }
+
+  .EMP-section-title {
+    font-size: 15px;
+  }
+
+  .EMP-view-all {
+    font-size: 12px;
+  }
+
+  .EMP-table th,
+  .EMP-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .EMP-notification-item {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .EMP-notification-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .EMP-notification-text {
+    font-size: 12px;
+  }
+
+  .EMP-notification-text strong {
+    font-size: 13px;
+  }
+
+  .EMP-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .EMP-action-btn {
+    padding: 11px 8px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- MOBILE - 600px and below ---*/
+@media (max-width: 600px) {
+
+  .EMP-dashboard-main {
+    padding: 15px;
+    min-height: calc(100vh - 60px);
+  }
+
+  .EMP-dashboard-title {
+    margin-bottom: 18px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 21px;
+    margin-bottom: 7px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+  }
+
+  /*--- Dashboard cards ---*/
+  .EMP-dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 13px 10px;
+    gap: 9px;
+    border-radius: 9px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .EMP-card-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+    border-radius: 8px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 12px;
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+
+  .EMP-card-number {
+    font-size: 20px;
+  }
+
+  /*-- Dashboard sections --*/
+  .EMP-dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  .EMP-section {
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 9px;
+  }
+
+  .EMP-section-header {
+    padding: 10px 8px;
+    gap: 8px;
+  }
+
+  .EMP-section-title {
+    font-size: 14px;
+  }
+
+  .EMP-view-all {
+    font-size: 11px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  /*-- Table --*/
+  .EMP-table {
+    min-width: 600px;
+  }
+
+  .EMP-table th,
+  .EMP-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  /*-- Notifications --*/
+  .EMP-notification-item {
+    padding: 12px 8px;
+    gap: 9px;
+  }
+
+  .EMP-notification-item:hover {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .EMP-notification-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .EMP-notification-text {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .EMP-notification-text strong {
+    font-size: 13px;
+  }
+
+  .EMP-notification-text small {
+    font-size: 11px;
+  }
+
+  .EMP-notification-time {
+    font-size: 10px;
+  }
+
+  /*-- Quick actions --*/
+  .EMP-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    padding: 12px 5px;
+  }
+
+  .EMP-action-btn {
+    padding: 11px 7px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .EMP-action-btn i {
+    margin-right: 5px;
+  }
+
+  /*-- Status badges --*/
+  .EMP-status {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+}
+
+
+/*--- SMALL MOBILE - 400px and below ---*/
+@media (max-width: 400px) {
+
+  .EMP-dashboard-main {
+    padding: 12px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 19px;
+  }
+
+  .EMP-dashboard-title p {
+    font-size: 13px;
+  }
+
+  .EMP-dashboard-cards {
+    gap: 10px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 11px 9px;
+  }
+
+  .EMP-card-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .Emp-card-content h3 {
+    font-size: 11px;
+  }
+
+  .EMP-card-number {
+    font-size: 18px;
+  }
+
+  .EMP-section {
+    padding: 8px;
+  }
+
+  .EMP-section-title {
+    font-size: 13px;
+  }
+
+  .EMP-view-all {
+    font-size: 10px;
+  }
+
+  .EMP-notification-item {
+    gap: 8px;
+  }
+
+  .EMP-notification-icon {
+    width: 29px;
+    height: 29px;
+  }
+
+  .EMP-notification-text strong {
+    font-size: 12px;
+  }
+
+  .EMP-quick-actions {
+    gap: 8px;
+  }
+
+  .EMP-action-btn {
+    padding: 10px 5px;
+    font-size: 11px;
+  }
+}
+
+
+/*--- EXTRA SMALL MOBILE - 360px and below ---*/
+@media (max-width: 360px) {
+
+  .EMP-dashboard-main {
+    padding: 10px;
+  }
+
+  .EMP-dashboard-title h1 {
+    font-size: 18px;
+  }
+
+  .EMP-dashboard-cards {
+    gap: 8px;
+  }
+
+  .EMP-dashboard-card {
+    padding: 10px 8px;
+  }
+
+  .EMP-card-number {
+    font-size: 17px;
+  }
+
+  .EMP-section-header {
+    padding: 8px 5px;
+  }
+
+  .EMP-section-title {
+    font-size: 12px;
+  }
+
+  .EMP-notification-text {
+    font-size: 11px;
+  }
+
+  .EMP-quick-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+    padding: 10px 3px;
+  }
+
+  .EMP-action-btn {
+    font-size: 10px;
+    padding: 9px 4px;
+  }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------ */
 
               /* ===================================
@@ -19350,6 +20918,287 @@
   background:#1d4ed8;
   transform: translateY(-1px);
 }
+
+
+
+                          /* =============================================
+                                  MY ENQUIRIES - RESPONSIVE DESIGN
+                          ============================================= */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+  .employee-my-enquiries h1 {
+    font-size: 32px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 20px;
+  }
+
+  .EMP-MyEnquiry-filters {
+    gap: 16px;
+    padding: 24px;
+  }
+
+  .EMP-Myenquiries-table th,
+  .EMP-Myenquiries-table td {
+    padding: 15px 18px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px to 1599px ---*/
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .EMP-MyEnquiry-filters {
+    grid-template-columns: 2fr 1fr 1fr auto auto;
+    gap: 10px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px to 1199px ---*/
+@media (max-width: 1199px) and (min-width: 1025px) {
+  .EMP-MyEnquiry-filters {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+
+  .EMP-btn-primary,
+  .EMP-btn-secondary {
+    width: 100%;
+  }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (max-width: 1024px) {
+  .employee-my-enquiries h1 {
+    font-size: 27px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyEnquiry-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .EMP-MyEnquiry-filters input,
+  .EMP-MyEnquiry-filters select {
+    font-size: 14px;
+    min-width: 0;
+  }
+
+  .EMP-MyEnquiries-card-header {
+    padding: 14px 16px;
+  }
+
+  .EMP-Myenquiries-table {
+    min-width: 900px;
+  }
+
+  .EMP-Myenquiries-table th,
+  .EMP-Myenquiries-table td {
+    padding: 12px 13px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile and Small Tablet: 601px to 767px ---*/
+@media (max-width: 767px) {
+  .employee-my-enquiries {
+    margin-bottom: 20px;
+  }
+
+  .employee-my-enquiries h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyEnquiry-filters {
+    grid-template-columns: 1fr 1fr;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .EMP-MyEnquiry-filters input,
+  .EMP-MyEnquiry-filters select {
+    width: 100%;
+    padding: 11px 10px;
+    font-size: 13px;
+  }
+
+  .EMP-btn-primary,
+  .EMP-btn-secondary {
+    width: 100%;
+    padding: 11px 8px;
+    font-size: 13px;
+  }
+
+  .EMP-MyEnquiries-card-header {
+    padding: 13px 14px;
+    gap: 8px;
+  }
+
+  .EMP-MyEnquiries-card-header h2 {
+    font-size: 16px;
+  }
+
+  .EMP-record-count {
+    font-size: 14px;
+  }
+
+  .EMP-Myenquiries-table {
+    min-width: 850px;
+  }
+
+  .EMP-Myenquiries-table th,
+  .EMP-Myenquiries-table td {
+    padding: 11px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile: 400px to 600px ---*/
+@media (max-width: 600px) {
+  .employee-my-enquiries h1 {
+    font-size: 22px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 14px;
+  }
+
+  .EMP-MyEnquiry-filters {
+    grid-template-columns: 1fr;
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .EMP-MyEnquiry-filters input,
+  .EMP-MyEnquiry-filters select {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .EMP-btn-primary,
+  .EMP-btn-secondary {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .EMP-MyEnquiries-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .EMP-MyEnquiries-card-header h2 {
+    font-size: 16px;
+  }
+
+  .EMP-record-count {
+    font-size: 14px;
+  }
+
+  .EMP-Myenquiries-table {
+    min-width: 800px;
+  }
+
+  .EMP-Myenquiries-table th,
+  .EMP-Myenquiries-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-MyEnq-action-btn-view,
+  .EMP-MyEnq-action-btn-edit {
+    width: 28px;
+    height: 28px;
+    margin-right: 3px;
+  }
+}
+
+
+/*--- Small Mobile: 360px to 399px ---*/
+@media (max-width: 399px) {
+  .employee-my-enquiries h1 {
+    font-size: 20px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 13px;
+  }
+
+  .EMP-MyEnquiry-filters {
+    padding: 12px;
+  }
+
+  .EMP-MyEnquiries-card-header h2 {
+    font-size: 15px;
+  }
+
+  .EMP-record-count {
+    font-size: 13px;
+  }
+
+  .EMP-Myenquiries-table {
+    min-width: 750px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 320px to 359px ---*/
+@media (max-width: 359px) {
+  .employee-my-enquiries h1 {
+    font-size: 19px;
+  }
+
+  .employee-my-enquiries p {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+  }
+
+  .EMP-MyEnquiry-filters {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .EMP-MyEnquiry-filters input,
+  .EMP-MyEnquiry-filters select {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-btn-primary,
+  .EMP-btn-secondary {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-MyEnquiries-card-header {
+    padding: 11px;
+  }
+
+  .EMP-Myenquiries-table {
+    min-width: 700px;
+  }
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------ */
 
@@ -19669,6 +21518,454 @@
 .EMP-pagination-follow button:hover {
   border-color: #16a34a;
 }
+
+
+
+                                  /* ===================================================
+                                          EMPLOYEE MY FOLLOW-UPS - RESPONSIVE CSS
+                                  =================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+  .EMP-my-follow-ups h1 {
+    font-size: 32px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 20px;
+  }
+
+  .EMP-followup-cards {
+    gap: 24px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 24px;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 27px;
+  }
+
+  .EMP-followup-table th,
+  .EMP-followup-table td {
+    padding: 15px 18px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px to 1599px ---*/
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .EMP-followup-cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .EMP-followup-filters {
+    grid-template-columns: 2fr 1fr 1fr 1fr auto;
+    gap: 10px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px to 1199px ---*/
+@media (max-width: 1199px) and (min-width: 1025px) {
+  .EMP-followup-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .EMP-followup-filters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .EMP-filter-btn {
+    width: 100%;
+  }
+
+  .EMP-followup-table {
+    min-width: 950px;
+  }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (max-width: 1024px) {
+  .EMP-my-follow-ups h1 {
+    font-size: 27px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .EMP-followup-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .EMP-followup-card-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    font-size: 19px;
+  }
+
+  .EMP-followup-card-content h3 {
+    font-size: 15px;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 22px;
+  }
+
+  .EMP-followup-section {
+    padding: 17px;
+  }
+
+  .EMP-followup-section-title {
+    font-size: 19px;
+  }
+
+  .EMP-followup-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .EMP-followup-filter,
+  .EMP-filter-btn {
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+  }
+
+  .EMP-followup-table {
+    min-width: 900px;
+  }
+
+  .EMP-followup-table th,
+  .EMP-followup-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile and Small Tablet: 601px to 767px ---*/
+@media (max-width: 767px) {
+  .EMP-my-follow-ups {
+    margin-bottom: 20px;
+  }
+
+  .EMP-my-follow-ups h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .EMP-followup-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .EMP-followup-card-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .EMP-followup-card-content h3 {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 20px;
+  }
+
+  .EMP-followup-section {
+    padding: 15px;
+  }
+
+  .EMP-followup-section-header {
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+
+  .EMP-followup-section-title {
+    font-size: 18px;
+  }
+
+  .EMP-add-followup-btn {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+
+  .EMP-followup-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .EMP-followup-filter {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .EMP-filter-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .EMP-followup-table {
+    min-width: 850px;
+  }
+
+  .EMP-followup-table th,
+  .EMP-followup-table td {
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
+  .EMP-followup-status {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .EMP-pagination-follow {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
+
+
+/*--- Mobile: 400px to 600px ---*/
+@media (max-width: 600px) {
+  .EMP-my-follow-ups h1 {
+    font-size: 22px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 14px;
+  }
+
+  .EMP-followup-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 12px;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .EMP-followup-card-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .EMP-followup-card-content h3 {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 19px;
+  }
+
+  .EMP-followup-section {
+    padding: 13px;
+  }
+
+  .EMP-followup-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .EMP-followup-section-title {
+    font-size: 17px;
+  }
+
+  .EMP-add-followup-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .EMP-followup-filters {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .EMP-followup-filter,
+  .EMP-filter-btn {
+    width: 100%;
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  .EMP-followup-table {
+    min-width: 800px;
+  }
+
+  .EMP-followup-table th,
+  .EMP-followup-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-followup-actions {
+    gap: 5px;
+  }
+
+  .EMP-followup-action {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .EMP-pagination-follow {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .EMP-pagination-follow button {
+    min-width: 32px;
+    height: 32px;
+  }
+
+  .EMP-followup-empty {
+    padding: 30px 12px !important;
+  }
+}
+
+
+/*--- Small Mobile: 360px to 399px ---*/
+@media (max-width: 399px) {
+  .EMP-my-follow-ups h1 {
+    font-size: 20px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+
+  .EMP-followup-cards {
+    gap: 8px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .EMP-followup-card-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .EMP-followup-card-content h3 {
+    font-size: 11px;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 18px;
+  }
+
+  .EMP-followup-section {
+    padding: 11px;
+  }
+
+  .EMP-followup-section-title {
+    font-size: 16px;
+  }
+
+  .EMP-add-followup-btn {
+    font-size: 12px;
+  }
+
+  .EMP-followup-table {
+    min-width: 750px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 320px to 359px ---*/
+@media (max-width: 359px) {
+  .EMP-my-follow-ups h1 {
+    font-size: 19px;
+  }
+
+  .EMP-my-follow-ups p {
+    font-size: 12px;
+  }
+
+  .EMP-followup-cards {
+    gap: 7px;
+  }
+
+  .EMP-my-followup-card {
+    padding: 9px;
+    gap: 6px;
+  }
+
+  .EMP-followup-card-icon {
+    width: 29px;
+    height: 29px;
+    font-size: 13px;
+  }
+
+  .EMP-followup-card-content h3 {
+    font-size: 10px;
+  }
+
+  .EMP-followup-card-number {
+    font-size: 17px;
+  }
+
+  .EMP-followup-section {
+    padding: 10px;
+  }
+
+  .EMP-followup-filter,
+  .EMP-filter-btn {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-followup-table {
+    min-width: 700px;
+  }
+}
+
 
 /* ---------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -20061,6 +22358,487 @@
   font-size: 14px;
 }
 
+
+
+                              /* ==================================================
+                                      EMPLOYEE MY ADMISSIONS - RESPONSIVE CSS
+                              ================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+  .EMP-MyAdmissions-header h1 {
+    font-size: 32px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 20px;
+  }
+
+  .EMP-summary-MyAdmissions {
+    gap: 24px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 24px;
+  }
+
+  .EMP-MyAD-filter-grid {
+    gap: 18px;
+  }
+
+  .EMP-MyAD-table th,
+  .EMP-MyAD-table td {
+    padding: 15px 18px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px to 1599px ---*/
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .EMP-summary-MyAdmissions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .EMP-MyAD-filter-grid {
+    grid-template-columns:
+      minmax(180px, 1.5fr)
+      repeat(3, minmax(130px, 1fr))
+      auto auto;
+    gap: 10px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px to 1199px ---*/
+@media (max-width: 1199px) and (min-width: 1025px) {
+  .EMP-summary-MyAdmissions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-MyAD-filter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button {
+    width: 100%;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button .crm-btn {
+    width: 100%;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 950px;
+  }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (max-width: 1024px) {
+  .EMP-MyAdmissions-header h1 {
+    font-size: 27px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .EMP-summary-MyAdmissions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .EMP-MyAD-summary-icon {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    font-size: 19px;
+  }
+
+  .EMP-MyAD-summary-label {
+    font-size: 15px;
+  }
+
+  .EMP-MyAdm-summary-card strong {
+    font-size: 22px;
+  }
+
+  .EMP-MyAD-card {
+    padding: 17px;
+  }
+
+  .EMP-MyAD-card-header h2 {
+    font-size: 19px;
+  }
+
+  .EMP-MyAD-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .EMP-MyAD-form-group input,
+  .EMP-MyAD-form-group select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button .crm-btn {
+    width: 100%;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 900px;
+  }
+
+  .EMP-MyAD-table th,
+  .EMP-MyAD-table td {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile and Small Tablet: 601px to 767px ---*/
+@media (max-width: 767px) {
+  .EMP-MyAdmissions-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .EMP-MyAdmissions-header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyAdm-btn {
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .EMP-summary-MyAdmissions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .EMP-MyAD-summary-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 17px;
+  }
+
+  .EMP-MyAD-summary-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .EMP-MyAdm-summary-card strong {
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  .EMP-MyAD-card {
+    padding: 15px;
+  }
+
+  .EMP-MyAD-card-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .EMP-MyAD-card-header h2 {
+    font-size: 18px;
+  }
+
+  .EMP-MyAD-card-header p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyAD-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .EMP-MyAD-form-group label {
+    font-size: 12px;
+  }
+
+  .EMP-MyAD-form-group input,
+  .EMP-MyAD-form-group select {
+    height: 38px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .EMP-MyAD-input-icon input {
+    padding-left: 35px;
+  }
+
+  .EMP-MyAD-input-icon i {
+    left: 11px;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button {
+    width: 100%;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button .crm-btn {
+    width: 100%;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 850px;
+  }
+
+  .EMP-MyAD-table th,
+  .EMP-MyAD-table td {
+    padding: 11px 10px;
+    font-size: 12px;
+  }
+
+  .Emp-my-admission-status {
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .Emp-my-admissions-actions {
+    gap: 6px;
+  }
+
+  .emp-myadmissions-btn-view,
+  .emp-myadmissions-btn-edit {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+
+/*--- Mobile: 400px to 600px ---*/
+@media (max-width: 600px) {
+  .EMP-MyAdmissions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .EMP-MyAdmissions-header h1 {
+    font-size: 22px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 14px;
+  }
+
+  .EMP-MyAdmissions-header .EMP-MyAdm-btn {
+    width: 100%;
+  }
+
+  .EMP-summary-MyAdmissions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 12px;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .EMP-MyAD-summary-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+
+  .EMP-MyAD-summary-label {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .EMP-MyAdm-summary-card strong {
+    font-size: 19px;
+  }
+
+  .EMP-MyAD-card {
+    padding: 13px;
+  }
+
+  .EMP-MyAD-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .EMP-MyAD-card-header h2 {
+    font-size: 17px;
+  }
+
+  .EMP-MyAD-filter-grid {
+    grid-template-columns: 1fr;
+    gap: 11px;
+  }
+
+  .EMP-MyAD-form-group input,
+  .EMP-MyAD-form-group select {
+    width: 100%;
+    height: 40px;
+  }
+
+  .EMP-MyAD-filter-grid .crm-filter-button .crm-btn {
+    width: 100%;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 800px;
+  }
+
+  .EMP-MyAD-table th,
+  .EMP-MyAD-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .EMP-MyAD-table-empty {
+    padding: 30px 12px !important;
+  }
+}
+
+
+/*--- Small Mobile: 360px to 399px ---*/
+@media (max-width: 399px) {
+  .EMP-MyAdmissions-header h1 {
+    font-size: 20px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 13px;
+    letter-spacing: 0.2px;
+  }
+
+  .EMP-MyAdm-btn {
+    font-size: 12px;
+  }
+
+  .EMP-summary-MyAdmissions {
+    gap: 8px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .EMP-MyAD-summary-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .EMP-MyAD-summary-label {
+    font-size: 11px;
+  }
+
+  .EMP-MyAdm-summary-card strong {
+    font-size: 18px;
+  }
+
+  .EMP-MyAD-card {
+    padding: 11px;
+  }
+
+  .EMP-MyAD-card-header h2 {
+    font-size: 16px;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 750px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 320px to 359px ---*/
+@media (max-width: 359px) {
+  .EMP-MyAdmissions-header h1 {
+    font-size: 19px;
+  }
+
+  .EMP-MyAdmissions-header p {
+    font-size: 12px;
+  }
+
+  .EMP-summary-MyAdmissions {
+    gap: 7px;
+  }
+
+  .EMP-MyAdm-summary-card {
+    padding: 9px;
+    gap: 6px;
+  }
+
+  .EMP-MyAD-summary-icon {
+    width: 29px;
+    height: 29px;
+    font-size: 13px;
+  }
+
+  .EMP-MyAD-summary-label {
+    font-size: 10px;
+  }
+
+  .EMP-MyAdm-summary-card strong {
+    font-size: 17px;
+  }
+
+  .EMP-MyAD-card {
+    padding: 10px;
+  }
+
+  .EMP-MyAD-form-group label {
+    font-size: 11px;
+  }
+
+  .EMP-MyAD-form-group input,
+  .EMP-MyAD-form-group select {
+    font-size: 12px;
+  }
+
+  .EMP-MyAD-table {
+    min-width: 700px;
+  }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------- */
 
                 /* ===========================================
@@ -20352,6 +23130,564 @@
   background: #eff6ff;
   border-color: #93c5fd;
 }
+
+
+
+
+                            /* ============================================================
+                                      EMPLOYEE MY NOTIFICATIONS - RESPONSIVE DESIGN
+                            ============================================================ */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .EMP-MyNoti-header h1 {
+    font-size: 32px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 20px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    gap: 25px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 24px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 18px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 26px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 25px;
+  }
+
+  .EMP-MyNotification {
+    padding: 20px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .EMP-MyNoti-header h1 {
+    font-size: 29px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 18px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 15px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 23px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .EMP-MyNoti-header h1 {
+    font-size: 27px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 17px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 18px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 15px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 18px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 19px;
+  }
+
+  .EMP-MyNotification-filter-bar select {
+    min-width: 160px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .EMP-MyNoti-header {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .EMP-MyNoti-header h1 {
+    font-size: 26px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 17px;
+    gap: 12px;
+  }
+
+  .EMP-My-notification-summary-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    font-size: 19px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 15px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 22px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 18px;
+  }
+
+  .EMP-MyNotifi-card-header {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 18px;
+  }
+
+  .EMP-MyNotification-filter-bar {
+    gap: 10px;
+  }
+
+  .EMP-MyNotification-filter-bar select {
+    min-width: 150px;
+    padding: 0 12px;
+  }
+
+  .EMP-MyNotification {
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .Emp-MyNotification-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .EMP-MyNoti-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .EMP-MyNoti-header h1 {
+    font-size: 25px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .EMP-My-notification-summary-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    font-size: 18px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 21px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 16px;
+  }
+
+  .EMP-MyNotifi-card-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 18px;
+  }
+
+  .EMP-MyNotification-filter-bar {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .EMP-MyNotification-filter-bar select {
+    min-width: 150px;
+    flex: 1;
+  }
+
+  .EMP-MyNotification {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .Emp-MyNotification-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .EMP-MyNotification-title {
+    font-size: 14px;
+  }
+
+  .EMP-MyNotification-message {
+    font-size: 13px;
+  }
+
+  .EMP-MyNotification-action {
+    align-self: flex-start;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .EMP-MyNoti-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .EMP-MyNoti-header h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 13px;
+    gap: 10px;
+    border-radius: 10px;
+    align-items: center;
+  }
+
+  .EMP-My-notification-summary-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 20px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .EMP-MyNotifi-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 17px;
+  }
+
+  .EMP-MyNotifi-card-header p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyNotification-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 14px !important;
+  }
+
+  .EMP-MyNotification-filter-bar select {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .EMP-MyNotification-list {
+    gap: 10px;
+  }
+
+  .EMP-MyNotification {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 13px;
+    border-radius: 9px;
+  }
+
+  .Emp-MyNotification-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 14px;
+  }
+
+  .EMP-MyNotification-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .EMP-MyNotification-title {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .EMP-MyNotification-message {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyNotification-time {
+    font-size: 11px;
+  }
+
+  .EMP-MyNotification-action {
+    width: 100%;
+    margin-left: 48px;
+    align-self: flex-start;
+  }
+
+  .EMP-MyNotification-view-btn {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
+  .notification-empty {
+    padding: 15px 10px;
+    font-size: 13px;
+  }
+
+  .notification-empty i {
+    font-size: 30px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .EMP-MyNoti-header h1 {
+    font-size: 21px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 14px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    gap: 9px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 11px;
+    gap: 8px;
+  }
+
+  .EMP-My-notification-summary-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    font-size: 15px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 12px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 18px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 12px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 16px;
+  }
+
+  .EMP-MyNotification {
+    padding: 11px;
+    gap: 8px;
+  }
+
+  .Emp-MyNotification-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+  }
+
+  .EMP-MyNotification-action {
+    margin-left: 42px;
+  }
+
+  .EMP-MyNotification-message {
+    font-size: 12px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .EMP-MyNoti-header h1 {
+    font-size: 19px;
+  }
+
+  .EMP-MyNoti-header p {
+    font-size: 13px;
+  }
+
+  .EMP-MyNotification-summary-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .EMP-My-notification-summary-card {
+    padding: 13px;
+  }
+
+  .EMP-My-notification-summary-label {
+    font-size: 13px;
+  }
+
+  .EMP-My-notification-summary-card strong {
+    font-size: 19px;
+  }
+
+  .EMP-MyNotifi-card {
+    padding: 10px;
+  }
+
+  .EMP-MyNotifi-card-header h2 {
+    font-size: 15px;
+  }
+
+  .EMP-MyNotification {
+    padding: 10px;
+  }
+
+  .EMP-MyNotification-title {
+    font-size: 13px;
+  }
+
+  .EMP-MyNotification-message {
+    font-size: 12px;
+  }
+
+  .EMP-MyNotification-action {
+    margin-left: 42px;
+  }
+
+  .EMP-MyNotification-view-btn {
+    font-size: 11px;
+    padding: 7px 9px;
+  }
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -20665,6 +24001,483 @@
   width: 100%;
 }
 
+
+
+                            /* ===============================================
+                                    EMPLOYEE MY PROFILE - RESPONSIVE CSS
+                            =============================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+  .EMP-My-Profile h1 {
+    font-size: 32px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 20px;
+  }
+
+  .EMP-MyProfile-layout {
+    grid-template-columns: minmax(0, 2fr) minmax(350px, 1fr);
+    gap: 24px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 28px;
+  }
+
+  .EMP-MyProfile-top {
+    padding: 28px;
+  }
+
+  .EMP-Myprofile-form-grid {
+    gap: 24px;
+  }
+}
+
+
+/*--- Laptop: 1200px to 1599px ---*/
+@media (max-width: 1599px) and (min-width: 1200px) {
+  .EMP-MyProfile-layout {
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+    gap: 18px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 22px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 20px;
+  }
+}
+
+
+/*--- Small Laptop and Tablet: 768px to 1199px ---*/
+@media (max-width: 1199px) {
+  .EMP-My-Profile h1 {
+    font-size: 27px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyProfile-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .EMP-MyProfile-card-header {
+    padding: 18px 20px;
+  }
+
+  .EMP-MyProfile-top {
+    padding: 20px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 20px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 20px;
+  }
+
+  .crm-password-description {
+    margin: 18px 20px;
+  }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (max-width: 1024px) {
+  .EMP-Myprofile-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .EMP-MyProfile-large-avatar {
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    font-size: 29px;
+  }
+
+  .EMP-MyProfile-heading h2 {
+    font-size: 22px;
+  }
+
+  .EMP-MyProfile-card-header h2 {
+    font-size: 18px;
+  }
+
+  .EMP-Mypro-password-input input {
+    width: 100%;
+  }
+}
+
+
+/*--- Mobile and Small Tablet: 601px to 767px ---*/
+@media (max-width: 767px) {
+  .EMP-My-Profile {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .EMP-My-Profile h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+  }
+
+  .EMP-MyProfile-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .EMP-MyProfile-card,
+  .EMP-MyProfile-password-card {
+    width: 100%;
+  }
+
+  .EMP-MyProfile-card-header {
+    padding: 16px 18px;
+  }
+
+  .EMP-MyProfile-card-header h2 {
+    font-size: 17px;
+  }
+
+  .EMP-MyProfile-top {
+    padding: 18px;
+    gap: 14px;
+  }
+
+  .EMP-MyProfile-large-avatar {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+    font-size: 26px;
+  }
+
+  .EMP-MyProfile-heading h2 {
+    font-size: 20px;
+  }
+
+  .EMP-MyProfile-heading p {
+    font-size: 13px;
+  }
+
+  .EMP-MyProfile-status {
+    padding: 5px 13px;
+    font-size: 11px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 18px;
+  }
+
+  .EMP-Myprofile-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .EMP-Myprofile-form-group label {
+    font-size: 13px;
+  }
+
+  .EMP-MyPro-input-icon input {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .EMP-Myprofile-form-group textarea {
+    font-size: 13px;
+  }
+
+  .EMP-Myprofile-form-actions {
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+
+  .EMP-MyPro-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .crm-password-description {
+    margin: 15px 18px;
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 18px 18px;
+  }
+
+  .EMP-MyPro-password-rules {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+
+/*--- Mobile: 400px to 600px ---*/
+@media (max-width: 600px) {
+  .EMP-My-Profile h1 {
+    font-size: 22px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 14px;
+    letter-spacing: 0.2px;
+  }
+
+  .EMP-MyProfile-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .EMP-MyProfile-card-header {
+    padding: 14px;
+  }
+
+  .EMP-MyProfile-card-header h2 {
+    font-size: 16px;
+  }
+
+  .EMP-MyProfile-top {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .EMP-MyProfile-large-avatar {
+    width: 58px;
+    height: 58px;
+    min-width: 58px;
+    font-size: 23px;
+  }
+
+  .EMP-MyProfile-heading h2 {
+    font-size: 18px;
+  }
+
+  .EMP-MyProfile-heading p {
+    font-size: 12px;
+    margin-bottom: 9px;
+  }
+
+  .EMP-MyProfile-status {
+    padding: 5px 11px;
+    font-size: 10px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 15px;
+  }
+
+  .EMP-Myprofile-form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .EMP-Myprofile-form-full {
+    grid-column: auto;
+  }
+
+  .EMP-Myprofile-form-group label {
+    font-size: 13px;
+  }
+
+  .EMP-MyPro-input-icon input {
+    width: 100%;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .EMP-Myprofile-form-group textarea {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .EMP-Myprofile-form-actions {
+    justify-content: stretch;
+  }
+
+  .EMP-Myprofile-form-actions .EMP-MyPro-btn {
+    width: 100%;
+  }
+
+  .crm-password-description {
+    margin: 14px 15px;
+    font-size: 12px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 15px 15px;
+  }
+
+  .EMP-Mypro-password-input input {
+    width: 100%;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .EMP-Mypro-password-toggle {
+    height: 42px;
+  }
+
+  .EMP-MyPro-password-rules {
+    margin: 15px 0;
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .EMPpro-change-password-btn {
+    width: 100%;
+  }
+}
+
+
+/*--- Small Mobile: 360px to 399px ---*/
+@media (max-width: 399px) {
+  .EMP-My-Profile h1 {
+    font-size: 20px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 13px;
+  }
+
+  .EMP-MyProfile-card-header {
+    padding: 12px;
+  }
+
+  .EMP-MyProfile-top {
+    padding: 13px;
+    gap: 10px;
+  }
+
+  .EMP-MyProfile-large-avatar {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    font-size: 21px;
+  }
+
+  .EMP-MyProfile-heading h2 {
+    font-size: 17px;
+  }
+
+  .EMP-MyProfile-heading p {
+    font-size: 11px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 13px;
+  }
+
+  .EMP-Myprofile-form-grid {
+    gap: 12px;
+  }
+
+  .EMP-Myprofile-form-group label {
+    font-size: 12px;
+  }
+
+  .EMP-MyPro-input-icon input {
+    padding-left: 38px;
+  }
+
+  .EMP-MyPro-input-icon i {
+    left: 12px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 13px 13px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 320px to 359px ---*/
+@media (max-width: 359px) {
+  .EMP-My-Profile h1 {
+    font-size: 19px;
+  }
+
+  .EMP-My-Profile p {
+    font-size: 12px;
+  }
+
+  .EMP-MyProfile-card-header h2 {
+    font-size: 15px;
+  }
+
+  .EMP-MyProfile-top {
+    gap: 9px;
+    padding: 11px;
+  }
+
+  .EMP-MyProfile-large-avatar {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    font-size: 19px;
+  }
+
+  .EMP-MyProfile-heading h2 {
+    font-size: 16px;
+  }
+
+  .EMP-MyProfile-heading p {
+    font-size: 10px;
+  }
+
+  .EMP-MyProfile-status {
+    padding: 4px 9px;
+    font-size: 9px;
+  }
+
+  .EMP-MyprofileForm {
+    padding: 11px;
+  }
+
+  .EMP-MyPro-input-icon input {
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .EMP-Myprofile-form-group textarea {
+    font-size: 12px;
+  }
+
+  .EMP-MyPr-changePasswordForm {
+    padding: 0 11px 11px;
+  }
+
+  .crm-password-description {
+    margin: 12px 11px;
+    padding: 10px;
+    font-size: 11px;
+  }
+
+  .EMP-MyPro-password-rules {
+    font-size: 11px;
+  }
+}
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------ */
 
                       /* =======================================
@@ -20794,6 +24607,348 @@
   background:#fee2e2; 
   color:#991b1b; 
 }
+
+
+
+                          /* ============================================================
+                                  EMPLOYEE VIEW ADMISSION - RESPONSIVE DESIGN
+                          ============================================================ */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 32px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 20px;
+  }
+
+  .emp-card-view-admission {
+    padding: 28px;
+  }
+
+  .emp-grid-viewAdmission {
+    gap: 26px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 14px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 16px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 29px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 18px;
+  }
+
+  .emp-card-view-admission {
+    padding: 22px;
+  }
+
+  .emp-grid-viewAdmission {
+    gap: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 27px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 17px;
+  }
+
+  .emp-card-view-admission {
+    padding: 20px;
+  }
+
+  .emp-grid-viewAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 16px;
+  }
+
+  .emp-btn-viewAdm {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .emp-viewAdmission-Header {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 26px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-card-view-admission {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 16px;
+    margin-bottom: 17px;
+  }
+
+  .emp-grid-viewAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 14px;
+  }
+
+  .emp-actions {
+    gap: 9px;
+    margin: 17px 0;
+  }
+
+  .emp-btn-viewAdm {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .emp-viewAdmission-Header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 25px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-card-view-admission {
+    padding: 17px;
+    margin-bottom: 16px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .emp-grid-viewAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 12px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 14px;
+  }
+
+  .emp-actions {
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .emp-btn-viewAdm {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .emp-viewAdmission-Header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-card-view-admission {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 16px;
+    padding-bottom: 11px;
+    margin-bottom: 15px;
+  }
+
+  .emp-grid-viewAdmission {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .emp-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .emp-btn-viewAdm {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+
+  .emp-status-viewAdmission {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 21px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 14px;
+  }
+
+  .emp-card-view-admission {
+    padding: 13px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 15px;
+  }
+
+  .emp-grid-viewAdmission {
+    gap: 13px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 11px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 13px;
+  }
+
+  .emp-btn-viewAdm {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .emp-viewAdmission-Header h1 {
+    font-size: 19px;
+  }
+
+  .emp-viewAdmission-Header p {
+    font-size: 13px;
+  }
+
+  .emp-card-view-admission {
+    padding: 11px;
+  }
+
+  .emp-card-view-admission h2 {
+    font-size: 14px;
+  }
+
+  .emp-label-viewAdmission {
+    font-size: 10px;
+  }
+
+  .emp-value-viewAdmission {
+    font-size: 12px;
+  }
+
+  .emp-btn-viewAdm {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .emp-status-viewAdmission {
+    font-size: 11px;
+    padding: 5px 9px;
+  }
+}
+
 
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
@@ -20933,6 +25088,366 @@
   margin:20px 0;  
 }
 
+
+
+                            /* ======================================================
+                                  EMPLOYEE EDIT ADMISSION - RESPONSIVE DESIGN
+                            ====================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 32px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 20px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 28px;
+  }
+
+  .emp-grid-editAdmission {
+    gap: 26px;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 14px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 29px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 18px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 22px;
+  }
+
+  .emp-grid-editAdmission {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 27px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 17px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 20px;
+  }
+
+  .emp-grid-editAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 16px;
+  }
+
+  .emp-btn-editAdmis {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .emp-edit-Admission-heading {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 26px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-card-editAdmission {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 16px;
+    margin-bottom: 17px;
+  }
+
+  .emp-grid-editAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    padding: 9px 11px;
+    font-size: 14px;
+  }
+
+  .emp-actions-editAdmis {
+    gap: 9px;
+    margin: 17px 0;
+  }
+
+  .emp-btn-editAdmis {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .emp-edit-Admission-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 25px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-card-editAdmission {
+    padding: 17px;
+    margin-bottom: 16px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .emp-grid-editAdmission {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 12px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .emp-actions-editAdmis {
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .emp-btn-editAdmis {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .emp-edit-Admission-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 16px;
+    padding-bottom: 11px;
+    margin-bottom: 15px;
+  }
+
+  .emp-grid-editAdmission {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .emp-field-editAdmission {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .emp-field-editAdmission textarea {
+    min-height: 85px;
+  }
+
+  .emp-actions-editAdmis {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .emp-btn-editAdmis {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 21px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 14px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 13px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 15px;
+  }
+
+  .emp-grid-editAdmission {
+    gap: 13px;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 11px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .emp-btn-editAdmis {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .emp-edit-Admission-heading h1 {
+    font-size: 19px;
+  }
+
+  .emp-edit-Admission-heading p {
+    font-size: 13px;
+  }
+
+  .emp-card-editAdmission {
+    padding: 11px;
+  }
+
+  .emp-card-editAdmission h2 {
+    font-size: 14px;
+  }
+
+  .emp-field-editAdmission label {
+    font-size: 10px;
+  }
+
+  .emp-field-editAdmission input,
+  .emp-field-editAdmission select,
+  .emp-field-editAdmission textarea {
+    padding: 8px 9px;
+    font-size: 12px;
+  }
+
+  .emp-btn-editAdmis {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
                       /* ===================================
@@ -21036,6 +25551,345 @@
   overflow-wrap: anywhere;
   white-space: pre-wrap;
 }
+
+
+
+                            /* =======================================================
+                                    EMPLOYEE VIEW ENQUIRY - RESPONSIVE DESIGN
+                            ======================================================= */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 32px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 20px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 28px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 21px;
+  }
+
+  .emp-view-Enquiry-grid {
+    gap: 25px;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 14px;
+  }
+
+  .emp-value-ViewEnq {
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 29px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 18px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 22px;
+  }
+
+  .emp-view-Enquiry-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 27px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 17px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 20px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .emp-view-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-value-ViewEnq {
+    font-size: 13px;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .emp-view-enqyiry-heading {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 26px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+  }
+
+  .emp-view-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .emp-value-ViewEnq {
+    min-height: 40px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .emp-view-enqyiry-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 25px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 17px;
+    margin-bottom: 16px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 17px;
+    margin-bottom: 17px;
+  }
+
+  .emp-view-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 12px;
+  }
+
+  .emp-value-ViewEnq {
+    min-height: 40px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 8px 11px;
+    font-size: 13px;
+    margin-left: 0;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .emp-view-enqyiry-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .emp-view-Enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .emp-field-ViewEnq {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-value-ViewEnq {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 10px 13px;
+    font-size: 13px;
+    margin-left: 0;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 21px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 14px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 13px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 15px;
+  }
+
+  .emp-view-Enquiry-grid {
+    gap: 12px;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 11px;
+  }
+
+  .emp-value-ViewEnq {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .emp-view-enqyiry-heading h1 {
+    font-size: 19px;
+  }
+
+  .emp-view-enqyiry-heading p {
+    font-size: 13px;
+  }
+
+  .emp-view-Enquiry-card {
+    padding: 11px;
+  }
+
+  .emp-view-Enquiry-card h3 {
+    font-size: 14px;
+  }
+
+  .emp-field-ViewEnq label {
+    font-size: 10px;
+  }
+
+  .emp-value-ViewEnq {
+    min-height: 38px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .emp-btn-viewEnquiry {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
@@ -21178,6 +26032,398 @@
   box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.12);
 }
 
+
+                            /* ========================================================
+                                    EMPLOYEE EDIT ENQUIRY - RESPONSIVE DESIGN
+                            ======================================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 32px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 20px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 30px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 21px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    gap: 25px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 14px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 29px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 18px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 22px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    gap: 20px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 19px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 27px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 17px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 20px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 12px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    font-size: 14px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .emp-edit-enqyiry-heading {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 26px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-field-EditEnq {
+    gap: 7px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 12px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .emp-editAdmis-form-actions {
+    margin-top: 20px;
+    gap: 10px;
+  }
+
+  .emp-btn-editEnquiry {
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .emp-edit-enqyiry-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 25px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 17px;
+    margin-bottom: 16px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 17px;
+    margin-bottom: 17px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .emp-field-EditEnq {
+    gap: 7px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 12px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .emp-editAdmis-form-actions {
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .emp-btn-editEnquiry {
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-left: 0;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .emp-edit-enqyiry-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .emp-field-EditEnq {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+  }
+
+  .emp-field-EditEnq.full {
+    grid-column: 1 / -1;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 12px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .emp-field-EditEnq textarea {
+    min-height: 85px;
+  }
+
+  .emp-editAdmis-form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .emp-btn-editEnquiry {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 14px;
+    font-size: 14px;
+    margin-left: 0;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 21px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 14px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 13px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 15px;
+  }
+
+  .emp-edit-Enquiry-grid {
+    gap: 13px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 11px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+  .emp-btn-editEnquiry {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .emp-edit-enqyiry-heading h1 {
+    font-size: 19px;
+  }
+
+  .emp-edit-enqyiry-heading p {
+    font-size: 13px;
+  }
+
+  .emp-edit-Enquiry-card {
+    padding: 11px;
+  }
+
+  .emp-edit-Enquiry-card h3 {
+    font-size: 14px;
+  }
+
+  .emp-field-EditEnq label {
+    font-size: 10px;
+  }
+
+  .emp-field-EditEnq input,
+  .emp-field-EditEnq select,
+  .emp-field-EditEnq textarea {
+    padding: 8px 9px;
+    font-size: 12px;
+  }
+
+  .emp-editAdmis-form-actions {
+    gap: 8px;
+  }
+
+  .emp-btn-editEnquiry {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+}
+
+
 /* -------------------------------------------------------------------------------------------------------------------------------- */
 
                             /* ==========================================
@@ -21297,6 +26543,375 @@
   overflow-wrap: anywhere;
   font-size: 14px;            
 }
+
+
+
+                            /* =======================================================
+                                    EMPLOYEE VIEW FOLLOW-UP - RESPONSIVE DESIGN
+                            ======================================================= */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+
+  .emp-view-Follow-heading h1 {
+    font-size: 32px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 20px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 30px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 21px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    gap: 25px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 14px;
+  }
+
+  .emp-ViewFollowUps-value {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+}
+
+
+/*--- Laptop: 1200px - 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+
+  .emp-view-Follow-heading h1 {
+    font-size: 29px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 18px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 22px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 19px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px - 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+  .emp-view-Follow-heading h1 {
+    font-size: 27px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 17px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 20px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 12px;
+  }
+
+  .emp-ViewFollowUps-value {
+    font-size: 13px;
+    padding: 10px 11px;
+  }
+
+  .ViewFollow-emp-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Tablet: 768px - 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+
+  .emp-view-Follow-heading {
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .emp-view-Follow-heading h1 {
+    font-size: 26px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 12px;
+    margin-bottom: 7px;
+  }
+
+  .emp-ViewFollowUps-value {
+    min-height: 38px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .emp-ViewFollow-details {
+    gap: 8px;
+  }
+
+  .ViewFollow-emp-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Small Tablet: 601px - 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+
+  .emp-view-Follow-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .emp-view-Follow-heading h1 {
+    font-size: 25px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 17px;
+    margin-bottom: 16px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 17px;
+    margin-bottom: 17px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 12px;
+  }
+
+  .emp-ViewFollowUps-value {
+    min-height: 38px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .emp-ViewFollow-details {
+    gap: 10px;
+  }
+
+  .ViewFollow-emp-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Mobile: 400px - 600px ---*/
+@media (max-width: 600px) {
+
+  .emp-view-Follow-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .emp-view-Follow-heading h1 {
+    font-size: 23px;
+    margin-bottom: 7px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-ViewFollow-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .ViewFollow-emp-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 14px;
+    font-size: 14px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+  }
+
+  .emp-View-FollowUps-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .emp-ViewFollowUps-field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .emp-ViewFollowUps-field.full {
+    grid-column: 1 / -1;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-ViewFollowUps-value {
+    width: 100%;
+    min-height: 38px;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+}
+
+
+/*--- Extra Small Mobile: 360px - 399px ---*/
+@media (max-width: 399px) {
+
+  .emp-view-Follow-heading h1 {
+    font-size: 21px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 14px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 13px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 15px;
+  }
+
+  .emp-ViewFollowUps-grid {
+    gap: 12px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 11px;
+  }
+
+  .emp-ViewFollowUps-value {
+    padding: 9px;
+    font-size: 12px;
+  }
+
+  .ViewFollow-emp-btn {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+}
+
+
+/*--- Very Small Mobile: Below 360px ---*/
+@media (max-width: 359px) {
+
+  .emp-view-Follow-heading h1 {
+    font-size: 19px;
+  }
+
+  .emp-view-Follow-heading p {
+    font-size: 13px;
+  }
+
+  .emp-View-FollowUps-card {
+    padding: 11px;
+  }
+
+  .emp-View-FollowUps-card h3 {
+    font-size: 14px;
+  }
+
+  .emp-ViewFollowUps-field label {
+    font-size: 10px;
+  }
+
+  .emp-ViewFollowUps-value {
+    min-height: 36px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .ViewFollow-emp-btn {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
 
@@ -21455,5 +27070,299 @@
   gap: 10px;
   margin-top: 24px;
 }
+
+
+
+                          /* ===============================================
+                                  EDIT FOLLOW-UP RESPONSIVE DESIGN
+                          =============================================== */
+
+
+/*--- Large Desktop: 1600px and above ---*/
+@media (min-width: 1600px) {
+  .emp-EditFollowup-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 30px;
+  }
+}
+
+
+/*--- Laptop: 1200px to 1599px ---*/
+@media (min-width: 1200px) and (max-width: 1599px) {
+  .emp-EditFollowup-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 25px;
+  }
+}
+
+
+/*--- Small Laptop: 1025px to 1199px ---*/
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .emp-edit-Follow-heading h1 {
+    font-size: 27px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 17px;
+  }
+
+  .emp-EditFollowup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 22px;
+  }
+}
+
+
+/*--- Tablet: 768px to 1024px ---*/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .emp-edit-Follow-heading {
+    gap: 15px;
+  }
+
+  .emp-edit-Follow-heading h1 {
+    font-size: 26px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 16px;
+  }
+
+  .emp-EditFollowup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 20px;
+  }
+
+  .emp-Edit-Followup-card h3 {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .emp-EditFollowUps-field input,
+  .emp-EditFollowUps-field select,
+  .emp-EditFollowUps-field textarea {
+    font-size: 14px;
+  }
+}
+
+
+/*--- Small Tablet: 601px to 767px ---*/
+@media (min-width: 601px) and (max-width: 767px) {
+  .emp-edit-Follow-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .emp-edit-Follow-heading h1 {
+    font-size: 25px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 16px;
+  }
+
+  .emp-EditFollowup-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 18px;
+  }
+
+  .emp-Edit-Followup-card h3 {
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+
+  .emp-EditFollowUps-field label {
+    font-size: 12px;
+  }
+
+  .emp-EditFollowUps-field input,
+  .emp-EditFollowUps-field select,
+  .emp-EditFollowUps-field textarea {
+    font-size: 14px;
+  }
+
+  .emp-EditFollowup-footer {
+    flex-wrap: wrap;
+  }
+}
+
+
+/*--- Mobile: 600px and below ---*/
+@media (max-width: 600px) {
+  .emp-edit-Follow-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .emp-edit-Follow-heading h1 {
+    font-size: 23px;
+    margin-bottom: 8px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+
+  .emp-EditFollowup-actions {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .emp-EditFollowup-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .emp-Edit-Followup-card h3 {
+    font-size: 17px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+  }
+
+  .emp-EditFollowup-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .emp-EditFollowUps-field.full {
+    grid-column: auto;
+  }
+
+  .emp-EditFollowUps-field label {
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .emp-EditFollowUps-field input,
+  .emp-EditFollowUps-field select,
+  .emp-EditFollowUps-field textarea {
+    width: 100%;
+    font-size: 14px;
+    padding: 9px 11px;
+  }
+
+  .emp-EditFollowUps-field textarea {
+    min-height: 85px;
+  }
+
+  .emp-EditFollowUps-footer {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .emp-EditFollowUps-footer button {
+    width: 100%;
+  }
+}
+
+
+/*--- Small Mobile: 400px to 479px ---*/
+@media (max-width: 479px) {
+  .emp-edit-Follow-heading h1 {
+    font-size: 21px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 14px;
+  }
+
+  .emp-EditFollowup-actions {
+    flex-direction: column;
+  }
+
+  .emp-EditFollowup-btn {
+    width: 100%;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 14px;
+  }
+
+  .emp-Edit-Followup-card h3 {
+    font-size: 16px;
+  }
+
+  .emp-EditFollowUps-field input,
+  .emp-EditFollowUps-field select,
+  .emp-EditFollowUps-field textarea {
+    font-size: 13px;
+  }
+}
+
+
+/*--- Extra Small Mobile: 399px and below ---*/
+@media (max-width: 399px) {
+  .emp-edit-Follow-heading h1 {
+    font-size: 20px;
+  }
+
+  .emp-Edit-Followup-card {
+    padding: 12px;
+  }
+
+  .emp-EditFollowup-btn {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+
+  .emp-EditFollowUps-field label {
+    font-size: 11px;
+  }
+}
+
+
+/*--- Very Small Mobile: 359px and below ---*/
+@media (max-width: 359px) {
+  .emp-edit-Follow-heading h1 {
+    font-size: 18px;
+  }
+
+  .emp-edit-Follow-heading p {
+    font-size: 13px;
+  }
+
+  .emp-Edit-Followup-card h3 {
+    font-size: 15px;
+  }
+
+  .emp-EditFollowUps-field input,
+  .emp-EditFollowUps-field select,
+  .emp-EditFollowUps-field textarea {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
 
 /* ------------------------------------------------------------------------------------------------------------------------- */
