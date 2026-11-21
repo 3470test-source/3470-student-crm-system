@@ -1443,6 +1443,7 @@
     padding: 18px 14px;
     width: 100%;
     min-width: 0;
+    min-height: calc(100vh - 60px);
   }
 
   .crm-dashboard-title {

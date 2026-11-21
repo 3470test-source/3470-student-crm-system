@@ -53,9 +53,9 @@
         <div class="crm-header-right">
 
             <!-- Notification -->
-            <div class="crm-notification">
+            <div class="crm-notification" id="notificationButton" role="button" tabindex="0" aria-label="Open notifications">
                 <i class="fa-solid fa-bell"></i>
-                <span class="crm-notification-count">5</span>
+                <span class="crm-notification-count" id="headerNotificationCount">0</span>
 
         </div>
 
@@ -601,6 +601,88 @@ document.getElementById("notificationSettingsForm").addEventListener("submit", f
         alert("Notification settings saved successfully.");
 
     });
+
+</script>
+
+
+
+<!-- Notification Button and Dynamic Count -->
+<script>
+    
+document.addEventListener("DOMContentLoaded", () => {
+    const notificationButton =
+        document.getElementById("notificationButton");
+
+    const notificationCount =
+        document.getElementById("headerNotificationCount");
+
+    const API_BASE = "http://localhost:3000/api";
+
+    /*-- Open Today's Notifications page --*/
+    function openNotifications() {
+        window.location.href = "today-notifications.html";
+    }
+
+    if (notificationButton) {
+        notificationButton.addEventListener("click", openNotifications);
+
+        notificationButton.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                openNotifications();
+            }
+        });
+    }
+
+    /*-- Load dynamic notification count --*/
+    async function loadNotificationCount() {
+        if (!notificationCount) return;
+
+        const token = localStorage.getItem("crmToken");
+
+        if (!token) {
+            notificationCount.textContent = "0";
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_BASE}/notifications/today`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Accept": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok || data.success === false) {
+                throw new Error(
+                    data.message || "Unable to load notifications"
+                );
+            }
+
+            const count = Number(
+                data.summary?.total_notifications || 0
+            );
+
+            notificationCount.textContent =
+                count > 99 ? "99+" : String(count);
+
+        } catch (error) {
+            console.error("Notification count error:", error);
+            notificationCount.textContent = "0";
+        }
+    }
+
+    loadNotificationCount();
+
+    /*-- Refresh count every 60 seconds --*/
+    setInterval(loadNotificationCount, 60000);
+});
 
 </script>
 
